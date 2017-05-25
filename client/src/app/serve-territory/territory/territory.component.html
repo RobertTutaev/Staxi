@@ -1,0 +1,18 @@
+<h4 class="h4-sprav">Справочник: <span class="h4-sprav-span">Территории</span></h4>
+
+<form class="st-form" (ngSubmit)="onSubmit(); territoryForm.reset();" #territoryForm="ngForm">
+    <dl>
+        <dt>Территория содержащая вводимую территорию</dt>
+        <dd>
+            <select name="territory_id" [(ngModel)]="selectedTerritoryId">
+                <option *ngFor="let t of territories" [ngValue]="t.id">{{t.name}}</option>
+            </select>
+        </dd>
+        <dt>Название*</dt>
+        <dd><input type="text" name="name" [(ngModel)]="territory.name" placeholder="Название" required #name="ngModel" maxlength="200"></dd>
+        
+        <br>
+        <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
+        <button class="btn btn-info" type="submit" [disabled]="territoryForm.form.invalid || territoryForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> {{territory.id ? 'Изменить' : 'Добавить'}}</button>        
+    </dl>
+</form>

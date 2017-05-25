@@ -1,0 +1,12 @@
+<h4 class="h4-sprav">Справочник: <span class="h4-sprav-span">Документы подтвержающие право</span></h4>
+
+<form class="st-form" (ngSubmit)="onSubmit(); docForm.reset();" #docForm="ngForm">
+    <dl>
+        <dt>Название*</dt>
+        <dd><input type="text" name="name" [(ngModel)]="doc.name" placeholder="Название" required #name="ngModel" maxlength="100"></dd>
+
+        <br>
+        <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
+        <button class="btn btn-info" type="submit" [disabled]="docForm.form.invalid || docForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> {{doc.id ? 'Изменить' : 'Добавить'}}</button>        
+    </dl>
+</form>

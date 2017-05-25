@@ -1,0 +1,45 @@
+<h4 class="h4-sprav">Справочник: <span class="h4-sprav-span">Пользователи</span></h4>
+ 
+<form class="st-form" (ngSubmit)="onSubmit(); userForm.reset();" #userForm="ngForm">
+    <dl>
+        <dt>Email*</dt>
+        <dd><input type="text" name="username" [(ngModel)]="user.username" placeholder="xxx@yyy.zzz" required #username="ngModel" maxlength="100" pattern="^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$">
+            <small [hidden]="username.valid || username.pristine">
+                Необходим корректный email
+            </small></dd>
+        <dt>Пароль (используйте цифры, буквы "a-z", "A-Z" и спец-символы "@#$%^&*"" длиной от 6-12 символов)*</dt>
+        <dd><input type="password" name="password" [(ngModel)]="user.password" placeholder="Пароль" required #password="ngModel" maxlength="12" pattern="(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,12}" validateEqual="confirmPassword" reverse="true">
+            <small [hidden]="password.valid || password.pristine">
+                Необходим корректный пароль
+            </small></dd>
+        <dt>Пароль повторно*</dt>
+        <dd><input type="password" name="confirmPassword" [(ngModel)]="user.confirmPassword" placeholder="Пароль" required #confirmPassword="ngModel" maxlength="12" pattern="(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,12}" validateEqual="password" reverse="false">
+            <small [hidden]="confirmPassword.valid || confirmPassword.pristine">
+                Пароли не совпадают
+            </small></dd>
+        <dt>Организация*</dt> 
+        <dd>
+            <select name="firm" [(ngModel)]="selectedFirmId" required>
+                <option *ngFor="let firm of firms" [ngValue]="firm.id">{{firm.name}}</option>
+            </select>
+        </dd>
+        <dt>Роли</dt> 
+        <dd><input type="checkbox" value="true" name="role0" id="role0" [(ngModel)]="user.role0">
+            <label for="role0">пользователь (R0)</label></dd>
+        <dd><input type="checkbox" value="true" name="role1" id="role1" [(ngModel)]="user.role1">
+            <label for="role1">водитель (R1)</label></dd>
+        <dd><input type="checkbox" value="true" name="role2" id="role1" [(ngModel)]="user.role2">
+            <label for="role2">оператор (R2)</label></dd>
+        <dd><input type="checkbox" value="true" name="role1" id="role3" [(ngModel)]="user.role3">
+            <label for="role3">координатор (R3)</label></dd>
+        <dd><input type="checkbox" value="true" name="role4" id="role4" [(ngModel)]="user.role4">
+            <label for="role4">администратор (R4)</label></dd>
+        <dt>Статус</dt>
+        <dd><input type="checkbox" value="true" name="checked" id="checked" [(ngModel)]="user.checked">
+            <label for="checked">включен</label></dd>
+
+        <br>
+        <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
+        <button class="btn btn-info" type="submit" [disabled]="userForm.form.invalid || userForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> {{user.id ? 'Изменить' : 'Добавить'}}</button>
+    </dl>
+</form>

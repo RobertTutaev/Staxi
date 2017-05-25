@@ -1,0 +1,32 @@
+<h4 class="h4-sprav">Справочник: <span class="h4-sprav-span">Пользователи</span></h4>
+
+<table class="table table-hover table-list">
+    <thead>
+        <tr>
+            <th>Код</th>
+            <th>Логин</th>
+            <th>Организация</th>
+            <th>R0</th>
+            <th>R1</th>
+            <th>R2</th>
+            <th>R3</th>
+            <th>R4</th>
+            <th>Вкл.</th>
+            <th><a routerLink="/user" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
+        </tr>
+    </thead>
+    <tbody *ngIf="users.length">
+        <tr *ngFor="let user of users" (click)="onSelect(user)">
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ getFirmName(user) }}</td>
+            <td><span class='{{ user.role0 ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
+            <td><span class='{{ user.role1 ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
+            <td><span class='{{ user.role2 ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
+            <td><span class='{{ user.role3 ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
+            <td><span class='{{ user.role4 ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
+            <td><span class='{{ user.checked ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
+            <td (click)="onDelete(user); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
+        </tr>
+    </tbody>
+</table> 

@@ -1,0 +1,22 @@
+<h4 class="h4-sprav">Справочник: <span class="h4-sprav-span">Улицы</span></h4>
+
+<form class="st-form" (ngSubmit)="onSubmit(); streetForm.reset();" #streetForm="ngForm">
+    <dl>
+        <dt>Территория*</dt>
+        <dd>
+            <select name="territory" [(ngModel)]="selectedTerritoryId" required>
+                <option *ngFor="let territory of territories" [ngValue]="territory.id">{{territory.name}}</option>
+            </select>
+        </dd> 
+        <dt>Название*</dt>
+        <dd><input type="text" name="name" [(ngModel)]="street.name" placeholder="Название" required #name="ngModel" maxlength="200"></dd>
+        <dt>Сокращение*</dt>
+        <dd><input type="text" name="socr" [(ngModel)]="street.socr" placeholder="ул, пер, пр-кт, тракт, ..." required #socr="ngModel" maxlength="20"></dd>
+        <dt>Почтовый индекс</dt>
+        <dd><input type="text" name="post" [(ngModel)]="street.post" #post="ngModel" maxlength="6" pattern="[1-9](\d{5})"></dd>
+        
+        <br>
+        <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
+        <button class="btn btn-info" type="submit" [disabled]="streetForm.form.invalid || streetForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> {{street.id ? 'Изменить' : 'Добавить'}}</button>        
+    </dl>
+</form>

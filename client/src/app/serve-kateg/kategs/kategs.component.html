@@ -1,0 +1,18 @@
+<h4 class="h4-sprav">Справочник: <span class="h4-sprav-span">Категории</span></h4>
+
+<table class="table table-hover table-list">
+    <thead>
+        <tr>
+            <th>Код</th>
+            <th>Название</th>
+            <th><a routerLink="/kateg" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
+        </tr>
+    </thead>
+    <tbody *ngIf="kategs.length">
+        <tr *ngFor="let kateg of kategs" (click)="onSelect(kateg)">
+            <td>{{ kateg.id }}</td>
+            <td>{{ kateg.name }}</td>
+            <td (click)="onDelete(kateg); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
+        </tr>
+    </tbody>
+</table>

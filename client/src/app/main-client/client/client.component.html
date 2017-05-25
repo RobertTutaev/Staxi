@@ -1,0 +1,22 @@
+<h4 class="h4-sprav"><span class="h4-sprav-span">Клиенты</span></h4>
+ 
+<form class="st-form" (ngSubmit)="onSubmit(); clientForm.reset();" #clientForm="ngForm">
+    <dl>
+        <dt>СНИЛС*</dt>
+        <dd><input type="text" name="snils" [(ngModel)]="client.snils" placeholder="СНИЛС" required #snils="ngModel" maxlength="11" pattern="[1-9](\d{10})">
+            <small [hidden]="snils.valid || snils.pristine">
+                Необходим корректный СНИЛС
+            </small></dd>
+        <dt>Имя*</dt>
+        <dd><input type="text" name="im" [(ngModel)]="client.im" placeholder="Имя" required #im="ngModel" maxlength="100">
+            <small [hidden]="im.valid || im.pristine">
+                Необходимо корректное имя
+            </small></dd>
+        <dt>Отчество</dt>
+        <dd><input type="text" name="ot" [(ngModel)]="client.ot" placeholder="Отчество" #ot="ngModel" maxlength="100"></dd>
+        
+        <br>
+        <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
+        <button class="btn btn-info" type="submit" [disabled]="clientForm.form.invalid || clientForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> {{client.id ? 'Изменить' : 'Добавить'}}</button>
+    </dl>
+</form>

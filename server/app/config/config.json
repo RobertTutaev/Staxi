@@ -1,0 +1,42 @@
+{
+  "development": {
+    "port": 3000,
+    "portLiveReload": 35729,
+    "db": {
+        "username": "root",
+        "password": "electric@000",
+        "database": "staxi",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "define": {
+            "timestamps": false
+        }
+    }
+  },
+  "test": {
+    "port": 3000,
+    "db": {
+        "username": "root",
+        "password": "electric@000",
+        "database": "staxi",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "define": {
+            "timestamps": false
+        }
+    }
+  },
+  "production": {
+    "port": 80,
+    "db": {
+        "username": "root",
+        "password": "electric@000",
+        "database": "staxi",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "define": {
+            "timestamps": false
+        }
+    }
+  }
+}

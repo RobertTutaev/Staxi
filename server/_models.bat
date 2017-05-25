@@ -1,0 +1,1 @@
+cd app && ..\node_modules\.bin\sequelize-auto -h localhost -d staxi -u root -x electric@000 -o models && cd ..\ && pause

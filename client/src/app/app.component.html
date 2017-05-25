@@ -1,0 +1,35 @@
+<div class="page-header">
+  <h1>{{title}} <small>{{titleSmall}}</small></h1>
+</div>
+
+<ul class="nav nav-pills">
+  <li>
+    <a routerLink="/client/list" routerLinkActive="active"><span class="glyphicon glyphicon-home"></span> Клиенты</a>
+  </li>
+  
+  <li class="dropdown">
+    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-tasks"></span> Основное<b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      <li><a routerLink="/client" routerLinkActive="active">Добавить нового клиента</a></li>
+      <li class="divider"></li>
+      <li><a routerLink="#" routerLinkActive="active">Отчеты</a></li>
+    </ul>
+  </li>
+ 
+  <li class="dropdown pull-right">
+    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-cog"></span> Справочники<b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      <li><a routerLink="/user/list" routerLinkActive="active">Пользователи</a></li>
+      <li><a routerLink="/territory/list" routerLinkActive="active">Территории</a></li>
+      <li><a routerLink="/street/list" routerLinkActive="active">Улицы</a></li>
+      <li><a routerLink="/kateg/list" routerLinkActive="active">Категории</a></li>
+      <li><a routerLink="/punkt/list" routerLinkActive="active">Пункты доставки</a></li>
+      <li><a routerLink="/firm/list" routerLinkActive="active">Организации</a></li>
+      <li><a routerLink="/doc/list" routerLinkActive="active">Документы подтвержающие право</a></li>
+      <li><a routerLink="/car/list" routerLinkActive="active">Автотранспорт</a></li>      
+    </ul>
+  </li>
+</ul>
+
+<br>
+<router-outlet></router-outlet>

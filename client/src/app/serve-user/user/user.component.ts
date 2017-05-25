@@ -1,0 +1,61 @@
+import 'rxjs/add/operator/switchMap';
+import { Location }               from '@angular/common';
+
+import { Component, OnInit, Input } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
+import { Firm } from '../../_classes/firm';
+import { FirmService } from '../../_services/firm.service';
+import { User } from '../../_classes/user';
+import { UserService } from '../../_services/user.service';
+
+@Component({
+  selector: 'user-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.sass']
+})
+export class UserComponent implements OnInit {
+  user: User = new User();
+  
+  @Input()
+  firms: Firm[] = [];  
+  
+  constructor(private firmService: FirmService,
+              private userService: UserService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private location: Location) { }
+  
+  ngOnInit() {
+    this.firmService.getFirms().then((firms: Firm[]) => {
+        this.firms = firms;
+        this.route.params     
+          .switchMap((params: Params) => this.userService.getUser(+params['id']))
+          .subscribe((user: User) => {
+              this.user = user;
+            });
+        });
+  }
+
+  onSubmit() {
+    if (this.user.id)
+      this.userService.update(this.user)
+        .then(() => this.gotoBack());
+    else 
+      this.userService.create(this.user)
+        .then(() => this.gotoBack());
+  }
+
+  get selectedFirmId(): number {
+    return this.user.firm_id;
+  }
+
+  set selectedFirmId(value: number) {
+    this.user.firm_id = value;
+  }
+
+  gotoBack() {
+    console.log(this.location.path());
+    this.location.back();
+  }
+}

@@ -1,0 +1,18 @@
+<h4 class="h4-sprav">Справочник: <span class="h4-sprav-span">Пункты доставки</span></h4>
+
+<table class="table table-hover table-list">
+    <thead>
+        <tr>
+            <th>Код</th>
+            <th>Название</th>
+            <th><a routerLink="/punkt" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
+        </tr>
+    </thead>
+    <tbody *ngIf="punkts.length">
+        <tr *ngFor="let punkt of punkts" (click)="onSelect(punkt)">
+            <td>{{ punkt.id }}</td>
+            <td>{{ punkt.name }}</td>
+            <td (click)="onDelete(punkt); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
+        </tr>
+    </tbody>
+</table>
