@@ -1,6 +1,6 @@
 import { Client } from '../_classes/client';
 
-export var Clients: Client[] = [
+export let Clients: Client[] = [
   {
     id: 11,
     snils: '12345678901',

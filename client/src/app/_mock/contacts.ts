@@ -1,6 +1,6 @@
 import { Contact } from '../_classes/contact';
 
-export var Contacts: Contact[] = [
+export let Contacts: Contact[] = [
   {
     id: 1,
     client_id: 11,    

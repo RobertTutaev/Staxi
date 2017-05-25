@@ -19,3 +19,8 @@ https://scotch.io/tutorials/how-to-implement-a-custom-validator-directive-confir
 ==========
 https://kendaleiv.com/angular-2-mockbackend-service-testing-template-using-testbed/
 https://dzone.com/articles/angular-2-testing-in-depth-services
+
+Аутентификация
+==========
+https://stackoverflow.com/questions/39164933/deny-access-to-routes-in-angular-js-2 
+https://angular.io/docs/ts/latest/guide/router.html#!#teach-auth

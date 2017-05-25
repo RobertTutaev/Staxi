@@ -1,6 +1,6 @@
 import { Street } from '../_classes/street';
 
-export var Streets: Street[] = [
+export let Streets: Street[] = [
   {
     id: 1,
     territory_id: 1,    

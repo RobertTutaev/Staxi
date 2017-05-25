@@ -1,6 +1,6 @@
 import { Car } from '../_classes/car';
 
-export var Cars: Car[] = [
+export let Cars: Car[] = [
   {
     id: 1, 
     name: 'ваз-2109', 

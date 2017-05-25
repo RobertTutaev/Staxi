@@ -1,6 +1,6 @@
 import { Territory } from '../_classes/territory';
 
-export var Territories: Territory[] = [
+export let Territories: Territory[] = [
   {
     id: 1,
     territory_id: null,

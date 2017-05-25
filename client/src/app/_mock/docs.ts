@@ -1,6 +1,6 @@
 import { Doc } from '../_classes/doc';
 
-export var Docs: Doc[] = [
+export let Docs: Doc[] = [
   {
     id: 1,    
     name: '<Отсутствует>'

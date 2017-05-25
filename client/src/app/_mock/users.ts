@@ -1,6 +1,6 @@
 import { User } from '../_classes/user';
 
-export var Users: User[] = [
+export let Users: User[] = [
   {
     id: 1,
     username: 'opo_usr@mail.ru',

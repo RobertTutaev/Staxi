@@ -1,6 +1,6 @@
 import { Firm } from '../_classes/firm';
 
-export var Firms: Firm[] = [
+export let Firms: Firm[] = [
   {id: 1, territory_id: 1, name: 'КСП города Челябинска'},
   {id: 2, territory_id: 1, name: 'МКУ «Социальный дом ветеранов»'},  
   {id: 3, territory_id: 2, name: 'МБУ «КЦСОН по Калининскому району города Челябинска»'},
