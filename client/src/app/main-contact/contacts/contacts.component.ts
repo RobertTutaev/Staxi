@@ -17,13 +17,16 @@ export class ContactsComponent implements OnInit {
   
   constructor(private typeService: TypeService,
               private contactService: ContactService,
-              private router: Router) { }
+              private route: ActivatedRoute,
+              private router: Router,) { }
   
   ngOnInit() {
     this.typeService.getTypes().then((types: Type[]) => {
       this.types = types;
-      this.contactService.getContacts().then((contacts: Contact[]) => this.contacts = contacts);
-    })    
+      this.route.params     
+        .switchMap((params: Params) => this.contactService.getContacts(+params['id']))
+        .subscribe((contacts: Contact[]) => this.contacts = contacts);
+    })
   }
 
   onSelect(contact: Contact) {

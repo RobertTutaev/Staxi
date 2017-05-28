@@ -13,16 +13,21 @@ import { ClientService } from '../../_services/client.service';
   styleUrls: ['./client.component.sass']
 })
 export class ClientComponent implements OnInit {
+
   client: Client = new Client();
+  id: number;
   
   constructor(private clientService: ClientService,
               private route: ActivatedRoute,
               private router: Router,
               private location: Location) { }
   
-  ngOnInit() {
+  ngOnInit() {    
     this.route.params     
-        .switchMap((params: Params) => this.clientService.getClient(+params['id']))
+        .switchMap((params: Params) => {
+          this.id = +params['id'];
+          return this.clientService.getClient(this.id);
+        })
         .subscribe((client: Client) => {
             this.client = client;
           });

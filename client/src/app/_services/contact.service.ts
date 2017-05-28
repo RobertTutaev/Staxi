@@ -13,8 +13,8 @@ export class ContactService {
 
   constructor(private http: Http) {}
 
-  getContacts(idc?: number): Promise<Contact[]> {
-    const url = `${this.contactsUrl}`;//?client_id=${idc}`;
+  getContacts(id: number): Promise<Contact[]> {
+    const url = `${this.contactsUrl}/?client_id=${id}`;
 
     return this.http.get(this.contactsUrl)
                .toPromise()
