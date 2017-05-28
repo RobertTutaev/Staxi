@@ -15,9 +15,8 @@ import { FirmService } from '../../_services/firm.service';
   styleUrls: ['./firm.component.sass']
 })
 export class FirmComponent implements OnInit {
-  @Input()
-  territories: Territory[] = [];
   
+  territories: Territory[] = [];  
   firm: Firm = new Firm();
 
   constructor(private territoryService: TerritoryService,

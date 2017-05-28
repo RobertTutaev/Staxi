@@ -2169,10 +2169,22 @@ create table client(
                 on delete cascade
 )engine=innodb;
 
+create table type(
+    id integer primary key auto_increment,
+    name varchar(50) not null,
+    mask varchar(255) not null,
+    placeholder varchar(255), 
+    style varchar(255)
+)engine=innodb;
+
+insert into type (name, mask, placeholder, style) values
+    ('Телефон', '^[0-9-+]+$', 'nnn-nn-nn', 'glyphicon glyphicon-phone-alt'),
+    ('Email', '^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$', 'xxx@yyy.zzz', 'glyphicon glyphicon-envelope');
+
 create table contact(
     id integer primary key auto_increment,
     client_id integer not null,
-    type tinyint(1) DEFAULT 0,
+    type_id integer not null,
     name varchar(50) not null,    
     comment text,
     dt datetime default CURRENT_TIMESTAMP,
@@ -2180,6 +2192,11 @@ create table contact(
     constraint fk_c_client
         foreign key (client_id)
             references client (id)
+                on delete cascade,
+    index fk_c_type (type_id ASC),
+    constraint fk_c_type
+        foreign key (type_id)
+            references type (id)
                 on delete cascade
 )engine=innodb;
 

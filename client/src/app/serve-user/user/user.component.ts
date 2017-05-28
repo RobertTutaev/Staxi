@@ -15,10 +15,9 @@ import { UserService } from '../../_services/user.service';
   styleUrls: ['./user.component.sass']
 })
 export class UserComponent implements OnInit {
+    
   user: User = new User();
-  
-  @Input()
-  firms: Firm[] = [];  
+  firms: Firm[] = [];    
   
   constructor(private firmService: FirmService,
               private userService: UserService,

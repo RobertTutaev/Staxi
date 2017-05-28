@@ -12,7 +12,9 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './_mock/in-memory-data.service';
 
 import { MainClientModule } from './main-client/main-client.module';
+import { MainContactModule } from './main-contact/main-contact.module';
 
+import { ServeTypeModule } from './serve-type/serve-type.module';
 import { ServeCarModule } from './serve-car/serve-car.module';
 import { ServeDocModule } from './serve-doc/serve-doc.module';
 import { ServeFirmModule } from './serve-firm/serve-firm.module';
@@ -38,8 +40,10 @@ import { ServeUserModule } from './serve-user/serve-user.module';
     ServeFirmModule,
     ServeDocModule,
     ServeCarModule,
+    ServeTypeModule,
     ServeUserModule,
     MainClientModule,
+    MainContactModule,
     AppRoutingModule,    
     InMemoryWebApiModule.forRoot(InMemoryDataService, {'delay': 100})
   ],

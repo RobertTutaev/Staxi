@@ -1,0 +1,24 @@
+<h4 class="h4-sprav">Справочник: <span class="h4-sprav-span">Тип контакта</span></h4>
+
+<table class="table table-hover table-list">
+    <thead>
+        <tr>
+            <th>Код</th>
+            <th>Название</th>
+            <th>Маска</th>
+            <th>Placeholder</th>
+            <th>CSS</th>
+            <th><a routerLink="/type" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
+        </tr>
+    </thead>
+    <tbody *ngIf="types.length">
+        <tr *ngFor="let type of types" (click)="onSelect(type)">
+            <td>{{ type.id }}</td>
+            <td>{{ type.name }}</td>
+            <td>{{ type.mask }}</td>
+            <td>{{ type.placeholder }}</td>
+            <td>{{ type.style }}</td>
+            <td (click)="onDelete(type); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
+        </tr>
+    </tbody>
+</table> 

@@ -1,0 +1,22 @@
+<h4 class="h4-sprav"><span class="h4-sprav-span">Контакты</span></h4>
+
+<table class="table table-hover table-list">
+    <thead>
+        <tr>
+            <th>Код</th>
+            <th>Тип</th>
+            <th>Контакт</th>
+            <th>Комментарий</th>
+            <th><a routerLink="/contact" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
+        </tr>
+    </thead>
+    <tbody *ngIf="contacts.length">
+        <tr *ngFor="let contact of contacts" (click)="onSelect(contact)">
+            <td>{{ contact.id }}</td>
+            <td class="{{ getTypeStyle(contact) }}"></td>
+            <td>{{ contact.name }}</td>
+            <td>{{ contact.comment }}</td>
+            <td (click)="onDelete(contact); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
+        </tr>
+    </tbody>
+</table> 

@@ -27,7 +27,6 @@ export class StreetComponent implements OnInit {
               private location: Location) { }
   
   ngOnInit() {
-
     this.territoryService.getTerritories().then((territories: Territory[]) => {
         this.territories = territories;
         this.route.params     

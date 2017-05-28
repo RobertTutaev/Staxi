@@ -1,6 +1,8 @@
 import { InMemoryDbService, InMemoryBackendConfigArgs } from 'angular-in-memory-web-api';
 
+import { Contacts } from './contacts';
 import { Clients } from './clients';
+import { Types } from './types';
 import { Cars } from './cars';
 import { Docs } from './docs';
 import { Firms } from './firms';
@@ -13,6 +15,7 @@ import { Users } from './Users';
 export class InMemoryDataService implements InMemoryDbService {  
 
   createDb() {
+    let contacts = Contacts;
     let users = Users;
     let clients = Clients;
     let streets = Streets;
@@ -22,7 +25,8 @@ export class InMemoryDataService implements InMemoryDbService {
     let firms = Firms;
     let docs = Docs;
     let cars = Cars;
+    let types = Types;
     
-    return { clients, streets, territories, kategs, punkts, firms, docs, cars, users };
+    return { clients, streets, territories, kategs, punkts, firms, docs, cars, types, users, contacts };
   }
 }

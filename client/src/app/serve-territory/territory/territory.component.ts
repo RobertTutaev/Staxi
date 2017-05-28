@@ -13,9 +13,8 @@ import { TerritoryService } from '../../_services/territory.service';
   styleUrls: ['./territory.component.sass']
 })
 export class TerritoryComponent implements OnInit {
-  @Input()
-  territories: Territory[] = [];
-  
+
+  territories: Territory[] = [];  
   territory: Territory = new Territory();  
   
   constructor(private territoryService: TerritoryService,
