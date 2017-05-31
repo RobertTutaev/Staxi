@@ -5,15 +5,15 @@ import { FormsModule }    from '@angular/forms';
 import { ContactsComponent }    from './contacts/contacts.component';
 import { ContactComponent }  from './contact/contact.component';
 
-import { ContactService } from '../_services/contact.service';
+import { ContactService } from '../../_services/contact.service';
 
-import { MainContactRoutingModule } from './main-contact.routing.module';
+import { TabContactRoutingModule } from './tab-contact.routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    MainContactRoutingModule
+    TabContactRoutingModule
   ],
   declarations: [
     ContactsComponent,
@@ -21,5 +21,5 @@ import { MainContactRoutingModule } from './main-contact.routing.module';
   ],
   providers: [ ContactService ]
 })
-export class MainContactModule {}
+export class TabContactModule {}
 

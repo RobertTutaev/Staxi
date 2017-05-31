@@ -5,9 +5,9 @@ import { ContactsComponent }    from './contacts/contacts.component';
 import { ContactComponent }  from './contact/contact.component';
 
 const contactsRoutes: Routes = [
-  { path: 'contact/list/:id',  component: ContactsComponent },
-  { path: 'contact', component: ContactComponent },
-  { path: 'contact/:id', component: ContactComponent }
+  { path: 'client/contact/list/:id',  component: ContactsComponent },
+  { path: 'client/contact', component: ContactComponent },
+  { path: 'client/contact/:id', component: ContactComponent }
 ];
 
 @NgModule({
@@ -18,4 +18,4 @@ const contactsRoutes: Routes = [
     RouterModule
   ]
 })
-export class MainContactRoutingModule { }
+export class TabContactRoutingModule { }

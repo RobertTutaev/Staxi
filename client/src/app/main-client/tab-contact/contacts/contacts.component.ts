@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Type } from '../../_classes/type';
-import { TypeService } from '../../_services/type.service';
-import { Contact } from '../../_classes/contact';
-import { ContactService } from '../../_services/contact.service';
+import { Type } from '../../../_classes/type';
+import { TypeService } from '../../../_services/type.service';
+import { Contact } from '../../../_classes/contact';
+import { ContactService } from '../../../_services/contact.service';
 
 @Component({
   selector: 'contact-contacts',
@@ -30,7 +30,7 @@ export class ContactsComponent implements OnInit {
   }
 
   onSelect(contact: Contact) {
-    this.router.navigate(['/contact', contact.id]);
+    this.router.navigate(['/client/contact', contact.id]);
   }
 
   getTypeStyle(contact: Contact): string {
