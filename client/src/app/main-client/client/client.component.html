@@ -4,7 +4,9 @@
     <li class="active"><a href="#">Клиент</a></li>
     <li><a href="/client/contact/list/{{ id }}">Контакты</a></li>
 </ul>
- 
+<div id="parent-to-child">
+    <contact-contacts></contact-contacts>
+</div>
 <form class="st-form" (ngSubmit)="onSubmit(); clientForm.reset();" #clientForm="ngForm">
     <dl>
         <dt>СНИЛС*</dt>

@@ -7,7 +7,7 @@ import { ClientComponent }  from './client/client.component';
 
 import { ClientService } from '../_services/client.service';
 import { MainClientRoutingModule } from './main-client.routing.module';
-import { TabContactModule } from './tab-contact/tab-contact.module';
+import { TabContactModule } from './client/tab-contact/tab-contact.module';
 
 @NgModule({
   imports: [

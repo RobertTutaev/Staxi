@@ -5,7 +5,7 @@ import { FormsModule }    from '@angular/forms';
 import { ContactsComponent }    from './contacts/contacts.component';
 import { ContactComponent }  from './contact/contact.component';
 
-import { ContactService } from '../../_services/contact.service';
+import { ContactService } from '../../../_services/contact.service';
 
 import { TabContactRoutingModule } from './tab-contact.routing.module';
 
