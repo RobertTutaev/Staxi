@@ -16,6 +16,7 @@ export class ClientComponent implements OnInit {
 
   client: Client = new Client();
   id: number;
+  tab: number = 0;
   
   constructor(private clientService: ClientService,
               private route: ActivatedRoute,
@@ -45,5 +46,9 @@ export class ClientComponent implements OnInit {
   gotoBack() {
     console.log(this.location.path());
     this.location.back();
+  }
+
+  tabChange(tab: number) {
+    this.tab = tab;
   }
 }

@@ -24,3 +24,7 @@ https://dzone.com/articles/angular-2-testing-in-depth-services
 ==========
 https://stackoverflow.com/questions/39164933/deny-access-to-routes-in-angular-js-2 
 https://angular.io/docs/ts/latest/guide/router.html#!#teach-auth
+
+Взаимодействие компонентов
+==========
+https://www.youtube.com/watch?v=LV1x2X_QMVU
