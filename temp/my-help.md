@@ -28,3 +28,7 @@ https://angular.io/docs/ts/latest/guide/router.html#!#teach-auth
 Взаимодействие компонентов
 ==========
 https://www.youtube.com/watch?v=LV1x2X_QMVU
+
+Маршрутизация внутри компонентов
+==========
+https://coryrylan.com/blog/introduction-to-angular-routing

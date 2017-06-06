@@ -1,36 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Type } from '../../../_classes/type';
-import { TypeService } from '../../../_services/type.service';
-import { Contact } from '../../../_classes/contact';
-import { ContactService } from '../../../_services/contact.service';
+import { Type } from '../../_classes/type';
+import { TypeService } from '../../_services/type.service';
+import { Contact } from '../../_classes/contact';
+import { ContactService } from '../../_services/contact.service';
 
 @Component({
-  selector: 'contact-contacts',
-  templateUrl: './contacts.component.html',
-  styleUrls: ['./contacts.component.sass']
+  selector: 'tab-contacts',
+  templateUrl: './tab-contacts.component.html',
+  styleUrls: ['./tab-contacts.component.sass']
 })
-export class ContactsComponent implements OnInit {
+export class TabContactsComponent implements OnInit {
+  id: number;
   types: Type[] = [];
   contacts: Contact[] = [];
   
   constructor(private typeService: TypeService,
               private contactService: ContactService,
               private route: ActivatedRoute,
-              private router: Router,) { }
+              private router: Router) { }
   
   ngOnInit() {
     this.typeService.getTypes().then((types: Type[]) => {
       this.types = types;
-      this.route.params     
-        .switchMap((params: Params) => this.contactService.getContacts(+params['id']))
+      this.route.params   
+        .switchMap((params: Params) => {
+            this.id = +params['id'];
+            return this.contactService.getContacts(+params['idc']);
+          })
         .subscribe((contacts: Contact[]) => this.contacts = contacts);
     })
   }
 
   onSelect(contact: Contact) {
-    this.router.navigate(['/client/contact', contact.id]);
+    this.router.navigate(['/client', this.id, 'contact', contact.id]);
   }
 
   getTypeStyle(contact: Contact): string {

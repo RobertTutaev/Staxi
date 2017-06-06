@@ -4,17 +4,17 @@ import { Location }               from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Type } from '../../../_classes/type';
-import { TypeService } from '../../../_services/type.service';
-import { Contact } from '../../../_classes/contact';
-import { ContactService } from '../../../_services/contact.service';
+import { Type } from '../../_classes/type';
+import { TypeService } from '../../_services/type.service';
+import { Contact } from '../../_classes/contact';
+import { ContactService } from '../../_services/contact.service';
 
 @Component({
-  selector: 'contact-contact',
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.sass']
+  selector: 'tab-contact',
+  templateUrl: './tab-contact.component.html',
+  styleUrls: ['./tab-contact.component.sass']
 })
-export class ContactComponent implements OnInit {
+export class TabContactComponent implements OnInit {
   
   selectedType: Type = new Type();
   types: Type[] = [];
@@ -41,7 +41,7 @@ export class ContactComponent implements OnInit {
   onSubmit() {   
     if (this.contact.id)
       this.contactService.update(this.contact)
-        .then(() => {console.log(111111111);this.gotoBack()})
+        .then(() => this.gotoBack())
     else 
       this.contactService.create(this.contact)
         .then(() => this.gotoBack());
