@@ -39,11 +39,10 @@ export class TabClientComponent implements OnInit {
         .then(() => this.gotoBack());
     else 
       this.clientService.create(this.client)
-        .then(() => this.gotoBack());
+        .then((client: Client) => this.router.navigate(['/client', client.id], { relativeTo: this.route }));
   }
 
   gotoBack() {
-    console.log(this.location.path());
     this.location.back();
   }
 }

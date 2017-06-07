@@ -7,12 +7,11 @@ import { Contact } from '../../_classes/contact';
 import { ContactService } from '../../_services/contact.service';
 
 @Component({
-  selector: 'tab-contacts',
-  templateUrl: './tab-contacts.component.html',
-  styleUrls: ['./tab-contacts.component.sass']
+  selector: 'contacts',
+  templateUrl: './contacts.component.html',
+  styleUrls: ['./contacts.component.sass']
 })
-export class TabContactsComponent implements OnInit {
-  id: number;
+export class ContactsComponent implements OnInit {
   types: Type[] = [];
   contacts: Contact[] = [];
   
@@ -25,16 +24,13 @@ export class TabContactsComponent implements OnInit {
     this.typeService.getTypes().then((types: Type[]) => {
       this.types = types;
       this.route.params   
-        .switchMap((params: Params) => {
-            this.id = +params['id'];
-            return this.contactService.getContacts(+params['idc']);
-          })
+        .switchMap((params: Params) => this.contactService.getContacts(+params['idc']))
         .subscribe((contacts: Contact[]) => this.contacts = contacts);
     })
   }
 
   onSelect(contact: Contact) {
-    this.router.navigate(['/client', this.id, 'contact', contact.id]);
+    this.router.navigate(['../', contact.id], { relativeTo: this.route });
   }
 
   getTypeStyle(contact: Contact): string {

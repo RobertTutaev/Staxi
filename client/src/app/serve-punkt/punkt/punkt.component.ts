@@ -37,7 +37,6 @@ export class PunktComponent implements OnInit {
   }  
 
   gotoBack() {
-    console.log(this.location.path());
     this.location.back();
   }
 }

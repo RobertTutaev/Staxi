@@ -54,7 +54,6 @@ export class UserComponent implements OnInit {
   }
 
   gotoBack() {
-    console.log(this.location.path());
     this.location.back();
   }
 }

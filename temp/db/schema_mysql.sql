@@ -2200,7 +2200,7 @@ create table contact(
                 on delete cascade
 )engine=innodb;
 
-create table kategs(
+create table category(
     id integer primary key auto_increment,
     client_id integer not null,
     kateg_id integer not null,
@@ -2223,7 +2223,7 @@ create table kategs(
                 on delete cascade
 )engine=innodb;
 
-create table works(
+create table transportation(
     id integer primary key auto_increment,
     client_id integer not null, 
     car_id integer not null,

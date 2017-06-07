@@ -1,0 +1,19 @@
+<form class="st-form" (ngSubmit)="onSubmit(); contactForm.reset();" #contactForm="ngForm">
+    <dl>
+        <dt>Тип*</dt> 
+        <dd><select name="type" [(ngModel)]="selectedTypeId" required>
+                <option *ngFor="let type of types" [ngValue]="type.id">{{type.name}}</option>
+            </select></dd>
+        <dt>Контакт*</dt>
+        <dd><input type="text" name="name" [(ngModel)]="contact.name" required #name="ngModel" minlength="7" maxlength="50" placeholder="{{ selectedType.placeholder }}" pattern="{{ selectedType.mask }}">
+            <small [hidden]="name.valid || name.pristine">
+                Необходим корректный {{ selectedType.name }}
+            </small></dd>
+        <dt>Комментарий</dt>
+        <dd><textarea name="comment" [(ngModel)]="contact.comment" placeholder="Комментарий" #comment="ngModel" maxlength="255" class="form-control" rows="3"></textarea></dd>
+        
+        <br>
+        <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
+        <button class="btn btn-info" type="submit" [disabled]="contactForm.form.invalid || contactForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> {{contact.id ? 'Изменить' : 'Добавить'}}</button>
+    </dl>
+</form>

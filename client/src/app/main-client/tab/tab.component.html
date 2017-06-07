@@ -1,0 +1,24 @@
+<h4 class="h4-sprav"><span class="h4-sprav-span">Клиент</span> ID: <span *ngIf="id">{{ id }}</span></h4>
+
+<ul *ngIf="!id" class="nav nav-tabs">
+    <li class = "active">
+        <a [routerLink]="['/client']">Клиент</a>
+    </li>
+</ul>
+
+<ul *ngIf="id" class="nav nav-tabs">
+    <li [class.active]="isActiveRoute(['/client', id], true)">
+        <a [routerLink]="['/client', id]">Клиент</a>
+    </li>    
+    <li [class.active]="isActiveRoute(['/client', id, 'contact'])">
+        <a [routerLink]="['/client', id, 'contact', 'list']">Контакты</a>
+    </li>
+    <li [class.active]="isActiveRoute(['/client', id, 'kategory'])">
+        <a [routerLink]="['/client', id, 'kategory']">Категории</a>
+    </li>
+    <li [class.active]="isActiveRoute(['/client', id, 'transportation'])">
+        <a [routerLink]="['/client', id, 'transportation']">Перевозки</a>
+    </li>
+</ul>
+
+<router-outlet></router-outlet>

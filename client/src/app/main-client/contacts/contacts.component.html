@@ -5,13 +5,13 @@
             <th>Тип</th>
             <th>Контакт</th>
             <th>Комментарий</th>
-            <th><a routerLink="/client/contact" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
+            <th><a [routerLink]="['../']" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
     <tbody *ngIf="contacts.length">
         <tr *ngFor="let contact of contacts" (click)="onSelect(contact)">
             <td>{{ contact.id }}</td>
-            <td class="{{ getTypeStyle(contact) }}"></td>
+            <td><span [ngClass]="getTypeStyle(contact)"></span></td>
             <td>{{ contact.name }}</td>
             <td>{{ contact.comment }}</td>
             <td (click)="onDelete(contact); $event.stopPropagation();"><span class="glyphicon glyphicon-remove-sign"></span></td>
