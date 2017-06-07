@@ -13,12 +13,6 @@
     <li [class.active]="isActiveRoute(['/client', id, 'contact'])">
         <a [routerLink]="['/client', id, 'contact', 'list']">Контакты</a>
     </li>
-    <li [class.active]="isActiveRoute(['/client', id, 'kategory'])">
-        <a [routerLink]="['/client', id, 'kategory']">Категории</a>
-    </li>
-    <li [class.active]="isActiveRoute(['/client', id, 'transportation'])">
-        <a [routerLink]="['/client', id, 'transportation']">Перевозки</a>
-    </li>
 </ul>
 
 <router-outlet></router-outlet>

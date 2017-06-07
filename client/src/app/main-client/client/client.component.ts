@@ -8,11 +8,11 @@ import { Client } from '../../_classes/client';
 import { ClientService } from '../../_services/client.service';
 
 @Component({
-  selector: 'tab-client',
-  templateUrl: './tab-client.component.html',
-  styleUrls: ['./tab-client.component.sass']
+  selector: 'client',
+  templateUrl: './client.component.html',
+  styleUrls: ['./client.component.sass']
 })
-export class TabClientComponent implements OnInit {
+export class ClientComponent implements OnInit {
 
   client: Client = new Client();
   id: number;

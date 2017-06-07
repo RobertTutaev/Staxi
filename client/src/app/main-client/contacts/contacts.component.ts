@@ -23,8 +23,8 @@ export class ContactsComponent implements OnInit {
   ngOnInit() {
     this.typeService.getTypes().then((types: Type[]) => {
       this.types = types;
-      this.route.params   
-        .switchMap((params: Params) => this.contactService.getContacts(+params['idc']))
+      this.route.parent.parent.params
+        .switchMap((params: Params) => this.contactService.getContacts(+params['id']))
         .subscribe((contacts: Contact[]) => this.contacts = contacts);
     })
   }
