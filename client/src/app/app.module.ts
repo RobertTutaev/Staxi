@@ -11,7 +11,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './_mock/in-memory-data.service';
 
-import { MainClientModule } from './main-client/main-client.module';
+import { MainModule } from './main/main.module';
 
 import { ServeTypeModule } from './serve-type/serve-type.module';
 import { ServeCarModule } from './serve-car/serve-car.module';
@@ -41,7 +41,7 @@ import { ServeUserModule } from './serve-user/serve-user.module';
     ServeCarModule,
     ServeTypeModule,
     ServeUserModule,
-    MainClientModule,    
+    MainModule,    
     AppRoutingModule,    
     InMemoryWebApiModule.forRoot(InMemoryDataService, {'delay': 100})
   ],

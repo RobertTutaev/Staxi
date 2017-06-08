@@ -32,3 +32,7 @@ https://www.youtube.com/watch?v=LV1x2X_QMVU
 Маршрутизация внутри компонентов
 ==========
 https://coryrylan.com/blog/introduction-to-angular-routing
+
+DateTimePicker
+==========
+https://stackoverflow.com/questions/36087762/how-to-detect-bootstrap-datetimepicker-change-events-within-angular2

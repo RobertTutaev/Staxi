@@ -6,6 +6,8 @@ import { TabComponent } from './tab/tab.component';
 import { ClientComponent } from './client/client.component';
 import { ContactComponent }  from './contact/contact.component';
 import { ContactsComponent }  from './contacts/contacts.component';
+import { KategoryComponent }  from './kategory/kategory.component';
+import { KategoriesComponent }  from './kategories/kategories.component';
 
 const clientsRoutes: Routes = [
   { path: 'client/list',  component: ClientsComponent },
@@ -25,6 +27,14 @@ const clientsRoutes: Routes = [
           { path: '', component: ContactComponent }
 
         ]  
+      },
+      { path: 'kategory', children: [
+          
+          { path: 'list', component: KategoriesComponent },
+          { path: ':idc', component: KategoryComponent },
+          { path: '', component: KategoryComponent }
+
+        ]  
       }
     ]
   }  
@@ -38,4 +48,4 @@ const clientsRoutes: Routes = [
     RouterModule
   ]
 })
-export class MainClientRoutingModule { }
+export class MainRoutingModule { }

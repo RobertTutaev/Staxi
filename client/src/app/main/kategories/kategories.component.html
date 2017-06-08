@@ -1,0 +1,22 @@
+<table class="table table-hover table-list">
+    <thead>
+        <tr>
+            <th>Код</th>
+            <th>Категория</th>
+            <th>Документ</th>
+            <th>Начало</th>
+            <th>Оконч.</th>
+            <th><a [routerLink]="['../']" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
+        </tr>
+    </thead>
+    <tbody *ngIf="kategories.length">
+        <tr *ngFor="let kategory of kategories" (click)="onSelect(kategory)">
+            <td>{{ kategory.id }}</td>
+            <td>{{ getKategName(kategory) }}</td>
+            <td>{{ getDocName(kategory) }}</td>
+            <td>{{ kategory.dt_begin | date: 'dd.MM.yyyy' }}</td>
+            <td>{{ kategory.dt_end | date: 'dd.MM.yyyy' }}</td>
+            <td (click)="onDelete(kategory); $event.stopPropagation();"><span class="glyphicon glyphicon-remove-sign"></span></td>
+        </tr>
+    </tbody>
+</table>

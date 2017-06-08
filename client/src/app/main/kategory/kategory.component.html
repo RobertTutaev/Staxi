@@ -1,0 +1,41 @@
+<form class="st-form" (ngSubmit)="onSubmit(); kategoryForm.reset();" #kategoryForm="ngForm">
+    <dl>
+        <dt>Вид категории*</dt> 
+        <dd><select name="kateg" [(ngModel)]="selectedKategId" required class="select-kateg">
+                <option *ngFor="let kateg of kategs || async" [ngValue]="kateg.id">{{kateg.name}}</option>
+            </select></dd>
+        <dt>Документ подтверждающий право*</dt> 
+        <dd><select name="doc" [(ngModel)]="selectedDocId" required>
+                <option *ngFor="let doc of docs || async" [ngValue]="doc.id">{{doc.name}}</option>
+            </select></dd>
+        <dt>Серия документа</dt>
+        <dd><input type="text" name="doc_ser" [(ngModel)]="kategory.doc_ser" #doc_ser="ngModel" maxlength="10" placeholder="Серия">
+            <small [hidden]="doc_ser.valid || doc_ser.pristine">
+                Необходимо корректное значение длиной не более 10 символов
+            </small></dd>
+        <dt>Номер документа</dt>
+        <dd><input type="text" name="doc_number" [(ngModel)]="kategory.doc_number" #doc_number="ngModel" maxlength="20" placeholder="Номер">
+            <small [hidden]="doc_number.valid || doc_number.pristine">
+                Необходимо корректное значение длиной не более 20 символов
+            </small></dd>
+        <dt>Дата документа</dt>
+        <dd><input type="text" name="doc_dt" [(ngModel)]="kategory.doc_dt" #doc_dt="ngModel" placeholder="Дата">
+            <small [hidden]="doc_dt.valid || doc_dt.pristine">
+                Необходимо корректное значение
+            </small></dd>
+        <dt>Дата начала*</dt>
+        <dd><input type="text" name="dt_begin" [(ngModel)]="kategory.dt_begin" required #dt_begin="ngModel" placeholder="Дата">
+            <small [hidden]="dt_begin.valid || dt_begin.pristine">
+                Необходимо корректное значение
+            </small></dd>
+        <dt>Дата окончания*</dt>
+        <dd><input type="text" name="dt_end" [(ngModel)]="kategory.dt_end" required #dt_end="ngModel" placeholder="Дата">
+            <small [hidden]="dt_end.valid || dt_end.pristine">
+                Необходимо корректное значение
+            </small></dd>
+
+        <br>
+        <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
+        <button class="btn btn-info" type="submit" [disabled]="kategoryForm.form.invalid || kategoryForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> {{kategory.id ? 'Изменить' : 'Добавить'}}</button>
+    </dl>
+</form>

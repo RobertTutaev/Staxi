@@ -11,5 +11,5 @@ export class User {
             public role3: boolean = false,
             public role4: boolean = false,
             public checked: boolean = false,
-            public dt: string = null) { }
+            public dt: number = null) { }
 }

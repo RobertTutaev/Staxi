@@ -7,28 +7,34 @@ import { TabComponent } from './tab/tab.component';
 import { ClientComponent } from './client/client.component';
 import { ContactComponent }  from './contact/contact.component';
 import { ContactsComponent }  from './contacts/contacts.component';
+import { KategoryComponent }  from './kategory/kategory.component';
+import { KategoriesComponent }  from './kategories/kategories.component';
 
 import { ClientService } from '../_services/client.service';
 import { ContactService } from '../_services/contact.service';
-import { MainClientRoutingModule } from './main-client.routing.module';
+import { KategoryService } from '../_services/kategory.service';
+import { MainRoutingModule } from './main.routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,    
-    MainClientRoutingModule
+    MainRoutingModule
   ],
   declarations: [
     ClientsComponent,
     TabComponent,
     ClientComponent,
     ContactComponent,
-    ContactsComponent
+    ContactsComponent,
+    KategoryComponent,
+    KategoriesComponent
   ],
   providers: [ 
     ClientService,
-    ContactService
+    ContactService,
+    KategoryService
   ]
 })
-export class MainClientModule {}
+export class MainModule {}
 

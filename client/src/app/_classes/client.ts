@@ -12,5 +12,5 @@ export class Client {
             public kv: string = null,
             public checked: boolean = false,
             public user_id: number = null,
-            public dt: string = null) { }
+            public dt: number = null) { }
 }

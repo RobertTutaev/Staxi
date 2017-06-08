@@ -5,5 +5,5 @@ export class Contact {
             public type_id: number = null, 
             public name: string = null,
             public comment: string = null,
-            public dt: string = null) { }
+            public dt: number = null) { }
 }
