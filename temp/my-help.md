@@ -33,6 +33,6 @@ https://www.youtube.com/watch?v=LV1x2X_QMVU
 ==========
 https://coryrylan.com/blog/introduction-to-angular-routing
 
-DateTimePicker
+Продвинутые компоненты
 ==========
-https://stackoverflow.com/questions/36087762/how-to-detect-bootstrap-datetimepicker-change-events-within-angular2
+https://material.angular.io/guide/getting-started

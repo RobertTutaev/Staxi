@@ -11,12 +11,18 @@ import { DocService } from '../../_services/doc.service';
 import { Kategory } from '../../_classes/kategory';
 import { KategoryService } from '../../_services/kategory.service';
 
+import { MdDatepicker } from '@angular/material';
+
 @Component({
   selector: 'kategory',
   templateUrl: './kategory.component.html',
   styleUrls: ['./kategory.component.sass']
 })
-export class KategoryComponent implements OnInit {  
+export class KategoryComponent implements OnInit {
+  myFilter = (d: Date) => d.getFullYear() > 2005
+  minDate = new Date(2000, 0, 1);
+  maxDate = new Date(2020, 11, 31);
+
   selectedKateg: Kateg = new Kateg();
   kategs: Kateg[] = [];
   selectedDoc: Doc = new Doc();

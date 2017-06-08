@@ -15,10 +15,16 @@ import { ContactService } from '../_services/contact.service';
 import { KategoryService } from '../_services/kategory.service';
 import { MainRoutingModule } from './main.routing.module';
 
+import { MaterialModule, MdNativeDateModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,    
+    MaterialModule,
+    MdNativeDateModule,
+    BrowserAnimationsModule,    
+    FormsModule,
     MainRoutingModule
   ],
   declarations: [

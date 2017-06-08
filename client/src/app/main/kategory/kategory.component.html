@@ -19,20 +19,26 @@
                 Необходимо корректное значение длиной не более 20 символов
             </small></dd>
         <dt>Дата документа</dt>
-        <dd><input type="text" name="doc_dt" [(ngModel)]="kategory.doc_dt" #doc_dt="ngModel" placeholder="Дата">
+        <dd><input mdInput [mdDatepicker]="pickerDocDt" name="doc_dt" [(ngModel)]="kategory.doc_dt" #doc_dt="ngModel" placeholder="Дата">
+            <button mdSuffix [mdDatepickerToggle]="pickerDocDt"></button>
+            <md-datepicker #pickerDocDt></md-datepicker>
             <small [hidden]="doc_dt.valid || doc_dt.pristine">
                 Необходимо корректное значение
             </small></dd>
         <dt>Дата начала*</dt>
-        <dd><input type="text" name="dt_begin" [(ngModel)]="kategory.dt_begin" required #dt_begin="ngModel" placeholder="Дата">
+        <dd><input mdInput [mdDatepicker]="pickerDtBegin" name="dt_begin" [(ngModel)]="kategory.dt_begin" required #dt_begin="ngModel" placeholder="Дата">
+            <button mdSuffix [mdDatepickerToggle]="pickerDtBegin"></button>
+            <md-datepicker #pickerDtBegin></md-datepicker>
             <small [hidden]="dt_begin.valid || dt_begin.pristine">
                 Необходимо корректное значение
             </small></dd>
         <dt>Дата окончания*</dt>
-        <dd><input type="text" name="dt_end" [(ngModel)]="kategory.dt_end" required #dt_end="ngModel" placeholder="Дата">
+        <dd><input mdInput [mdDatepicker]="pickerDtEnd" name="dt_end" [(ngModel)]="kategory.dt_end" required #dt_end="ngModel" placeholder="Дата">
+            <button mdSuffix [mdDatepickerToggle]="pickerDtEnd"></button>
+            <md-datepicker #pickerDtEnd></md-datepicker>            
             <small [hidden]="dt_end.valid || dt_end.pristine">
                 Необходимо корректное значение
-            </small></dd>
+            </small></dd>        
 
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
