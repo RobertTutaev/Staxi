@@ -5,19 +5,20 @@ import { Firm } from '../../_classes/firm';
 import { FirmService } from '../../_services/firm.service';
 import { User } from '../../_classes/user';
 import { UserService } from '../../_services/user.service';
+import { SController } from '../../_classes/s.controller';
 
 @Component({
   selector: 'user-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.sass']
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent extends SController implements OnInit {
   firms: Firm[] = [];
   users: User[] = [];
   
   constructor(private raionService: FirmService,
               private userService: UserService,
-              private router: Router) { }
+              private router: Router) { super(); }
   
   ngOnInit() {
     this.raionService.getFirms().then((firms: Firm[]) => {

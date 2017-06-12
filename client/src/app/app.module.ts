@@ -22,13 +22,15 @@ import { ServeKategModule } from './serve-kateg/serve-kateg.module';
 import { ServeStreetModule } from './serve-street/serve-street.module';
 import { ServeTerritoryModule } from './serve-territory/serve-territory.module';
 import { ServeUserModule } from './serve-user/serve-user.module';
+import { ToolsModule } from './tools/tools.module';
 
 @NgModule({ 
   declarations: [
+    ToolsModule,
     AppComponent,
     PageNotFoundComponent
   ],
-  imports: [
+  imports: [   
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -41,10 +43,10 @@ import { ServeUserModule } from './serve-user/serve-user.module';
     ServeCarModule,
     ServeTypeModule,
     ServeUserModule,
-    MainModule,    
+    MainModule,
     AppRoutingModule,    
     InMemoryWebApiModule.forRoot(InMemoryDataService, {'delay': 100})
-  ],
+  ],  
   providers: [],
   bootstrap: [AppComponent]
 })

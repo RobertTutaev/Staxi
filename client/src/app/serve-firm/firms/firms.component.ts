@@ -23,7 +23,7 @@ export class FirmsComponent implements OnInit {
     this.territoryService.getTerritories().then((territories: Territory[]) => {
       this.territories = territories;
       this.firmService.getFirms().then((firms: Firm[]) => this.firms = firms);
-    })    
+    })
   }
 
   onSelect(firm: Firm) {

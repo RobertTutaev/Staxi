@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { Territory } from '../../_classes/territory';
+import { TerritoryService } from '../../_services/territory.service';
+
 import { Car } from '../../_classes/car';
 import { CarService } from '../../_services/car.service';
 
@@ -11,16 +14,25 @@ import { CarService } from '../../_services/car.service';
 })
 export class CarsComponent implements OnInit {
   cars: Car[] = [];
+  territories: Territory[] = [];
   
-  constructor(private carService: CarService,
+  constructor(private territoryService: TerritoryService,
+              private carService: CarService,
               private router: Router) { }
   
   ngOnInit() {
-    this.carService.getCars().then((cars: Car[]) => this.cars = cars);
+    this.territoryService.getTerritories().then((territories: Territory[]) => {
+      this.territories = territories;
+      this.carService.getCars().then((cars: Car[]) => this.cars = cars);
+    })    
   }
 
   onSelect(car: Car) {
     this.router.navigate(['/car', car.id]);
+  }
+
+  getTerritoryName(car: Car): string {
+    return this.territories.find(myObj => myObj.id === car.territory_id).name;
   }
 
   onDelete(car: Car) {

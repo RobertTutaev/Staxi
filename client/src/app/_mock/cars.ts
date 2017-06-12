@@ -6,13 +6,15 @@ export let Cars: Car[] = [
     name: 'ваз-2109', 
     color: 'снежная королева',
     gos_no: 'е345не174',
-    type: false
+    territory_id: 1,
+    type: false    
   },
   {
     id: 2,
     name: 'ваз-2110', 
     color: 'баклажан',
     gos_no: 'у435ка174',
+    territory_id: 1,
     type: false
   },
   {
@@ -20,6 +22,7 @@ export let Cars: Car[] = [
     name: 'ПАЗ-31010', 
     color: 'синий сапфир',
     gos_no: 'а412ао74',
+    territory_id: 1,
     type: true
   }
 ];

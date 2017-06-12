@@ -20,7 +20,8 @@
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-        "styles.sass"
+        "../node_modules/font-awesome/css/font-awesome.min.css",
+        "styles.sass"        
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",

@@ -11,6 +11,7 @@ export let Kategories: Kategory[] = [
     doc_dt: Date.parse('01.01.2015'),
     dt_begin: Date.parse('01.01.2015'),
     dt_end: Date.parse('12.31.2015'),
+    user_id: 11,
     dt: Date.parse('04.04.2015')
   },
   {
@@ -23,6 +24,7 @@ export let Kategories: Kategory[] = [
     doc_dt: Date.parse('01.01.2016'),
     dt_begin: Date.parse('01.01.2016'),
     dt_end: Date.parse('12.31.2017'),
+    user_id: 11,
     dt: Date.parse('04.04.2017')
   },
   {
@@ -35,6 +37,7 @@ export let Kategories: Kategory[] = [
     doc_dt: null,
     dt_begin: null,
     dt_end: null,
+    user_id: 12,
     dt: null
   },
   {
@@ -47,6 +50,7 @@ export let Kategories: Kategory[] = [
     doc_dt: Date.parse('01.01.2017'),
     dt_begin: Date.parse('01.01.2017'),
     dt_end: Date.parse('12.31.2017'),
+    user_id: 14,
     dt: Date.parse('12.24.2017')
   }
 ];

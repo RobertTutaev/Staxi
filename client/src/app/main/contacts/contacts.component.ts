@@ -5,20 +5,21 @@ import { Type } from '../../_classes/type';
 import { TypeService } from '../../_services/type.service';
 import { Contact } from '../../_classes/contact';
 import { ContactService } from '../../_services/contact.service';
+import { SController } from '../../_classes/s.controller';
 
 @Component({
   selector: 'contacts',
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.sass']
 })
-export class ContactsComponent implements OnInit {
+export class ContactsComponent extends SController implements OnInit {
   types: Type[] = [];
   contacts: Contact[] = [];
   
   constructor(private typeService: TypeService,
               private contactService: ContactService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router) { super(); }
   
   ngOnInit() {
     this.typeService.getTypes().then((types: Type[]) => {

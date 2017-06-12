@@ -2073,8 +2073,14 @@ create table car(
     id integer primary key auto_increment,
     name varchar(100),
     color varchar(100),
-    gos_no varchar(12),
-    type tinyint(1) DEFAULT 0
+    gos_no varchar(12),    
+    territory_id integer,
+    type tinyint(1) DEFAULT 0,
+    index fk_c_territory (territory_id ASC),
+    constraint fk_c_territory
+        foreign key (territory_id)
+            references territory (id)
+                on delete cascade
 )engine=innodb;
 
 create table punkt(
@@ -2187,6 +2193,7 @@ create table contact(
     type_id integer not null,
     name varchar(50) not null,    
     comment text,
+    user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
     index fk_c_client (client_id ASC),
     constraint fk_c_client
@@ -2197,6 +2204,11 @@ create table contact(
     constraint fk_c_type
         foreign key (type_id)
             references type (id)
+                on delete cascade,
+    index fk_c_user (user_id ASC),
+    constraint fk_c_user
+        foreign key (user_id)
+            references user (id)
                 on delete cascade
 )engine=innodb;
 
@@ -2209,7 +2221,8 @@ create table category(
     doc_number varchar(20),
     doc_dt datetime,
     dt_begin datetime default CURRENT_TIMESTAMP,
-    dt_end datetime,    
+    dt_end datetime,
+    user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
     index fk_k_client (client_id ASC),
     constraint fk_k_client 
@@ -2220,6 +2233,11 @@ create table category(
     constraint fk_k_kateg 
         foreign key (kateg_id) 
             references kateg (id) 
+                on delete cascade,
+    index fk_k_user (user_id ASC),
+    constraint fk_k_user
+        foreign key (user_id)
+            references user (id)
                 on delete cascade
 )engine=innodb;
 
@@ -2239,6 +2257,7 @@ create table transportation(
     checked tinyint(1) DEFAULT 0,
     comments text,
     itog tinyint(1) DEFAULT 0,
+    user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
     index fk_w_client (client_id ASC),
     constraint fk_w_client 
@@ -2264,5 +2283,10 @@ create table transportation(
     constraint fk_ba_street 
         foreign key (b_street_id) 
             references street (id) 
+                on delete cascade,
+    index fk_w_user (user_id ASC),
+    constraint fk_w_user
+        foreign key (user_id)
+            references user (id)
                 on delete cascade
 )engine=innodb;

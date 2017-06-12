@@ -1,7 +1,7 @@
 <form class="st-form" (ngSubmit)="onSubmit(); clientForm.reset();" #clientForm="ngForm">
     <dl>
         <dt>СНИЛС*</dt>
-        <dd><input type="text" name="snils" [(ngModel)]="client.snils" placeholder="СНИЛС" required #snils="ngModel" maxlength="11" pattern="[1-9](\d{10})">
+        <dd><input type="text" name="snils" [(ngModel)]="client.snils" placeholder="СНИЛС" required #snils="ngModel" minlength="11" maxlength="11" pattern="[1-9](\d{10})">
             <small [hidden]="snils.valid || snils.pristine">
                 Необходим корректный СНИЛС
             </small></dd>

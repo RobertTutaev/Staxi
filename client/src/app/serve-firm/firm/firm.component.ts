@@ -31,7 +31,7 @@ export class FirmComponent implements OnInit {
         this.route.params     
           .switchMap((params: Params) => this.firmService.getFirm(+params['id']))
           .subscribe((firm: Firm) => this.firm = firm);
-      })
+      });
   }
 
   onSubmit() {

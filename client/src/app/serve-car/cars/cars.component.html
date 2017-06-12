@@ -6,7 +6,8 @@
             <th>Код</th>
             <th>Название</th>
             <th>Гос. номер</th>
-            <th>Цвет</th>
+            <th>Цвет</th>            
+            <th>Территория</th>
             <th>Тип</th>
             <th><a routerLink="/car" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
@@ -17,7 +18,8 @@
             <td>{{ car.name }}</td>
             <td>{{ car.gos_no }}</td>
             <td>{{ car.color }}</td>
-            <td>{{ car.type ? 'Автобус' : 'Автомобиль' }}</td>
+            <td>{{ getTerritoryName(car) }}</td>
+            <td>{{ car.type ? 'Автобус' : 'Автомобиль' }}</td>            
             <td (click)="onDelete(car); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
     </tbody>

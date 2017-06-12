@@ -8,9 +8,15 @@
         <dd><input type="text" name="gos_no" [(ngModel)]="car.gos_no" placeholder="у999уу174" required #name="ngModel" maxlength="12"></dd>
         <dt>Цвет</dt>
         <dd><input type="text" name="color" [(ngModel)]="car.color" placeholder="Название" #name="ngModel" maxlength="100"></dd>
+        <dt>Территория*</dt>
+        <dd>
+            <select name="territory" [(ngModel)]="selectedTerritoryId" required>
+                <option *ngFor="let territory of territories" [ngValue]="territory.id">{{territory.name}}</option>
+            </select>
+        </dd>
         <dt>Тип</dt>
         <dd><input type="checkbox" value="true" name="type" id="carType" [(ngModel)]="car.type">
-            <label for="carType">Автобус (иначе Автомобиль)</label></dd>
+            <label for="carType">Автобус (иначе Автомобиль)</label></dd>        
  
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>

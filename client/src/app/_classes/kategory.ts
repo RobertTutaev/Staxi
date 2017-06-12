@@ -8,6 +8,7 @@ export class Kategory {
             public doc_number: string = null,
             public doc_dt: number = null,
             public dt_begin: number = null,
-            public dt_end: number = null,            
+            public dt_end: number = null,
+            public user_id: number = null,
             public dt: number = null) { }
 }

@@ -37,3 +37,7 @@ https://coryrylan.com/blog/introduction-to-angular-routing
 ==========
 https://material.angular.io/guide/getting-started
 http://logbon72.github.io/angular-material-datetimepicker/
+
+Создание Пайпов
+==========
+http://www.advancesharp.com/blog/1211/angular-2-search-and-sort-with-ngfor-repeater-with-example

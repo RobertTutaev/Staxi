@@ -7,6 +7,7 @@ export let Contacts: Contact[] = [
     type_id: 2,
     name: 'rob_t@mail.ru',
     comment: null,
+    user_id: 11,
     dt: null
   },
   {
@@ -15,6 +16,7 @@ export let Contacts: Contact[] = [
     type_id: 2, 
     name: 'opo_usr@mail.ru',
     comment: null,
+    user_id: 11,
     dt: null
   },
   {
@@ -23,6 +25,7 @@ export let Contacts: Contact[] = [
     type_id: 1, 
     name: '729-82-23',
     comment: null,
+    user_id: 12,
     dt: null
   },
   {
@@ -31,6 +34,7 @@ export let Contacts: Contact[] = [
     type_id: 1, 
     name: '729-82-12',
     comment: null,
+    user_id: 13,
     dt: null
   },
   {
@@ -39,6 +43,7 @@ export let Contacts: Contact[] = [
     type_id: 1, 
     name: '729-82-32',
     comment: null,
+    user_id: 12,
     dt: null
   }
 ];

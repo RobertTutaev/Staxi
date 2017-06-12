@@ -3,17 +3,18 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Client } from '../../_classes/client';
 import { ClientService } from '../../_services/client.service';
+import { SController } from '../../_classes/s.controller';
 
 @Component({
   selector: 'client-clients',
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.sass']
 })
-export class ClientsComponent implements OnInit {
+export class ClientsComponent extends SController implements OnInit {
   clients: Client[] = [];
   
   constructor(private clientService: ClientService,
-              private router: Router) { }
+              private router: Router) { super(); }
   
   ngOnInit() {
     this.clientService.getClients().then((clients: Client[]) => this.clients = clients);

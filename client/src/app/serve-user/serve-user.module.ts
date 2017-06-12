@@ -4,11 +4,8 @@ import { FormsModule }    from '@angular/forms';
 
 import { UsersComponent }    from './users/users.component';
 import { UserComponent }  from './user/user.component';
-
 import { UserService } from '../_services/user.service';
-
 import { ServeUserRoutingModule } from './serve-user.routing.module';
-
 import { EqualValidatorDirective } from '../_directives/equal-validator.directive';
 
 @NgModule({
