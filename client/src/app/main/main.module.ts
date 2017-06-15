@@ -9,10 +9,12 @@ import { ContactComponent }  from './contact/contact.component';
 import { ContactsComponent }  from './contacts/contacts.component';
 import { KategoryComponent }  from './kategory/kategory.component';
 import { KategoriesComponent }  from './kategories/kategories.component';
+import { TransportationsComponent } from './transportations/transportations.component';
 
 import { ClientService } from '../_services/client.service';
 import { ContactService } from '../_services/contact.service';
 import { KategoryService } from '../_services/kategory.service';
+import { TransportationService } from '../_services/transportation.service';
 import { MainRoutingModule } from './main.routing.module';
 import { ToolsModule} from '../tools/tools.module';
 
@@ -36,12 +38,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ContactComponent,
     ContactsComponent,
     KategoryComponent,
-    KategoriesComponent
+    KategoriesComponent,
+    TransportationsComponent
   ],
   providers: [ 
     ClientService,
     ContactService,
-    KategoryService
+    KategoryService,
+    TransportationService
   ]
 })
 export class MainModule {}

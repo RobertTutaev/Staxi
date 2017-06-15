@@ -16,6 +16,9 @@
     <li [class.active]="isActiveRoute(['/client', id, 'kategory'])">
         <a [routerLink]="['/client', id, 'kategory', 'list']">Категории</a>
     </li>
+    <li [class.active]="isActiveRoute(['/client', id, 'transportation'])">
+        <a [routerLink]="['/client', id, 'transportation', 'list']">Перевозки</a>
+    </li>
 </ul>
 
 <router-outlet></router-outlet>
