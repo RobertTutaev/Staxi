@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FilterPipe } from '../_pipes/filter.pipe';
-import { OrderByPipe } from '../_pipes/orderby.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
+import { OrderByPipe } from './pipes/orderby.pipe';
+import { EqualValidatorDirective } from './directives/equal-validator.directive';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FilterPipe,
-    OrderByPipe
+  imports: [    
+    CommonModule
   ],
   declarations: [
     FilterPipe,
-    OrderByPipe
+    OrderByPipe,
+    EqualValidatorDirective
   ],
   exports: [
     FilterPipe,
     OrderByPipe
   ]
 })
-export class ToolsModule { }
+export class ToolsModule { } 

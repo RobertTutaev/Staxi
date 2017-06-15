@@ -1,57 +1,68 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Kateg } from '../../_classes/kateg';
-import { KategService } from '../../_services/kateg.service';
-import { Doc } from '../../_classes/doc';
-import { DocService } from '../../_services/doc.service';
-import { Kategory } from '../../_classes/kategory';
-import { KategoryService } from '../../_services/kategory.service';
+import { Car } from '../../_classes/car';
+import { CarService } from '../../_services/car.service';
+import { Punkt } from '../../_classes/punkt';
+import { PunktService } from '../../_services/punkt.service';
+import { Street } from '../../_classes/street';
+import { StreetService } from '../../_services/street.service';
+import { Transportation } from '../../_classes/transportation';
+import { TransportationService } from '../../_services/transportation.service';
 import { SController } from '../../_classes/s.controller';
 
 @Component({
-  selector: 'kategories',
-  templateUrl: './kategories.component.html',
-  styleUrls: ['./kategories.component.sass']
+  selector: 'transportations',
+  templateUrl: './transportations.component.html',
+  styleUrls: ['./transportations.component.sass']
 })
-export class KategoriesComponent extends SController implements OnInit {
-  kategs: Kateg[] = [];
-  docs: Doc[] = [];
-  kategories: Kategory[] = [];
+export class TransportationsComponent extends SController implements OnInit {
+  cars: Car[] = [];
+  punkts: Punkt[] = [];
+  streets: Street[] = [];
+  transportations: Transportation[] = [];
 
-  constructor(private kategService: KategService,
-              private docService: DocService,  
-              private kategoryService: KategoryService,
+  constructor(private carService: CarService,
+              private punktService: PunktService,
+              private streetService: StreetService,
+              private transportationService: TransportationService,
               private route: ActivatedRoute,
               private router: Router) { super(); }
   
   ngOnInit() {
-    this.kategService.getKategs().then((kategs: Kateg[]) => this.kategs = kategs);
+    this.carService.getCars().then((cars: Car[]) => this.cars = cars);
 
-    this.docService.getDocs().then((docs: Doc[]) => this.docs = docs);    
+    this.punktService.getPunkts().then((punkts: Punkt[]) => this.punkts = punkts);
+
+    this.streetService.getStreets().then((streets: Street[]) => this.streets = streets); 
 
     this.route.parent.parent.params
-      .switchMap((params: Params) => this.kategoryService.getKategories(+params['id']))
-      .subscribe((kategories: Kategory[]) => this.kategories = kategories);
+      .switchMap((params: Params) => this.transportationService.getTransportations(+params['id']))
+      .subscribe((transportations: Transportation[]) => this.transportations = transportations);
   }
 
-  onSelect(kategory: Kategory) {
-    this.router.navigate(['../', kategory.id], { relativeTo: this.route });
+  onSelect(transportation: Transportation) {
+    this.router.navigate(['../', transportation.id], { relativeTo: this.route });
   }
 
-  getKategName(kategory: Kategory): string {
-    return this.kategs.find(myObj => myObj.id === kategory.kateg_id).name;
+  getCarName(transportation: Transportation): string {
+    return this.cars.find(myObj => myObj.id === transportation.car_id).name;
   }
   
-  getDocName(kategory: Kategory): string {
-    return this.docs.find(myObj => myObj.id === kategory.doc_id).name;
+  getPunktName(transportation: Transportation): string {
+    return this.punkts.find(myObj => myObj.id === transportation.punkt_id).name;
   }
 
-  onDelete(kategory: Kategory) {
+  getStreetNameSocr(value: number): string {
+    const street = this.streets.find(myObj => myObj.id === value);
+    return street.socr + ' ' + street.name;
+  }
+
+  onDelete(transportation: Transportation) {
     if(confirm('Вы действительно хотите удалить текущую запись и все связанные с ней записи из базы данных?'))
-      this.kategoryService.delete(kategory.id)
+      this.transportationService.delete(transportation.id)
         .then(() => {
-            this.kategories = this.kategories.filter(k => k !== kategory);
+            this.transportations = this.transportations.filter(t => t !== transportation);
           });
   }
 }

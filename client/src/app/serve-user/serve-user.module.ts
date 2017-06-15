@@ -6,16 +6,16 @@ import { UsersComponent }    from './users/users.component';
 import { UserComponent }  from './user/user.component';
 import { UserService } from '../_services/user.service';
 import { ServeUserRoutingModule } from './serve-user.routing.module';
-import { EqualValidatorDirective } from '../_directives/equal-validator.directive';
+import { ToolsModule} from '../tools/tools.module';
 
 @NgModule({
   imports: [
+    ToolsModule,
     CommonModule,
     FormsModule,
     ServeUserRoutingModule
   ],
   declarations: [
-    EqualValidatorDirective,
     UsersComponent,
     UserComponent
   ],
