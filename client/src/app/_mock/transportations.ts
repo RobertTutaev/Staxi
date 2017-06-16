@@ -16,7 +16,7 @@ export let Transportations: Transportation[] = [
     b_dt: Date.parse('12.31.2017 13:00'),
     checked: false,
     comments: null,
-    itog: true,
+    status: true,
     user_id: 11,
     dt: Date.parse('12.31.2017 13:00')
   },
@@ -35,7 +35,7 @@ export let Transportations: Transportation[] = [
     b_dt: Date.parse('14.31.2017 11:00'),
     checked: false,
     comments: null,
-    itog: true,
+    status: true,
     user_id: 11,
     dt: Date.parse('13.31.2017 13:00')
   }

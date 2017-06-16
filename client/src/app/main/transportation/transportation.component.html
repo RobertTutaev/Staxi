@@ -1,47 +1,64 @@
-<form class="st-form" (ngSubmit)="onSubmit(); kategoryForm.reset();" #kategoryForm="ngForm">
+<form class="st-form" (ngSubmit)="onSubmit(); transportationForm.reset();" #transportationForm="ngForm">
     <dl>
-        <dt>Вид категории*</dt> 
-        <dd><select name="kateg" [(ngModel)]="selectedKategId" required class="select-kateg">
-                <option *ngFor="let kateg of kategs || async" [ngValue]="kateg.id">{{kateg.name}}</option>
+        <dt>Автотранспорт*</dt> 
+        <dd><select name="car" [(ngModel)]="selectedCarId" required>
+                <option *ngFor="let car of cars || async" [ngValue]="car.id">{{car.name}}</option>
             </select></dd>
-        <dt>Документ подтверждающий право*</dt> 
-        <dd><select name="doc" [(ngModel)]="selectedDocId" required>
-                <option *ngFor="let doc of docs || async" [ngValue]="doc.id">{{doc.name}}</option>
+        <dt>Пункт доставки*</dt>
+        <dd><select name="car" [(ngModel)]="selectedPunktId" required>
+                <option *ngFor="let punkt of punkts || async" [ngValue]="punkt.id">{{punkt.name}}</option>
             </select></dd>
-        <dt>Серия документа</dt>
-        <dd><input type="text" name="doc_ser" [(ngModel)]="kategory.doc_ser" #doc_ser="ngModel" maxlength="10" placeholder="Серия">
-            <small [hidden]="doc_ser.valid || doc_ser.pristine">
-                Необходимо корректное значение длиной не более 10 символов
+        <dt>A.Улица*</dt>
+        <dd><select name="a_street" [(ngModel)]="selectedAStreetId" required>
+                <option *ngFor="let street of streets || async" [ngValue]="street.id">{{street.name}} {{street.socr}}</option>
+            </select></dd>
+        <dt>A.Дом*</dt>
+        <dd><input type="text" name="a_dom" [(ngModel)]="transportation.a_dom" #a_dom="ngModel" maxlength="4" placeholder="Дом" required>
+            <small [hidden]="a_dom.valid || a_dom.pristine">
+                Необходимо корректное значение
             </small></dd>
-        <dt>Номер документа</dt>
-        <dd><input type="text" name="doc_number" [(ngModel)]="kategory.doc_number" #doc_number="ngModel" maxlength="20" placeholder="Номер">
-            <small [hidden]="doc_number.valid || doc_number.pristine">
-                Необходимо корректное значение длиной не более 20 символов
+        <dt>A.Корп</dt>
+        <dd><input type="text" name="a_korp" [(ngModel)]="transportation.a_korp" #a_dom="ngModel" maxlength="4" placeholder="Корп">
+            <small [hidden]="a_dom.valid || a_dom.pristine">
+                Необходимо корректное значение
             </small></dd>
-        <dt>Дата документа</dt>
-        <dd><input mdInput type="text" id="dateDocDt" readonly="readonly" [mdDatepicker]="pickerDocDt" name="doc_dt" [(ngModel)]="kategory.doc_dt" #doc_dt="ngModel" placeholder="Дата" >
+        <dt>А.Дата*</dt>
+        <dd><input mdInput type="text" id="dateADt" readonly="readonly" [mdDatepicker]="pickerADt" name="a_dt" [(ngModel)]="transportation.a_dt" #a_dt="ngModel" placeholder="Дата" required>
             <button mdSuffix [mdDatepickerToggle]="pickerDocDt"></button>
-            <md-datepicker #pickerDocDt></md-datepicker>
-            <small [hidden]="doc_dt.valid || doc_dt.pristine">
+            <md-datepicker #pickerADt></md-datepicker>
+            <small [hidden]="a_dt.valid || a_dt.pristine">
                 Необходимо корректное значение
             </small></dd>
-        <dt>Дата начала*</dt>
-        <dd><input mdInput type="text" id="dateDtBegin" readonly="readonly" [mdDatepicker]="pickerDtBegin" name="dt_begin" [(ngModel)]="kategory.dt_begin" required #dt_begin="ngModel" placeholder="Дата">
-            <button mdSuffix [mdDatepickerToggle]="pickerDtBegin"></button>
-            <md-datepicker #pickerDtBegin></md-datepicker>
-            <small [hidden]="dt_begin.valid || dt_begin.pristine">
+        <dt>Б.Улица*</dt>
+        <dd><select name="b_street" [(ngModel)]="selectedBStreetId" required>
+                <option *ngFor="let street of streets || async" [ngValue]="street.id">{{street.name}} {{street.socr}}</option>
+            </select></dd>
+        <dt>Б.Дом*</dt>
+        <dd><input type="text" name="b_dom" [(ngModel)]="transportation.b_dom" #a_dom="ngModel" maxlength="4" placeholder="Дом" required>
+            <small [hidden]="b_dom.valid || b_dom.pristine">
                 Необходимо корректное значение
             </small></dd>
-        <dt>Дата окончания*</dt>
-        <dd><input mdInput type="text" id="dateDtEnd" readonly="readonly" [mdDatepicker]="pickerDtEnd" name="dt_end" [(ngModel)]="kategory.dt_end" required #dt_end="ngModel" placeholder="Дата">
-            <button mdSuffix [mdDatepickerToggle]="pickerDtEnd"></button>
-            <md-datepicker #pickerDtEnd></md-datepicker>            
-            <small [hidden]="dt_end.valid || dt_end.pristine">
+        <dt>Б.Корп</dt>
+        <dd><input type="text" name="b_korp" [(ngModel)]="transportation.b_korp" #a_dom="ngModel" maxlength="4" placeholder="Корп">
+            <small [hidden]="b_dom.valid || b_dom.pristine">
                 Необходимо корректное значение
             </small></dd>
+        <dt>Б.Дата*</dt>
+        <dd><input mdInput type="text" id="dateBDt" readonly="readonly" [mdDatepicker]="pickerBDt" name="b_dt" [(ngModel)]="transportation.a_dt" #a_dt="ngModel" placeholder="Дата" required>
+            <button mdSuffix [mdDatepickerToggle]="pickerDocDt"></button>
+            <md-datepicker #pickerADt></md-datepicker>
+            <small [hidden]="b_dt.valid || b_dt.pristine">
+                Необходимо корректное значение
+            </small></dd>
+        <dt>Одобрено</dt>
+        <dd><input type="checkbox" value="true" name="checked" id="transportationChecked" [(ngModel)]="transportation.checked">
+            <label for="transportationChecked">Одобрено уполномоченным</label></dd>
+        <dt>Статус</dt>
+        <dd><input type="checkbox" value="true" name="status" id="transportationStatus" [(ngModel)]="transportation.status">
+            <label for="transportationStatus">Выполнено</label></dd>
 
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
-        <button class="btn btn-info" type="submit" [disabled]="kategoryForm.form.invalid || kategoryForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> {{kategory.id ? 'Изменить' : 'Добавить'}}</button>
+        <button class="btn btn-info" type="submit" [disabled]="transportationForm.form.invalid || transportationForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> {{transportation.id ? 'Изменить' : 'Добавить'}}</button>
     </dl>
 </form>

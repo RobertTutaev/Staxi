@@ -4,63 +4,56 @@ import { Location }               from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Kateg } from '../../_classes/kateg';
-import { KategService } from '../../_services/kateg.service';
-import { Doc } from '../../_classes/doc';
-import { DocService } from '../../_services/doc.service';
-import { Kategory } from '../../_classes/kategory';
-import { KategoryService } from '../../_services/kategory.service';
+import { Car } from '../../_classes/car';
+import { CarService } from '../../_services/car.service';
+import { Punkt } from '../../_classes/punkt';
+import { PunktService } from '../../_services/punkt.service';
+import { Street } from '../../_classes/street';
+import { StreetService } from '../../_services/street.service';
+import { Transportation } from '../../_classes/transportation';
+import { TransportationService } from '../../_services/transportation.service';
 
 import { MdDatepicker } from '@angular/material';
 
 @Component({
-  selector: 'kategory',
-  templateUrl: './kategory.component.html',
-  styleUrls: ['./kategory.component.sass']
+  selector: 'transportation',
+  templateUrl: './transportation.component.html',
+  styleUrls: ['./transportation.component.sass']
 })
-export class KategoryComponent implements OnInit {
+export class TransportationComponent implements OnInit {
   dt: string = '01.01.2000';
 
-  selectedKateg: Kateg = new Kateg();
-  kategs: Kateg[] = [];
-  selectedDoc: Doc = new Doc();
-  docs: Doc[] = [];
-  isOk: number = 0;
-  kategory: Kategory = new Kategory();
+  cars: Car[] = [];
+  punkts: Punkt[] = [];
+  streets: Street[] = [];
+  transportation: Transportation = new Transportation();
   
-  constructor(private kategService: KategService,
-              private docService: DocService,
-              private kategoryService: KategoryService,
+  constructor(private carService: CarService,
+              private punktService: PunktService,
+              private streetService: StreetService,
+              private transportationService: TransportationService,
               private route: ActivatedRoute,
               private router: Router,
               private location: Location) { }
   
   ngOnInit() {
-    this.kategService.getKategs().then((kategs: Kateg[]) => {
-        this.kategs = kategs;
-        this.isOk++;
-        this.init();
+    this.carService.getCars().then((cars: Car[]) => {
+        this.cars = cars;
     });
 
-    this.docService.getDocs().then((docs: Doc[]) => {
-        this.docs = docs;
-        this.isOk++;
-        this.init();
+    this.punktService.getPunkts().then((punkts: Punkt[]) => {
+        this.punkts = punkts;
     });
-    this.route.params     
-      .switchMap((params: Params) => this.kategoryService.getKategory(+params['idc']))
-      .subscribe((kategory: Kategory) => {
-        this.kategory = kategory;
-        this.isOk++;
-        this.init();                    
-    });
-  }
 
-  init() {
-    if(this.isOk>2) {
-      this.selectedKateg = this.kategs.find(myObj => myObj.id === this.kategory.kateg_id);
-      this.selectedDoc = this.docs.find(myObj => myObj.id === this.kategory.doc_id);
-    }
+    this.streetService.getStreets().then((streets: Street[]) => {
+        this.streets = streets;
+    });
+
+    this.route.params
+      .switchMap((params: Params) => this.transportationService.getTransportation(+params['idc']))
+      .subscribe((transportation: Transportation) => {
+        this.transportation = transportation;
+    });
   }
 
   onSubmit() {
@@ -68,41 +61,51 @@ export class KategoryComponent implements OnInit {
       .subscribe((params: Params) => {
         const client_id = +params['id'];
 
-        if (this.kategory.id) {
-          if (this.kategory.client_id === client_id)
-            this.kategoryService.update(this.kategory)
+        if (this.transportation.id) {
+          if (this.transportation.client_id === client_id)
+            this.transportationService.update(this.transportation)
               .then(() => this.gotoBack())
           else
             this.gotoBack();
         }
         else {
-          this.kategory.client_id = client_id;
-          this.kategoryService.create(this.kategory)
+          this.transportation.client_id = client_id;
+          this.transportationService.create(this.transportation)
             .then(() => this.gotoBack());
         }
       });
   }
 
-  get selectedKategId(): number {
-    return this.kategory.kateg_id;
+  get selectedCarsId(): number {
+    return this.transportation.car_id;
   }
 
-  set selectedKategId(value: number) {
-    if(value) {
-      this.selectedKateg = this.kategs.find(myObj => myObj.id === value);
-      this.kategory.kateg_id = value;
-    }    
+  set selectedCarId(value: number) {
+    this.transportation.car_id = value;
   }
 
-  get selectedDocId(): number {
-    return this.kategory.doc_id;
+  get selectedPunktId(): number {
+    return this.transportation.punkt_id;
   }
 
-  set selectedDocId(value: number) {
-    if(value) {
-      this.selectedDoc = this.docs.find(myObj => myObj.id === value);
-      this.kategory.doc_id = value;
-    }    
+  set selectedPunktId(value: number) {
+    this.transportation.punkt_id = value;
+  }
+
+  get selectedAStreetId(): number {
+    return this.transportation.a_street_id;
+  }
+
+  set selectedAStreetId(value: number) {
+    this.transportation.a_street_id = value;
+  }
+
+  get selectedBStreetId(): number {
+    return this.transportation.b_street_id;
+  }
+
+  set selectedBStreetId(value: number) {
+    this.transportation.b_street_id = value;
   }
 
   gotoBack() {

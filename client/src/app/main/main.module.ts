@@ -9,6 +9,7 @@ import { ContactComponent }  from './contact/contact.component';
 import { ContactsComponent }  from './contacts/contacts.component';
 import { KategoryComponent }  from './kategory/kategory.component';
 import { KategoriesComponent }  from './kategories/kategories.component';
+import { TransportationComponent } from './transportation/transportation.component';
 import { TransportationsComponent } from './transportations/transportations.component';
 
 import { ClientService } from '../_services/client.service';
@@ -39,6 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ContactsComponent,
     KategoryComponent,
     KategoriesComponent,
+    TransportationComponent,
     TransportationsComponent
   ],
   providers: [ 

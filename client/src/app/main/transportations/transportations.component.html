@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody *ngIf="kategories.length">
-        <tr *ngFor="let transportation of transportations | orderBy: {property: column, direction: direction}" (click)="onSelect(kategory)">
+        <tr *ngFor="let transportation of transportations | async | orderBy: {property: column, direction: direction}" (click)="onSelect(kategory)">
             <td>{{ transportation.id }}</td>
             <td>{{ getCarName(transportation) }}</td>
             <td>{{ getPunktName(transportation) }}</td>
@@ -27,7 +27,7 @@
             <td>{{ transportation.b_dom }}{{ transportation.b_korp }}</td>
             <td>{{ transportation.b_dt | date: 'dd.MM.yyyy hh:mm' }}</td>
             <td><span class='{{ transportation.checked ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
-            <td><span class='{{ transportation.itog ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
+            <td><span class='{{ transportation.status ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
             <td (click)="onDelete(transportation); $event.stopPropagation();"><span class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
     </tbody>

@@ -8,6 +8,7 @@ import { ContactComponent }  from './contact/contact.component';
 import { ContactsComponent }  from './contacts/contacts.component';
 import { KategoryComponent }  from './kategory/kategory.component';
 import { KategoriesComponent }  from './kategories/kategories.component';
+import { TransportationComponent }  from './transportation/transportation.component';
 import { TransportationsComponent }  from './transportations/transportations.component';
 
 const clientsRoutes: Routes = [
@@ -39,7 +40,9 @@ const clientsRoutes: Routes = [
       },
       { path: 'transportation', children: [
           
-          { path: 'list', component: TransportationsComponent }
+          { path: 'list', component: TransportationsComponent },
+          { path: ':idc', component: TransportationComponent },
+          { path: '', component: TransportationComponent }
 
         ]
       }

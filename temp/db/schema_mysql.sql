@@ -2256,7 +2256,7 @@ create table transportation(
     b_dt datetime,
     checked tinyint(1) DEFAULT 0,
     comments text,
-    itog tinyint(1) DEFAULT 0,
+    status tinyint(1) DEFAULT 0,
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
     index fk_w_client (client_id ASC),

@@ -14,7 +14,7 @@ export class Transportation {
             public b_dt: number = null,
             public checked: boolean = false,
             public comments: string = null,
-            public itog: boolean = false,
+            public status: boolean = false,
             public user_id: number = null,
             public dt: number = null) { }
 }
