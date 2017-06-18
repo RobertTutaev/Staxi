@@ -25,10 +25,22 @@ if (app.get('env') === 'development') {
   }));
 }
 
-app.use(logger('dev'));
+// parse application/x-www-form-urlencoded
+//app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false}));
+// parse application/vnd.api+json as json
+//app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use(app.router);
+
+// parse various different custom JSON types as JSON 
+//app.use(bodyParser.json({ type: 'application/*+json' })) 
+// parse some custom thing into a Buffer 
+//app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }))
+// parse an HTML body into a string 
+//app.use(bodyParser.text({ type: 'text/html' }))
+
+app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({

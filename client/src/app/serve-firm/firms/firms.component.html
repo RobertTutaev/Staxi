@@ -12,7 +12,7 @@
     <tbody *ngIf="firms.length">
         <tr *ngFor="let firm of firms" (click)="onSelect(firm)">
             <td>{{ firm.id }}</td>
-            <td>{{ getTerritoryName(firm) }}</td>
+            <td>{{ firm.territory }}</td>
             <td>{{ firm.name }}</td>
             <td (click)="onDelete(firm); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
