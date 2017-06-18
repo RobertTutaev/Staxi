@@ -4,11 +4,11 @@ import { Location }               from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Kateg } from '../../_classes/kateg';
+import { Kateg } from '../../_classes/edit/kateg';
 import { KategService } from '../../_services/kateg.service';
-import { Doc } from '../../_classes/doc';
+import { Doc } from '../../_classes/edit/doc';
 import { DocService } from '../../_services/doc.service';
-import { Kategory } from '../../_classes/kategory';
+import { Kategory } from '../../_classes/edit/kategory';
 import { KategoryService } from '../../_services/kategory.service';
 
 import { MdDatepicker } from '@angular/material';

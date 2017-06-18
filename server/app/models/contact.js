@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('contacts', {
+  return sequelize.define('contact', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -12,22 +12,33 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       references: {
-        model: 'clients',
+        model: 'client',
         key: 'id'
       }
     },
-    type: {
-      type: DataTypes.INTEGER(1),
-      allowNull: true,
-      defaultValue: "0"
+    type_id: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      references: {
+        model: 'type',
+        key: 'id'
+      }
     },
-    contact: {
-      type: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING(50),
       allowNull: false
     },
     comment: {
       type: DataTypes.TEXT,
       allowNull: true
+    },
+    user_id: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      references: {
+        model: 'user',
+        key: 'id'
+      }
     },
     dt: {
       type: DataTypes.DATE,
@@ -35,6 +46,6 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
-    tableName: 'contacts'
+    tableName: 'contact'
   });
 };

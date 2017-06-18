@@ -15,8 +15,8 @@
             <th><a [routerLink]="['../']" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
-    <tbody *ngIf="kategories.length">
-        <tr *ngFor="let transportation of transportations | async | orderBy: {property: column, direction: direction}" (click)="onSelect(kategory)">
+    <tbody *ngIf="transportations.length">
+        <tr *ngFor="let transportation of transportations | orderBy: {property: column, direction: direction}" (click)="onSelect(kategory)">
             <td>{{ transportation.id }}</td>
             <td>{{ getCarName(transportation) }}</td>
             <td>{{ getPunktName(transportation) }}</td>

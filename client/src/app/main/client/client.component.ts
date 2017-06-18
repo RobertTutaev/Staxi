@@ -4,7 +4,7 @@ import { Location }               from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Client } from '../../_classes/client';
+import { Client } from '../../_classes/edit/client';
 import { ClientService } from '../../_services/client.service';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Type } from '../../_classes/type';
+import { Type } from '../../_classes/list/type';
 import { TypeService } from '../../_services/type.service';
 
 @Component({

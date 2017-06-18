@@ -5,7 +5,7 @@ import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from 
 import { MockBackend } from '@angular/http/testing';
 
 import { ClientService } from './client.service';
-import { Client } from '../_classes/client';
+import { Client } from '../_classes/list/client';
 import { Clients } from '../_mock/clients';
 
 describe('ClientService', () => {

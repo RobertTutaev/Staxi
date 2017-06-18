@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Punkt } from '../../_classes/punkt';
+import { Punkt } from '../../_classes/list/punkt';
 import { PunktService } from '../../_services/punkt.service';
 
 @Component({

@@ -12,6 +12,7 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './_mock/in-memory-data.service';
 
 import { MainModule } from './main/main.module';
+import { environment } from '../environments/environment';
 
 import { ServeTypeModule } from './serve-type/serve-type.module';
 import { ServeCarModule } from './serve-car/serve-car.module';
@@ -45,7 +46,7 @@ import { ToolsModule} from './tools/tools.module';
     ServeUserModule,
     MainModule,
     AppRoutingModule,    
-    InMemoryWebApiModule.forRoot(InMemoryDataService, {'delay': 100})
+    environment.production ? [] : InMemoryWebApiModule.forRoot(InMemoryDataService, {'delay': 100})
   ],
   providers: [],
   bootstrap: [AppComponent]

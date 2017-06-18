@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Kateg } from '../../_classes/kateg';
+import { Kateg } from '../../_classes/list/kateg';
 import { KategService } from '../../_services/kateg.service';
 
 @Component({

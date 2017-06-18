@@ -1,15 +1,14 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
-
 import 'rxjs/add/operator/toPromise';
-
-import { Territory } from '../_classes/territory';
+import { environment } from '../../environments/environment';
+import { Territory } from '../_classes/list/territory';
 
 @Injectable()
 export class TerritoryService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
-  private territoriesUrl = 'api/territories';  // URL to web api
+  private territoriesUrl = environment.myEndpoint + 'api/territory';
 
   constructor(private http: Http) {}
 

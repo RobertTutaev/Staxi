@@ -1,26 +1,26 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('raion', {
+  return sequelize.define('territory', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    city_id: {
+    territory_id: {
       type: DataTypes.INTEGER(11),
-      allowNull: false,
+      allowNull: true,
       references: {
-        model: 'city',
+        model: 'territory',
         key: 'id'
       }
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(200),
       allowNull: true
     }
   }, {
-    tableName: 'raion'
+    tableName: 'territory'
   });
 };

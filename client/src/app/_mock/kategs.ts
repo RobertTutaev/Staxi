@@ -1,4 +1,4 @@
-import { Kateg } from '../_classes/kateg';
+import { Kateg } from '../_classes/list/kateg';
 
 export let Kategs: Kateg[] = [  
   {id: 1, name: 'Дети-инвалиды с ограниченными возможностями в передвижении вследствие заболевания опорно-двигательного аппарата'},

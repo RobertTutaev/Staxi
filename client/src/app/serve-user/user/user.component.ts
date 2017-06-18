@@ -4,9 +4,9 @@ import { Location }               from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Firm } from '../../_classes/firm';
+import { Firm } from '../../_classes/list/firm';
 import { FirmService } from '../../_services/firm.service';
-import { User } from '../../_classes/user';
+import { User } from '../../_classes/list/user';
 import { UserService } from '../../_services/user.service';
 
 @Component({

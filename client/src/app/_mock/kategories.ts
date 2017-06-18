@@ -1,4 +1,4 @@
-import { Kategory } from '../_classes/kategory';
+import { Kategory } from '../_classes/list/kategory';
 
 export let Kategories: Kategory[] = [
   {

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Firm } from '../../_classes/firm';
-import { FirmService } from '../../_services/firm.service';
-import { User } from '../../_classes/user';
+import { User } from '../../_classes/list/user';
 import { UserService } from '../../_services/user.service';
 import { SController } from '../../_classes/s.controller';
 
@@ -13,26 +11,17 @@ import { SController } from '../../_classes/s.controller';
   styleUrls: ['./users.component.sass']
 })
 export class UsersComponent extends SController implements OnInit {
-  firms: Firm[] = [];
   users: User[] = [];
   
-  constructor(private raionService: FirmService,
-              private userService: UserService,
+  constructor(private userService: UserService,
               private router: Router) { super(); }
   
   ngOnInit() {
-    this.raionService.getFirms().then((firms: Firm[]) => {
-        this.firms = firms;
-        this.userService.getUsers().then((users: User[]) => this.users = users);
-      });
+    this.userService.getUsers().then((users: User[]) => this.users = users);
   }
 
   onSelect(user: User) {
     this.router.navigate(['/user', user.id]);
-  }
-
-  getFirmName(user: User): string {
-    return this.firms.find(myObj => myObj.id === user.firm_id).name;
   }
 
   onDelete(user: User) {

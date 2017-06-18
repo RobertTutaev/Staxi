@@ -1,4 +1,4 @@
-import { Type } from '../_classes/type';
+import { Type } from '../_classes/list/type';
 
 export let Types: Type[] = [
   {

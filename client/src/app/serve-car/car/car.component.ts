@@ -4,9 +4,9 @@ import { Location }               from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Territory } from '../../_classes/territory';
+import { Territory } from '../../_classes/edit/territory';
 import { TerritoryService } from '../../_services/territory.service';
-import { Car } from '../../_classes/car';
+import { Car } from '../../_classes/edit/car';
 import { CarService } from '../../_services/car.service';
 
 @Component({

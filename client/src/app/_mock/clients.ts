@@ -1,4 +1,4 @@
-import { Client } from '../_classes/client';
+import { Client } from '../_classes/list/client';
 
 export let Clients: Client[] = [
   {

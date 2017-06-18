@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('kategs', {
+  return sequelize.define('category', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       references: {
-        model: 'clients',
+        model: 'client',
         key: 'id'
       }
     },
@@ -29,11 +29,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     doc_ser: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(10),
       allowNull: true
     },
     doc_number: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       allowNull: true
     },
     doc_dt: {
@@ -49,12 +49,20 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true
     },
+    user_id: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      references: {
+        model: 'user',
+        key: 'id'
+      }
+    },
     dt: {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
-    tableName: 'kategs'
+    tableName: 'category'
   });
 };

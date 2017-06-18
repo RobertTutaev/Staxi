@@ -5,13 +5,13 @@
         <tr>
             <th (click)="onSort('id')">Код <i class="fa" [ngClass]="{'fa-sort': column != 'id', 'fa-sort-asc': (column == 'id' && isDesc), 'fa-sort-desc': (column == 'id' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('username')">Логин <i class="fa" [ngClass]="{'fa-sort': column != 'username', 'fa-sort-asc': (column == 'username' && isDesc), 'fa-sort-desc': (column == 'username' && !isDesc) }" aria-hidden="true"></i></th>
-            <th>Организация</th>
-            <th>R0</th>
-            <th>R1</th>
-            <th>R2</th>
-            <th>R3</th>
-            <th>R4</th>
-            <th>Вкл.</th>
+            <th (click)="onSort('firm')">Организация <i class="fa" [ngClass]="{'fa-sort': column != 'firm', 'fa-sort-asc': (column == 'firm' && isDesc), 'fa-sort-desc': (column == 'firm' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('role0')">R0 <i class="fa" [ngClass]="{'fa-sort': column != 'role0', 'fa-sort-asc': (column == 'role0' && isDesc), 'fa-sort-desc': (column == 'role0' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('role1')">R1 <i class="fa" [ngClass]="{'fa-sort': column != 'role1', 'fa-sort-asc': (column == 'role1' && isDesc), 'fa-sort-desc': (column == 'role1' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('role2')">R2 <i class="fa" [ngClass]="{'fa-sort': column != 'role2', 'fa-sort-asc': (column == 'role2' && isDesc), 'fa-sort-desc': (column == 'role2' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('role3')">R0 <i class="fa" [ngClass]="{'fa-sort': column != 'role3', 'fa-sort-asc': (column == 'role3' && isDesc), 'fa-sort-desc': (column == 'role3' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('role4')">R4 <i class="fa" [ngClass]="{'fa-sort': column != 'role4', 'fa-sort-asc': (column == 'role4' && isDesc), 'fa-sort-desc': (column == 'role4' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('checked')">Вкл. <i class="fa" [ngClass]="{'fa-sort': column != 'checked', 'fa-sort-asc': (column == 'checked' && isDesc), 'fa-sort-desc': (column == 'checked' && !isDesc) }" aria-hidden="true"></i></th>
             <th><a routerLink="/user" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
@@ -19,7 +19,7 @@
         <tr *ngFor="let user of users | orderBy: {property: column, direction: direction}" (click)="onSelect(user)">
             <td>{{ user.id }}</td>
             <td>{{ user.username }}</td>
-            <td>{{ getFirmName(user) }}</td>
+            <td>{{ user.firm }}</td>
             <td><span class='{{ user.role0 ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
             <td><span class='{{ user.role1 ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
             <td><span class='{{ user.role2 ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>

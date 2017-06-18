@@ -1,4 +1,4 @@
-import { Territory } from '../_classes/territory';
+import { Territory } from '../_classes/list/territory';
 
 export let Territories: Territory[] = [
   {

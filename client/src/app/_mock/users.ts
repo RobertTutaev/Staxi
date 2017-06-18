@@ -1,4 +1,4 @@
-import { User } from '../_classes/user';
+import { User } from '../_classes/list/user';
 
 export let Users: User[] = [
   {
@@ -7,6 +7,7 @@ export let Users: User[] = [
     password: null,
     confirmPassword: null,
     firm_id: 1,
+    firm: 'КСП города Челябинска',
     role0: true,
     role1: true,
     role2: true,
@@ -21,6 +22,7 @@ export let Users: User[] = [
     password: null,
     confirmPassword: null,
     firm_id: 1,
+    firm: 'КСП города Челябинска',
     role0: true,
     role1: false,
     role2: true,
@@ -35,6 +37,7 @@ export let Users: User[] = [
     password: null,
     confirmPassword: null,
     firm_id: 2,
+    firm: 'МКУ «Социальный дом ветеранов»',
     role0: true,
     role1: false,
     role2: false,
@@ -49,6 +52,7 @@ export let Users: User[] = [
     password: null,
     confirmPassword: null,
     firm_id: 2,
+    firm: 'МКУ «Социальный дом ветеранов»',
     role0: true,
     role1: false,
     role2: false,

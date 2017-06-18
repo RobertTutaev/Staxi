@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Car } from '../../_classes/car';
+import { Car } from '../../_classes/list/car';
 import { CarService } from '../../_services/car.service';
-import { Punkt } from '../../_classes/punkt';
+import { Punkt } from '../../_classes/list/punkt';
 import { PunktService } from '../../_services/punkt.service';
-import { Street } from '../../_classes/street';
+import { Street } from '../../_classes/list/street';
 import { StreetService } from '../../_services/street.service';
-import { Transportation } from '../../_classes/transportation';
+import { Transportation } from '../../_classes/list/transportation';
 import { TransportationService } from '../../_services/transportation.service';
 import { SController } from '../../_classes/s.controller';
 
@@ -17,7 +17,7 @@ import { SController } from '../../_classes/s.controller';
   styleUrls: ['./transportations.component.sass']
 })
 export class TransportationsComponent extends SController implements OnInit {
-  cars: Car[] = [];
+  cars: Car[];
   punkts: Punkt[] = [];
   streets: Street[] = [];
   transportations: Transportation[] = [];

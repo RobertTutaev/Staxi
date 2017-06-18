@@ -1,4 +1,4 @@
-import { Street } from '../_classes/street';
+import { Street } from '../_classes/list/street';
 
 export let Streets: Street[] = [
   {

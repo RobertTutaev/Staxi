@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('users', {
+  return sequelize.define('user', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -9,54 +9,51 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true
     },
     username: {
-      type: DataTypes.STRING,
-      allowNull: true
+      type: DataTypes.STRING(100),
+      allowNull: true,
+      unique: true
     },
     password: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       allowNull: true
-    },
-    inn: {
-      type: DataTypes.STRING,
-      allowNull: false
     },
     firm_id: {
       type: DataTypes.INTEGER(11),
       allowNull: true,
       references: {
-        model: 'firms',
+        model: 'firm',
         key: 'id'
       }
     },
     role0: {
       type: DataTypes.INTEGER(1),
       allowNull: true,
-      defaultValue: "1"
+      defaultValue: '1'
     },
     role1: {
       type: DataTypes.INTEGER(1),
       allowNull: true,
-      defaultValue: "0"
+      defaultValue: '0'
     },
     role2: {
       type: DataTypes.INTEGER(1),
       allowNull: true,
-      defaultValue: "0"
+      defaultValue: '0'
     },
     role3: {
       type: DataTypes.INTEGER(1),
       allowNull: true,
-      defaultValue: "0"
+      defaultValue: '0'
     },
     role4: {
       type: DataTypes.INTEGER(1),
       allowNull: true,
-      defaultValue: "0"
+      defaultValue: '0'
     },
     checked: {
       type: DataTypes.INTEGER(1),
       allowNull: true,
-      defaultValue: "0"
+      defaultValue: '0'
     },
     dt: {
       type: DataTypes.DATE,
@@ -64,6 +61,6 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
-    tableName: 'users'
+    tableName: 'user'
   });
 };

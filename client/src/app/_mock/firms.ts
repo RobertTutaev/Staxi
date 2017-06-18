@@ -1,4 +1,4 @@
-import { Firm } from '../_classes/firm';
+import { Firm } from '../_classes/list/firm';
 
 export let Firms: Firm[] = [
   {id: 1, territory_id: 1, name: 'КСП города Челябинска'},

@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('works', {
+  return sequelize.define('transportation', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       references: {
-        model: 'clients',
+        model: 'client',
         key: 'id'
       }
     },
@@ -32,14 +32,6 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
-    a_raion_id: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-      references: {
-        model: 'raion',
-        key: 'id'
-      }
-    },
     a_street_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -53,20 +45,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     a_korp: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(5),
       allowNull: true
     },
     a_dt: {
       type: DataTypes.DATE,
       allowNull: true
-    },
-    b_raion_id: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false,
-      references: {
-        model: 'raion',
-        key: 'id'
-      }
     },
     b_street_id: {
       type: DataTypes.INTEGER(11),
@@ -81,7 +65,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     b_korp: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(5),
       allowNull: true
     },
     b_dt: {
@@ -91,16 +75,24 @@ module.exports = function(sequelize, DataTypes) {
     checked: {
       type: DataTypes.INTEGER(1),
       allowNull: true,
-      defaultValue: "0"
+      defaultValue: '0'
     },
     comments: {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    itog: {
+    status: {
       type: DataTypes.INTEGER(1),
       allowNull: true,
-      defaultValue: "0"
+      defaultValue: '0'
+    },
+    user_id: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      references: {
+        model: 'user',
+        key: 'id'
+      }
     },
     dt: {
       type: DataTypes.DATE,
@@ -108,6 +100,6 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
-    tableName: 'works'
+    tableName: 'transportation'
   });
 };

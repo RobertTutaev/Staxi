@@ -17,20 +17,34 @@ import { Users } from './Users';
 export class InMemoryDataService implements InMemoryDbService {  
 
   createDb() {
-    let transportations = Transportations;
-    let kategories = Kategories;
-    let contacts = Contacts;
-    let users = Users;
-    let clients = Clients;
-    let streets = Streets;
-    let territories = Territories;
-    let kategs = Kategs;
-    let punkts = Punkts;
-    let firms = Firms;
-    let docs = Docs;
-    let cars = Cars;
-    let types = Types;
+    let transportation = Transportations;
+    let kategory = Kategories;
+    let contact = Contacts;
+    let user = Users;
+    let client = Clients;
+    let street = Streets;
+    let territory = Territories;
+    let kateg = Kategs;
+    let punkt = Punkts;
+    let firm = Firms;
+    let doc = Docs;
+    let car = Cars;
+    let type = Types;
     
-    return { transportations, kategories, clients, streets, territories, kategs, punkts, firms, docs, cars, types, users, contacts };
+    return { 
+      transportation, 
+      kategory, 
+      client, 
+      street, 
+      territory, 
+      kateg, 
+      punkt, 
+      firm, 
+      doc, 
+      car, 
+      type, 
+      user, 
+      contact
+    };
   }
 }

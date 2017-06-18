@@ -4,7 +4,7 @@ import { Location }               from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Punkt } from '../../_classes/punkt';
+import { Punkt } from '../../_classes/edit/punkt';
 import { PunktService } from '../../_services/punkt.service';
 
 @Component({

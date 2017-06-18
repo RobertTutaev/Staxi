@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Type } from '../../_classes/type';
+import { Type } from '../../_classes/list/type';
 import { TypeService } from '../../_services/type.service';
-import { Contact } from '../../_classes/contact';
+import { Contact } from '../../_classes/list/contact';
 import { ContactService } from '../../_services/contact.service';
 import { SController } from '../../_classes/s.controller';
 

@@ -1,4 +1,4 @@
-import { Contact } from '../_classes/contact';
+import { Contact } from '../_classes/list/contact';
 
 export let Contacts: Contact[] = [
   {

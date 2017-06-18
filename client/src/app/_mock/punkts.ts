@@ -1,4 +1,4 @@
-import { Punkt } from '../_classes/punkt';
+import { Punkt } from '../_classes/list/punkt';
 
 export let Punkts: Punkt[] = [
   {id: 1, name: 'Органы государственной власти и органы местного самоуправления'},

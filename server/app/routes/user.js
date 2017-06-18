@@ -3,15 +3,36 @@ var router = express.Router();
 var models = require('../models');
 var resp = require('../lib/resp');
 
-router.route('/read')
+router.route('/')
   .get(function(req, res, next) {
     
-    models.users.findAll({
-            order: ["inn"]
+    models.user.findAll({
+            order: ["id"]
         })
         .then(
-        function(values) {            
+        function(values) {
+            res.json(resp({                
+                data: values
+            }));
+        }, 
+        function(err) {
             res.json(resp({
+                rslt: false,
+                msg: 'Не удалось получить список! Ошибка: ' + err.message
+            }));
+        }
+    );
+});
+
+router.route('/:id')
+  .get(function(req, res, next) {
+    
+    models.user.findAll({
+            where: [req.params.id]
+        })
+        .then(
+        function(values) {
+            res.json(resp({                
                 data: values
             }));
         }, 
@@ -27,7 +48,7 @@ router.route('/read')
 router.route('/create')
   .post(function(req, res, next) {
       
-    models.users.create(req.body).then(
+    models.user.create(req.body).then(
         function(values) {
             res.json(resp({                
                 data: values
@@ -45,11 +66,11 @@ router.route('/create')
 router.route('/update')
   .post(function(req, res, next) {
       
-    models.users.update(
+    models.user.update(
         req.body,
         {
             where: {
-                user_id: parseInt(req.body.user_id)
+                id: parseInt(req.body.id)
             }
         }).then(
         function(values) {
@@ -69,9 +90,9 @@ router.route('/update')
 router.route('/delete')
   .post(function(req, res, next) {
       
-    models.users.destroy({
+    models.user.destroy({
             where: {
-                user_id: parseInt(req.body.user_id)
+                id: parseInt(req.body.id)
             }
         }).then(
         function() {

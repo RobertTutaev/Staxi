@@ -1,4 +1,4 @@
-import { Car } from '../_classes/car';
+import { Car } from '../_classes/list/car';
 
 export let Cars: Car[] = [
   {

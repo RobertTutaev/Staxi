@@ -8,28 +8,28 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    city_id: {
+    territory_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       references: {
-        model: 'city',
+        model: 'territory',
         key: 'id'
       }
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(200),
       allowNull: true
     },
     socr: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       allowNull: true
     },
     post: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(6),
       allowNull: true
     },
     nda: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(15),
       allowNull: true
     }
   }, {

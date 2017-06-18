@@ -1,15 +1,14 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
-
 import 'rxjs/add/operator/toPromise';
-
-import { Kategory } from '../_classes/kategory';
+import { environment } from '../../environments/environment';
+import { Kategory } from '../_classes/list/kategory';
 
 @Injectable() 
 export class KategoryService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
-  private kategoriesUrl = 'api/kategories';  // URL to web api
+  private kategoriesUrl = environment.myEndpoint + 'api/kategory';
 
   constructor(private http: Http) {}
 

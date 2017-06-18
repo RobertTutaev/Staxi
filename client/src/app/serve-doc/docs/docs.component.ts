@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Doc } from '../../_classes/doc';
+import { Doc } from '../../_classes/list/doc';
 import { DocService } from '../../_services/doc.service';
 
 @Component({

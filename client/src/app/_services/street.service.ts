@@ -1,15 +1,14 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
-
 import 'rxjs/add/operator/toPromise';
-
-import { Street } from '../_classes/street';
+import { environment } from '../../environments/environment';
+import { Street } from '../_classes/list/street';
 
 @Injectable()
 export class StreetService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
-  private streetsUrl = 'api/streets';  // URL to web api
+  private streetsUrl = environment.myEndpoint + 'api/street';
 
   constructor(private http: Http) {}
 

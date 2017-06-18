@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Territory } from '../../_classes/territory';
+import { Territory } from '../../_classes/list/territory';
 import { TerritoryService } from '../../_services/territory.service';
-import { Street } from '../../_classes/street';
+import { Street } from '../../_classes/list/street';
 import { StreetService } from '../../_services/street.service';
 
 @Component({

@@ -4,7 +4,7 @@ import { Location }               from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Type } from '../../_classes/type';
+import { Type } from '../../_classes/edit/type';
 import { TypeService } from '../../_services/type.service';
 
 @Component({

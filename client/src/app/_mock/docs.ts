@@ -1,4 +1,4 @@
-import { Doc } from '../_classes/doc';
+import { Doc } from '../_classes/list/doc';
 
 export let Docs: Doc[] = [
   {

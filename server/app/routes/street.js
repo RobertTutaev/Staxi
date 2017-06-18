@@ -3,12 +3,12 @@ var router = express.Router();
 var models = require('../models');
 var resp = require('../lib/resp');
 
-router.route('/read')
+router.route('/')
   .get(function(req, res, next) {
     
     models.street.findAll({
             attributes: ["id", "socr", "name", "post"],
-            where: {"city_id": parseInt(1)},//req.body.city_id)},
+            where: {"territory_id": parseInt(1)},//req.body.city_id)},
             order: ["name", "socr"]
         })
         .then(

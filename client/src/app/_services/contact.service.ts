@@ -1,15 +1,14 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
-
 import 'rxjs/add/operator/toPromise';
-
-import { Contact } from '../_classes/contact';
+import { environment } from '../../environments/environment';
+import { Contact } from '../_classes/list/contact';
 
 @Injectable() 
 export class ContactService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
-  private contactsUrl = 'api/contacts';  // URL to web api
+  private contactsUrl = environment.myEndpoint + 'api/contact';
 
   constructor(private http: Http) {}
 
