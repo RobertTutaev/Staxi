@@ -3,17 +3,18 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Doc } from '../../_classes/list/doc';
 import { DocService } from '../../_services/doc.service';
+import { SController } from '../../_classes/s.controller';
 
 @Component({
   selector: 'doc-docs',
   templateUrl: './docs.component.html',
   styleUrls: ['./docs.component.sass']
 })
-export class DocsComponent implements OnInit {
+export class DocsComponent extends SController implements OnInit {
   docs: Doc[] = [];
   
   constructor(private docService: DocService,
-              private router: Router) { }
+              private router: Router) { super(); }
   
   ngOnInit() {
     this.docService.getDocs().then((docs: Doc[]) => this.docs = docs);

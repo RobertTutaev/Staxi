@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     mask: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: true
     },
     placeholder: {
       type: DataTypes.STRING(255),

@@ -4,7 +4,7 @@ import { Location }               from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Doc } from '../../_classes/edit/doc';
+import { Doc } from '../../_classes/list/doc';
 import { DocService } from '../../_services/doc.service';
 
 @Component({

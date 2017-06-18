@@ -4,9 +4,9 @@ import { Location }               from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Type } from '../../_classes/edit/type';
+import { Type } from '../../_classes/list/type';
 import { TypeService } from '../../_services/type.service';
-import { Contact } from '../../_classes/edit/contact';
+import { Contact } from '../../_classes/list/contact';
 import { ContactService } from '../../_services/contact.service';
 
 @Component({

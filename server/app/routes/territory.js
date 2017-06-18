@@ -6,14 +6,23 @@ var resp = require('../lib/resp');
 router.route('/')
   .get(function(req, res, next) {
     
-    models.street.findAll({
-            attributes: ["id", "socr", "name", "post"],
-            where: {"territory_id": parseInt(1)},//req.body.city_id)},
-            order: ["name", "socr"]
-        })
-        .then(
-        function(values) {            
+    models.sequelize.query(
+        "SELECT a.*, b.name as territory FROM territory a left join territory b on a.territory_id = b.id", models.record)
+
+        .spread(function(values, metadata) {
             res.json(resp({
+                data: values
+            }));
+        });
+});
+
+router.route('/:id')
+  .get(function(req, res, next) {
+    
+    models.territory.findById( parseInt(req.params.id) )
+        .then(
+        function(values) {
+            res.json(resp({                
                 data: values
             }));
         }, 
@@ -26,15 +35,15 @@ router.route('/')
     );
 });
 
-router.route('/create')
-  .post(function(req, res, next) {
-      
-    models.street.create(req.body).then(
+router.route('/')
+  .post(function(req, res) {
+    console.log(req.body);
+    models.territory.create(req.body).then(
         function(values) {
-            res.json(resp({                
+            res.json(resp({
                 data: values
             }));
-        }, 
+        },
         function(err) {
             res.json(resp({
                 rslt: false,
@@ -44,21 +53,21 @@ router.route('/create')
     );
 });
 
-router.route('/update')
-  .post(function(req, res, next) {
+router.route('/:id')
+  .put(function(req, res, next) {
       
-    models.street.update(
+    models.territory.update(
         req.body,
         {
             where: {
-                id: parseInt(req.body.id)
+                id: parseInt( parseInt(req.params.id) )
             }
         }).then(
         function(values) {
             res.json(resp({
                 data: values
             }));
-        }, 
+        },
         function(err) {
             res.json(resp({
                 rslt: false,
@@ -68,12 +77,12 @@ router.route('/update')
     );
 });
 
-router.route('/delete')
-  .post(function(req, res, next) {
+router.route('/:id')
+  .delete(function(req, res, next) {
       
-    models.street.destroy({
+    models.territory.destroy({
             where: {
-                id: parseInt(req.body.id)
+                id: parseInt( parseInt(req.params.id) )
             }
         }).then(
         function() {

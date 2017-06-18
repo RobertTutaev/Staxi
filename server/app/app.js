@@ -1,4 +1,3 @@
-
 'use strict';
 
 var env             = process.env.NODE_ENV || 'development';
@@ -16,8 +15,7 @@ var models          = require('./models/index');
 var config          = require('./config/config.json')[env];
 var app             = express();
 var cors            = require('cors');
-var resp            = require('./lib/resp');
-                      require('./routes')(app);
+var resp            = require('./lib/resp');                     
 
 if (app.get('env') === 'development') {
   app.use(require('connect-livereload')({
@@ -25,20 +23,9 @@ if (app.get('env') === 'development') {
   }));
 }
 
-// parse application/x-www-form-urlencoded
-//app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/json
-app.use(bodyParser.json());
-// parse application/vnd.api+json as json
-//app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
-app.use(app.router);
-
-// parse various different custom JSON types as JSON 
-//app.use(bodyParser.json({ type: 'application/*+json' })) 
-// parse some custom thing into a Buffer 
-//app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }))
-// parse an HTML body into a string 
-//app.use(bodyParser.text({ type: 'text/html' }))
+app.use(bodyParser.urlencoded({ extended: false }));// parse application/x-www-form-urlencoded
+app.use(bodyParser.json());                         // parse application/json
+require('./routes')(app);
 
 app.use(logger('dev'));
 app.use(cookieParser());
@@ -49,7 +36,7 @@ app.use(session({
     resave: true}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors());//{origin: '*'}
+app.use(cors());    // {origin: '*'}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

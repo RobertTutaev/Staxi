@@ -4,10 +4,10 @@
     <dl>
         <dt>Название*</dt>
         <dd><input type="text" name="name" [(ngModel)]="type.name" placeholder="Название" required #name="ngModel" maxlength="50"></dd>
-        <dt>Маска*</dt>
-        <dd><input type="text" name="mask" [(ngModel)]="type.mask" placeholder="..\d\d$" required #name="ngModel" maxlength="255"></dd>
+        <dt>Маска</dt>
+        <dd><input type="text" name="mask" [(ngModel)]="type.mask" placeholder="..\d\d$" #name="ngModel" maxlength="255"></dd>
         <dt>Placeholder</dt>
-        <dd><input type="text" name="placeholder" [(ngModel)]="type.placeholder" placeholder="nn.." required #name="ngModel" maxlength="255"></dd>
+        <dd><input type="text" name="placeholder" [(ngModel)]="type.placeholder" placeholder="nn.." #name="ngModel" maxlength="255"></dd>
         <dt>CSS</dt>
         <dd><input type="text" name="style" [(ngModel)]="type.style" placeholder="glyphicon glyphicon-.." #name="ngModel" maxlength="255"></dd>
         

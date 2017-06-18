@@ -1,14 +1,14 @@
 import 'rxjs/add/operator/switchMap';
-import { Location }               from '@angular/common';
+import { Location } from '@angular/common';
 
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Kateg } from '../../_classes/edit/kateg';
+import { Kateg } from '../../_classes/list/kateg';
 import { KategService } from '../../_services/kateg.service';
-import { Doc } from '../../_classes/edit/doc';
+import { Doc } from '../../_classes/list/doc';
 import { DocService } from '../../_services/doc.service';
-import { Kategory } from '../../_classes/edit/kategory';
+import { Kategory } from '../../_classes/list/kategory';
 import { KategoryService } from '../../_services/kategory.service';
 
 import { MdDatepicker } from '@angular/material';

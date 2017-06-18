@@ -3,8 +3,8 @@
 <table class="table table-hover table-list">
     <thead>
         <tr>
-            <th>Код</th>
-            <th>Название</th>
+            <th (click)="onSort('id')">Код <i class="fa" [ngClass]="{'fa-sort': column != 'id', 'fa-sort-asc': (column == 'id' && isDesc), 'fa-sort-desc': (column == 'id' && !isDesc) }" aria-hidden="true"></i></th>
+            <th  (click)="onSort('name')">Название <i class="fa" [ngClass]="{'fa-sort': column != 'name', 'fa-sort-asc': (column == 'name' && isDesc), 'fa-sort-desc': (column == 'name' && !isDesc) }" aria-hidden="true"></i></th>
             <th>Маска</th>
             <th>Placeholder</th>
             <th>CSS</th>
@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody *ngIf="types.length">
-        <tr *ngFor="let type of types" (click)="onSelect(type)">
+        <tr *ngFor="let type of types | orderBy: {property: column, direction: direction}" (click)="onSelect(type)">
             <td>{{ type.id }}</td>
             <td>{{ type.name }}</td>
             <td>{{ type.mask }}</td>

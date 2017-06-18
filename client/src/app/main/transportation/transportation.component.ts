@@ -4,13 +4,13 @@ import { Location }               from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Car } from '../../_classes/edit/car';
+import { Car } from '../../_classes/list/car';
 import { CarService } from '../../_services/car.service';
-import { Punkt } from '../../_classes/edit/punkt';
+import { Punkt } from '../../_classes/list/punkt';
 import { PunktService } from '../../_services/punkt.service';
-import { Street } from '../../_classes/edit/street';
+import { Street } from '../../_classes/list/street';
 import { StreetService } from '../../_services/street.service';
-import { Transportation } from '../../_classes/edit/transportation';
+import { Transportation } from '../../_classes/list/transportation';
 import { TransportationService } from '../../_services/transportation.service';
 
 import { MdDatepicker } from '@angular/material';

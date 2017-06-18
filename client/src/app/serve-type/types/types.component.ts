@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-
 import { Type } from '../../_classes/list/type';
 import { TypeService } from '../../_services/type.service';
+import { SController } from '../../_classes/s.controller';
 
 @Component({
   selector: 'type-types',
   templateUrl: './types.component.html',
   styleUrls: ['./types.component.sass']
 })
-export class TypesComponent implements OnInit {
+export class TypesComponent extends SController implements OnInit {
   types: Type[] = [];
   
   constructor(private typeService: TypeService,
-              private router: Router) { }
+              private router: Router) { super(); }
   
   ngOnInit() {
     this.typeService.getTypes().then((types: Type[]) => this.types = types);

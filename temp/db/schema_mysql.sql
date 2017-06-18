@@ -2178,7 +2178,7 @@ create table client(
 create table type(
     id integer primary key auto_increment,
     name varchar(50) not null,
-    mask varchar(255) not null,
+    mask varchar(255),
     placeholder varchar(255), 
     style varchar(255)
 )engine=innodb;

@@ -3,15 +3,15 @@ var router = express.Router();
 var models = require('../models');
 var resp = require('../lib/resp');
 
-router.route('/read')
+router.route('/')
   .get(function(req, res, next) {
     
-    models.clients.findAll({
-            order: ["inn"]
+    models.type.findAll({
+            order: ["id"]
         })
         .then(
-        function(values) {            
-            res.json(resp({
+        function(values) {
+            res.json(resp({                
                 data: values
             }));
         }, 
@@ -24,15 +24,34 @@ router.route('/read')
     );
 });
 
-router.route('/create')
-  .post(function(req, res, next) {
-      
-    models.clients.create(req.body).then(
+router.route('/:id')
+  .get(function(req, res, next) {
+    
+    models.type.findById( parseInt(req.params.id) )
+        .then(
         function(values) {
             res.json(resp({                
                 data: values
             }));
         }, 
+        function(err) {
+            res.json(resp({
+                rslt: false,
+                msg: 'Не удалось получить список! Ошибка: ' + err.message
+            }));
+        }
+    );
+});
+
+router.route('/')
+  .post(function(req, res) {
+    console.log(req.body);
+    models.type.create(req.body).then(
+        function(values) {
+            res.json(resp({
+                data: values
+            }));
+        },
         function(err) {
             res.json(resp({
                 rslt: false,
@@ -42,21 +61,21 @@ router.route('/create')
     );
 });
 
-router.route('/update')
-  .post(function(req, res, next) {
+router.route('/:id')
+  .put(function(req, res, next) {
       
-    models.clients.update(
+    models.type.update(
         req.body,
         {
             where: {
-                client_id: parseInt(req.body.client_id)
+                id: parseInt( parseInt(req.params.id) )
             }
         }).then(
         function(values) {
             res.json(resp({
                 data: values
             }));
-        }, 
+        },
         function(err) {
             res.json(resp({
                 rslt: false,
@@ -66,12 +85,12 @@ router.route('/update')
     );
 });
 
-router.route('/delete')
-  .post(function(req, res, next) {
+router.route('/:id')
+  .delete(function(req, res, next) {
       
-    models.clients.destroy({
+    models.type.destroy({
             where: {
-                client_id: parseInt(req.body.client_id)
+                id: parseInt( parseInt(req.params.id) )
             }
         }).then(
         function() {

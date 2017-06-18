@@ -4,7 +4,7 @@ import { Location }               from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Kateg } from '../../_classes/edit/kateg';
+import { Kateg } from '../../_classes/list/kateg';
 import { KategService } from '../../_services/kateg.service';
 
 @Component({

@@ -3,17 +3,18 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Kateg } from '../../_classes/list/kateg';
 import { KategService } from '../../_services/kateg.service';
+import { SController } from '../../_classes/s.controller';
 
 @Component({
   selector: 'kateg-kategs',
   templateUrl: './kategs.component.html',
   styleUrls: ['./kategs.component.sass']
 })
-export class KategsComponent implements OnInit {
+export class KategsComponent extends SController implements OnInit {
   kategs: Kateg[] = [];
   
   constructor(private kategService: KategService,
-              private router: Router) { }
+              private router: Router) { super(); }
   
   ngOnInit() {
     this.kategService.getKategs().then((kategs: Kateg[]) => this.kategs = kategs);
