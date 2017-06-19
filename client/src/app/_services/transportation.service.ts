@@ -13,9 +13,9 @@ export class TransportationService {
   constructor(private http: Http) {}
 
   getTransportations(id: number): Promise<Transportation[]> {
-    const url = `${this.transportationsUrl}?client_id=${id}`;
+    const url = `${this.transportationsUrl}/c${id}`;
 
-    return this.http.get(this.transportationsUrl)
+    return this.http.get(url)
                .toPromise()
                .then(response => response.json().data as Transportation[])
                .catch(this.handleError);

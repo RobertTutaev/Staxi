@@ -2,15 +2,15 @@
     <dl>
         <dt>Автотранспорт*</dt> 
         <dd><select name="car" [(ngModel)]="selectedCarId" required>
-                <option *ngFor="let car of cars || async" [ngValue]="car.id">{{car.name}}</option>
+                <option *ngFor="let car of cars" [ngValue]="car.id">{{car.name}}</option>
             </select></dd>
         <dt>Пункт доставки*</dt>
         <dd><select name="car" [(ngModel)]="selectedPunktId" required>
-                <option *ngFor="let punkt of punkts || async" [ngValue]="punkt.id">{{punkt.name}}</option>
+                <option *ngFor="let punkt of punkts" [ngValue]="punkt.id">{{punkt.name}}</option>
             </select></dd>
         <dt>A.Улица*</dt>
         <dd><select name="a_street" [(ngModel)]="selectedAStreetId" required>
-                <option *ngFor="let street of streets || async" [ngValue]="street.id">{{street.name}} {{street.socr}}</option>
+                <option *ngFor="let street of streets" [ngValue]="street.id">{{street.name}} {{street.socr}}</option>
             </select></dd>
         <dt>A.Дом*</dt>
         <dd><input type="text" name="a_dom" [(ngModel)]="transportation.a_dom" #a_dom="ngModel" maxlength="4" placeholder="Дом" required>
@@ -18,8 +18,8 @@
                 Необходимо корректное значение
             </small></dd>
         <dt>A.Корп</dt>
-        <dd><input type="text" name="a_korp" [(ngModel)]="transportation.a_korp" #a_dom="ngModel" maxlength="4" placeholder="Корп">
-            <small [hidden]="a_dom.valid || a_dom.pristine">
+        <dd><input type="text" name="a_korp" [(ngModel)]="transportation.a_korp" #a_korp="ngModel" maxlength="4" placeholder="Корп">
+            <small [hidden]="a_korp.valid || a_korp.pristine">
                 Необходимо корректное значение
             </small></dd>
         <dt>А.Дата*</dt>
@@ -31,22 +31,22 @@
             </small></dd>
         <dt>Б.Улица*</dt>
         <dd><select name="b_street" [(ngModel)]="selectedBStreetId" required>
-                <option *ngFor="let street of streets || async" [ngValue]="street.id">{{street.name}} {{street.socr}}</option>
+                <option *ngFor="let street of streets" [ngValue]="street.id">{{street.name}} {{street.socr}}</option>
             </select></dd>
         <dt>Б.Дом*</dt>
-        <dd><input type="text" name="b_dom" [(ngModel)]="transportation.b_dom" #a_dom="ngModel" maxlength="4" placeholder="Дом" required>
+        <dd><input type="text" name="b_dom" [(ngModel)]="transportation.b_dom" #b_dom="ngModel" maxlength="4" placeholder="Дом" required>
             <small [hidden]="b_dom.valid || b_dom.pristine">
                 Необходимо корректное значение
             </small></dd>
         <dt>Б.Корп</dt>
-        <dd><input type="text" name="b_korp" [(ngModel)]="transportation.b_korp" #a_dom="ngModel" maxlength="4" placeholder="Корп">
-            <small [hidden]="b_dom.valid || b_dom.pristine">
+        <dd><input type="text" name="b_korp" [(ngModel)]="transportation.b_korp" #b_korp="ngModel" maxlength="4" placeholder="Корп">
+            <small [hidden]="b_korp.valid || b_korp.pristine">
                 Необходимо корректное значение
             </small></dd>
         <dt>Б.Дата*</dt>
-        <dd><input mdInput type="text" id="dateBDt" readonly="readonly" [mdDatepicker]="pickerBDt" name="b_dt" [(ngModel)]="transportation.a_dt" #a_dt="ngModel" placeholder="Дата" required>
+        <dd><input mdInput type="text" id="dateBDt" readonly="readonly" [mdDatepicker]="pickerBDt" name="b_dt" [(ngModel)]="transportation.b_dt" #b_dt="ngModel" placeholder="Дата" required>
             <button mdSuffix [mdDatepickerToggle]="pickerDocDt"></button>
-            <md-datepicker #pickerADt></md-datepicker>
+            <md-datepicker #pickerBDt></md-datepicker>
             <small [hidden]="b_dt.valid || b_dt.pristine">
                 Необходимо корректное значение
             </small></dd>
