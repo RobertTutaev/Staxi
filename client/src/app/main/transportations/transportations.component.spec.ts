@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { TransportationsComponent } from './transportations.component';
 
-describe('KategoriesComponent', () => {
+describe('CategoriesComponent', () => {
   let component: TransportationsComponent;
   let fixture: ComponentFixture<TransportationsComponent>;
 

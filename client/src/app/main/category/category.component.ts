@@ -8,17 +8,17 @@ import { Kateg } from '../../_classes/list/kateg';
 import { KategService } from '../../_services/kateg.service';
 import { Doc } from '../../_classes/list/doc';
 import { DocService } from '../../_services/doc.service';
-import { Kategory } from '../../_classes/list/kategory';
-import { KategoryService } from '../../_services/kategory.service';
+import { Category } from '../../_classes/list/category';
+import { CategoryService } from '../../_services/category.service';
 
 import { MdDatepicker } from '@angular/material';
 
 @Component({
-  selector: 'kategory',
-  templateUrl: './kategory.component.html',
-  styleUrls: ['./kategory.component.sass']
+  selector: 'category',
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.sass']
 })
-export class KategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit {
   dt: string = '01.01.2000';
 
   selectedKateg: Kateg = new Kateg();
@@ -26,11 +26,11 @@ export class KategoryComponent implements OnInit {
   selectedDoc: Doc = new Doc();
   docs: Doc[] = [];
   isOk: number = 0;
-  kategory: Kategory = new Kategory();
+  category: Category = new Category();
   
   constructor(private kategService: KategService,
               private docService: DocService,
-              private kategoryService: KategoryService,
+              private categoryService: CategoryService,
               private route: ActivatedRoute,
               private router: Router,
               private location: Location) { }
@@ -48,9 +48,9 @@ export class KategoryComponent implements OnInit {
         this.init();
     });
     this.route.params     
-      .switchMap((params: Params) => this.kategoryService.getKategory(+params['idc']))
-      .subscribe((kategory: Kategory) => {
-        this.kategory = kategory;
+      .switchMap((params: Params) => this.categoryService.getCategory(+params['idc']))
+      .subscribe((category: Category) => {
+        this.category = category;
         this.isOk++;
         this.init();                    
     });
@@ -58,8 +58,8 @@ export class KategoryComponent implements OnInit {
 
   init() {
     if(this.isOk>2) {
-      this.selectedKateg = this.kategs.find(myObj => myObj.id === this.kategory.kateg_id);
-      this.selectedDoc = this.docs.find(myObj => myObj.id === this.kategory.doc_id);
+      this.selectedKateg = this.kategs.find(myObj => myObj.id === this.category.kateg_id);
+      this.selectedDoc = this.docs.find(myObj => myObj.id === this.category.doc_id);
     }
   }
 
@@ -68,40 +68,40 @@ export class KategoryComponent implements OnInit {
       .subscribe((params: Params) => {
         const client_id = +params['id'];
 
-        if (this.kategory.id) {
-          if (this.kategory.client_id === client_id)
-            this.kategoryService.update(this.kategory)
+        if (this.category.id) {
+          if (this.category.client_id === client_id)
+            this.categoryService.update(this.category)
               .then(() => this.gotoBack())
           else
             this.gotoBack();
         }
         else {
-          this.kategory.client_id = client_id;
-          this.kategoryService.create(this.kategory)
+          this.category.client_id = client_id;
+          this.categoryService.create(this.category)
             .then(() => this.gotoBack());
         }
       });
   }
 
   get selectedKategId(): number {
-    return this.kategory.kateg_id;
+    return this.category.kateg_id;
   }
 
   set selectedKategId(value: number) {
     if(value) {
       this.selectedKateg = this.kategs.find(myObj => myObj.id === value);
-      this.kategory.kateg_id = value;
+      this.category.kateg_id = value;
     }    
   }
 
   get selectedDocId(): number {
-    return this.kategory.doc_id;
+    return this.category.doc_id;
   }
 
   set selectedDocId(value: number) {
     if(value) {
       this.selectedDoc = this.docs.find(myObj => myObj.id === value);
-      this.kategory.doc_id = value;
+      this.category.doc_id = value;
     }    
   }
 

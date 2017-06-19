@@ -7,8 +7,9 @@ router.route('/')
   .get(function(req, res, next) {
     
     models.sequelize.query(
-        "SELECT a.*, b.name as firm FROM user a left join firm b on a.firm_id = b.id", models.value )
-        
+        "SELECT a.*, b.name as street, trim(concat(c.first_name,' ',c.last_name)) as user "+
+        "FROM client a left join street b on a.street_id = b.id join user c on a.user_id = c.id", models.value )
+
         .spread(function(values, metadata) {
             res.json(resp({
                 data: values
@@ -19,7 +20,7 @@ router.route('/')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.user.findById( parseInt(req.params.id) )
+    models.client.findById( parseInt(req.params.id) )
         .then(
         function(values) {
             res.json(resp({                
@@ -36,9 +37,9 @@ router.route('/:id')
 });
 
 router.route('/')
-  .post(function(req, res, next) {
-      
-    models.user.create(req.body).then(
+  .post(function(req, res) {
+    req.body.user_id=1;
+    models.client.create(req.body).then(
         function(values) {
             res.json(resp({
                 data: values
@@ -56,7 +57,7 @@ router.route('/')
 router.route('/:id')
   .put(function(req, res, next) {
       
-    models.user.update(
+    models.client.update(
         req.body,
         {
             where: {
@@ -80,14 +81,14 @@ router.route('/:id')
 router.route('/:id')
   .delete(function(req, res, next) {
       
-    models.user.destroy({
+    models.client.destroy({
             where: {
                 id: parseInt( parseInt(req.params.id) )
             }
         }).then(
         function() {
             res.json(resp());
-        }, 
+        },
         function(err) {
             res.json(resp({
                 msg: 'Не удалось удалить! Ошибка: ' + err.message

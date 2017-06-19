@@ -1,20 +1,24 @@
 <h4 class="h4-sprav">Справочник: <span class="h4-sprav-span">Улицы</span></h4>
 
+<div class="form-group">
+  <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Название" maxlength="100">
+</div>
+
 <table class="table table-hover table-list">
     <thead>
         <tr>
-            <th>Код</th>
-            <th>Территория</th>            
-            <th>Название</th>
+            <th (click)="onSort('id')">Код <i class="fa" [ngClass]="{'fa-sort': column != 'id', 'fa-sort-asc': (column == 'id' && isDesc), 'fa-sort-desc': (column == 'id' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('territory')">Территория <i class="fa" [ngClass]="{'fa-sort': column != 'territory', 'fa-sort-asc': (column == 'territory' && isDesc), 'fa-sort-desc': (column == 'territory' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('name')">Название <i class="fa" [ngClass]="{'fa-sort': column != 'name', 'fa-sort-asc': (column == 'name' && isDesc), 'fa-sort-desc': (column == 'name' && !isDesc) }" aria-hidden="true"></i></th>
             <th>Сокр.</th>
-            <th>Индекс</th>            
+            <th (click)="onSort('post')">Индекс <i class="fa" [ngClass]="{'fa-sort': column != 'post', 'fa-sort-asc': (column == 'post' && isDesc), 'fa-sort-desc': (column == 'post' && !isDesc) }" aria-hidden="true"></i></th>
             <th><a routerLink="/street" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
     <tbody *ngIf="streets.length">
-        <tr *ngFor="let street of streets" (click)="onSelect(street)">
+        <tr *ngFor="let street of streets | filter: {property: 'name', value: searchText} | orderBy: {property: column, direction: direction}" (click)="onSelect(street)">
             <td>{{ street.id }}</td>
-            <td>{{ getTerritoryName(street) }}</td>
+            <td>{{ street.territory }}</td>
             <td>{{ street.name }}</td>
             <td>{{ street.socr }}</td>            
             <td>{{ street.post }}</td>            

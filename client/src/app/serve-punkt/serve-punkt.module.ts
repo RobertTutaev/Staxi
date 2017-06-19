@@ -4,13 +4,13 @@ import { FormsModule }    from '@angular/forms';
 
 import { PunktsComponent }    from './punkts/punkts.component';
 import { PunktComponent }  from './punkt/punkt.component';
-
 import { PunktService } from '../_services/punkt.service';
-
 import { ServePunktRoutingModule } from './serve-punkt.routing.module';
+import { ToolsModule } from '../tools/tools.module';
 
 @NgModule({
   imports: [
+    ToolsModule,
     CommonModule,
     FormsModule,
     ServePunktRoutingModule

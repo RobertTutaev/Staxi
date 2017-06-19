@@ -17,6 +17,16 @@
             <small [hidden]="confirmPassword.valid || confirmPassword.pristine">
                 Пароли не совпадают
             </small></dd>
+        <dt>И.О.*</dt>
+        <dd><input type="text" name="first_name" [(ngModel)]="user.first_name" placeholder="И.О." required #first_name="ngModel" maxlength="100">
+            <small [hidden]="first_name.valid || first_name.pristine">
+                Необходимы корректные И.О.
+            </small></dd>
+        <dt>Фамилия*</dt>
+        <dd><input type="text" name="last_name" [(ngModel)]="user.last_name" placeholder="Фамилия" required #last_name="ngModel" maxlength="100">
+            <small [hidden]="last_name.valid || last_name.pristine">
+                Необходима корректная фамилия
+            </small></dd>
         <dt>Организация*</dt> 
         <dd>
             <select name="firm" [(ngModel)]="selectedFirmId" required>

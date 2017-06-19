@@ -1,38 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Territory } from '../../_classes/list/territory';
-import { TerritoryService } from '../../_services/territory.service';
-
 import { Car } from '../../_classes/list/car';
 import { CarService } from '../../_services/car.service';
+import { SController } from '../../_classes/s.controller';
 
 @Component({
   selector: 'car-cars',
   templateUrl: './cars.component.html',
   styleUrls: ['./cars.component.sass']
 })
-export class CarsComponent implements OnInit {
+export class CarsComponent extends SController implements OnInit {
   cars: Car[] = [];
-  territories: Territory[] = [];
   
-  constructor(private territoryService: TerritoryService,
-              private carService: CarService,
-              private router: Router) { }
+  constructor(private carService: CarService,
+              private router: Router) { super(); }
   
   ngOnInit() {
-    this.territoryService.getTerritories().then((territories: Territory[]) => {
-      this.territories = territories;
-      this.carService.getCars().then((cars: Car[]) => this.cars = cars);
-    })    
+    this.carService.getCars().then((cars: Car[]) => this.cars = cars);
   }
 
   onSelect(car: Car) {
     this.router.navigate(['/car', car.id]);
-  }
-
-  getTerritoryName(car: Car): string {
-    return this.territories.find(myObj => myObj.id === car.territory_id).name;
   }
 
   onDelete(car: Car) {

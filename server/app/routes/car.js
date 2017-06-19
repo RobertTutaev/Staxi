@@ -7,8 +7,8 @@ router.route('/')
   .get(function(req, res, next) {
     
     models.sequelize.query(
-        "SELECT a.*, b.name as firm FROM user a left join firm b on a.firm_id = b.id", models.value )
-        
+        "SELECT a.*, b.name as territory FROM car a left join territory b on a.territory_id = b.id", models.value )
+
         .spread(function(values, metadata) {
             res.json(resp({
                 data: values
@@ -19,7 +19,7 @@ router.route('/')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.user.findById( parseInt(req.params.id) )
+    models.car.findById( parseInt(req.params.id) )
         .then(
         function(values) {
             res.json(resp({                
@@ -36,9 +36,9 @@ router.route('/:id')
 });
 
 router.route('/')
-  .post(function(req, res, next) {
-      
-    models.user.create(req.body).then(
+  .post(function(req, res) { 
+    
+    models.car.create(req.body).then(
         function(values) {
             res.json(resp({
                 data: values
@@ -56,7 +56,7 @@ router.route('/')
 router.route('/:id')
   .put(function(req, res, next) {
       
-    models.user.update(
+    models.car.update(
         req.body,
         {
             where: {
@@ -80,7 +80,7 @@ router.route('/:id')
 router.route('/:id')
   .delete(function(req, res, next) {
       
-    models.user.destroy({
+    models.car.destroy({
             where: {
                 id: parseInt( parseInt(req.params.id) )
             }

@@ -45,7 +45,7 @@ router.route('/:id')
 
 router.route('/')
   .post(function(req, res) {
-    console.log(req.body);
+      
     models.type.create(req.body).then(
         function(values) {
             res.json(resp({

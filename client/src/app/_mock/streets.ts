@@ -3,7 +3,8 @@ import { Street } from '../_classes/list/street';
 export let Streets: Street[] = [
   {
     id: 1,
-    territory_id: 1,    
+    territory_id: 1,
+    territory: 'Челябинск',    
     name: 'Ленина', 
     socr: 'пр-кт',
     post: '454020',
@@ -11,7 +12,8 @@ export let Streets: Street[] = [
   },
   {
     id: 2,
-    territory_id: 1,    
+    territory_id: 1,
+    territory: 'Челябинск',
     name: 'Давыдова', 
     socr: 'пр-кт',
     post: '454077',
@@ -19,7 +21,8 @@ export let Streets: Street[] = [
   },
   {
     id: 3,
-    territory_id: 1,    
+    territory_id: 1,
+    territory: 'Челябинск',
     name: 'Сталелитейная', 
     socr: 'ул',
     post: '454023',
@@ -27,23 +30,26 @@ export let Streets: Street[] = [
   },
   {
     id: 4,
-    territory_id: 1,    
-    name: 'Победы', 
+    territory_id: 1,
+    territory: 'Челябинск',
+    name: 'Победы',
     socr: 'пр-кт',
     post: '454011',
     nda: null
   },
   {
     id: 5,
-    territory_id: 1,    
-    name: 'Доватора', 
+    territory_id: 1,
+    territory: 'Челябинск',
+    name: 'Доватора',
     socr: 'ул',
     post: '454017',
     nda: null
   }, 
   {
     id: 6,
-    territory_id: 1,    
+    territory_id: 1,
+    territory: 'Челябинск',
     name: 'Трубопрокатная', 
     socr: 'ул',
     post: '454123',
@@ -51,7 +57,8 @@ export let Streets: Street[] = [
   },
   {
     id: 7,
-    territory_id: 1,    
+    territory_id: 1,
+    territory: 'Челябинск',
     name: 'Свердловский', 
     socr: 'пр-кт',
     post: '454089',
@@ -59,7 +66,8 @@ export let Streets: Street[] = [
   },
   {
     id: 8,
-    territory_id: 1,    
+    territory_id: 1,
+    territory: 'Челябинск',
     name: 'Дружинная', 
     socr: 'ул',
     post: '454217',

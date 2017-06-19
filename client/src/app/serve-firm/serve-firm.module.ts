@@ -4,13 +4,13 @@ import { FormsModule }    from '@angular/forms';
 
 import { FirmsComponent }    from './firms/firms.component';
 import { FirmComponent }  from './firm/firm.component';
-
 import { FirmService } from '../_services/firm.service';
-
 import { ServeFirmRoutingModule } from './serve-firm.routing.module';
+import { ToolsModule } from '../tools/tools.module';
 
 @NgModule({
   imports: [
+    ToolsModule,
     CommonModule,
     FormsModule,
     ServeFirmRoutingModule

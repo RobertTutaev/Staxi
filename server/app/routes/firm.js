@@ -6,22 +6,14 @@ var resp = require('../lib/resp');
 router.route('/')
   .get(function(req, res, next) {
     
-    models.firm.findAll({
-            order: ["id"]
-        })
-        .then(
-        function(values) {
-            res.json(resp({                
+    models.sequelize.query(
+        "SELECT a.*, b.name as territory FROM firm a left join territory b on a.territory_id = b.id", models.value )
+
+        .spread(function(values, metadata) {
+            res.json(resp({
                 data: values
             }));
-        }, 
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось получить список! Ошибка: ' + err.message
-            }));
-        }
-    );
+        });
 });
 
 router.route('/:id')

@@ -6,7 +6,7 @@ import { DocsComponent }    from './docs/docs.component';
 import { DocComponent }  from './doc/doc.component';
 import { DocService } from '../_services/doc.service';
 import { ServeDocRoutingModule } from './serve-doc.routing.module';
-import { ToolsModule} from '../tools/tools.module';
+import { ToolsModule } from '../tools/tools.module';
 
 @NgModule({
   imports: [

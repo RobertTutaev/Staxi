@@ -2,62 +2,62 @@ import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
-import { Kategory } from '../_classes/list/kategory';
+import { Category } from '../_classes/list/category';
 
 @Injectable() 
-export class KategoryService {
+export class CategoryService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
-  private kategoriesUrl = environment.myEndpoint + 'api/kategory';
+  private categoriesUrl = environment.myEndpoint + 'api/category';
 
   constructor(private http: Http) {}
 
-  getKategories(id: number): Promise<Kategory[]> {
-    const url = `${this.kategoriesUrl}?client_id=${id}`;
+  getCategories(id: number): Promise<Category[]> {
+    const url = `${this.categoriesUrl}/c${id}`;
 
-    return this.http.get(this.kategoriesUrl)
+    return this.http.get(url)
                .toPromise()
-               .then(response => response.json().data as Kategory[])
+               .then(response => response.json().data as Category[])
                .catch(this.handleError);
   }
 
-  getKategory(id: number): Promise<Kategory> {
+  getCategory(id: number): Promise<Category> {
     if (!id) {
-      const promise = new Promise(() => new Kategory());
+      const promise = new Promise(() => new Category());
 
       return promise.then();      
     } else {
-      const url = `${this.kategoriesUrl}/${id}`;
+      const url = `${this.categoriesUrl}/${id}`;
 
       return this.http.get(url)
         .toPromise()
-        .then(response => response.json().data as Kategory)
+        .then(response => response.json().data as Category)
         .catch(this.handleError);
     }
   }
 
   delete(id: number): Promise<void> {
-    const url = `${this.kategoriesUrl}/${id}`;
+    const url = `${this.categoriesUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
       .then(() => null)
       .catch(this.handleError);
   }
 
-  create(kategory: Kategory): Promise<Kategory> {
+  create(category: Category): Promise<Category> {
     return this.http
-      .post(this.kategoriesUrl, JSON.stringify(kategory), {headers: this.headers})
+      .post(this.categoriesUrl, JSON.stringify(category), {headers: this.headers})
       .toPromise()
-      .then(res => res.json().data as Kategory)
+      .then(res => res.json().data as Category)
       .catch(this.handleError);
   }
 
-  update(kategory: Kategory): Promise<Kategory> {
-    const url = `${this.kategoriesUrl}/${kategory.id}`;
+  update(category: Category): Promise<Category> {
+    const url = `${this.categoriesUrl}/${category.id}`;
     return this.http
-      .put(url, JSON.stringify(kategory), {headers: this.headers})
+      .put(url, JSON.stringify(category), {headers: this.headers})
       .toPromise()
-      .then(() => kategory)
+      .then(() => category)
       .catch(this.handleError);
   }
 

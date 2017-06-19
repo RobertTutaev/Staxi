@@ -3,14 +3,14 @@
 <table class="table table-hover table-list">
     <thead>
         <tr>
-            <th>Код</th>
-            <th>Территория</th>
-            <th>Название</th>
+            <th (click)="onSort('id')">Код <i class="fa" [ngClass]="{'fa-sort': column != 'id', 'fa-sort-asc': (column == 'id' && isDesc), 'fa-sort-desc': (column == 'id' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('territory')">Территория <i class="fa" [ngClass]="{'fa-sort': column != 'territory', 'fa-sort-asc': (column == 'territory' && isDesc), 'fa-sort-desc': (column == 'territory' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('name')">Название <i class="fa" [ngClass]="{'fa-sort': column != 'name', 'fa-sort-asc': (column == 'name' && isDesc), 'fa-sort-desc': (column == 'name' && !isDesc) }" aria-hidden="true"></i></th>
             <th><a routerLink="/firm" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
     <tbody *ngIf="firms.length">
-        <tr *ngFor="let firm of firms" (click)="onSelect(firm)">
+        <tr *ngFor="let firm of firms | orderBy: {property: column, direction: direction}" (click)="onSelect(firm)">
             <td>{{ firm.id }}</td>
             <td>{{ firm.territory }}</td>
             <td>{{ firm.name }}</td>

@@ -13,9 +13,9 @@ export class ContactService {
   constructor(private http: Http) {}
 
   getContacts(id: number): Promise<Contact[]> {
-    const url = `${this.contactsUrl}?client_id=${id}`;
+    const url = `${this.contactsUrl}/c${id}`;
 
-    return this.http.get(this.contactsUrl)
+    return this.http.get(url)
                .toPromise()
                .then(response => response.json().data as Contact[])
                .catch(this.handleError);

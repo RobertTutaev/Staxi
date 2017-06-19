@@ -7,6 +7,7 @@ export let Cars: Car[] = [
     color: 'снежная королева',
     gos_no: 'е345не174',
     territory_id: 1,
+    territory: 'Челябинск',
     type: false    
   },
   {
@@ -15,6 +16,7 @@ export let Cars: Car[] = [
     color: 'баклажан',
     gos_no: 'у435ка174',
     territory_id: 1,
+    territory: 'Челябинск',
     type: false
   },
   {
@@ -23,6 +25,7 @@ export let Cars: Car[] = [
     color: 'синий сапфир',
     gos_no: 'а412ао74',
     territory_id: 1,
+    territory: 'Челябинск',
     type: true
   }
 ];

@@ -3,17 +3,18 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Punkt } from '../../_classes/list/punkt';
 import { PunktService } from '../../_services/punkt.service';
+import { SController } from '../../_classes/s.controller';
 
 @Component({
   selector: 'punkt-punkts',
   templateUrl: './punkts.component.html',
   styleUrls: ['./punkts.component.sass']
 })
-export class PunktsComponent implements OnInit {
+export class PunktsComponent extends SController implements OnInit {
   punkts: Punkt[] = [];
   
   constructor(private punktService: PunktService,
-              private router: Router) { }
+              private router: Router) { super(); }
   
   ngOnInit() {
     this.punktService.getPunkts().then((punkts: Punkt[]) => this.punkts = punkts);

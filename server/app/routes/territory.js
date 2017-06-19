@@ -7,7 +7,7 @@ router.route('/')
   .get(function(req, res, next) {
     
     models.sequelize.query(
-        "SELECT a.*, b.name as territory FROM territory a left join territory b on a.territory_id = b.id", models.record)
+        "SELECT a.*, b.name as territory FROM territory a left join territory b on a.territory_id = b.id", models.value )
 
         .spread(function(values, metadata) {
             res.json(resp({
@@ -37,7 +37,7 @@ router.route('/:id')
 
 router.route('/')
   .post(function(req, res) {
-    console.log(req.body);
+      
     models.territory.create(req.body).then(
         function(values) {
             res.json(resp({

@@ -9,11 +9,13 @@ export let Clients: Client[] = [
     ot: 'Сидорович',
     birthday: null,
     street_id: null,
+    street: null,
     dom: null,
     korp: null,
     kv: null,
     checked: true,
     user_id: 1,
+    user: 'A.A. Администратор',
     dt: null
   },
   {
@@ -24,11 +26,13 @@ export let Clients: Client[] = [
     ot: 'Сидорович',
     birthday: null,
     street_id: null,
+    street: null,
     dom: null,
     korp: null,
     kv: null,
     checked: true,
     user_id: 1,
+    user: 'A.A. Администратор',
     dt: null
   },
   {
@@ -39,11 +43,13 @@ export let Clients: Client[] = [
     ot: 'Петрович',
     birthday: null,
     street_id: null,
+    street: null,
     dom: null,
     korp: null,
     kv: null,
     checked: true,
     user_id: 1,
+    user: 'A.A. Администратор',
     dt: null
   },
   {
@@ -54,11 +60,13 @@ export let Clients: Client[] = [
     ot: 'Васевич',
     birthday: null,
     street_id: null,
+    street: null,
     dom: null,
     korp: null,
     kv: null,
     checked: true,
     user_id: 1,
+    user: 'A.A. Администратор',
     dt: null
   },
   {
@@ -69,11 +77,13 @@ export let Clients: Client[] = [
     ot: 'Викторовна',
     birthday: null,
     street_id: null,
+    street: null,
     dom: null,
     korp: null,
     kv: null,
     checked: true,
     user_id: 2,
+    user: 'A.A. Пользователь',
     dt: null
   },
 ];

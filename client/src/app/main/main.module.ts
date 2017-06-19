@@ -7,14 +7,14 @@ import { TabComponent } from './tab/tab.component';
 import { ClientComponent } from './client/client.component';
 import { ContactComponent }  from './contact/contact.component';
 import { ContactsComponent }  from './contacts/contacts.component';
-import { KategoryComponent }  from './kategory/kategory.component';
-import { KategoriesComponent }  from './kategories/kategories.component';
+import { CategoryComponent }  from './category/category.component';
+import { CategoriesComponent }  from './categories/categories.component';
 import { TransportationComponent } from './transportation/transportation.component';
 import { TransportationsComponent } from './transportations/transportations.component';
 
 import { ClientService } from '../_services/client.service';
 import { ContactService } from '../_services/contact.service';
-import { KategoryService } from '../_services/kategory.service';
+import { CategoryService } from '../_services/category.service';
 import { TransportationService } from '../_services/transportation.service';
 import { MainRoutingModule } from './main.routing.module';
 import { ToolsModule} from '../tools/tools.module';
@@ -38,15 +38,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ClientComponent,
     ContactComponent,
     ContactsComponent,
-    KategoryComponent,
-    KategoriesComponent,
+    CategoryComponent,
+    CategoriesComponent,
     TransportationComponent,
     TransportationsComponent
   ],
   providers: [ 
     ClientService,
     ContactService,
-    KategoryService,
+    CategoryService,
     TransportationService
   ]
 })

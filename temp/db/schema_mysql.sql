@@ -2129,6 +2129,8 @@ create table user(
     id integer primary key auto_increment,
     username varchar(100) unique,
     password varchar(100),
+    first_name varchar(100) not null,
+    last_name varchar(100) not null,
     firm_id integer,
     role0 tinyint(1) DEFAULT 1,
     role1 tinyint(1) DEFAULT 0,
@@ -2145,8 +2147,8 @@ create table user(
     index fk_u_username (username ASC)
 )engine=innodb;
 
-insert into user(username, password, firm_id, checked, role0, role1, role2, role3, role4) values 
-    ('opo_usr@mail.ru', '', 1, 1, 1, 1, 1, 1, 1);
+insert into user(username, password, first_name, last_name, firm_id, checked, role0, role1, role2, role3, role4) values 
+    ('opo_usr@mail.ru', '', 'А.А.', 'Администратор', 1, 1, 1, 1, 1, 1, 1);
 
 create table client(
     id integer primary key auto_increment,

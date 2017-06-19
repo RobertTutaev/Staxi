@@ -5,5 +5,6 @@ export class Car {
             public color: string = null,    
             public gos_no: string = null,
             public territory_id: number = null,
+            public territory: string = null,
             public type: boolean = false) { }
 }

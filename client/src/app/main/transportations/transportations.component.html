@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody *ngIf="transportations.length">
-        <tr *ngFor="let transportation of transportations | orderBy: {property: column, direction: direction}" (click)="onSelect(kategory)">
+        <tr *ngFor="let transportation of transportations | orderBy: {property: column, direction: direction}" (click)="onSelect(category)">
             <td>{{ transportation.id }}</td>
             <td>{{ getCarName(transportation) }}</td>
             <td>{{ getPunktName(transportation) }}</td>

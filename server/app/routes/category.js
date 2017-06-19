@@ -3,12 +3,14 @@ var router = express.Router();
 var models = require('../models');
 var resp = require('../lib/resp');
 
-router.route('/')
+router.route('/c:id')
   .get(function(req, res, next) {
-    
+    console.log(parseInt(req.params.id));
     models.sequelize.query(
-        "SELECT a.*, b.name as firm FROM user a left join firm b on a.firm_id = b.id", models.value )
-        
+        "SELECT a.*, b.name as kateg, trim(concat(c.first_name,' ',c.last_name)) as user, d.name as doc "+
+        "FROM category a left join kateg b on a.kateg_id = b.id join user c on a.user_id = c.id join doc d on a.doc_id = d.id "+
+        "WHERE a.client_id = "+ parseInt(req.params.id), models.value )
+
         .spread(function(values, metadata) {
             res.json(resp({
                 data: values
@@ -19,13 +21,13 @@ router.route('/')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.user.findById( parseInt(req.params.id) )
+    models.category.findById( parseInt(req.params.id) )
         .then(
         function(values) {
-            res.json(resp({                
+            res.json(resp({
                 data: values
             }));
-        }, 
+        },
         function(err) {
             res.json(resp({
                 rslt: false,
@@ -36,9 +38,9 @@ router.route('/:id')
 });
 
 router.route('/')
-  .post(function(req, res, next) {
-      
-    models.user.create(req.body).then(
+  .post(function(req, res) {
+    req.body.user_id=1;
+    models.category.create(req.body).then(
         function(values) {
             res.json(resp({
                 data: values
@@ -56,7 +58,7 @@ router.route('/')
 router.route('/:id')
   .put(function(req, res, next) {
       
-    models.user.update(
+    models.category.update(
         req.body,
         {
             where: {
@@ -80,7 +82,7 @@ router.route('/:id')
 router.route('/:id')
   .delete(function(req, res, next) {
       
-    models.user.destroy({
+    models.category.destroy({
             where: {
                 id: parseInt( parseInt(req.params.id) )
             }

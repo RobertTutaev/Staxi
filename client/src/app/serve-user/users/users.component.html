@@ -5,6 +5,8 @@
         <tr>
             <th (click)="onSort('id')">Код <i class="fa" [ngClass]="{'fa-sort': column != 'id', 'fa-sort-asc': (column == 'id' && isDesc), 'fa-sort-desc': (column == 'id' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('username')">Логин <i class="fa" [ngClass]="{'fa-sort': column != 'username', 'fa-sort-asc': (column == 'username' && isDesc), 'fa-sort-desc': (column == 'username' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('first_name')">И.О. <i class="fa" [ngClass]="{'fa-sort': column != 'first_name', 'fa-sort-asc': (column == 'first_name' && isDesc), 'fa-sort-desc': (column == 'first_name' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('last_name')">Фамилия <i class="fa" [ngClass]="{'fa-sort': column != 'last_name', 'fa-sort-asc': (column == 'last_name' && isDesc), 'fa-sort-desc': (column == 'last_name' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('firm')">Организация <i class="fa" [ngClass]="{'fa-sort': column != 'firm', 'fa-sort-asc': (column == 'firm' && isDesc), 'fa-sort-desc': (column == 'firm' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('role0')">R0 <i class="fa" [ngClass]="{'fa-sort': column != 'role0', 'fa-sort-asc': (column == 'role0' && isDesc), 'fa-sort-desc': (column == 'role0' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('role1')">R1 <i class="fa" [ngClass]="{'fa-sort': column != 'role1', 'fa-sort-asc': (column == 'role1' && isDesc), 'fa-sort-desc': (column == 'role1' && !isDesc) }" aria-hidden="true"></i></th>
@@ -19,6 +21,8 @@
         <tr *ngFor="let user of users | orderBy: {property: column, direction: direction}" (click)="onSelect(user)">
             <td>{{ user.id }}</td>
             <td>{{ user.username }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
             <td>{{ user.firm }}</td>
             <td><span class='{{ user.role0 ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
             <td><span class='{{ user.role1 ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
