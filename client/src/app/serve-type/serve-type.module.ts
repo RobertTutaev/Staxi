@@ -7,6 +7,8 @@ import { TypeComponent }  from './type/type.component';
 import { TypeService } from '../_services/type.service';
 import { ServeTypeRoutingModule } from './serve-type.routing.module';
 import { ToolsModule} from '../tools/tools.module';
+import { AuthGuard }    from './../_services/auth-guard.service';
+import { AuthService }    from './../_services/auth.service';
 
 @NgModule({
   imports: [
@@ -19,7 +21,11 @@ import { ToolsModule} from '../tools/tools.module';
     TypesComponent,
     TypeComponent
   ],
-  providers: [ TypeService ]
+  providers: [ 
+    TypeService,
+    AuthService,
+    AuthGuard
+  ]
 })
 export class ServeTypeModule {}
 
