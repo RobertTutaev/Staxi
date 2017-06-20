@@ -15,7 +15,7 @@
         </tr>
     </thead>
     <tbody *ngIf="transportations.length">
-        <tr *ngFor="let transportation of transportations | orderBy: {property: column, direction: direction}" (click)="onSelect(category)">
+        <tr *ngFor="let transportation of transportations | orderBy: {property: column, direction: direction}" (click)="onSelect(transportation)">
             <td>{{ transportation.id }}</td>
             <td>{{ transportation.car }}</td>
             <td>{{ transportation.punkt }}</td>
@@ -25,7 +25,7 @@
             <td>{{ transportation.b_dt | date: 'dd.MM.yyyy hh:mm' }}</td>
             <td><span class='{{ transportation.checked ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
             <td><span class='{{ transportation.status ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
-            <td>{{ category.user }}</td>
+            <td>{{ transportation.user }}</td>
             <td (click)="onDelete(transportation); $event.stopPropagation();"><span class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
     </tbody>

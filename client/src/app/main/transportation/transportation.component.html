@@ -5,7 +5,7 @@
                 <option *ngFor="let car of cars" [ngValue]="car.id">{{car.name}}</option>
             </select></dd>
         <dt>Пункт доставки*</dt>
-        <dd><select name="car" [(ngModel)]="selectedPunktId" required>
+        <dd><select name="punkt" [(ngModel)]="selectedPunktId" required>
                 <option *ngFor="let punkt of punkts" [ngValue]="punkt.id">{{punkt.name}}</option>
             </select></dd>
         <dt>A.Улица*</dt>
@@ -24,7 +24,7 @@
             </small></dd>
         <dt>А.Дата*</dt>
         <dd><input mdInput type="text" id="dateADt" readonly="readonly" [mdDatepicker]="pickerADt" name="a_dt" [(ngModel)]="transportation.a_dt" #a_dt="ngModel" placeholder="Дата" required>
-            <button mdSuffix [mdDatepickerToggle]="pickerDocDt"></button>
+            <button mdSuffix [mdDatepickerToggle]="pickerADt"></button>
             <md-datepicker #pickerADt></md-datepicker>
             <small [hidden]="a_dt.valid || a_dt.pristine">
                 Необходимо корректное значение
@@ -45,7 +45,7 @@
             </small></dd>
         <dt>Б.Дата*</dt>
         <dd><input mdInput type="text" id="dateBDt" readonly="readonly" [mdDatepicker]="pickerBDt" name="b_dt" [(ngModel)]="transportation.b_dt" #b_dt="ngModel" placeholder="Дата" required>
-            <button mdSuffix [mdDatepickerToggle]="pickerDocDt"></button>
+            <button mdSuffix [mdDatepickerToggle]="pickerBDt"></button>
             <md-datepicker #pickerBDt></md-datepicker>
             <small [hidden]="b_dt.valid || b_dt.pristine">
                 Необходимо корректное значение

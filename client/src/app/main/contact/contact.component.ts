@@ -14,7 +14,7 @@ import { ContactService } from '../../_services/contact.service';
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.sass']
 })
-export class ContactComponent implements OnInit {  
+export class ContactComponent implements OnInit {
   selectedType: Type = new Type();
   types: Type[] = [];
   contact: Contact = new Contact();

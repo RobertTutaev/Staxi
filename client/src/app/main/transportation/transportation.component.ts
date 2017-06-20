@@ -76,8 +76,8 @@ export class TransportationComponent implements OnInit {
       });
   }
 
-  get selectedCarsId(): number {
-    return this.transportation.car_id;
+  get selectedCarId(): number {
+    return this.transportation.car_id;    
   }
 
   set selectedCarId(value: number) {

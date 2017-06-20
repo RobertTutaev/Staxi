@@ -2,6 +2,7 @@
 ==========
 https://angular.io/resources/live-examples/router/ts/eplnkr.html
 https://angular.io/docs/ts/latest/tutorial/toh-pt6.html
+https://angular.io/guide/router
 
 Работа с маской
 ==========

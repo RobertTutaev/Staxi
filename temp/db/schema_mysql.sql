@@ -2245,16 +2245,16 @@ create table category(
 
 create table transportation(
     id integer primary key auto_increment,
-    client_id integer not null, 
+    client_id integer not null,
     car_id integer not null,
     punkt_id integer not null,
     a_street_id integer not null,
-    a_dom integer,
-    a_korp varchar(5),
+    a_dom integer not null,
+    a_korp varchar(5) DEFAULT '',
     a_dt datetime,
     b_street_id integer not null,
-    b_dom integer,
-    b_korp varchar(5),
+    b_dom integer not null,
+    b_korp varchar(5) DEFAULT '',
     b_dt datetime,
     checked tinyint(1) DEFAULT 0,
     comments text,
@@ -2262,9 +2262,9 @@ create table transportation(
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
     index fk_w_client (client_id ASC),
-    constraint fk_w_client 
-        foreign key (client_id) 
-            references client (id) 
+    constraint fk_w_client
+        foreign key (client_id)
+            references client (id)
                 on delete cascade,
     index fk_w_car (car_id ASC),
     constraint fk_w_car 

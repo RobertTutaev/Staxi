@@ -3,11 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { TypesComponent }    from './types/types.component';
 import { TypeComponent }  from './type/type.component';
+import { AuthGuard }    from './../_services/auth-guard.service';
 
 const typesRoutes: Routes = [
-  { path: 'type/list',  component: TypesComponent },
-  { path: 'type', component: TypeComponent },
-  { path: 'type/:id', component: TypeComponent }
+  { path: 'type', canActivate: [AuthGuard], children: 
+    [
+      { path: 'list', component: TypesComponent },
+      { path: '', component: TypeComponent },
+      { path: ':id', component: TypeComponent }      
+
+    ]
+  }
 ];
 
 @NgModule({
