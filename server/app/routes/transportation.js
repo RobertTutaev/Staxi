@@ -5,7 +5,7 @@ var resp = require('../lib/resp');
 
 router.route('/c:id')
   .get(function(req, res, next) {
-    console.log(parseInt(req.params.id));
+    
     models.sequelize.query(
         "SELECT a.*, "+
             "concat(b.name,' (',b.gos_no,')') as car, "+
@@ -31,20 +31,20 @@ router.route('/c:id')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.transportation.findById( parseInt(req.params.id) )
-        .then(
-        function(values) {
+    models.sequelize.query(
+        "SELECT a.*, "+
+            "concat(e.name,' ',e.socr) as a_street, "+
+            "concat(f.name,' ',f.socr) as b_street "+
+        "FROM transportation a "+
+            "join street e on a.a_street_id = e.id "+
+            "join street f on a.b_street_id = f.id "+
+        "WHERE a.id = " + parseInt(req.params.id), models.value )
+
+        .spread(function(values, metadata) {
             res.json(resp({
-                data: values
+                data: values[0]
             }));
-        },
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось получить список! Ошибка: ' + err.message
-            }));
-        }
-    );
+        });
 });
 
 router.route('/')

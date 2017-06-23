@@ -9,9 +9,14 @@
                 <option *ngFor="let punkt of punkts" [ngValue]="punkt.id">{{punkt.name}}</option>
             </select></dd>
         <dt>A.Улица*</dt>
-        <dd><select name="a_street" [(ngModel)]="selectedAStreetId" required>
-                <option *ngFor="let street of streets" [ngValue]="street.id">{{street.name}} {{street.socr}}</option>
-            </select></dd>
+        <dd><div class="search-component">
+                <input #a_street class="search-box" (keyup)="searchStreet('a_street', a_street.value)" name="a_street" (blur)="searchStreet('a_street')" [(ngModel)]="transportation.a_street" size="50" required>
+                <div *ngIf="streetDivName === 'a_street'">
+                    <div *ngFor="let street of streets | async" (click)="setStreetId('a_street', street)" class="search-result" >
+                        {{ street.name }} {{ street.socr }}
+                    </div>
+                </div>
+            </div></dd>
         <dt>A.Дом*</dt>
         <dd><input type="text" name="a_dom" [(ngModel)]="transportation.a_dom" #a_dom="ngModel" maxlength="4" placeholder="Дом" required>
             <small [hidden]="a_dom.valid || a_dom.pristine">
@@ -30,9 +35,14 @@
                 Необходимо корректное значение
             </small></dd>
         <dt>Б.Улица*</dt>
-        <dd><select name="b_street" [(ngModel)]="selectedBStreetId" required>
-                <option *ngFor="let street of streets" [ngValue]="street.id">{{street.name}} {{street.socr}}</option>
-            </select></dd>
+        <dd><div class="search-component">
+                <input #b_street class="search-box" (keyup)="searchStreet('b_street', b_street.value)" name="b_street" (blur)="searchStreet('b_street')" [(ngModel)]="transportation.b_street" size="50" required>
+                <div *ngIf="streetDivName === 'b_street'">
+                    <div *ngFor="let street of streets | async" (click)="setStreetId('b_street', street)" class="search-result" >
+                        {{ street.name }} {{ street.socr }}
+                    </div>
+                </div>
+            </div></dd>
         <dt>Б.Дом*</dt>
         <dd><input type="text" name="b_dom" [(ngModel)]="transportation.b_dom" #b_dom="ngModel" maxlength="4" placeholder="Дом" required>
             <small [hidden]="b_dom.valid || b_dom.pristine">

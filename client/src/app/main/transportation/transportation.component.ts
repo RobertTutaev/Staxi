@@ -15,18 +15,30 @@ import { TransportationService } from '../../_services/transportation.service';
 
 import { MdDatepicker } from '@angular/material';
 
+import { Observable }        from 'rxjs/Observable';
+import { Subject }           from 'rxjs/Subject';
+
+// Observable class extensions
+import 'rxjs/add/observable/of';
+
+// Observable operators
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+
 @Component({
   selector: 'transportation',
   templateUrl: './transportation.component.html',
   styleUrls: ['./transportation.component.sass']
 })
 export class TransportationComponent implements OnInit {
-  dt: string = '01.01.2000';
-
   cars: Car[] = [];
   punkts: Punkt[] = [];
-  streets: Street[] = [];
   transportation: Transportation = new Transportation();
+
+  streetDivName: string = 'a_street';
+  streets: Observable<Street[]>;
+  private searchTerms = new Subject<string>();
   
   constructor(private carService: CarService,
               private punktService: PunktService,
@@ -43,17 +55,40 @@ export class TransportationComponent implements OnInit {
 
     this.punktService.getPunkts().then((punkts: Punkt[]) => {
         this.punkts = punkts;
-    });
-
-    this.streetService.getStreets().then((streets: Street[]) => {
-        this.streets = streets;
-    });
+    });    
+    
+    this.streets = this.searchTerms
+      .debounceTime(300)        // wait 300ms after each keystroke before considering the term
+      .distinctUntilChanged()   // ignore if next search term is same as previous
+      .switchMap(term => term   // switch to new observable each time the term changes
+        // return the http search observable
+        ? this.streetService.search(term)
+        // or the observable of empty heroes if there was no search term
+        : Observable.of<Street[]>([]))
+      .catch(error => {
+        // TODO: add real error handling
+        console.log(error);
+        return Observable.of<Street[]>([]);
+      });
 
     this.route.params
       .switchMap((params: Params) => this.transportationService.getTransportation(+params['idc']))
-      .subscribe((transportation: Transportation) => {
-        this.transportation = transportation;
-    });
+      .subscribe((transportation: Transportation) => this.transportation = transportation);
+  }
+
+  // Push a search term into the observable stream.
+  searchStreet(name: string, term: string = ''): void {
+    this.streetDivName = name;
+    if (term ==='') {
+      this.transportation[this.streetDivName] = '';
+    }
+
+    this.searchTerms.next(term);
+  }
+
+  setStreetId(name: string, street: Street): void {
+    this.transportation[name + '_id'] = street.id;
+    this.transportation[name] = street.name + ' ' + street.socr;
   }
 
   onSubmit() {
@@ -90,23 +125,7 @@ export class TransportationComponent implements OnInit {
 
   set selectedPunktId(value: number) {
     this.transportation.punkt_id = value;
-  }
-
-  get selectedAStreetId(): number {
-    return this.transportation.a_street_id;
-  }
-
-  set selectedAStreetId(value: number) {
-    this.transportation.a_street_id = value;
-  }
-
-  get selectedBStreetId(): number {
-    return this.transportation.b_street_id;
-  }
-
-  set selectedBStreetId(value: number) {
-    this.transportation.b_street_id = value;
-  }
+  } 
 
   gotoBack() {
     this.location.back();

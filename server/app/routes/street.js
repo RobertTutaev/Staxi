@@ -5,9 +5,16 @@ var resp = require('../lib/resp');
 
 router.route('/')
   .get(function(req, res, next) {
+
+    sql = "SELECT a.*, b.name as territory "+
+        "FROM street a left join territory b on a.territory_id = b.id ";
     
-    models.sequelize.query(
-        "SELECT a.*, b.name as territory FROM street a left join territory b on a.territory_id = b.id", models.value )
+    console.log(req.query.name);
+    if (req.query.name) {
+        sql = sql + "WHERE lower(concat(a.name,' ',a.socr)) like lower('%" + req.query.name + "%')";
+    }
+    
+    models.sequelize.query(sql, models.value )
 
         .spread(function(values, metadata) {
             res.json(resp({

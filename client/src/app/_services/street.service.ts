@@ -1,6 +1,8 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
+import { Observable }     from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { Street } from '../_classes/list/street';
 
@@ -32,6 +34,12 @@ export class StreetService {
         .then(response => response.json().data as Street)
         .catch(this.handleError);
     }
+  }
+
+  search(term: string): Observable<Street[]> {
+    return this.http
+        .get(`${this.streetsUrl}/?name=${term}`)
+        .map(response => response.json().data as Street[]);
   }
 
   delete(id: number): Promise<void> {
