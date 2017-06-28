@@ -21,9 +21,14 @@ import { ToolsModule} from '../tools/tools.module';
 
 import { MaterialModule, MdNativeDateModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NguiDatetimePickerModule } from '@ngui/datetime-picker';
+
+//import * as moment from 'moment';
+//moment().locale('ru');
 
 @NgModule({
   imports: [
+    NguiDatetimePickerModule,
     ToolsModule,
     CommonModule,
     MaterialModule,

@@ -28,11 +28,9 @@
                 Необходимо корректное значение
             </small></dd>
         <dt>А.Дата*</dt>
-        <dd><input mdInput type="text" id="dateADt" readonly="readonly" [mdDatepicker]="pickerADt" name="a_dt" [(ngModel)]="transportation.a_dt" #a_dt="ngModel" placeholder="Дата" required>
-            <button mdSuffix [mdDatepickerToggle]="pickerADt"></button>
-            <md-datepicker #pickerADt></md-datepicker>
-            <small [hidden]="a_dt.valid || a_dt.pristine">
-                Необходимо корректное значение
+        <dd><input type="text" ngui-datetime-picker [(ngModel)]="transportation.a_dt" name="a_dt" #a_dt="ngModel" min-date="Date.now()" date-format="DD.MM.YYYY HH:mm" required>
+            <small>
+                {{a_dt.valid}} {{a_dt.pristine}}
             </small></dd>
         <dt>Б.Улица*</dt>
         <dd><div class="search-component">
@@ -54,12 +52,7 @@
                 Необходимо корректное значение
             </small></dd>
         <dt>Б.Дата*</dt>
-        <dd><input mdInput type="text" id="dateBDt" readonly="readonly" [mdDatepicker]="pickerBDt" name="b_dt" [(ngModel)]="transportation.b_dt" #b_dt="ngModel" placeholder="Дата" required>
-            <button mdSuffix [mdDatepickerToggle]="pickerBDt"></button>
-            <md-datepicker #pickerBDt></md-datepicker>
-            <small [hidden]="b_dt.valid || b_dt.pristine">
-                Необходимо корректное значение
-            </small></dd>
+        <dd><input type="text" ngui-datetime-picker [(ngModel)]="transportation.b_dt" name="b_dt" min-date="Date.now()" date-format="DD.MM.YYYY hh:mm" required></dd>
         <dt>Одобрено</dt>
         <dd><input type="checkbox" value="true" name="checked" id="transportationChecked" [(ngModel)]="transportation.checked">
             <label for="transportationChecked">Одобрено уполномоченным</label></dd>
