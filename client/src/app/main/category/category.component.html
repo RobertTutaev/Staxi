@@ -33,7 +33,7 @@
                 Необходимо корректное значение
             </small></dd>
         <dt>Дата окончания*</dt>
-        <dd><input mdInput type="text" id="dateDtEnd" readonly="readonly" [mdDatepicker]="pickerDtEnd" name="dt_end" [(ngModel)]="category.dt_end" required #dt_end="ngModel" placeholder="Дата" [min]="new Date(2015, 8, 21)">
+        <dd><input mdInput type="text" id="dateDtEnd" readonly="readonly" [mdDatepicker]="pickerDtEnd" name="dt_end" [(ngModel)]="category.dt_end" required #dt_end="ngModel" placeholder="Дата">
             <button mdSuffix [mdDatepickerToggle]="pickerDtEnd"></button>
             <md-datepicker #pickerDtEnd></md-datepicker>            
             <small [hidden]="dt_end.valid || dt_end.pristine">
