@@ -5,11 +5,11 @@
             <th (click)="onSort('car')">Трансп. <i class="fa" [ngClass]="{'fa-sort': column != 'car', 'fa-sort-asc': (column == 'car' && isDesc), 'fa-sort-desc': (column == 'car' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('punkt')">Пункт <i class="fa" [ngClass]="{'fa-sort': column != 'punkt', 'fa-sort-asc': (column == 'punkt' && isDesc), 'fa-sort-desc': (column == 'punkt' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('a_adr')">А.Откуда <i class="fa" [ngClass]="{'fa-sort': column != 'a_adr', 'fa-sort-asc': (column == 'a_adr' && isDesc), 'fa-sort-desc': (column == 'a_adr' && !isDesc) }" aria-hidden="true"></i></th>
-            <th (click)="onSort('a_dt')">А.Дт <i class="fa" [ngClass]="{'fa-sort': column != 'a_dt', 'fa-sort-asc': (column == 'a_dt' && isDesc), 'fa-sort-desc': (column == 'a_dt' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('b_adr')">Б.Куда <i class="fa" [ngClass]="{'fa-sort': column != 'b_adr', 'fa-sort-asc': (column == 'b_adr' && isDesc), 'fa-sort-desc': (column == 'b_adr' && !isDesc) }" aria-hidden="true"></i></th>
-            <th (click)="onSort('b_dt')">Б.Дт <i class="fa" [ngClass]="{'fa-sort': column != 'b_dt', 'fa-sort-asc': (column == 'b_dt' && isDesc), 'fa-sort-desc': (column == 'b_dt' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('a_dt')">А.Дт <i class="fa" [ngClass]="{'fa-sort': column != 'a_dt', 'fa-sort-asc': (column == 'a_dt' && isDesc), 'fa-sort-desc': (column == 'a_dt' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('b_dt')">Б.Т <i class="fa" [ngClass]="{'fa-sort': column != 'b_dt', 'fa-sort-asc': (column == 'b_dt' && isDesc), 'fa-sort-desc': (column == 'b_dt' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('checked')">Одобр. <i class="fa" [ngClass]="{'fa-sort': column != 'checked', 'fa-sort-asc': (column == 'checked' && isDesc), 'fa-sort-desc': (column == 'checked' && !isDesc) }" aria-hidden="true"></i></th>
-            <th (click)="onSort('status')">Статус <i class="fa" [ngClass]="{'fa-sort': column != 'status', 'fa-sort-asc': (column == 'status' && isDesc), 'fa-sort-desc': (column == 'status' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('status')">Выполн. <i class="fa" [ngClass]="{'fa-sort': column != 'status', 'fa-sort-asc': (column == 'status' && isDesc), 'fa-sort-desc': (column == 'status' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('user')">Пользователь <i class="fa" [ngClass]="{'fa-sort': column != 'user', 'fa-sort-asc': (column == 'user' && isDesc), 'fa-sort-desc': (column == 'user' && !isDesc) }" aria-hidden="true"></i></th>
             <th><a [routerLink]="['../']" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
@@ -20,9 +20,9 @@
             <td>{{ transportation.car }}</td>
             <td>{{ transportation.punkt }}</td>
             <td>{{ transportation.a_adr }}</td>
-            <td>{{ transportation.a_dt | date: 'dd.MM.yyyy HH:mm' }}</td>
             <td>{{ transportation.b_adr }}</td>
-            <td>{{ transportation.b_dt | date: 'dd.MM.yyyy HH:mm' }}</td>
+            <td>{{ transportation.a_dt | date: 'dd.MM.yyyy HH:mm' }}</td>            
+            <td>{{ transportation.b_dt | date: 'HH:mm' }}</td>
             <td><span class='{{ transportation.checked ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
             <td><span class='{{ transportation.status ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
             <td>{{ transportation.user }}</td>

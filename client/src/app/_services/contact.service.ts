@@ -23,7 +23,7 @@ export class ContactService {
 
   getContact(id: number): Promise<Contact> {
     if (!id) {
-      const promise = new Promise(() => new Contact());
+      const promise: Promise<Contact> = new Promise(() => new Contact());
 
       return promise.then();      
     } else {

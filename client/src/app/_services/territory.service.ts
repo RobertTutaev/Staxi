@@ -21,7 +21,7 @@ export class TerritoryService {
 
   getTerritory(id: number): Promise<Territory> {
     if (!id) {
-      const promise = new Promise(() => new Territory());
+      const promise: Promise<Territory> = new Promise(() => new Territory());
 
       return promise.then();      
     } else {

@@ -23,7 +23,7 @@ export class StreetService {
 
   getStreet(id: number): Promise<Street> {
     if (!id) {
-      const promise = new Promise(() => new Street());
+      const promise: Promise<Street> = new Promise(() => new Street());
 
       return promise.then();      
     } else {

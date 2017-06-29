@@ -21,7 +21,7 @@ export class CarService {
 
   getCar(id: number): Promise<Car> {
     if (!id) {
-      const promise = new Promise(() => new Car());
+      const promise: Promise<Car> = new Promise(() => new Car());
 
       return promise.then();      
     } else {

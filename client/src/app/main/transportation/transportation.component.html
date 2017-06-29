@@ -10,7 +10,14 @@
             </select></dd>
         <dt>A.Улица*</dt>
         <dd><div class="search-component">
-                <input #a_street class="search-box" (keyup)="searchStreet('a_street', a_street.value)" name="a_street" (blur)="searchStreet('a_street')" [(ngModel)]="transportation.a_street" size="50" required>
+                <input 
+                    #a_street 
+                    class="form-control search-box" 
+                    (keyup)="searchStreet('a_street', a_street.value)"
+                     name="a_street" (blur)="searchStreet('a_street')" 
+                     [(ngModel)]="transportation.a_street"
+                     autocomplete="off" 
+                     required>
                 <div *ngIf="streetDivName === 'a_street'">
                     <div *ngFor="let street of streets | async" (click)="setStreetId('a_street', street)" class="search-result" >
                         {{ street.name }} {{ street.socr }}
@@ -27,14 +34,28 @@
             <small [hidden]="a_korp.valid || a_korp.pristine">
                 Необходимо корректное значение
             </small></dd>
-        <dt>А.Дата*</dt>
-        <dd><input type="text" ngui-datetime-picker [(ngModel)]="transportation.a_dt" name="a_dt" #a_dt="ngModel" min-date="Date.now()" date-format="DD.MM.YYYY HH:mm" required>
-            <small>
-                {{a_dt.valid}} {{a_dt.pristine}}
-            </small></dd>
+        <dt>А.Дата и время*</dt>
+        <dd><input 
+                type="text" 
+                ngui-datetime-picker 
+                name="a_dt" 
+                [(ngModel)]="transportation.a_dt" 
+                #a_dt="ngModel" 
+                date-format="DD.MM.YYYY HH:mm"
+                readonly="readonly" 
+                class="form-control"                 
+                required></dd>
         <dt>Б.Улица*</dt>
         <dd><div class="search-component">
-                <input #b_street class="search-box" (keyup)="searchStreet('b_street', b_street.value)" name="b_street" (blur)="searchStreet('b_street')" [(ngModel)]="transportation.b_street" size="50" required>
+                <input 
+                    #b_street 
+                    class="form-control search-box" 
+                    (keyup)="searchStreet('b_street', b_street.value)" 
+                    name="b_street" 
+                    (blur)="searchStreet('b_street')"
+                    [(ngModel)]="transportation.b_street"
+                    autocomplete="off" 
+                    required>
                 <div *ngIf="streetDivName === 'b_street'">
                     <div *ngFor="let street of streets | async" (click)="setStreetId('b_street', street)" class="search-result" >
                         {{ street.name }} {{ street.socr }}
@@ -51,15 +72,23 @@
             <small [hidden]="b_korp.valid || b_korp.pristine">
                 Необходимо корректное значение
             </small></dd>
-        <dt>Б.Дата*</dt>
-        <dd><input type="text" ngui-datetime-picker [(ngModel)]="transportation.b_dt" name="b_dt" min-date="Date.now()" date-format="DD.MM.YYYY hh:mm" required></dd>
-        <dt>Одобрено</dt>
+        <dt>Б.Время*</dt>
+        <dd><input 
+                type="text" 
+                ngui-datetime-picker 
+                [(ngModel)]="transportation.b_dt" 
+                name="b_dt" 
+                time-only="true" 
+                date-format="HH:mm" 
+                readonly="readonly" 
+                class="form-control" 
+                min-hour="{{ transportation.a_dt | date: 'HH' }}" 
+                required></dd>
         <dd><input type="checkbox" value="true" name="checked" id="transportationChecked" [(ngModel)]="transportation.checked">
             <label for="transportationChecked">Одобрено уполномоченным</label></dd>
-        <dt>Статус</dt>
         <dd><input type="checkbox" value="true" name="status" id="transportationStatus" [(ngModel)]="transportation.status">
-            <label for="transportationStatus">Выполнено</label></dd>
-
+            <label for="transportationStatus">Перевозка выполнена</label></dd>
+        
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
         <button class="btn btn-info" type="submit" [disabled]="transportationForm.form.invalid || transportationForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> {{transportation.id ? 'Изменить' : 'Добавить'}}</button>

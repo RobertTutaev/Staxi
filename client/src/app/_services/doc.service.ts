@@ -21,7 +21,7 @@ export class DocService {
 
   getDoc(id: number): Promise<Doc> {
     if (!id) {
-      const promise = new Promise(() => new Doc());
+      const promise: Promise<Doc> = new Promise(() => new Doc());
 
       return promise.then();      
     } else {

@@ -21,7 +21,7 @@ export class KategService {
 
   getKateg(id: number): Promise<Kateg> {
     if (!id) {
-      const promise = new Promise(() => new Kateg());
+      const promise: Promise<Kateg> = new Promise(() => new Kateg());
 
       return promise.then();      
     } else {

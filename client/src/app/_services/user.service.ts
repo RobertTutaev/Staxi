@@ -21,7 +21,7 @@ export class UserService {
 
   getUser(id: number): Promise<User> {
     if (!id) {
-      const promise = new Promise(() => new User());
+      const promise: Promise<User> = new Promise(() => new User());
 
       return promise.then();      
     } else {

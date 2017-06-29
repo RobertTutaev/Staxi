@@ -21,7 +21,7 @@ export class ClientService {
 
   getClient(id: number): Promise<Client> {
     if (!id) {
-      const promise = new Promise(() => new Client());
+      const promise: Promise<Client> = new Promise(() => new Client());
 
       return promise.then();      
     } else {

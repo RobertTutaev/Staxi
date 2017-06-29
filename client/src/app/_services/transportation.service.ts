@@ -23,7 +23,7 @@ export class TransportationService {
 
   getTransportation(id: number): Promise<Transportation> {
     if (!id) {
-      const promise = new Promise(() => new Transportation());
+      const promise: Promise<Transportation> = new Promise(() => new Transportation());
 
       return promise.then();      
     } else {

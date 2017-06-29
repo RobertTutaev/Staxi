@@ -23,7 +23,7 @@ export class CategoryService {
 
   getCategory(id: number): Promise<Category> {
     if (!id) {
-      const promise = new Promise(() => new Category());
+      const promise: Promise<Category> = new Promise(() => new Category());
 
       return promise.then();      
     } else {

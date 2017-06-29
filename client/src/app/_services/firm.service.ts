@@ -21,7 +21,7 @@ export class FirmService {
 
   getFirm(id: number): Promise<Firm> {
     if (!id) {
-      const promise = new Promise(() => new Firm());
+      const promise: Promise<Firm> = new Promise(() => new Firm());
 
       return promise.then();      
     } else {

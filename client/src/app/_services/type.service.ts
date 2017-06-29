@@ -21,7 +21,7 @@ export class TypeService {
 
   getType(id: number): Promise<Type> {
     if (!id) {
-      const promise = new Promise(() => new Type());
+      const promise: Promise<Type> = new Promise(() => new Type());
 
       return promise.then();      
     } else {

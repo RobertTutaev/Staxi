@@ -21,7 +21,7 @@ export class PunktService {
 
   getPunkt(id: number): Promise<Punkt> {
     if (!id) {
-      const promise = new Promise(() => new Punkt());
+      const promise: Promise<Punkt> = new Promise(() => new Punkt());
 
       return promise.then();      
     } else {

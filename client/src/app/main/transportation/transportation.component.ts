@@ -69,7 +69,7 @@ export class TransportationComponent implements OnInit {
         // TODO: add real error handling
         console.log(error);
         return Observable.of<Street[]>([]);
-      });
+    });   
 
     this.route.params
       .switchMap((params: Params) => this.transportationService.getTransportation(+params['idc']))
@@ -125,7 +125,11 @@ export class TransportationComponent implements OnInit {
 
   set selectedPunktId(value: number) {
     this.transportation.punkt_id = value;
-  } 
+  }
+
+  get getHH(): any {
+    return this.transportation.a_dt;
+  }
 
   gotoBack() {
     this.location.back();
