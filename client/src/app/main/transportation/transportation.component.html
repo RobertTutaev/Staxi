@@ -72,7 +72,7 @@
             <small [hidden]="b_korp.valid || b_korp.pristine">
                 Необходимо корректное значение
             </small></dd>
-        <dt>Б.Время*</dt>
+        <dt>Б.Время</dt>
         <dd><input 
                 type="text" 
                 ngui-datetime-picker 
@@ -82,8 +82,7 @@
                 date-format="HH:mm" 
                 readonly="readonly" 
                 class="form-control" 
-                min-hour="{{ transportation.a_dt | date: 'HH' }}" 
-                required></dd>
+                min-hour="{{ transportation.a_dt | date: 'HH' }}"></dd>
         <dd><input type="checkbox" value="true" name="checked" id="transportationChecked" [(ngModel)]="transportation.checked">
             <label for="transportationChecked">Одобрено уполномоченным</label></dd>
         <dd><input type="checkbox" value="true" name="status" id="transportationStatus" [(ngModel)]="transportation.status">

@@ -11,8 +11,6 @@ import { DocService } from '../../_services/doc.service';
 import { Category } from '../../_classes/list/category';
 import { CategoryService } from '../../_services/category.service';
 
-import { MdDatepicker } from '@angular/material';
-
 @Component({
   selector: 'category',
   templateUrl: './category.component.html',
@@ -49,8 +47,8 @@ export class CategoryComponent implements OnInit {
     });
     this.route.params     
       .switchMap((params: Params) => this.categoryService.getCategory(+params['idc']))
-      .subscribe((category: Category) => {
-        this.category = category;
+      .subscribe((category: Category) => {        
+        this.category = category;        
         this.isOk++;
         this.init();                    
     });
@@ -104,6 +102,8 @@ export class CategoryComponent implements OnInit {
       this.category.doc_id = value;
     }    
   }
+
+  min: any = new Date(2018, 10, 10);
 
   gotoBack() {
     this.location.back();

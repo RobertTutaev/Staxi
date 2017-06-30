@@ -25,10 +25,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   imports: [    
     ToolsModule,
+    BrowserAnimationsModule,
     CommonModule,
     MaterialModule,
-    MdNativeDateModule,
-    BrowserAnimationsModule,
+    MdNativeDateModule,    
     FormsModule,
     MainRoutingModule
   ],
@@ -43,7 +43,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TransportationComponent,
     TransportationsComponent
   ],
-  providers: [ 
+  providers: [
     ClientService,
     ContactService,
     CategoryService,
