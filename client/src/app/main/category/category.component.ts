@@ -17,8 +17,6 @@ import { CategoryService } from '../../_services/category.service';
   styleUrls: ['./category.component.sass']
 })
 export class CategoryComponent implements OnInit {
-  dt: string = '01.01.2000';
-
   selectedKateg: Kateg = new Kateg();
   kategs: Kateg[] = [];
   selectedDoc: Doc = new Doc();
@@ -89,7 +87,7 @@ export class CategoryComponent implements OnInit {
     if(value) {
       this.selectedKateg = this.kategs.find(myObj => myObj.id === value);
       this.category.kateg_id = value;
-    }    
+    }
   }
 
   get selectedDocId(): number {
@@ -100,10 +98,12 @@ export class CategoryComponent implements OnInit {
     if(value) {
       this.selectedDoc = this.docs.find(myObj => myObj.id === value);
       this.category.doc_id = value;
-    }    
+    }
   }
 
-  min: any = new Date(2018, 10, 10);
+  get min():any {
+    return new Date(2018, 10, 10);
+  }
 
   gotoBack() {
     this.location.back();
