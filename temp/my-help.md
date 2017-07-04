@@ -2,7 +2,8 @@
 ==========
 https://angular.io/resources/live-examples/router/ts/eplnkr.html
 https://angular.io/docs/ts/latest/tutorial/toh-pt6.html
-https://angular.io/guide/router
+https://www.dunebook.com/how-to-set-up-authentication-and-authorization-in-angular-2/
+https://angular.io/generated/live-examples/router/eplnkr.html
 
 Работа с маской
 ==========

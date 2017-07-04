@@ -1,22 +1,36 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/delay';
-
 @Injectable()
 export class AuthService {
   isLoggedIn = false;
-
-  // store the URL so we can redirect after logging in
   redirectUrl: string;
 
-  login(): Observable<boolean> {
-    return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
+  login({ username, password }): Promise<boolean> {
+    return new Promise(resolve => {
+      let validCredentials: boolean = false;
+
+      // @NOTE: In a normal scenario this check
+      // should be performed against a web service:
+      if (username === 'john.doe@mail.com' &&
+        password === 'letmein') {
+        validCredentials = true;
+        window.sessionStorage.setItem('token', 'eyJhbGciOi');
+      }
+
+      this.isloggedIn = true;
+      resolve(validCredentials);
+    });
   }
 
-  logout(): void {
-    this.isLoggedIn = false;
+  logout(): Promise<boolean> {
+    return new Promise(resolve => {
+      window.sessionStorage.removeItem('token');
+      this.isloggedIn = false;
+      resolve(true);
+    });
+  }
+
+  static isAuthorized(): boolean {
+    return !!window.sessionStorage.getItem('token');
   }
 }
