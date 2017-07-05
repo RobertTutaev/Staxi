@@ -4,6 +4,7 @@ https://angular.io/resources/live-examples/router/ts/eplnkr.html
 https://angular.io/docs/ts/latest/tutorial/toh-pt6.html
 https://www.dunebook.com/how-to-set-up-authentication-and-authorization-in-angular-2/
 https://angular.io/generated/live-examples/router/eplnkr.html
+https://nodeguide.ru/doc/dailyjs-nodepad/node-tutorial-5/
 
 Работа с маской
 ==========
@@ -24,7 +25,7 @@ https://dzone.com/articles/angular-2-testing-in-depth-services
 
 Аутентификация
 ==========
-https://stackoverflow.com/questions/39164933/deny-access-to-routes-in-angular-js-2 
+https://stackoverflow.com/questions/39164933/deny-access-to-routes-in-angular-js-2
 https://angular.io/docs/ts/latest/guide/router.html#!#teach-auth
 
 Взаимодействие компонентов

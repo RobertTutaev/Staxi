@@ -16,6 +16,42 @@ module.exports = function(app) {
 };
 
 /*
+
+
+router.del('/', loadUser, function(req, res) {
+  // Удалить сессию
+  if (req.session) {
+    req.session.destroy(function() {});
+  }
+  res.redirect('/new');
+});
+
+function loadUser(req, res, next) {
+  if (req.session.user_id) {
+    User.findById(req.session.user_id, function(user) {
+      if (user) {
+        req.currentUser = user;
+        next();
+      } else {
+        res.redirect('/sessions/new');
+      }
+    });
+  } else {
+    res.redirect('/sessions/new');
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 // Работаем с маршрутами
 var env     = process.env.NODE_ENV || 'development';
 var express = require('express');
@@ -25,7 +61,7 @@ var bcrypt  = require('bcrypt-nodejs');
 var models  = require('../models/index');
 
 // Требуем аунтефикации для доступа к маршрутам
-var mustAuthenticatedMw = function (req, res, next){
+var mustAuthenticatedMw = function (req, res, next) {
     req.isAuthenticated()
         ? next()
         : res.redirect('/signin');

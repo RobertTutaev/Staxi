@@ -22,6 +22,7 @@ router.route('/:id')
     models.user.findById( parseInt(req.params.id) )
         .then(
         function(values) {
+            values.passport = '';
             res.json(resp({                
                 data: values
             }));

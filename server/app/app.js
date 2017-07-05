@@ -15,7 +15,8 @@ var models          = require('./models/index');
 var config          = require('./config/config.json')[env];
 var app             = express();
 var cors            = require('cors');
-var resp            = require('./lib/resp');                     
+var resp            = require('./lib/resp');
+var models          = require('./models');
 
 if (app.get('env') === 'development') {
   app.use(require('connect-livereload')({
@@ -71,29 +72,43 @@ app.use(function(err, req, res, next) {
 
 // Работаем с passport =========================================================
 passport.use(new LocalStrategy(function(username, password, done) {
-    new models.User({username: username}).fetch().then(function(data) {
-        var user = data;
-        if(user === null) {
-            return done(null, false, {message: 'Неверный логин!'});
-        } else {
-            user = data.toJSON();
-            if(!bcrypt.compareSync(password, user.password)) {
-                return done(null, false, {message: 'Неверный пароль!'});
-            } else {            
-                return done(null, user);
+
+    models.user.find({ where: { username: username } }). then(
+        function(values) {
+            var user = data;
+            if(user === null) {
+                return done(null, false, {message: 'Неверный логин!'});
+            } else {
+                user = data.toJSON();
+                if(!bcrypt.compareSync(password, user.password)) {
+                    return done(null, false, {message: 'Неверный пароль!'});
+                } else {
+                    return done(null, user);
+                }
             }
+        }, 
+        function(err) {
+            res.json(resp({
+                rslt: false,
+                msg: 'Не удалось получить список! Ошибка: ' + err.message
+            }));
         }
-    });
+    );
 }));
 
 passport.serializeUser(function(user, done) {
-    done(null, user.username);
+    done(null, user.id);
 });
 
 passport.deserializeUser(function(username, done) {
-    new models.User({username: username}).fetch().then(function(user) {
+    user.findById(id, function(err,user){
+    err 
+      ? done(err)
+      : done(null,user);
+  });
+    /*new models.User({username: username}).fetch().then(function(user) {
         done(null, user);
-    });
+    });*/
 });
 
 passport.deserializeUser(function(id, done) {

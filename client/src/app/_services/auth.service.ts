@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AuthService {
-  isLoggedIn = false;
   redirectUrl: string;
 
   login({ username, password }): Promise<boolean> {
@@ -17,7 +16,6 @@ export class AuthService {
         window.sessionStorage.setItem('token', 'eyJhbGciOi');
       }
 
-      this.isloggedIn = true;
       resolve(validCredentials);
     });
   }
@@ -25,12 +23,12 @@ export class AuthService {
   logout(): Promise<boolean> {
     return new Promise(resolve => {
       window.sessionStorage.removeItem('token');
-      this.isloggedIn = false;
+      
       resolve(true);
     });
   }
 
-  static isAuthorized(): boolean {
+  get isLoggedIn(): boolean {
     return !!window.sessionStorage.getItem('token');
   }
 }

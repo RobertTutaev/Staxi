@@ -1,14 +1,21 @@
 <div class="col-md-6 col-md-offset-3">
-    <form class="st-form" (ngSubmit)="onSubmit(); loginForm.reset();" #loginForm="ngForm">
-      <dl>
+    <form class="st-form" (ngSubmit)="login(); loginForm.reset();" #loginForm="ngForm">
+      <dl *ngIf="!authService.isLoggedIn">
         <dt>Email*</dt>
         <dd><input type="text" name="username" [(ngModel)]="user.username" placeholder="Название" #username="ngModel" required></dd>
         <dt>Пароль*</dt>
         <dd><input type="password" name="password" [(ngModel)]="user.password" placeholder="Пароль" #password="ngModel" required></dd>
         
         <br>
-        <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
-        <button class="btn btn-info" type="submit" [disabled]="loginForm.form.invalid || loginForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> Войти</button>
+        <button class="btn btn-info" type="submit" [disabled]="loginForm.form.invalid || loginForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> Войти</button>          
       </dl>
-  </form>
+
+      <dl *ngIf="authService.isLoggedIn">
+        
+        <br>
+        <button class="btn btn-info" (click)="logout()">Выйти</button>
+      </dl>
+    </form>
+
+    <p>{{ message }}</p>
 </div>
