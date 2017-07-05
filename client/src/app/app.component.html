@@ -3,11 +3,11 @@
 </div>
 
 <ul class="nav nav-pills">
-  <li *ngIf="authService.isLoggedIn">
+  <li *ngIf="authService.isSignedIn">
     <a routerLink="/client/list" routerLinkActive="active"><span class="glyphicon glyphicon-home"></span> Поиск</a>
   </li>  
 
-  <li *ngIf="authService.isLoggedIn" class="dropdown">
+  <li *ngIf="authService.isSignedIn" class="dropdown">
     <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-tasks"></span> Основное<b class="caret"></b></a>
     <ul class="dropdown-menu">
       <li><a routerLink="/client" routerLinkActive="active">Добавить нового клиента</a></li>
@@ -17,10 +17,10 @@
   </li>  
 
   <li class="dropdown pull-right">
-    <a routerLink="/login"><span class="glyphicon glyphicon-user"></span></a>
+    <a routerLink="/signin"><span class="glyphicon glyphicon-user"></span></a>
   </li>
 
-  <li *ngIf="authService.isLoggedIn" class="dropdown pull-right">
+  <li *ngIf="authService.isSignedIn" class="dropdown pull-right">
     <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-cog"></span> Справочники<b class="caret"></b></a>
     <ul class="dropdown-menu">
       <li><a routerLink="/user/list" routerLinkActive="active">Пользователи</a></li>

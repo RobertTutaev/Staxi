@@ -8,9 +8,14 @@ module.exports = function(app) {
     // Remove extension from file name
     var basename = file.split('.')[0];
     
+    // Sessions
+    app.use(require('./_session.js'));
+
     // Only load files that aren't directories and aren't blacklisted
-    if (!fs.lstatSync(__dirname + '/' + file).isDirectory() && !_.includes(excluded, basename)) {
-      app.use('/api/' + basename, require('./' + file));
+    if (!fs.lstatSync(__dirname + '/' + file).isDirectory() && 
+        !_.includes(excluded, basename) &&
+        file.charAt(0) !== '_' ) {
+            app.use('/api/' + basename, require('./' + file));
     }
   });
 };
@@ -24,7 +29,7 @@ router.del('/', loadUser, function(req, res) {
     req.session.destroy(function() {});
   }
   res.redirect('/new');
-});
+}); 
 
 function loadUser(req, res, next) {
   if (req.session.user_id) {

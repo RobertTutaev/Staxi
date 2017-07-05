@@ -73,8 +73,8 @@ app.use(function(err, req, res, next) {
 // Работаем с passport =========================================================
 passport.use(new LocalStrategy(function(username, password, done) {
 
-    models.user.find({ where: { username: username } }). then(
-        function(values) {
+    models.user.find({ where: { username: username } }).then(
+        function(data) {
             var user = data;
             if(user === null) {
                 return done(null, false, {message: 'Неверный логин!'});
@@ -88,35 +88,24 @@ passport.use(new LocalStrategy(function(username, password, done) {
             }
         }, 
         function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось получить список! Ошибка: ' + err.message
-            }));
+            return done(err);
         }
-    );
+    );    
 }));
 
 passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
 
-passport.deserializeUser(function(username, done) {
-    user.findById(id, function(err,user){
-    err 
-      ? done(err)
-      : done(null,user);
-  });
-    /*new models.User({username: username}).fetch().then(function(user) {
-        done(null, user);
-    });*/
-});
-
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err,user) {
-    err
-      ? done(err)
-      : done(null,user);
-  });
+    models.user.findById(id).then(
+        function(user){
+            return done(null, user);
+        },
+        function(err) {
+            return done(err);
+        }
+    );
 });
 
 module.exports = app;

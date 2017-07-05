@@ -1,10 +1,27 @@
 import { Injectable } from '@angular/core';
+import { Headers, Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
+
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
   redirectUrl: string;
 
-  login({ username, password }): Promise<boolean> {
+  private headers = new Headers({'Content-Type': 'application/json'});
+  private carsUrl = environment.myEndpoint + 'api/car';
+
+  constructor(private http: Http) {}
+
+  signin({ username, password }): Promise<boolean> {
+
+    return this.http
+        .post(environment.myEndpoint + 'signin', JSON.stringify({ username, password }), {headers: this.headers})
+        .toPromise()
+        .then(res => {console.log(res.json().data); return res.json().data as boolean})
+        .catch(this.handleError);
+  
+    /*
     return new Promise(resolve => {
       let validCredentials: boolean = false;
 
@@ -17,10 +34,10 @@ export class AuthService {
       }
 
       resolve(validCredentials);
-    });
+    });*/
   }
 
-  logout(): Promise<boolean> {
+  signout(): Promise<boolean> {
     return new Promise(resolve => {
       window.sessionStorage.removeItem('token');
       
@@ -28,7 +45,12 @@ export class AuthService {
     });
   }
 
-  get isLoggedIn(): boolean {
+  get isSignedIn(): boolean {
     return !!window.sessionStorage.getItem('token');
+  }
+
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
   }
 }

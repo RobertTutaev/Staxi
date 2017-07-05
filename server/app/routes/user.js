@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models');
 var resp = require('../lib/resp');
+var bcrypt  = require('bcrypt-nodejs');
 
 router.route('/')
   .get(function(req, res, next) {
@@ -38,6 +39,8 @@ router.route('/:id')
 
 router.route('/')
   .post(function(req, res, next) {
+    
+    req.body.passport = bcrypt.hashSync(req.body.passport);
       
     models.user.create(req.body).then(
         function(values) {

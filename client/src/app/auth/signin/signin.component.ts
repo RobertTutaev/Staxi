@@ -6,12 +6,12 @@ import { UserService } from '../../_services/user.service';
 import { AuthService } from '../../_services/auth.service';
 
 @Component({
-  selector: 'auth-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass']
+  selector: 'auth-signin',
+  templateUrl: './signin.component.html',
+  styleUrls: ['./signin.component.sass']
 })
 
-export class LoginComponent implements OnInit {
+export class SigninComponent implements OnInit {
   user: User = new User();
   message: string;
 
@@ -24,16 +24,16 @@ export class LoginComponent implements OnInit {
   ngOnInit() {  }
 
   setMessage() {
-    this.message = 'Авторизация ' + (this.authService.isLoggedIn ? 'выполнена' : 'не выполнена') + '!';
+    this.message = 'Авторизация ' + (this.authService.isSignedIn ? 'выполнена' : 'не выполнена') + '!';
   }
 
-  login() {
+  signin() {
     this.message = 'Авторизация ...';
 
-    this.authService.login(this.user).then(() => {
+    this.authService.signin(this.user).then(() => {
       this.setMessage();
 
-      if (this.authService.isLoggedIn) {
+      if (this.authService.isSignedIn) {
         // Get the redirect URL from our auth service
         // If no redirect has been set, use the default
         let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
@@ -51,8 +51,8 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  logout() {
-    this.authService.logout();
+  signout() {
+    this.authService.signout();
     this.setMessage();
   }
 }
