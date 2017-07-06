@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 
 import { User } from '../../_classes/list/user';
-import { UserService } from '../../_services/user.service';
 import { AuthService } from '../../_services/auth.service';
 
 @Component({
@@ -15,8 +14,7 @@ export class SigninComponent implements OnInit {
   user: User = new User();
   message: string;
 
-  constructor(private userService: UserService,
-              private authService: AuthService,
+  constructor(private authService: AuthService,
               private router: Router) { 
                 this.setMessage();
               }

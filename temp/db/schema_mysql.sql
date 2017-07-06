@@ -2148,7 +2148,7 @@ create table user(
 )engine=innodb;
 
 insert into user(username, password, first_name, last_name, firm_id, checked, role0, role1, role2, role3, role4) values 
-    ('opo_usr@mail.ru', '', 'А.А.', 'Администратор', 1, 1, 1, 1, 1, 1, 1);
+    ('opo_usr@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'А.А.', 'Администратор', 1, 1, 1, 1, 1, 1, 1);
 
 create table client(
     id integer primary key auto_increment,

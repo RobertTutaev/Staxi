@@ -5,7 +5,6 @@ var resp = require('../lib/resp');
 
 router.route('/c:id')
   .get(function(req, res, next) {
-    console.log(parseInt(req.params.id));
     models.sequelize.query(
         "SELECT a.*, b.style as type, trim(concat(c.first_name,' ',c.last_name)) as user "+
         "FROM contact a left join type b on a.type_id = b.id join user c on a.user_id = c.id "+

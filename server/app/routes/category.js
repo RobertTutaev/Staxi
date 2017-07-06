@@ -5,7 +5,6 @@ var resp = require('../lib/resp');
 
 router.route('/c:id')
   .get(function(req, res, next) {
-    console.log(parseInt(req.params.id));
     models.sequelize.query(
         "SELECT a.*, b.name as kateg, trim(concat(c.first_name,' ',c.last_name)) as user, d.name as doc "+
         "FROM category a left join kateg b on a.kateg_id = b.id join user c on a.user_id = c.id join doc d on a.doc_id = d.id "+

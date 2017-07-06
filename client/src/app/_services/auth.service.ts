@@ -8,49 +8,43 @@ import { environment } from '../../environments/environment';
 export class AuthService {
   redirectUrl: string;
 
+  isLoggedIn = false;
+  // window.sessionStorage.setItem('token', 'eyJhbGciOi');
+  // !!window.sessionStorage.getItem('token');
+  // window.sessionStorage.removeItem('token');
+
   private headers = new Headers({'Content-Type': 'application/json'});
   private carsUrl = environment.myEndpoint + 'api/car';
 
   constructor(private http: Http) {}
 
   signin({ username, password }): Promise<boolean> {
-
     return this.http
         .post(environment.myEndpoint + 'signin', JSON.stringify({ username, password }), {headers: this.headers})
         .toPromise()
-        .then(res => {console.log(res.json().data); return res.json().data as boolean})
+        .then(res => {
+            return this.isLoggedIn = !!res.json().data;
+        })
         .catch(this.handleError);
-  
-    /*
-    return new Promise(resolve => {
-      let validCredentials: boolean = false;
-
-      // @NOTE: In a normal scenario this check
-      // should be performed against a web service:
-      if (username === 'john.doe@mail.com' &&
-        password === 'letmein') {
-        validCredentials = true;
-        window.sessionStorage.setItem('token', 'eyJhbGciOi');
-      }
-
-      resolve(validCredentials);
-    });*/
   }
 
   signout(): Promise<boolean> {
-    return new Promise(resolve => {
-      window.sessionStorage.removeItem('token');
-      
-      resolve(true);
-    });
+    return this.http
+        .post(environment.myEndpoint + 'signout', JSON.stringify({}), {headers: this.headers})
+        .toPromise()
+        .then(res => {
+            this.isLoggedIn = !res.json().data;            
+            return !!res.json().data;
+        })
+        .catch(this.handleError);
   }
 
   get isSignedIn(): boolean {
-    return !!window.sessionStorage.getItem('token');
+    return this.isLoggedIn;
   }
 
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
+    console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
 }

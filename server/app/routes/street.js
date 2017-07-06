@@ -9,7 +9,6 @@ router.route('/')
     sql = "SELECT a.*, b.name as territory "+
         "FROM street a left join territory b on a.territory_id = b.id ";
     
-    console.log(req.query.name);
     if (req.query.name) {
         sql = sql + "WHERE lower(concat(a.name,' ',a.socr)) like lower('%" + req.query.name + "%')";
     }
@@ -44,7 +43,6 @@ router.route('/:id')
 
 router.route('/')
   .post(function(req, res) {
-    console.log(req.body);
     models.street.create(req.body).then(
         function(values) {
             res.json(resp({

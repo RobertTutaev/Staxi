@@ -24,9 +24,8 @@ if (app.get('env') === 'development') {
   }));
 }
 
-app.use(bodyParser.urlencoded({ extended: false }));// parse application/x-www-form-urlencoded
-app.use(bodyParser.json());                         // parse application/json
-require('./routes')(app);
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use(logger('dev'));
 app.use(cookieParser());
@@ -38,6 +37,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());    // {origin: '*'}
+
+require('./routes')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -54,7 +55,7 @@ if (app.get('env') === 'development') {
     res.json(resp({
         status: err.status,
         rslt: false,
-        msg: 'Ошибка: ' + err.message      
+        msg: 'Ошибка: ' + err.message
     }));
   });
 }
@@ -66,13 +67,12 @@ app.use(function(err, req, res, next) {
   res.json(resp({
       status: err.status,
       rslt: false,
-      msg: 'Ошибка: ' + err.message    
+      msg: 'Ошибка: ' + err.message
   }));
 });
 
 // Работаем с passport =========================================================
 passport.use(new LocalStrategy(function(username, password, done) {
-
     models.user.find({ where: { username: username } }).then(
         function(data) {
             var user = data;

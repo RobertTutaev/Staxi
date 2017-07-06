@@ -34,7 +34,6 @@ export class ClientComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.client);
     if (this.client.id)
       this.clientService.update(this.client)
         .then(() => this.gotoBack());
