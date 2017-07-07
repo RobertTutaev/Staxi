@@ -40,7 +40,7 @@ router.route('/:id')
 router.route('/')
   .post(function(req, res, next) {
     
-    req.body.passport = bcrypt.hashSync(req.body.passport);
+    req.body.password = bcrypt.hashSync(req.body.password);
       
     models.user.create(req.body).then(
         function(values) {
@@ -59,12 +59,14 @@ router.route('/')
 
 router.route('/:id')
   .put(function(req, res, next) {
+
+    req.body.password = bcrypt.hashSync(req.body.password);
       
     models.user.update(
         req.body,
         {
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( parseInt(req.body.id) )
             }
         }).then(
         function(values) {

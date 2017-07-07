@@ -43,8 +43,8 @@ export let Categories: Category[] = [
     doc_ser: null,
     doc_number: null,
     doc_dt: null,
-    dt_begin: null,
-    dt_end: null,
+    dt_begin: Date.parse('01.01.2017 13:00'),
+    dt_end: Date.parse('13.31.2017 13:00'),
     user_id: 12,
     user: 'О.А. Акопян',
     dt: null

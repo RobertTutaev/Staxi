@@ -2223,7 +2223,7 @@ create table category(
     doc_number varchar(20),
     doc_dt datetime,
     dt_begin datetime default CURRENT_TIMESTAMP,
-    dt_end datetime,
+    dt_end datetime not null default '01.01.2100',
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
     index fk_k_client (client_id ASC),
@@ -2248,6 +2248,7 @@ create table transportation(
     client_id integer not null,
     car_id integer not null,
     punkt_id integer not null,
+    category_id integer not null,
     a_street_id integer not null,
     a_dom integer not null,
     a_korp varchar(5) DEFAULT '',
@@ -2275,6 +2276,11 @@ create table transportation(
     constraint fk_w_punkt 
         foreign key (punkt_id) 
             references punkt (id) 
+                on delete cascade,
+    index fk_w_category (category_id ASC),
+    constraint fk_w_category 
+        foreign key (category_id) 
+            references category (id) 
                 on delete cascade,
     index fk_wa_street (a_street_id ASC),
     constraint fk_wa_street 

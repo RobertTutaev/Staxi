@@ -8,6 +8,8 @@ import { Car } from '../../_classes/list/car';
 import { CarService } from '../../_services/car.service';
 import { Punkt } from '../../_classes/list/punkt';
 import { PunktService } from '../../_services/punkt.service';
+import { Category } from '../../_classes/list/category';
+import { CategoryService } from '../../_services/category.service';
 import { Street } from '../../_classes/list/street';
 import { StreetService } from '../../_services/street.service';
 import { Transportation } from '../../_classes/list/transportation';
@@ -34,6 +36,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 export class TransportationComponent implements OnInit {
   cars: Car[] = [];
   punkts: Punkt[] = [];
+  categories: Category[] = [];
   transportation: Transportation = new Transportation();
 
   streetDivName: string = 'a_street';
@@ -42,6 +45,7 @@ export class TransportationComponent implements OnInit {
   
   constructor(private carService: CarService,
               private punktService: PunktService,
+              private categoryService: CategoryService,
               private streetService: StreetService,
               private transportationService: TransportationService,
               private route: ActivatedRoute,
@@ -49,13 +53,13 @@ export class TransportationComponent implements OnInit {
               private location: Location) { }
   
   ngOnInit() {
-    this.carService.getCars().then((cars: Car[]) => {
-        this.cars = cars;
-    });
+    this.carService.getCars().then((cars: Car[]) => this.cars = cars);
 
-    this.punktService.getPunkts().then((punkts: Punkt[]) => {
-        this.punkts = punkts;
-    });    
+    this.punktService.getPunkts().then((punkts: Punkt[]) => this.punkts = punkts);
+
+    this.route.parent.parent.params
+      .switchMap((params: Params) => this.categoryService.getCategories(+params['id']))
+      .subscribe((categories: Category[]) => this.categories = categories);
     
     this.streets = this.searchTerms
       .debounceTime(300)        // wait 300ms after each keystroke before considering the term
@@ -101,6 +105,7 @@ export class TransportationComponent implements OnInit {
         }
         else {
           this.transportation.client_id = client_id;
+          console.log(this.transportation);
           this.transportationService.create(this.transportation)
             .then(() => this.gotoBack());
         }
@@ -121,6 +126,14 @@ export class TransportationComponent implements OnInit {
 
   set selectedPunktId(value: number) {
     this.transportation.punkt_id = value;
+  }
+
+  get selectedCategoryId(): number {
+    return this.transportation.category_id;
+  }
+
+  set selectedCategoryId(value: number) {
+    this.transportation.category_id = value;
   }
 
   get getHH(): any {

@@ -3,44 +3,40 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { environment } from '../../environments/environment';
+import { User } from '../_classes/list/user';
 
 @Injectable()
 export class AuthService {
   redirectUrl: string;
-
-  isLoggedIn = false;
-  // window.sessionStorage.setItem('token', 'eyJhbGciOi');
-  // !!window.sessionStorage.getItem('token');
-  // window.sessionStorage.removeItem('token');
+  user: User = null;
 
   private headers = new Headers({'Content-Type': 'application/json'});
-  private carsUrl = environment.myEndpoint + 'api/car';
+  private authUrl = environment.myEndpoint + 'auth/';
 
   constructor(private http: Http) {}
 
-  signin({ username, password }): Promise<boolean> {
+  signin({ username, password }): Promise<User> {
     return this.http
-        .post(environment.myEndpoint + 'signin', JSON.stringify({ username, password }), {headers: this.headers})
+        .post(this.authUrl + 'signin', JSON.stringify({ username, password }), {headers: this.headers})
         .toPromise()
-        .then(res => {
-            return this.isLoggedIn = !!res.json().data;
-        })
+        .then(res => this.user = res.json().data as User)
         .catch(this.handleError);
   }
 
-  signout(): Promise<boolean> {
+  signout(): Promise<User> {
     return this.http
-        .post(environment.myEndpoint + 'signout', JSON.stringify({}), {headers: this.headers})
+        .post(this.authUrl + 'signout', JSON.stringify({}), {headers: this.headers})
         .toPromise()
-        .then(res => {
-            this.isLoggedIn = !res.json().data;            
-            return !!res.json().data;
-        })
+        .then(res => !res.json().data ? this.user = null : this.user)
         .catch(this.handleError);
   }
 
   get isSignedIn(): boolean {
-    return this.isLoggedIn;
+    return !!this.user;
+  }
+
+  get authUser(): User {
+    return this.user;
   }
 
   private handleError(error: any): Promise<any> {

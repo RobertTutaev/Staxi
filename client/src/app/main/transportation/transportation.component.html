@@ -8,6 +8,10 @@
         <dd><select name="punkt" [(ngModel)]="selectedPunktId" required>
                 <option *ngFor="let punkt of punkts" [ngValue]="punkt.id">{{punkt.name}}</option>
             </select></dd>
+        <dt>Категория*</dt>
+        <dd><select name="category" [(ngModel)]="selectedCategoryId" required>
+                <option *ngFor="let category of categories" [ngValue]="category.id">[{{category.dt_begin | date: 'dd.MM.yyyy'}}-{{category.dt_end | date: 'dd.MM.yyyy'}}] {{category.kateg}}</option>
+            </select></dd>
         <dt>A.Улица*</dt>
         <dd><div class="search-component">
                 <input 
@@ -16,7 +20,7 @@
                     (keyup)="searchStreet('a_street', a_street.value)"
                      name="a_street" (blur)="searchStreet('a_street')" 
                      [(ngModel)]="transportation.a_street"
-                     autocomplete="off" 
+                     autocomplete="off"
                      required>
                 <div *ngIf="streetDivName === 'a_street'">
                     <div *ngFor="let street of streets | async" (click)="setStreetId('a_street', street)" class="search-result" >

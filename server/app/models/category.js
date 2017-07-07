@@ -47,7 +47,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     dt_end: {
       type: DataTypes.DATE,
-      allowNull: true
+      allowNull: false,
+      defaultValue: '2001-01-21 00:00:00'
     },
     user_id: {
       type: DataTypes.INTEGER(11),

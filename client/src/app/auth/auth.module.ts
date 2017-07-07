@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule }    from '@angular/forms';
 
 import { AuthRoutingModule } from './auth.routing.module';
-import { UserService } from '../_services/user.service';
 import { SigninComponent } from './signin/signin.component';
 import { AuthService } from '../_services/auth.service';
 
@@ -16,6 +15,6 @@ import { AuthService } from '../_services/auth.service';
   declarations: [
     SigninComponent
   ],
-  providers: [ UserService, AuthService ]
+  providers: [ AuthService ]
 })
 export class AuthModule { }

@@ -6,6 +6,7 @@ export class Transportation {
             public car: string = null,
             public punkt_id: number = null,
             public punkt: string = null,
+            public category_id: number = null,
             public a_street_id: number = null,
             public a_street: string = null,
             public a_dom: number = null,

@@ -16,12 +16,12 @@ var mustAuthenticatedMw = function (req, res, next) {
 
 router.all('/api/*', mustAuthenticatedMw);
 
-router.route('/signin')
-    .post(function(req, res, next) {        
+router.route('/auth/signin')
+    .post(function(req, res, next) {
         passport.authenticate(
                 'local',
-                function(err, user, info) {                    
-                    return err 
+                function(err, user, info) {
+                    return err
                         ? res.json(resp({
                             status: err.status,
                             rslt: false,
@@ -46,7 +46,7 @@ router.route('/signin')
             )(req, res, next);
 });
 
-router.route('/signout')
+router.route('/auth/signout')
     .post(function(req, res) {
         req.logout();
         return  res.json(resp({

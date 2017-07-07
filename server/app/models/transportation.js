@@ -32,6 +32,14 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
+    category_id: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      references: {
+        model: 'category',
+        key: 'id'
+      }
+    },
     a_street_id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -42,11 +50,12 @@ module.exports = function(sequelize, DataTypes) {
     },
     a_dom: {
       type: DataTypes.INTEGER(11),
-      allowNull: true
+      allowNull: false
     },
     a_korp: {
       type: DataTypes.STRING(5),
-      allowNull: true
+      allowNull: true,
+      defaultValue: ''
     },
     a_dt: {
       type: DataTypes.DATE,
@@ -62,11 +71,12 @@ module.exports = function(sequelize, DataTypes) {
     },
     b_dom: {
       type: DataTypes.INTEGER(11),
-      allowNull: true
+      allowNull: false
     },
     b_korp: {
       type: DataTypes.STRING(5),
-      allowNull: true
+      allowNull: true,
+      defaultValue: ''
     },
     b_dt: {
       type: DataTypes.DATE,

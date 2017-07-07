@@ -12,13 +12,13 @@ router.route('/c:id')
             "d.name as punkt, "+
             "trim(concat(c.first_name,' ',c.last_name)) as user, "+
             "concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr, "+
-            "concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr "+
+            "concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr "+            
         "FROM transportation a "+
             "join car b on a.car_id = b.id "+
             "join user c on a.user_id = c.id "+
             "join punkt d on a.punkt_id = d.id "+
             "join street e on a.a_street_id = e.id "+
-            "join street f on a.b_street_id = f.id "+
+            "join street f on a.b_street_id = f.id "+            
         "WHERE a.client_id = " + parseInt(req.params.id), models.value )
 
         .spread(function(values, metadata) {
@@ -49,7 +49,12 @@ router.route('/:id')
 
 router.route('/')
   .post(function(req, res) {
-    req.body.user_id=1;
+    var user = req.user;
+    if(user !== undefined) {
+        user = user.toJSON();
+    }    
+    req.body.user_id=user.id;
+    
     models.transportation.create(req.body).then(
         function(values) {
             res.json(resp({
