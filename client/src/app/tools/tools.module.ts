@@ -4,6 +4,7 @@ import { NguiDatetimePickerModule, NguiDatetime } from '@ngui/datetime-picker';
 
 import { FilterPipe } from './pipes/filter.pipe';
 import { OrderByPipe } from './pipes/orderby.pipe';
+import { SnilsPipe } from './pipes/snils.pipe';
 import { EqualValidatorDirective } from './directives/equal-validator.directive';
 
 NguiDatetime.daysOfWeek = [
@@ -42,7 +43,6 @@ NguiDatetime.locale = {
     year: "год"
   };
 
-
 @NgModule({
   imports: [
     NguiDatetimePickerModule,
@@ -51,12 +51,14 @@ NguiDatetime.locale = {
   declarations: [    
     FilterPipe,
     OrderByPipe,
+    SnilsPipe,
     EqualValidatorDirective
   ],
   exports: [
     NguiDatetimePickerModule,
     FilterPipe,
-    OrderByPipe
+    OrderByPipe,
+    SnilsPipe
   ]
 })
 export class ToolsModule { } 

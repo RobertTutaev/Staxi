@@ -1,12 +1,29 @@
 <form class="st-form" (ngSubmit)="onSubmit(); clientForm.reset();" #clientForm="ngForm">
     <dl>
         <dt>СНИЛС*</dt>
-        <dd><input type="text" name="snils" [(ngModel)]="client.snils" placeholder="СНИЛС" required #snils="ngModel" minlength="11" maxlength="11" pattern="[1-9](\d{10})">
+        <dd><input 
+                type="text" 
+                name="snils" 
+                [ngModel]="client.snils | snils"
+                (ngModelChange)="client.snils=$event"                
+                placeholder="СНИЛС"                 
+                required 
+                #snils="ngModel"
+                maxlength="11"
+                minlength="11"
+                pattern="[1-9](\d{10})">
             <small [hidden]="snils.valid || snils.pristine">
                 Необходим корректный СНИЛС
-            </small></dd>
+            </small></dd>{{client.snils}}
         <dt>Имя*</dt>
-        <dd><input type="text" name="im" [(ngModel)]="client.im" placeholder="Имя" required #im="ngModel" maxlength="100">
+        <dd><input 
+                type="text" 
+                name="im" 
+                [(ngModel)]="client.im" 
+                placeholder="Имя" 
+                required 
+                #im="ngModel" 
+                maxlength="100">
             <small [hidden]="im.valid || im.pristine">
                 Необходимо корректное имя
             </small></dd>

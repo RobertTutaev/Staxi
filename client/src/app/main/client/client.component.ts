@@ -16,6 +16,10 @@ export class ClientComponent implements OnInit {
 
   client: Client = new Client();
   id: number;
+  mask = [/\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, ' ', /\d/, /\d/];
+  unmask(val) {
+    return val.replace('/\D+/g', '');
+  }
   
   constructor(private clientService: ClientService,
               private route: ActivatedRoute,
