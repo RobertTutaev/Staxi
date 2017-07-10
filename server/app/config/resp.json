@@ -2,5 +2,5 @@
     "status": 200,
     "rslt": true,
     "msg": "Запрос выполнен успешно!",
-    "data": {}
+    "data": null
 }

@@ -8,13 +8,31 @@ var mustAuthenticatedMw = function (req, res, next) {
     if (req.isAuthenticated()) {
         next();
     } else {
-        var err = new Error('Unauthorized');
-        err.status = 401;
-        next(err);
+        return  res.json(resp({
+                    rslt: false,
+                    status: 401,
+                    msg: 'Unauthorized'
+                }));
     }
 };
 
 router.all('/api/*', mustAuthenticatedMw);
+
+router.route('/auth/issign')
+  .get(function(req, res, next) {    
+    var user = req.user;    
+    if (req.isAuthenticated() && user !== undefined) {
+        res.json(resp({
+            data: user.toJSON()
+        }))    
+    } else {
+        res.json(resp({
+            status: 401,
+            rslt: false,
+            msg: 'Подключение отсутствует'
+        }))
+    }
+});
 
 router.route('/auth/signin')
     .post(function(req, res, next) {
@@ -49,8 +67,10 @@ router.route('/auth/signin')
 router.route('/auth/signout')
     .post(function(req, res) {
         req.logout();
+        req.session.destroy();
         return  res.json(resp({
-                    data: 'Вы отключены'
+                    status: 401,
+                    msq: 'Unauthorized'
                 }));
 });
 

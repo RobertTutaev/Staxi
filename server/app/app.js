@@ -32,8 +32,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: 'test',
-    saveUninitialized: true,
-    resave: true}));
+    saveUninitialized: false,
+    resave: false}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());    // {origin: '*'}

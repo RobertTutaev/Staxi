@@ -31,6 +31,14 @@ export class AuthService {
         .catch(this.handleError);
   }
 
+  issign(): Promise<User> {
+    return this.http
+        .get(this.authUrl + 'issign', JSON.stringify({}))
+        .toPromise()
+        .then(res => !res.json().data ? this.user = null : this.user = res.json().data as User)
+        .catch(this.handleError);
+  }
+
   get isSignedIn(): boolean {
     return !!this.user;
   }

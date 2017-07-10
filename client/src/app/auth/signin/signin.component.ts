@@ -19,19 +19,18 @@ export class SigninComponent implements OnInit {
                 this.setMessage();
               }
 
-  ngOnInit() {  }
+  ngOnInit() {
+    if (!this.authService.isSignedIn) {      
+      this.authService.issign().then(() => this.goTo())
+    }
+  }
 
   setMessage() {
     this.message = 'Авторизация ' + (this.authService.isSignedIn ? 'выполнена' : 'не выполнена') + '!';
   }
 
-  signin() {
-    this.message = 'Авторизация ...';
-
-    this.authService.signin(this.user).then(() => {
-      this.setMessage();
-
-      if (this.authService.isSignedIn) {
+  goTo() {
+    if (this.authService.isSignedIn) {
         // Get the redirect URL from our auth service
         // If no redirect has been set, use the default
         let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
@@ -45,7 +44,16 @@ export class SigninComponent implements OnInit {
 
         // Redirect the user
         this.router.navigate([redirect], navigationExtras);
-      }
+    }
+  }
+
+  signin() {
+    this.message = 'Авторизация ...';
+
+    this.authService.signin(this.user).then(() => {
+
+      this.setMessage();
+      this.goTo();
     });
   }
 
