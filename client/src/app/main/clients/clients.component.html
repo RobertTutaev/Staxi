@@ -1,7 +1,14 @@
 <h4 class="h4-sprav"><span class="h4-sprav-span">Поиск</span></h4>
 
 <div class="form-group">
-  <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="СНИЛС" maxlength="11">
+  <input 
+        type="text" 
+        [ngModel]="searchText | snils" 
+        (ngModelChange)="searchText=$event" 
+        class="form-control" 
+        placeholder="СНИЛС" 
+        maxlength="14"
+        pattern="\d\d\d-\d\d\d-\d\d\d-\d\d">
 </div>
 
 <table class="table table-hover table-list">

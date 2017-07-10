@@ -9,12 +9,12 @@
                 placeholder="СНИЛС"                 
                 required 
                 #snils="ngModel"
-                maxlength="11"
-                minlength="11"
-                pattern="[1-9](\d{10})">
+                maxlength="14"
+                minlength="14"
+                pattern="\d\d\d-\d\d\d-\d\d\d-\d\d">
             <small [hidden]="snils.valid || snils.pristine">
                 Необходим корректный СНИЛС
-            </small></dd>{{client.snils}}
+            </small></dd>
         <dt>Имя*</dt>
         <dd><input 
                 type="text" 

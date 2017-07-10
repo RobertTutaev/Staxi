@@ -1,19 +1,19 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({ name: 'snils' })
+@Pipe({ name: 'snils', pure: false })
 export class SnilsPipe implements PipeTransform {
   
-  transform(value: string, args: string[]): any {
+  transform(value: string): string {
     if (!value) return value;
 
-    let rec = value.replace(/-/g,'');
-        rec = value.replace(/ /g,'');
+    value = value.replace(/\D+/ig, '');
+    
     let str = '';
-    for (let i = 0; i < rec.length; i++) {
+    for (let i = 0; i < value.length; i++) {
       str += value[i];
-      if (i === 2)  str += '-';
+      if (i===2 || i===5 || i==8 && value[i]!=='-') str += '-';
     }
-
+    
     return str;          
   }
 }

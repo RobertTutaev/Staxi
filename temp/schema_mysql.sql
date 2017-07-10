@@ -2152,7 +2152,7 @@ insert into user(username, password, first_name, last_name, firm_id, checked, ro
 
 create table client(
     id integer primary key auto_increment,
-    snils varchar(11) not null unique,
+    snils varchar(14) not null unique,
     fam varchar(100),
     im varchar(100),
     ot varchar(100),
