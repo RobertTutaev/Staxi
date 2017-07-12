@@ -20,7 +20,7 @@
     <a routerLink="/signin"><span class="glyphicon glyphicon-user"></span></a>
   </li>
 
-  <li *ngIf="authService.isSignedIn" class="dropdown pull-right">
+  <li *ngIf="authService.isSignedIn && authService.authUser.role4" class="dropdown pull-right">
     <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-cog"></span> Справочники<b class="caret"></b></a>
     <ul class="dropdown-menu">
       <li><a routerLink="/user/list" routerLinkActive="active">Пользователи</a></li>

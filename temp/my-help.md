@@ -44,3 +44,8 @@ http://logbon72.github.io/angular-material-datetimepicker/
 Создание Пайпов
 ==========
 http://www.advancesharp.com/blog/1211/angular-2-search-and-sort-with-ngfor-repeater-with-example
+
+Маска для пароля
+==========
+/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8})$/
+(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,12}

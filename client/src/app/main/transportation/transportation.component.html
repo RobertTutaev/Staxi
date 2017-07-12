@@ -10,7 +10,9 @@
             </select></dd>
         <dt>Категория*</dt>
         <dd><select name="category" [(ngModel)]="selectedCategoryId" required>
-                <option *ngFor="let category of categories" [ngValue]="category.id">[{{category.dt_begin | date: 'dd.MM.yyyy'}}-{{category.dt_end | date: 'dd.MM.yyyy'}}] {{category.kateg}}</option>
+                <option *ngFor="let category of categories" [ngValue]="category.id">
+                    [{{category.dt_begin | date: 'dd.MM.yyyy'}} - {{category.dt_end | date: 'dd.MM.yyyy'}}] {{category.kateg}}
+                </option>
             </select></dd>
         <dt>A.Улица*</dt>
         <dd><div class="search-component">

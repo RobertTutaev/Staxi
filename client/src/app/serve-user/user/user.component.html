@@ -7,13 +7,13 @@
             <small [hidden]="username.valid || username.pristine">
                 Необходим корректный email
             </small></dd>
-        <dt>Пароль (используйте цифры, буквы "a-z", "A-Z" и спец-символы "@#$%^&*"" длиной от 6-12 символов)*</dt>
-        <dd><input type="password" name="password" [(ngModel)]="user.password" placeholder="Пароль" required #password="ngModel" maxlength="12" pattern="(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,12}" validateEqual="confirmPassword" reverse="true">
+        <dt>Пароль (используйте цифры, буквы "a-z" и "A-Z" длиной 6 символов)*</dt>
+        <dd><input type="password" name="password" [(ngModel)]="user.password" placeholder="Пароль" required #password="ngModel" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{6})$" validateEqual="confirmPassword" reverse="true">
             <small [hidden]="password.valid || password.pristine">
                 Необходим корректный пароль
             </small></dd>
         <dt>Пароль повторно*</dt>
-        <dd><input type="password" name="confirmPassword" [(ngModel)]="user.confirmPassword" placeholder="Пароль" required #confirmPassword="ngModel" maxlength="12" pattern="(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,12}" validateEqual="password" reverse="false">
+        <dd><input type="password" name="confirmPassword" [(ngModel)]="user.confirmPassword" placeholder="Пароль" required #confirmPassword="ngModel" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{6})$" validateEqual="password" reverse="false">
             <small [hidden]="confirmPassword.valid || confirmPassword.pristine">
                 Пароли не совпадают
             </small></dd>
