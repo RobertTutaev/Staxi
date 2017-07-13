@@ -7,13 +7,12 @@ import { AuthGuard }    from './../_services/auth-guard.service';
 
 const typesRoutes: Routes = [
   { 
-    path: 'type', 
+    path: 'type',
     canActivate: [AuthGuard], 
     children: [
       { path: 'list', component: TypesComponent },
       { path: '', component: TypeComponent },
-      { path: ':id', component: TypeComponent }      
-
+      { path: ':id', component: TypeComponent }
     ]
   }
 ];

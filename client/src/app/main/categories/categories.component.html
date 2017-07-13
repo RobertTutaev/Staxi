@@ -11,13 +11,16 @@
         </tr>
     </thead>
     <tbody *ngIf="categories.length">
-        <tr *ngFor="let category of categories | orderBy: {property: column, direction: direction}" (click)="onSelect(category)">
+        <tr *ngFor="let category of categories | orderBy: {property: column, direction: direction}" 
+            (click)="onSelect(category)"
+            data-toggle="tooltip" 
+            title="Созд.: {{ category.dt | date: 'dd.MM.yyyy HH:mm:ss' }}; изм.: {{ category.dtm | date: 'dd.MM.yyyy HH:mm:ss' }}">
             <td>{{ category.id }}</td>
             <td>{{ category.kateg }}</td>
             <td>{{ category.doc }}</td>
             <td>{{ category.dt_begin | date: 'dd.MM.yyyy' }}</td>
             <td>{{ category.dt_end | date: 'dd.MM.yyyy' }}</td>
-            <td class="td-dt" data-toggle="tooltip" title="Созд.: {{ category.dt | date: 'dd.MM.yyyy HH:mm:ss' }}, изм.: {{ category.dtm | date: 'dd.MM.yyyy HH:mm:ss' }}">{{ category.user }}</td>
+            <td>{{ category.user }}</td>
             <td (click)="onDelete(category); $event.stopPropagation();"><span class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
     </tbody>

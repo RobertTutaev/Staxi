@@ -3,11 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { UsersComponent }    from './users/users.component';
 import { UserComponent }  from './user/user.component';
+import { AuthGuard } from '../_services/auth-guard.service';
 
 const usersRoutes: Routes = [
-  { path: 'user/list',  component: UsersComponent },
-  { path: 'user', component: UserComponent },
-  { path: 'user/:id', component: UserComponent }
+  { 
+    path: 'user',
+    canActivate: [AuthGuard], 
+    children: [
+      { path: 'list', component: UsersComponent },
+      { path: '', component: UserComponent },
+      { path: ':id', component: UserComponent }
+    ]
+  }
 ];
 
 @NgModule({

@@ -98,6 +98,7 @@ router.route('/:id')
         }, 
         function(err) {
             res.json(resp({
+                rslt: false,
                 msg: 'Не удалось удалить! Ошибка: ' + err.message
             }));
         }

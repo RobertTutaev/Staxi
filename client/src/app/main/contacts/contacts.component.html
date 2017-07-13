@@ -10,12 +10,15 @@
         </tr>
     </thead>
     <tbody *ngIf="contacts.length">
-        <tr *ngFor="let contact of contacts | orderBy: {property: column, direction: direction}" (click)="onSelect(contact)">
+        <tr *ngFor="let contact of contacts | orderBy: {property: column, direction: direction}" 
+            (click)="onSelect(contact)"
+            data-toggle="tooltip" 
+            title="Созд.: {{ contact.dt | date: 'dd.MM.yyyy HH:mm:ss' }}; изм.: {{ contact.dtm | date: 'dd.MM.yyyy HH:mm:ss' }}">
             <td>{{ contact.id }}</td>
             <td><span [ngClass]="contact.type"></span></td>
             <td>{{ contact.name }}</td>
             <td>{{ contact.comment }}</td>
-            <td class="td-dt" data-toggle="tooltip" title="Созд.: {{ contact.dt | date: 'dd.MM.yyyy HH:mm:ss' }}, изм.: {{ contact.dtm | date: 'dd.MM.yyyy HH:mm:ss' }}">{{ contact.user }}</td>
+            <td>{{ contact.user }}</td>
             <td (click)="onDelete(contact); $event.stopPropagation();"><span class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
     </tbody>

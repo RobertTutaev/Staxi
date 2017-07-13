@@ -3,11 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { KategsComponent }    from './kategs/kategs.component';
 import { KategComponent }  from './kateg/kateg.component';
+import { AuthGuard }    from './../_services/auth-guard.service';
 
 const kategsRoutes: Routes = [
-  { path: 'kateg/list',  component: KategsComponent },
-  { path: 'kateg', component: KategComponent },
-  { path: 'kateg/:id', component: KategComponent }
+  { 
+    path: 'kateg',
+    canActivate: [AuthGuard], 
+    children: [
+      { path: 'list', component: KategsComponent },
+      { path: '', component: KategComponent },
+      { path: ':id', component: KategComponent }
+    ]
+  }
 ];
 
 @NgModule({
