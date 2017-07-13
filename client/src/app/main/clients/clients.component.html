@@ -28,7 +28,7 @@
             <td>{{ client.snils }}</td>
             <td>{{ client.im }}</td>
             <td>{{ client.ot }}</td>
-            <td>{{ client.user }}</td>
+            <td class="td-dt" data-toggle="tooltip" title="Созд.: {{ client.dt | date: 'dd.MM.yyyy HH:mm:ss' }}, изм.: {{ client.dtm | date: 'dd.MM.yyyy HH:mm:ss' }}">{{ client.user }}</td>
             <td (click)="onDelete(client); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
     </tbody>

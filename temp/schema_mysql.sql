@@ -2139,6 +2139,7 @@ create table user(
     role4 tinyint(1) DEFAULT 0,
     checked tinyint(1) DEFAULT 0,
     dt datetime default CURRENT_TIMESTAMP,
+    dtm datetime ON UPDATE CURRENT_TIMESTAMP,
     index fk_u_firm (firm_id ASC),
     constraint fk_u_firm 
         foreign key (firm_id) 
@@ -2164,6 +2165,7 @@ create table client(
     checked tinyint(1) DEFAULT 0,
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
+    dtm datetime ON UPDATE CURRENT_TIMESTAMP,
     index fk_l_snils (snils ASC),
     index fk_l_street (street_id ASC),
     constraint fk_l_street
@@ -2197,6 +2199,7 @@ create table contact(
     comment text,
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
+    dtm datetime ON UPDATE CURRENT_TIMESTAMP,
     index fk_c_client (client_id ASC),
     constraint fk_c_client
         foreign key (client_id)
@@ -2226,6 +2229,7 @@ create table category(
     dt_end datetime not null default '01.01.2100',
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
+    dtm datetime ON UPDATE CURRENT_TIMESTAMP,
     index fk_k_client (client_id ASC),
     constraint fk_k_client 
         foreign key (client_id) 
@@ -2262,6 +2266,7 @@ create table transportation(
     status tinyint(1) DEFAULT 0,
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
+    dtm datetime ON UPDATE CURRENT_TIMESTAMP,
     index fk_w_client (client_id ASC),
     constraint fk_w_client
         foreign key (client_id)

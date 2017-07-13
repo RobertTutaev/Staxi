@@ -13,5 +13,6 @@ export class Category {
             public dt_end: number = Date.parse('01.01.2100'),
             public user_id: number = null,
             public user: string = null,
-            public dt: number = null) { }
+            public dt: number = null,
+            public dtm: number = null) { }
 }

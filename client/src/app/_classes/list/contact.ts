@@ -8,5 +8,6 @@ export class Contact {
             public comment: string = null,
             public user_id: number = null,
             public user: string = null,
-            public dt: number = null) { }
+            public dt: number = null,
+            public dtm: number = null) { }
 }

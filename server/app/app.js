@@ -100,6 +100,7 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(id, done) {
     models.user.findById(id).then(
         function(user){
+            user.password = '';
             return done(null, user);
         },
         function(err) {

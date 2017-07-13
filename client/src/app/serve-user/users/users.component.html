@@ -20,7 +20,7 @@
     <tbody *ngIf="users.length">
         <tr *ngFor="let user of users | orderBy: {property: column, direction: direction}" (click)="onSelect(user)">
             <td>{{ user.id }}</td>
-            <td>{{ user.username }}</td>
+            <td class="td-dt" data-toggle="tooltip" title="Созд.: {{ user.dt | date: 'dd.MM.yyyy HH:mm:ss' }}, изм.: {{ user.dtm | date: 'dd.MM.yyyy HH:mm:ss' }}">{{ user.username }}</td>
             <td>{{ user.first_name }}</td>
             <td>{{ user.last_name }}</td>
             <td>{{ user.firm }}</td>

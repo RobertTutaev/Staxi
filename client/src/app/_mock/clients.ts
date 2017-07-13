@@ -16,7 +16,8 @@ export let Clients: Client[] = [
     checked: true,
     user_id: 1,
     user: 'A.A. Администратор',
-    dt: null
+    dt: null,
+    dtm: null
   },
   {
     id: 12,
@@ -33,7 +34,8 @@ export let Clients: Client[] = [
     checked: true,
     user_id: 1,
     user: 'A.A. Администратор',
-    dt: null
+    dt: null,
+    dtm: null
   },
   {
     id: 13,
@@ -50,7 +52,8 @@ export let Clients: Client[] = [
     checked: true,
     user_id: 1,
     user: 'A.A. Администратор',
-    dt: null
+    dt: null,
+    dtm: null
   },
   {
     id: 14,
@@ -67,7 +70,8 @@ export let Clients: Client[] = [
     checked: true,
     user_id: 1,
     user: 'A.A. Администратор',
-    dt: null
+    dt: null,
+    dtm: null
   },
   {
     id: 15,
@@ -84,6 +88,7 @@ export let Clients: Client[] = [
     checked: true,
     user_id: 2,
     user: 'A.A. Пользователь',
-    dt: null
+    dt: null,
+    dtm: null
   },
 ];

@@ -15,7 +15,7 @@
             <td><span [ngClass]="contact.type"></span></td>
             <td>{{ contact.name }}</td>
             <td>{{ contact.comment }}</td>
-            <td>{{ contact.user }}</td>
+            <td class="td-dt" data-toggle="tooltip" title="Созд.: {{ contact.dt | date: 'dd.MM.yyyy HH:mm:ss' }}, изм.: {{ contact.dtm | date: 'dd.MM.yyyy HH:mm:ss' }}">{{ contact.user }}</td>
             <td (click)="onDelete(contact); $event.stopPropagation();"><span class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
     </tbody>

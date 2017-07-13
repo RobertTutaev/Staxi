@@ -20,11 +20,11 @@ router.route('/c:id')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.contact.findById( parseInt(req.params.id) )
+    models.contact.findById(parseInt(req.params.id))
         .then(
-        function(values) {
+        function(value) {
             res.json(resp({
-                data: values
+                data: value
             }));
         },
         function(err) {
@@ -38,11 +38,18 @@ router.route('/:id')
 
 router.route('/')
   .post(function(req, res) {
-    req.body.user_id=1;
+    
+    var user = req.user;
+    if(user !== undefined) {
+        user = user.toJSON();
+    }    
+    req.body.user_id=user.id;
+    req.body.dt=new Date();
+
     models.contact.create(req.body).then(
-        function(values) {
+        function(value) {
             res.json(resp({
-                data: values
+                data: value
             }));
         },
         function(err) {
@@ -56,7 +63,9 @@ router.route('/')
 
 router.route('/:id')
   .put(function(req, res, next) {
-      
+    
+    req.body.dtm=new Date();
+
     models.contact.update(
         req.body,
         {

@@ -7,7 +7,7 @@
             <small [hidden]="username.valid || username.pristine">
                 Необходим корректный email
             </small></dd>
-        <dt>Пароль (используйте цифры, буквы "a-z" и "A-Z" длиной 6 символов)*</dt>
+        <dt>Пароль (6 символов: a-z, A-Z и 0-9)*</dt>
         <dd><input type="password" name="password" [(ngModel)]="user.password" placeholder="Пароль" required #password="ngModel" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{6})$" validateEqual="confirmPassword" reverse="true">
             <small [hidden]="password.valid || password.pristine">
                 Необходим корректный пароль

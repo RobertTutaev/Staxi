@@ -27,11 +27,11 @@ router.route('/')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.type.findById( parseInt(req.params.id) )
+    models.type.findById(parseInt(req.params.id))
         .then(
-        function(values) {
+        function(value) {
             res.json(resp({                
-                data: values
+                data: value
             }));
         }, 
         function(err) {
@@ -47,9 +47,9 @@ router.route('/')
   .post(function(req, res) {
       
     models.type.create(req.body).then(
-        function(values) {
+        function(value) {
             res.json(resp({
-                data: values
+                data: value
             }));
         },
         function(err) {

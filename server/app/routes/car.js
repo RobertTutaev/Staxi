@@ -19,11 +19,11 @@ router.route('/')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.car.findById( parseInt(req.params.id) )
+    models.car.findById(parseInt(req.params.id))
         .then(
-        function(values) {
+        function(value) {
             res.json(resp({                
-                data: values
+                data: value
             }));
         }, 
         function(err) {
@@ -39,9 +39,9 @@ router.route('/')
   .post(function(req, res) { 
     
     models.car.create(req.body).then(
-        function(values) {
+        function(value) {
             res.json(resp({
-                data: values
+                data: value
             }));
         },
         function(err) {

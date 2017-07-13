@@ -10,7 +10,8 @@ export let Contacts: Contact[] = [
     comment: null,
     user_id: 11,
     user: 'A.В. Петров',
-    dt: null
+    dt: null,
+    dtm: null
   },
   {
     id: 2,
@@ -21,7 +22,8 @@ export let Contacts: Contact[] = [
     comment: null,
     user_id: 11,
     user: 'A.В. Петров',
-    dt: null
+    dt: null,
+    dtm: null
   },
   {
     id: 3,
@@ -32,7 +34,8 @@ export let Contacts: Contact[] = [
     comment: null,
     user_id: 12,
     user: 'A.В. Сидоров',
-    dt: null
+    dt: null,
+    dtm: null
   },
   {
     id: 4,
@@ -43,7 +46,8 @@ export let Contacts: Contact[] = [
     comment: null,
     user_id: 13,
     user: 'Ж.В. Кузнецова',
-    dt: null
+    dt: null,
+    dtm: null
   },
   {
     id: 5,
@@ -54,6 +58,7 @@ export let Contacts: Contact[] = [
     comment: null,
     user_id: 12,
     user: 'П.В. Яковлева',
-    dt: null
+    dt: null,
+    dtm: null
   }
 ];

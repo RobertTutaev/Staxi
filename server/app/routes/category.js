@@ -20,11 +20,11 @@ router.route('/c:id')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.category.findById( parseInt(req.params.id) )
+    models.category.findById(parseInt(req.params.id))
         .then(
-        function(values) {
+        function(value) {
             res.json(resp({
-                data: values
+                data: value
             }));
         },
         function(err) {
@@ -38,11 +38,18 @@ router.route('/:id')
 
 router.route('/')
   .post(function(req, res) {
-    req.body.user_id=1;
+
+    var user = req.user;
+    if(user !== undefined) {
+        user = user.toJSON();
+    }    
+    req.body.user_id=user.id;
+    req.body.dt=new Date();
+
     models.category.create(req.body).then(
-        function(values) {
+        function(value) {
             res.json(resp({
-                data: values
+                data: value
             }));
         },
         function(err) {
@@ -57,6 +64,8 @@ router.route('/')
 router.route('/:id')
   .put(function(req, res, next) {
       
+    req.body.dtm=new Date();
+
     models.category.update(
         req.body,
         {

@@ -11,8 +11,9 @@ export class Client {
             public dom: number = null,
             public korp: string = null,
             public kv: string = null,
-            public checked: boolean = false,
+            public checked: boolean = true,
             public user_id: number = null,
             public user: string = null,
-            public dt: number = null) { }
+            public dt: number = null,
+            public dtm: number = null) { }
 }

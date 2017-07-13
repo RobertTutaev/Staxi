@@ -17,7 +17,7 @@
             <td>{{ category.doc }}</td>
             <td>{{ category.dt_begin | date: 'dd.MM.yyyy' }}</td>
             <td>{{ category.dt_end | date: 'dd.MM.yyyy' }}</td>
-            <td>{{ category.user }}</td>
+            <td class="td-dt" data-toggle="tooltip" title="Созд.: {{ category.dt | date: 'dd.MM.yyyy HH:mm:ss' }}, изм.: {{ category.dtm | date: 'dd.MM.yyyy HH:mm:ss' }}">{{ category.user }}</td>
             <td (click)="onDelete(category); $event.stopPropagation();"><span class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
     </tbody>

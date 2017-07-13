@@ -26,7 +26,8 @@ export let Transportations: Transportation[] = [
     status: true,
     user_id: 11,
     user: 'А.А. Чехов',
-    dt: Date.parse('12.31.2017 13:00')
+    dt: Date.parse('12.31.2017 13:00'),
+    dtm: null
   },
   {
     id: 1,
@@ -53,6 +54,7 @@ export let Transportations: Transportation[] = [
     status: true,
     user_id: 11,
     user: 'А.А. Сехов',
-    dt: Date.parse('13.31.2017 13:00')
+    dt: Date.parse('13.31.2017 13:00'),
+    dtm: null
   }
 ];

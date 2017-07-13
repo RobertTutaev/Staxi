@@ -21,55 +21,81 @@ var mustAuthenticatedMw = function (req, res, next) {
     else res.json(respError401);
 };
 
-function granted(req, res, next, role) {
+function granted(req, res, next, roles) {
     var user = req.user;
-    if (req.isAuthenticated() && user !== undefined && !!user[role]) next();
-    else res.json(respError403);
+
+    if (req.isAuthenticated() && user !== undefined) {
+        
+        models.user.findById(parseInt(user.id)).then(
+            function(value) {                
+                var toTheNext = roles.some(role => !!value[role]);
+
+                if (toTheNext) next();
+                else res.json(respError403);
+            }, 
+            function(err) {
+                res.json(respError403);
+            }
+        );
+
+    } else {
+        res.json(respError403);
+    }
 }
 
 var grantedRole0 = function (req, res, next) {
-    granted(req, res, next, 'role0');
+    granted(req, res, next, ['role0']);
 };
 
-var grantedRole1 = function (req, res, next) {
-    granted(req, res, next, 'role1');
+var grantedRole123 = function (req, res, next) {
+    granted(req, res, next, ['role1', 'role2', 'role3']);
 };
 
-var grantedRole2 = function (req, res, next) {
-    granted(req, res, next, 'role2');
-};
-
-var grantedRole3 = function (req, res, next) {
-    granted(req, res, next, 'role3');
+var grantedRole23 = function (req, res, next) {
+    granted(req, res, next, ['role2', 'role3']);
 };
 
 var grantedRole4 = function (req, res, next) {
-    granted(req, res, next, 'role4');
+    granted(req, res, next, ['role4']);
 };
 //=============================================================================
 
-// Проверим авторизацию для всех маршрутов
+//1. Проверим авторизацию для всех маршрутов
 router.all('/api*', mustAuthenticatedMw);
 
-// Проверяем права администратора
-router.all('/api/user*', grantedRole4);
-router.all(['/api/territory/:id',
-            '/api/street/:id',
-            '/api/kateg/:id',
-            '/api/punkts/:id',
-            '/api/firm/:id',
-            '/api/doc/:id',
-            '/api/car/:id',
-            '/api/type/:id'
-        ], grantedRole4);
-router.post(['/api/territory',
-            '/api/street',
-            '/api/kateg',
-            '/api/punkts',
-            '/api/firm',
-            '/api/doc',
-            '/api/car',
-            '/api/type'
+//2. Проверяем права водителя (role1)
+router.get(['/api/transportation*'
+        ], grantedRole123);
+router.put(['/api/transportation*'
+        ], grantedRole123);
+
+//3. Проверяем права оператора (role2) и координатора (role3)
+router.get(['/api/territory*',
+            '/api/street*',
+            '/api/kateg*',
+            '/api/punkts*',
+            '/api/firm*',
+            '/api/doc*',
+            '/api/car*',
+            '/api/type*'
+        ], grantedRole23);
+router.all([
+            '/api/client*',
+            '/api/contact*',
+            '/api/category*',
+            '/api/transportation*'
+        ], grantedRole23);
+
+// 4. Проверяем права администратора (role4)
+router.all(['/api/user*',
+            '/api/territory*',
+            '/api/street*',
+            '/api/kateg*',
+            '/api/punkts*',
+            '/api/firm*',
+            '/api/doc*',
+            '/api/car*',
+            '/api/type*'
         ], grantedRole4);
 
 //=============================================================================

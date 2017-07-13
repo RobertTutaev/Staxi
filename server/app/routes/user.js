@@ -20,12 +20,12 @@ router.route('/')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.user.findById( parseInt(req.params.id) )
+    models.user.findById(parseInt(req.params.id))
         .then(
-        function(values) {
-            values.passport = '';
+        function(value) {
+            value.password = '';
             res.json(resp({                
-                data: values
+                data: value
             }));
         }, 
         function(err) {
@@ -41,11 +41,12 @@ router.route('/')
   .post(function(req, res, next) {
     
     req.body.password = bcrypt.hashSync(req.body.password);
+    req.body.dt=new Date();
       
     models.user.create(req.body).then(
-        function(values) {
+        function(value) {
             res.json(resp({
-                data: values
+                data: value
             }));
         },
         function(err) {
@@ -61,6 +62,7 @@ router.route('/:id')
   .put(function(req, res, next) {
 
     req.body.password = bcrypt.hashSync(req.body.password);
+    req.body.dtm=new Date();
       
     models.user.update(
         req.body,

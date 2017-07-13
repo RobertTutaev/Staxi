@@ -16,7 +16,8 @@ export let Users: User[] = [
     role3: true,
     role4: true,
     checked: true,
-    dt: null
+    dt: null,
+    dtm: null
   },
   {
     id: 2,
@@ -33,7 +34,8 @@ export let Users: User[] = [
     role3: false,
     role4: true,
     checked: true,
-    dt: null
+    dt: null,
+    dtm: null
   },
   {
     id: 3,
@@ -50,7 +52,8 @@ export let Users: User[] = [
     role3: false,
     role4: false,
     checked: true,
-    dt: null
+    dt: null,
+    dtm: null
   },
   {
     id: 4,
@@ -67,6 +70,7 @@ export let Users: User[] = [
     role3: false,
     role4: false,
     checked: false,
-    dt: null
+    dt: null,
+    dtm: null
   }
 ];
