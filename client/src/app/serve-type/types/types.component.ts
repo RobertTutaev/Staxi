@@ -24,10 +24,8 @@ export class TypesComponent extends SController implements OnInit {
   }
 
   onDelete(type: Type) {
-    if(confirm('Вы действительно хотите удалить текущую запись и все связанные с ней записи из базы данных?'))
+    if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.typeService.delete(type.id)
-        .then(() => {
-            this.types = this.types.filter(t => t !== type);
-          });
+        .then((res: any) => res.rslt ? this.types = this.types.filter(k => k !== type) : null);
   }
 }

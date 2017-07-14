@@ -28,6 +28,14 @@ module.exports = function(sequelize, DataTypes) {
         key: 'id'
       }
     },
+    driver_name: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    driver_phone: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
     type: {
       type: DataTypes.INTEGER(1),
       allowNull: true,

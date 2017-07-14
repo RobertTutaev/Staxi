@@ -38,7 +38,7 @@ export class ClientService {
     const url = `${this.clientsUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
-      .then(() => null)
+      .then(response => response.json())
       .catch(this.handleError);
   }
 

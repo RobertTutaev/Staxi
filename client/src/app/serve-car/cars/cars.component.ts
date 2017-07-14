@@ -25,10 +25,8 @@ export class CarsComponent extends SController implements OnInit {
   }
 
   onDelete(car: Car) {
-    if(confirm('Вы действительно хотите удалить текущую запись и все связанные с ней записи из базы данных?'))
+    if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.carService.delete(car.id)
-        .then(() => {
-            this.cars = this.cars.filter(c => c !== car);
-          });
+        .then((res: any) => res.rslt ? this.cars = this.cars.filter(k => k !== car) : null);
   }
 }

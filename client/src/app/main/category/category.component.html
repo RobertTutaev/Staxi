@@ -9,12 +9,26 @@
                 <option *ngFor="let doc of docs || async" [ngValue]="doc.id">{{doc.name}}</option>
             </select></dd>
         <dt>Серия документа</dt>
-        <dd><input type="text" name="doc_ser" [(ngModel)]="category.doc_ser" #doc_ser="ngModel" maxlength="10" placeholder="Серия">
+        <dd><input 
+                type="text" 
+                name="doc_ser" 
+                [(ngModel)]="category.doc_ser" 
+                #doc_ser="ngModel" 
+                maxlength="10" 
+                placeholder="Серия"
+                autocomplete="off">
             <small [hidden]="doc_ser.valid || doc_ser.pristine">
                 Необходимо корректное значение длиной не более 10 символов
             </small></dd>
         <dt>Номер документа</dt>
-        <dd><input type="text" name="doc_number" [(ngModel)]="category.doc_number" #doc_number="ngModel" maxlength="20" placeholder="Номер">
+        <dd><input 
+                type="text" 
+                name="doc_number" 
+                [(ngModel)]="category.doc_number" 
+                #doc_number="ngModel" 
+                maxlength="20" 
+                placeholder="Номер"
+                autocomplete="off">
             <small [hidden]="doc_number.valid || doc_number.pristine">
                 Необходимо корректное значение длиной не более 20 символов
             </small></dd>

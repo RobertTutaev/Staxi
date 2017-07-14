@@ -25,10 +25,8 @@ export class StreetsComponent extends SController implements OnInit {
   }
 
   onDelete(street: Street) {
-    if(confirm('Вы действительно хотите удалить текущую запись и все связанные с ней записи из базы данных?'))
+    if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.streetService.delete(street.id)
-        .then(() => {
-            this.streets = this.streets.filter(s => s !== street);
-          });
+        .then((res: any) => res.rslt ? this.streets = this.streets.filter(k => k !== street) : null);
   }
 }

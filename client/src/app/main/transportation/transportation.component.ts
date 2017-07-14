@@ -14,6 +14,9 @@ import { Street } from '../../_classes/list/street';
 import { StreetService } from '../../_services/street.service';
 import { Transportation } from '../../_classes/list/transportation';
 import { TransportationService } from '../../_services/transportation.service';
+import { Status } from '../../_classes/status';
+import { Statuses } from '../../_mock/statuses';
+import { AuthService } from '../../_services/auth.service';
 
 import { MdDatepicker } from '@angular/material';
 
@@ -37,13 +40,15 @@ export class TransportationComponent implements OnInit {
   cars: Car[] = [];
   punkts: Punkt[] = [];
   categories: Category[] = [];
+  statuses: Status[] = Statuses;
   transportation: Transportation = new Transportation();
 
   streetDivName: string = 'a_street';
   streets: Observable<Street[]>;
   private searchTerms = new Subject<string>();
   
-  constructor(private carService: CarService,
+  constructor(private authService: AuthService,
+              private carService: CarService,
               private punktService: PunktService,
               private categoryService: CategoryService,
               private streetService: StreetService,
@@ -105,7 +110,6 @@ export class TransportationComponent implements OnInit {
         }
         else {
           this.transportation.client_id = client_id;
-          console.log(this.transportation);
           this.transportationService.create(this.transportation)
             .then(() => this.gotoBack());
         }
@@ -135,6 +139,14 @@ export class TransportationComponent implements OnInit {
   set selectedCategoryId(value: number) {
     this.transportation.category_id = value;
   }
+
+  get selectedStatus(): number {
+    return this.transportation.status;
+  }
+
+  set selectedStatus(value: number) {
+    this.transportation.status = value;
+  } 
 
   get getHH(): any {
     return this.transportation.a_dt;

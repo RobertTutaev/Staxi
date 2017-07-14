@@ -8,6 +8,8 @@ export let Cars: Car[] = [
     gos_no: 'е345не174',
     territory_id: 1,
     territory: 'Челябинск',
+    driver_name: 'Анатолий',
+    driver_phone: '8 909 909 909',
     type: false    
   },
   {
@@ -17,6 +19,8 @@ export let Cars: Car[] = [
     gos_no: 'у435ка174',
     territory_id: 1,
     territory: 'Челябинск',
+    driver_name: 'Гоша',
+    driver_phone: '8 999 909 909',
     type: false
   },
   {
@@ -26,6 +30,8 @@ export let Cars: Car[] = [
     gos_no: 'а412ао74',
     territory_id: 1,
     territory: 'Челябинск',
+    driver_name: 'Петро',
+    driver_phone: '8 909 888 888',
     type: true
   }
 ];

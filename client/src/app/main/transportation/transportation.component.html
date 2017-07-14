@@ -2,7 +2,7 @@
     <dl>
         <dt>Автотранспорт*</dt> 
         <dd><select name="car" [(ngModel)]="selectedCarId" required>
-                <option *ngFor="let car of cars" [ngValue]="car.id">{{car.name}}</option>
+                <option *ngFor="let car of cars" [ngValue]="car.id">[{{car.name}}] {{car.gos_no}}</option>
             </select></dd>
         <dt>Пункт доставки*</dt>
         <dd><select name="punkt" [(ngModel)]="selectedPunktId" required>
@@ -20,10 +20,10 @@
                     #a_street 
                     class="form-control search-box" 
                     (keyup)="searchStreet('a_street', a_street.value)"
-                     name="a_street" (blur)="searchStreet('a_street')" 
-                     [(ngModel)]="transportation.a_street"
-                     autocomplete="off"
-                     required>
+                    name="a_street" (blur)="searchStreet('a_street')" 
+                    [(ngModel)]="transportation.a_street"
+                    autocomplete="off"
+                    required>
                 <div *ngIf="streetDivName === 'a_street'">
                     <div *ngFor="let street of streets | async" (click)="setStreetId('a_street', street)" class="search-result" >
                         {{ street.name }} {{ street.socr }}
@@ -31,12 +31,27 @@
                 </div>
             </div></dd>
         <dt>A.Дом*</dt>
-        <dd><input type="text" name="a_dom" [(ngModel)]="transportation.a_dom" #a_dom="ngModel" maxlength="4" placeholder="Дом" required>
+        <dd><input 
+                type="text" 
+                name="a_dom" 
+                [(ngModel)]="transportation.a_dom" 
+                #a_dom="ngModel" 
+                maxlength="4" 
+                placeholder="Дом" 
+                required
+                autocomplete="off">
             <small [hidden]="a_dom.valid || a_dom.pristine">
                 Необходимо корректное значение
             </small></dd>
         <dt>A.Корп</dt>
-        <dd><input type="text" name="a_korp" [(ngModel)]="transportation.a_korp" #a_korp="ngModel" maxlength="4" placeholder="Корп">
+        <dd><input 
+                type="text" 
+                name="a_korp" 
+                [(ngModel)]="transportation.a_korp" 
+                #a_korp="ngModel" 
+                maxlength="4" 
+                placeholder="Корп"
+                autocomplete="off">
             <small [hidden]="a_korp.valid || a_korp.pristine">
                 Необходимо корректное значение
             </small></dd>
@@ -69,12 +84,27 @@
                 </div>
             </div></dd>
         <dt>Б.Дом*</dt>
-        <dd><input type="text" name="b_dom" [(ngModel)]="transportation.b_dom" #b_dom="ngModel" maxlength="4" placeholder="Дом" required>
+        <dd><input 
+                type="text" 
+                name="b_dom" 
+                [(ngModel)]="transportation.b_dom" 
+                #b_dom="ngModel" 
+                maxlength="4" 
+                placeholder="Дом" 
+                required
+                autocomplete="off">
             <small [hidden]="b_dom.valid || b_dom.pristine">
                 Необходимо корректное значение
             </small></dd>
         <dt>Б.Корп</dt>
-        <dd><input type="text" name="b_korp" [(ngModel)]="transportation.b_korp" #b_korp="ngModel" maxlength="4" placeholder="Корп">
+        <dd><input 
+                type="text" 
+                name="b_korp" 
+                [(ngModel)]="transportation.b_korp" 
+                #b_korp="ngModel" 
+                maxlength="4" 
+                placeholder="Корп"
+                autocomplete="off">
             <small [hidden]="b_korp.valid || b_korp.pristine">
                 Необходимо корректное значение
             </small></dd>
@@ -89,10 +119,19 @@
                 readonly="readonly" 
                 class="form-control" 
                 min-hour="{{ transportation.a_dt | date: 'HH' }}"></dd>
-        <dd><input type="checkbox" value="true" name="checked" id="transportationChecked" [(ngModel)]="transportation.checked">
-            <label for="transportationChecked">Одобрено уполномоченным</label></dd>
-        <dd><input type="checkbox" value="true" name="status" id="transportationStatus" [(ngModel)]="transportation.status">
-            <label for="transportationStatus">Перевозка выполнена</label></dd>
+        <dt>Комментарий</dt>
+        <dd><textarea 
+                name="comment" 
+                [(ngModel)]="transportation.comment" 
+                placeholder="Комментарий" 
+                #comment="ngModel" 
+                maxlength="255" 
+                class="form-control" 
+                rows="3"></textarea></dd>
+        <dt *ngIf="authService.isSignedIn && authService.authUser.role4">Статус перевозки</dt>
+        <dd *ngIf="authService.isSignedIn && authService.authUser.role4"><select name="status" [(ngModel)]="selectedStatus" required>
+                <option *ngFor="let status of statuses" [ngValue]="status.id">{{status.name}}</option>
+            </select></dd>
         
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>

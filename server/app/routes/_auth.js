@@ -28,9 +28,7 @@ function granted(req, res, next, roles) {
         
         models.user.findById(parseInt(user.id)).then(
             function(value) {                
-                var toTheNext = roles.some(role => !!value[role]);
-
-                if (toTheNext) next();
+                if (roles.some(role => !!value[role])) next();
                 else res.json(respError403);
             }, 
             function(err) {
@@ -42,22 +40,6 @@ function granted(req, res, next, roles) {
         res.json(respError403);
     }
 }
-
-var grantedRole0 = function (req, res, next) {
-    granted(req, res, next, ['role0']);
-};
-
-var grantedRole123 = function (req, res, next) {
-    granted(req, res, next, ['role1', 'role2', 'role3']);
-};
-
-var grantedRole23 = function (req, res, next) {
-    granted(req, res, next, ['role2', 'role3']);
-};
-
-var grantedRole4 = function (req, res, next) {
-    granted(req, res, next, ['role4']);
-};
 //=============================================================================
 
 //1. Проверим авторизацию для всех маршрутов
@@ -65,38 +47,85 @@ router.all('/api*', mustAuthenticatedMw);
 
 //2. Проверяем права водителя (role1)
 router.get(['/api/transportation*'
-        ], grantedRole123);
+        ], 
+        function (req, res, next) {
+            granted(req, res, next, ['role1', 'role2', 'role3', 'role4']);
+        });
+
 router.put(['/api/transportation*'
-        ], grantedRole123);
+        ],
+        function (req, res, next) {
+            granted(req, res, next, ['role1', 'role2', 'role3', 'role4']);
+        });
 
 //3. Проверяем права оператора (role2) и координатора (role3)
 router.get(['/api/territory*',
             '/api/street*',
             '/api/kateg*',
-            '/api/punkts*',
+            '/api/punkt*',
             '/api/firm*',
             '/api/doc*',
             '/api/car*',
             '/api/type*'
-        ], grantedRole23);
+        ], 
+        function (req, res, next) {
+            granted(req, res, next, ['role2', 'role3', 'role4']);
+        });
+
 router.all([
             '/api/client*',
             '/api/contact*',
             '/api/category*',
             '/api/transportation*'
-        ], grantedRole23);
+        ], 
+        function (req, res, next) {
+            granted(req, res, next, ['role2', 'role3', 'role4']);
+        });
 
 // 4. Проверяем права администратора (role4)
-router.all(['/api/user*',
+router.put(['/api/user*',
             '/api/territory*',
             '/api/street*',
             '/api/kateg*',
-            '/api/punkts*',
+            '/api/punkt*',
             '/api/firm*',
             '/api/doc*',
             '/api/car*',
             '/api/type*'
-        ], grantedRole4);
+        ], 
+        function (req, res, next) {
+            granted(req, res, next, ['role4']);
+        });
+
+router.post([
+            '/api/user*',
+            '/api/territory*',
+            '/api/street*',
+            '/api/kateg*',
+            '/api/punkt*',
+            '/api/firm*',
+            '/api/doc*',
+            '/api/car*',
+            '/api/type*'
+        ], 
+        function (req, res, next) {
+            granted(req, res, next, ['role4']);
+        });
+
+router.delete([
+            '/api/user*',
+            '/api/territory*',
+            '/api/street*',
+            '/api/kateg*',
+            '/api/punkt*',
+            '/api/firm*',
+            '/api/doc*',
+            '/api/car*',
+            '/api/type*'
+        ], 
+        function (req, res, next) {
+            granted(req, res, next, ['role4']);
+        });
 
 //=============================================================================
 router.route('/auth/issign')

@@ -25,10 +25,8 @@ export class FirmsComponent extends SController implements OnInit {
   }
 
   onDelete(firm: Firm) {
-    if(confirm('Вы действительно хотите удалить текущую запись и все связанные с ней записи из базы данных?'))
+    if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.firmService.delete(firm.id)
-        .then(() => {
-            this.firms = this.firms.filter(f => f !== firm);
-          });
+        .then((res: any) => res.rslt ? this.firms = this.firms.filter(k => k !== firm) : null);
   }
 }

@@ -25,10 +25,8 @@ export class ClientsComponent extends SController implements OnInit {
   }
 
   onDelete(client: Client) {
-    if(confirm('Вы действительно хотите удалить текущую запись и все связанные с ней записи из базы данных?'))
+    if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.clientService.delete(client.id)
-        .then(() => {
-            this.clients = this.clients.filter(c => c !== client);
-          });
+        .then((res: any) => res.rslt ? this.clients = this.clients.filter(k => k !== client) : null);
   }
 }

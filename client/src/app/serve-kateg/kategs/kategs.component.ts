@@ -25,10 +25,8 @@ export class KategsComponent extends SController implements OnInit {
   }
 
   onDelete(kateg: Kateg) {
-    if(confirm('Вы действительно хотите удалить текущую запись и все связанные с ней записи из базы данных?'))
+    if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.kategService.delete(kateg.id)
-        .then(() => {
-            this.kategs = this.kategs.filter(k => k !== kateg);
-          });
+        .then((res: any) => res.rslt ? this.kategs = this.kategs.filter(k => k !== kateg) : null);
   }
 }

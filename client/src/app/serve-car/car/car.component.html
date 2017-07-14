@@ -3,19 +3,68 @@
 <form class="st-form" (ngSubmit)="onSubmit(); carForm.reset();" #carForm="ngForm">
     <dl>
         <dt>Название*</dt>
-        <dd><input type="text" name="name" [(ngModel)]="car.name" placeholder="Название" required #name="ngModel" maxlength="100"></dd>
+        <dd><input 
+                type="text" 
+                name="name" 
+                [(ngModel)]="car.name" 
+                placeholder="Лада Калина" 
+                required 
+                #name="ngModel" 
+                maxlength="100"
+                autocomplete="off"></dd>
         <dt>Гос. номер*</dt>
-        <dd><input type="text" name="gos_no" [(ngModel)]="car.gos_no" placeholder="у999уу174" required #name="ngModel" maxlength="12"></dd>
+        <dd><input 
+                type="text" 
+                name="gos_no" 
+                [(ngModel)]="car.gos_no" 
+                placeholder="у999уу174" 
+                required 
+                #gos_no="ngModel" 
+                maxlength="12"
+                autocomplete="off"></dd>
         <dt>Цвет</dt>
-        <dd><input type="text" name="color" [(ngModel)]="car.color" placeholder="Снежная королева" #name="ngModel" maxlength="100"></dd>
+        <dd><input 
+                type="text" 
+                name="color" 
+                [(ngModel)]="car.color" 
+                placeholder="Снежная королева" 
+                #color="ngModel" 
+                maxlength="100"
+                autocomplete="off"></dd>
         <dt>Территория*</dt>
         <dd>
             <select name="territory" [(ngModel)]="selectedTerritoryId" required>
-                <option *ngFor="let territory of territories" [ngValue]="territory.id">{{territory.name}}</option>
+                <option *ngFor="let territory of territories" [ngValue]="territory.id">
+                    {{territory.name}}
+                </option>
             </select>
         </dd>
+        <dt>Водитель</dt>
+        <dd><input 
+                type="text" 
+                name="driver_name" 
+                [(ngModel)]="car.driver_name" 
+                placeholder="Анатолий" 
+                #driver_name="ngModel" 
+                maxlength="255"
+                autocomplete="off"></dd>
+        <dt>Телефон водителя</dt>
+        <dd><input 
+                type="text" 
+                name="driver_phone" 
+                [(ngModel)]="car.driver_phone" 
+                placeholder="8-909-909-99-99" 
+                #driver_phone="ngModel"
+                 maxlength="50" 
+                 pattern="^[0-9-+]+$"
+                 autocomplete="off"></dd>
         <dt>Тип</dt>
-        <dd><input type="checkbox" value="true" name="type" id="carType" [(ngModel)]="car.type">
+        <dd><input 
+                type="checkbox" 
+                value="true" 
+                name="type" 
+                id="carType" 
+                [(ngModel)]="car.type">
             <label for="carType">Автобус (иначе Автомобиль)</label></dd>
  
         <br>

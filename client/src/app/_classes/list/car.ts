@@ -6,5 +6,7 @@ export class Car {
             public gos_no: string = null,
             public territory_id: number = null,
             public territory: string = null,
+            public driver_name: string = '',
+            public driver_phone: string = '',
             public type: boolean = false) { }
 }

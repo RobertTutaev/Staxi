@@ -40,7 +40,7 @@ create table territory(
     constraint fk_t_territory
         foreign key (territory_id)
             references territory (id)
-                on delete cascade
+                on delete RESTRICT
 )engine=innodb;
 
 insert into territory (id, territory_id, name) values
@@ -64,7 +64,7 @@ create table street(
     constraint fk_s_territory 
         foreign key (territory_id) 
             references territory (id) 
-                on delete cascade
+                on delete RESTRICT
 )engine=innodb;
 
 insert into street (id, territory_id, name, socr, post, nda) values
@@ -2073,14 +2073,16 @@ create table car(
     id integer primary key auto_increment,
     name varchar(100),
     color varchar(100),
-    gos_no varchar(12),    
+    gos_no varchar(12),
     territory_id integer,
+    driver_name varchar(255),
+    driver_phone varchar(50),
     type tinyint(1) DEFAULT 0,
     index fk_c_territory (territory_id ASC),
     constraint fk_c_territory
         foreign key (territory_id)
             references territory (id)
-                on delete cascade
+                on delete RESTRICT
 )engine=innodb;
 
 create table punkt(
@@ -2111,7 +2113,7 @@ create table firm(
     constraint fk_f_territory 
         foreign key (territory_id) 
             references territory (id) 
-                on delete cascade
+                on delete RESTRICT
 )engine=innodb;
 
 insert into firm (territory_id, name) values
@@ -2144,12 +2146,20 @@ create table user(
     constraint fk_u_firm 
         foreign key (firm_id) 
             references firm (id) 
-                on delete cascade,
+                on delete RESTRICT,
     index fk_u_username (username ASC)
 )engine=innodb;
 
 insert into user(username, password, first_name, last_name, firm_id, checked, role0, role1, role2, role3, role4) values 
-    ('opo_usr@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'А.А.', 'Администратор', 1, 1, 1, 1, 1, 1, 1);
+    ('opo_usr@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'А.А.', 'Администратор', 1, 1, 1, 1, 1, 1, 1),
+    ('dveteranov@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'К.К.', 'Координатор', 2, 1, 1, 1, 1, 1, 1),
+    ('zentr2515@yandex.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор 1', 3, 1, 1, 1, 1, 0, 0),
+    ('kcson74@yandex.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор 2', 4, 1, 1, 1, 1, 0, 0),
+    ('kcsonlen@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор 3', 5, 1, 1, 1, 1, 0, 0),
+    ('kcson_chmz@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор 4', 6, 1, 1, 1, 1, 0, 0),
+    ('mukcsonsov@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор 5', 7, 1, 1, 1, 1, 0, 0),
+    ('mukcon_tzr@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор 6', 8, 1, 1, 1, 1, 0, 0),
+    ('socobs@ya.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор 7', 9, 1, 1, 1, 1, 0, 0);
 
 create table client(
     id integer primary key auto_increment,
@@ -2171,12 +2181,12 @@ create table client(
     constraint fk_l_street
         foreign key (street_id)
             references street (id)
-                on delete cascade,
+                on delete RESTRICT,
     index fk_l_user (user_id ASC),
     constraint fk_l_user
         foreign key (user_id)
             references user (id)
-                on delete cascade
+                on delete RESTRICT
 )engine=innodb;
 
 create table type(
@@ -2188,14 +2198,15 @@ create table type(
 )engine=innodb;
 
 insert into type (name, mask, placeholder, style) values
-    ('Телефон', '^[0-9-+]+$', 'nnn-nn-nn', 'glyphicon glyphicon-phone-alt'),
+    ('Телефон (основной)', '^[0-9-+]+$', 'nnn-nn-nn (n-nnn-nnn-nn-nn)', 'glyphicon glyphicon-earphone'),
+    ('Телефон', '^[0-9-+]+$', 'nnn-nn-nn (n-nnn-nnn-nn-nn)', 'glyphicon glyphicon-phone-alt'),    
     ('Email', '^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$', 'xxx@yyy.zzz', 'glyphicon glyphicon-envelope');
 
 create table contact(
     id integer primary key auto_increment,
     client_id integer not null,
     type_id integer not null,
-    name varchar(50) not null,    
+    name varchar(50) not null,
     comment text,
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
@@ -2204,17 +2215,17 @@ create table contact(
     constraint fk_c_client
         foreign key (client_id)
             references client (id)
-                on delete cascade,
+                on delete RESTRICT,
     index fk_c_type (type_id ASC),
     constraint fk_c_type
         foreign key (type_id)
             references type (id)
-                on delete cascade,
+                on delete RESTRICT,
     index fk_c_user (user_id ASC),
     constraint fk_c_user
         foreign key (user_id)
             references user (id)
-                on delete cascade
+                on delete RESTRICT
 )engine=innodb;
 
 create table category(
@@ -2234,17 +2245,17 @@ create table category(
     constraint fk_k_client 
         foreign key (client_id) 
             references client (id)
-                on delete cascade,
+                on delete RESTRICT,
     index fk_k_kateg (kateg_id ASC),
     constraint fk_k_kateg 
         foreign key (kateg_id) 
             references kateg (id) 
-                on delete cascade,
+                on delete RESTRICT,
     index fk_k_user (user_id ASC),
     constraint fk_k_user
         foreign key (user_id)
             references user (id)
-                on delete cascade
+                on delete RESTRICT
 )engine=innodb;
 
 create table transportation(
@@ -2261,8 +2272,7 @@ create table transportation(
     b_dom integer not null,
     b_korp varchar(5) DEFAULT '',
     b_dt datetime,
-    checked tinyint(1) DEFAULT 0,
-    comments text,
+    comment text,
     status tinyint(1) DEFAULT 0,
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
@@ -2271,35 +2281,35 @@ create table transportation(
     constraint fk_w_client
         foreign key (client_id)
             references client (id)
-                on delete cascade,
+                on delete RESTRICT,
     index fk_w_car (car_id ASC),
     constraint fk_w_car 
         foreign key (car_id) 
             references car (id) 
-                on delete cascade,
+                on delete RESTRICT,
     index fk_w_punkt (punkt_id ASC),
     constraint fk_w_punkt 
         foreign key (punkt_id) 
             references punkt (id) 
-                on delete cascade,
+                on delete RESTRICT,
     index fk_w_category (category_id ASC),
     constraint fk_w_category 
         foreign key (category_id) 
             references category (id) 
-                on delete cascade,
+                on delete RESTRICT,
     index fk_wa_street (a_street_id ASC),
     constraint fk_wa_street 
         foreign key (a_street_id) 
             references street (id) 
-                on delete cascade,
+                on delete RESTRICT,
     index fk_wb_street (b_street_id ASC),
     constraint fk_ba_street 
         foreign key (b_street_id) 
             references street (id) 
-                on delete cascade,
+                on delete RESTRICT,
     index fk_w_user (user_id ASC),
     constraint fk_w_user
         foreign key (user_id)
             references user (id)
-                on delete cascade
+                on delete RESTRICT
 )engine=innodb;

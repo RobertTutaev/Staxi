@@ -11,7 +11,8 @@
                 #snils="ngModel"
                 maxlength="14"
                 minlength="14"
-                pattern="\d\d\d-\d\d\d-\d\d\d-\d\d">
+                pattern="\d\d\d-\d\d\d-\d\d\d-\d\d"
+                autocomplete="off">
             <small [hidden]="snils.valid || snils.pristine">
                 Необходим корректный СНИЛС
             </small></dd>
@@ -23,12 +24,21 @@
                 placeholder="Имя" 
                 required 
                 #im="ngModel" 
-                maxlength="100">
+                maxlength="100"
+                autocomplete="off"
+                pattern="^[а-яА-ЯёЁ]+$">
             <small [hidden]="im.valid || im.pristine">
                 Необходимо корректное имя
             </small></dd>
         <dt>Отчество</dt>
-        <dd><input type="text" name="ot" [(ngModel)]="client.ot" placeholder="Отчество" #ot="ngModel" maxlength="100"></dd>
+        <dd><input 
+                type="text" 
+                name="ot" 
+                [(ngModel)]="client.ot"
+                placeholder="Отчество" 
+                #ot="ngModel" 
+                maxlength="100"
+                pattern="^[а-яА-ЯёЁ]+$"></dd>
         
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>

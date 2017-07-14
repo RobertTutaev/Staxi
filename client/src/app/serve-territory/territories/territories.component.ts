@@ -25,10 +25,8 @@ export class TerritoriesComponent extends SController implements OnInit {
   }
 
   onDelete(territory: Territory) {
-    if(confirm('Вы действительно хотите удалить текущую запись и все связанные с ней записи из базы данных?'))
+    if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.territoryService.delete(territory.id)
-        .then(() => {
-            this.territories = this.territories.filter(t => t !== territory);
-          });
+        .then((res: any) => res.rslt ? this.territories = this.territories.filter(k => k !== territory) : null);
   }
 }

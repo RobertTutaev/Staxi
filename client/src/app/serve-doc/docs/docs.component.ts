@@ -25,10 +25,8 @@ export class DocsComponent extends SController implements OnInit {
   }
 
   onDelete(doc: Doc) {
-    if(confirm('Вы действительно хотите удалить текущую запись и все связанные с ней записи из базы данных?'))
+    if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.docService.delete(doc.id)
-        .then(() => {
-            this.docs = this.docs.filter(d => d !== doc);
-          });
+        .then((res: any) => res.rslt ? this.docs = this.docs.filter(k => k !== doc) : null);
   }
 }

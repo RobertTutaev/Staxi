@@ -25,10 +25,8 @@ export class PunktsComponent extends SController implements OnInit {
   }
 
   onDelete(punkt: Punkt) {
-    if(confirm('Вы действительно хотите удалить текущую запись и все связанные с ней записи из базы данных?'))
+    if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.punktService.delete(punkt.id)
-        .then(() => {
-            this.punkts = this.punkts.filter(p => p !== punkt);
-          });
+        .then((res: any) => res.rslt ? this.punkts = this.punkts.filter(k => k !== punkt) : null);
   }
 }

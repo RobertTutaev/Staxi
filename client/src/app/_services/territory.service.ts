@@ -55,7 +55,7 @@ export class TerritoryService {
     return this.http
       .put(url, JSON.stringify(territory), {headers: this.headers})
       .toPromise()
-      .then(() => territory)
+      .then(response => response.json())
       .catch(this.handleError);
   }
 

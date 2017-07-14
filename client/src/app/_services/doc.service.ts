@@ -38,7 +38,7 @@ export class DocService {
     const url = `${this.docsUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
-      .then(() => null)
+      .then(response => response.json())
       .catch(this.handleError);
   }
 

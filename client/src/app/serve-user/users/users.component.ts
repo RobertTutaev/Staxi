@@ -25,10 +25,8 @@ export class UsersComponent extends SController implements OnInit {
   }
 
   onDelete(user: User) {
-    if(confirm('Вы действительно хотите удалить текущую запись и все связанные с ней записи из базы данных?'))
+    if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.userService.delete(user.id)
-        .then(() => {
-            this.users = this.users.filter(c => c !== user);
-          });
+        .then((res: any) => res.rslt ? this.users = this.users.filter(k => k !== user) : null);
   }
 }

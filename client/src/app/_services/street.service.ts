@@ -46,7 +46,7 @@ export class StreetService {
     const url = `${this.streetsUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
-      .then(() => null)
+      .then(response => response.json())
       .catch(this.handleError);
   }
 

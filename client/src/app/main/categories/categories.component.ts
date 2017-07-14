@@ -28,10 +28,8 @@ export class CategoriesComponent extends SController implements OnInit {
   }  
 
   onDelete(category: Category) {
-    if(confirm('Вы действительно хотите удалить текущую запись и все связанные с ней записи из базы данных?'))
+    if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.categoryService.delete(category.id)
-        .then(() => {
-            this.categories = this.categories.filter(k => k !== category);
-          });
+        .then((res: any) => res.rslt ? this.categories = this.categories.filter(k => k !== category) : null);
   }
 }

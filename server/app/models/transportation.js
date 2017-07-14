@@ -82,12 +82,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: true
     },
-    checked: {
-      type: DataTypes.INTEGER(1),
-      allowNull: true,
-      defaultValue: '0'
-    },
-    comments: {
+    comment: {
       type: DataTypes.TEXT,
       allowNull: true
     },

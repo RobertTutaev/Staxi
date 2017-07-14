@@ -28,10 +28,8 @@ export class ContactsComponent extends SController implements OnInit {
   }
   
   onDelete(contact: Contact) {
-    if(confirm('Вы действительно хотите удалить текущую запись и все связанные с ней записи из базы данных?'))
+    if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.contactService.delete(contact.id)
-        .then(() => {
-            this.contacts = this.contacts.filter(c => c !== contact);
-          });
+        .then((res: any) => res.rslt ? this.contacts = this.contacts.filter(k => k !== contact) : null);
   }
 }
