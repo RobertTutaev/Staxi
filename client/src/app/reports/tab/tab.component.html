@@ -1,0 +1,12 @@
+<h4 class="h4-sprav"><span class="h4-sprav-span">Отчеты</span></h4>
+
+<ul class="nav nav-tabs">
+    <li [class.active]="isActiveRoute(['/reports', 'a'], true)">
+        <a [routerLink]="['/reports', 'a']">Реестр заявок</a>
+    </li>    
+    <li [class.active]="isActiveRoute(['/client', id, 'contact'])">
+        <a [routerLink]="['/client', id, 'contact', 'list']">Стат. отчет</a>
+    </li>
+</ul>
+
+<router-outlet></router-outlet>

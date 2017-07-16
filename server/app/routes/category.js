@@ -6,8 +6,16 @@ var resp = require('../lib/resp');
 router.route('/c:id')
   .get(function(req, res, next) {
     models.sequelize.query(
-        "SELECT a.*, b.name as kateg, trim(concat(c.first_name,' ',c.last_name)) as user, d.name as doc "+
-        "FROM category a left join kateg b on a.kateg_id = b.id join user c on a.user_id = c.id join doc d on a.doc_id = d.id "+
+        "SELECT a.*, " + 
+            "b.name as kateg, " +
+            "trim(concat(c.first_name,' ',c.last_name)) as user, " +
+            "trim(concat(e.first_name,' ',e.last_name)) as userm, " +
+            "d.name as doc " +
+        "FROM category a " +
+            "left join kateg b on a.kateg_id = b.id " +
+            "join user c on a.user_id = c.id " +
+            "join doc d on a.doc_id = d.id " +
+            "left join user e on a.userm_id = e.id " +
         "WHERE a.client_id = "+ parseInt(req.params.id), models.value )
 
         .spread(function(values, metadata) {
@@ -63,7 +71,12 @@ router.route('/')
 
 router.route('/:id')
   .put(function(req, res, next) {
-      
+    
+    var user = req.user;
+    if(user !== undefined) {
+        user = user.toJSON();
+    }    
+    req.body.userm_id=user.id;
     req.body.dtm=new Date();
 
     models.category.update(

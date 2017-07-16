@@ -40,6 +40,7 @@ export class TransportationComponent implements OnInit {
   cars: Car[] = [];
   punkts: Punkt[] = [];
   categories: Category[] = [];
+  status: number = 0;
   statuses: Status[] = Statuses;
   transportation: Transportation = new Transportation();
 
@@ -78,7 +79,10 @@ export class TransportationComponent implements OnInit {
 
     this.route.params
       .switchMap((params: Params) => this.transportationService.getTransportation(+params['idc']))
-      .subscribe((transportation: Transportation) => this.transportation = transportation);
+      .subscribe((transportation: Transportation) => {
+          this.transportation = transportation;
+          this.status = transportation.status;
+        });
   }
 
   // Push a search term into the observable stream.

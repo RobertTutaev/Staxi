@@ -14,5 +14,7 @@ export class Category {
             public user_id: number = null,
             public user: string = null,
             public dt: number = null,
+            public userm_id: number = null,
+            public userm: string = null,
             public dtm: number = null) { }
 }

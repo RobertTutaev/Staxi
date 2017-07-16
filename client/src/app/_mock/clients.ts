@@ -17,6 +17,8 @@ export let Clients: Client[] = [
     user_id: 1,
     user: 'A.A. Администратор',
     dt: null,
+    userm_id: 1,
+    userm: 'A.A. Администратор',
     dtm: null
   },
   {
@@ -35,6 +37,8 @@ export let Clients: Client[] = [
     user_id: 1,
     user: 'A.A. Администратор',
     dt: null,
+    userm_id: 1,
+    userm: 'A.A. Администратор',
     dtm: null
   },
   {
@@ -53,6 +57,8 @@ export let Clients: Client[] = [
     user_id: 1,
     user: 'A.A. Администратор',
     dt: null,
+    userm_id: 1,
+    userm: 'A.A. Администратор',
     dtm: null
   },
   {
@@ -71,6 +77,8 @@ export let Clients: Client[] = [
     user_id: 1,
     user: 'A.A. Администратор',
     dt: null,
+    userm_id: 1,
+    userm: 'A.A. Администратор',
     dtm: null
   },
   {
@@ -89,6 +97,8 @@ export let Clients: Client[] = [
     user_id: 2,
     user: 'A.A. Пользователь',
     dt: null,
+    userm_id: 2,
+    userm: 'A.A. Пользователь',
     dtm: null
   },
 ];

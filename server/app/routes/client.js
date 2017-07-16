@@ -7,8 +7,14 @@ router.route('/')
   .get(function(req, res, next) {
     
     models.sequelize.query(
-        "SELECT a.*, b.name as street, trim(concat(c.first_name,' ',c.last_name)) as user "+
-        "FROM client a left join street b on a.street_id = b.id join user c on a.user_id = c.id", models.value )
+        "SELECT a.*, " +
+            "b.name as street, " +
+            "trim(concat(c.first_name,' ',c.last_name)) as user, " +
+            "trim(concat(d.first_name,' ',d.last_name)) as userm " +
+        "FROM client a " + 
+            "left join street b on a.street_id = b.id " +
+            "join user c on a.user_id = c.id " +
+            "left join user d on a.userm_id = d.id", models.value )
 
         .spread(function(values, metadata) {
             res.json(resp({
@@ -63,7 +69,12 @@ router.route('/')
 
 router.route('/:id')
   .put(function(req, res, next) {
-      
+     
+    var user = req.user;
+    if(user !== undefined) {
+        user = user.toJSON();
+    }    
+    req.body.userm_id=user.id;
     req.body.dtm=new Date();
     
     models.client.update(

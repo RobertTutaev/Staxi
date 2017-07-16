@@ -16,6 +16,8 @@ export let Categories: Category[] = [
     user_id: 11,
     user: 'А.А. Петрович',
     dt: Date.parse('04.04.2015'),
+    userm_id: 11,
+    userm: 'А.А. Петрович',
     dtm: null
   },
   {
@@ -33,6 +35,8 @@ export let Categories: Category[] = [
     user_id: 11,
     user: 'О.А. Пулирян',
     dt: Date.parse('04.04.2017'),
+    userm_id: 11,
+    userm: 'О.А. Пулирян',
     dtm: null
   },
   {
@@ -50,6 +54,8 @@ export let Categories: Category[] = [
     user_id: 12,
     user: 'О.А. Акопян',
     dt: null,
+    userm_id: 12,
+    userm: 'О.А. Акопян',
     dtm: null
   },
   {
@@ -67,6 +73,8 @@ export let Categories: Category[] = [
     user_id: 14,
     user: 'Р.А. Агонисян',
     dt: Date.parse('12.24.2017'),
+    userm_id: 14,
+    userm: 'Р.А. Агонисян',
     dtm: null
   }
 ];

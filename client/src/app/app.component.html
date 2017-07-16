@@ -5,16 +5,11 @@
 <ul class="nav nav-pills">
   <li *ngIf="authService.isSignedIn">
     <a routerLink="/client/list" routerLinkActive="active"><span class="glyphicon glyphicon-home"></span> Поиск</a>
-  </li>  
+  </li>
 
-  <li *ngIf="authService.isSignedIn" class="dropdown">
-    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-tasks"></span> Основное<b class="caret"></b></a>
-    <ul class="dropdown-menu">
-      <li><a routerLink="/client" routerLinkActive="active">Добавить нового клиента</a></li>
-      <li class="divider"></li>
-      <li><a routerLink="#" routerLinkActive="active">Отчеты</a></li>
-    </ul>
-  </li>  
+  <li *ngIf="authService.isSignedIn">
+    <a routerLink="/reports/a" routerLinkActive="active"><span class="glyphicon glyphicon-list-alt"></span> Отчеты</a>
+  </li>
 
   <li class="dropdown pull-right">
     <a routerLink="/signin"><span class="glyphicon glyphicon-user"></span></a>

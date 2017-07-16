@@ -17,7 +17,7 @@
         <tr *ngFor="let transportation of transportations | orderBy: {property: column, direction: direction}" 
             (click)="onSelect(transportation)"
             data-toggle="tooltip" 
-            title="Созд.: {{ transportation.dt | date: 'dd.MM.yyyy HH:mm:ss' }}; изм.: {{ transportation.dtm | date: 'dd.MM.yyyy HH:mm:ss' }}">
+            title="{{ transportation | modifyInfo }}">
             <td>{{ transportation.id }}</td>
             <td>{{ transportation.car }}</td>
             <td>{{ transportation.punkt }}</td>
@@ -27,7 +27,7 @@
             <td>{{ transportation.b_dt | date: 'HH:mm' }}</td>
             <td>{{ getStatusName(transportation) }}</td>
             <td>{{ transportation.user }}</td>
-            <td (click)="onDelete(transportation); $event.stopPropagation();"><span class="glyphicon glyphicon-remove-sign"></span></td>
+            <td *ngIf="!transportation.status || authService.isSignedIn && authService.authUser.role3 && transportation.status === 1" (click)="onDelete(transportation); $event.stopPropagation();"><span class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
     </tbody>
 </table>

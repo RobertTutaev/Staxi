@@ -17,7 +17,7 @@ import { ContactService } from '../_services/contact.service';
 import { CategoryService } from '../_services/category.service';
 import { TransportationService } from '../_services/transportation.service';
 import { MainRoutingModule } from './main.routing.module';
-import { ToolsModule} from '../tools/tools.module';
+import { ToolsModule } from '../tools/tools.module';
 
 import { MaterialModule, MdNativeDateModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

@@ -8,17 +8,19 @@ router.route('/c:id')
     
     models.sequelize.query(
         "SELECT a.*, "+
-            "concat(b.name,' (',b.gos_no,')') as car, "+
-            "d.name as punkt, "+
-            "trim(concat(c.first_name,' ',c.last_name)) as user, "+
-            "concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr, "+
-            "concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr "+            
-        "FROM transportation a "+
-            "join car b on a.car_id = b.id "+
-            "join user c on a.user_id = c.id "+
-            "join punkt d on a.punkt_id = d.id "+
-            "join street e on a.a_street_id = e.id "+
-            "join street f on a.b_street_id = f.id "+            
+            "concat(b.name,' (',b.gos_no,')') as car, " +
+            "d.name as punkt, " +
+            "trim(concat(c.first_name,' ',c.last_name)) as user, " +
+            "trim(concat(g.first_name,' ',g.last_name)) as userm, " +
+            "concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr, " +
+            "concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr " +            
+        "FROM transportation a " +
+            "join car b on a.car_id = b.id " +
+            "join user c on a.user_id = c.id " +
+            "join punkt d on a.punkt_id = d.id " +
+            "join street e on a.a_street_id = e.id " +
+            "join street f on a.b_street_id = f.id " +
+            "left join user g on a.userm_id = g.id " +
         "WHERE a.client_id = " + parseInt(req.params.id), models.value )
 
         .spread(function(values, metadata) {
@@ -74,7 +76,12 @@ router.route('/')
 
 router.route('/:id')
   .put(function(req, res, next) {
-      
+    
+    var user = req.user;
+    if(user !== undefined) {
+        user = user.toJSON();
+    }    
+    req.body.userm_id=user.id;
     req.body.dtm=new Date();
 
     models.transportation.update(

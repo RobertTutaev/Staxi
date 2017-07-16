@@ -13,7 +13,9 @@ export class Client {
             public kv: string = null,
             public checked: boolean = true,
             public user_id: number = null,
-            public user: string = null,
+            public user: string = null,            
             public dt: number = null,
+            public userm_id: number = null,
+            public userm: string = null,
             public dtm: number = null) { }
 }

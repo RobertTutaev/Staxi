@@ -26,6 +26,8 @@ export let Transportations: Transportation[] = [
     user_id: 11,
     user: 'А.А. Чехов',
     dt: Date.parse('12.31.2017 13:00'),
+    userm_id: 11,
+    userm: 'А.А. Чехов',
     dtm: null
   },
   {
@@ -53,6 +55,8 @@ export let Transportations: Transportation[] = [
     user_id: 11,
     user: 'А.А. Сехов',
     dt: Date.parse('13.31.2017 13:00'),
+    userm_id: 11,
+    userm: 'А.А. Сехов',
     dtm: null
   }
 ];

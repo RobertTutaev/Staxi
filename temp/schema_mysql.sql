@@ -40,7 +40,7 @@ create table territory(
     constraint fk_t_territory
         foreign key (territory_id)
             references territory (id)
-                on delete RESTRICT
+                on delete RESTRICT on update RESTRICT
 )engine=innodb;
 
 insert into territory (id, territory_id, name) values
@@ -64,7 +64,7 @@ create table street(
     constraint fk_s_territory 
         foreign key (territory_id) 
             references territory (id) 
-                on delete RESTRICT
+                on delete RESTRICT on update RESTRICT
 )engine=innodb;
 
 insert into street (id, territory_id, name, socr, post, nda) values
@@ -2082,8 +2082,11 @@ create table car(
     constraint fk_c_territory
         foreign key (territory_id)
             references territory (id)
-                on delete RESTRICT
+                on delete RESTRICT on update RESTRICT
 )engine=innodb;
+
+insert into car (name, gos_no, driver_name, driver_phone) values
+    ('Лада Vesta', 'к762ук174', 'Иван', '8-909-454-45-45');
 
 create table punkt(
     id integer primary key auto_increment,
@@ -2113,7 +2116,7 @@ create table firm(
     constraint fk_f_territory 
         foreign key (territory_id) 
             references territory (id) 
-                on delete RESTRICT
+                on delete RESTRICT on update RESTRICT
 )engine=innodb;
 
 insert into firm (territory_id, name) values
@@ -2146,7 +2149,7 @@ create table user(
     constraint fk_u_firm 
         foreign key (firm_id) 
             references firm (id) 
-                on delete RESTRICT,
+                on delete RESTRICT on update RESTRICT,
     index fk_u_username (username ASC)
 )engine=innodb;
 
@@ -2175,18 +2178,24 @@ create table client(
     checked tinyint(1) DEFAULT 0,
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
+    userm_id integer,
     dtm datetime ON UPDATE CURRENT_TIMESTAMP,
     index fk_l_snils (snils ASC),
     index fk_l_street (street_id ASC),
     constraint fk_l_street
         foreign key (street_id)
             references street (id)
-                on delete RESTRICT,
+                on delete RESTRICT on update RESTRICT,
     index fk_l_user (user_id ASC),
     constraint fk_l_user
         foreign key (user_id)
             references user (id)
-                on delete RESTRICT
+                on delete RESTRICT on update RESTRICT,
+    index fk_l_userm (userm_id ASC),
+    constraint fk_l_userm
+        foreign key (userm_id)
+            references user (id)
+                on delete RESTRICT on update RESTRICT
 )engine=innodb;
 
 create table type(
@@ -2210,22 +2219,28 @@ create table contact(
     comment text,
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
+    userm_id integer,
     dtm datetime ON UPDATE CURRENT_TIMESTAMP,
     index fk_c_client (client_id ASC),
     constraint fk_c_client
         foreign key (client_id)
             references client (id)
-                on delete RESTRICT,
+                on delete RESTRICT on update RESTRICT,
     index fk_c_type (type_id ASC),
     constraint fk_c_type
         foreign key (type_id)
             references type (id)
-                on delete RESTRICT,
+                on delete RESTRICT on update RESTRICT,
     index fk_c_user (user_id ASC),
     constraint fk_c_user
         foreign key (user_id)
             references user (id)
-                on delete RESTRICT
+                on delete RESTRICT on update RESTRICT,
+    index fk_c_userm (userm_id ASC),
+    constraint fk_c_userm
+        foreign key (userm_id)
+            references user (id)
+                on delete RESTRICT on update RESTRICT
 )engine=innodb;
 
 create table category(
@@ -2240,22 +2255,28 @@ create table category(
     dt_end datetime not null default '01.01.2100',
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
+    userm_id integer,
     dtm datetime ON UPDATE CURRENT_TIMESTAMP,
     index fk_k_client (client_id ASC),
     constraint fk_k_client 
         foreign key (client_id) 
             references client (id)
-                on delete RESTRICT,
+                on delete RESTRICT on update RESTRICT,
     index fk_k_kateg (kateg_id ASC),
     constraint fk_k_kateg 
         foreign key (kateg_id) 
             references kateg (id) 
-                on delete RESTRICT,
+                on delete RESTRICT on update RESTRICT,
     index fk_k_user (user_id ASC),
     constraint fk_k_user
         foreign key (user_id)
             references user (id)
-                on delete RESTRICT
+                on delete RESTRICT on update RESTRICT,
+    index fk_k_userm (userm_id ASC),
+    constraint fk_k_userm
+        foreign key (userm_id)
+            references user (id)
+                on delete RESTRICT on update RESTRICT
 )engine=innodb;
 
 create table transportation(
@@ -2276,40 +2297,76 @@ create table transportation(
     status tinyint(1) DEFAULT 0,
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
+    userm_id integer,
     dtm datetime ON UPDATE CURRENT_TIMESTAMP,
     index fk_w_client (client_id ASC),
     constraint fk_w_client
         foreign key (client_id)
             references client (id)
-                on delete RESTRICT,
+                on delete RESTRICT on update RESTRICT,
     index fk_w_car (car_id ASC),
     constraint fk_w_car 
         foreign key (car_id) 
             references car (id) 
-                on delete RESTRICT,
+                on delete RESTRICT on update RESTRICT,
     index fk_w_punkt (punkt_id ASC),
     constraint fk_w_punkt 
         foreign key (punkt_id) 
             references punkt (id) 
-                on delete RESTRICT,
+                on delete RESTRICT on update RESTRICT,
     index fk_w_category (category_id ASC),
     constraint fk_w_category 
         foreign key (category_id) 
             references category (id) 
-                on delete RESTRICT,
+                on delete RESTRICT on update RESTRICT,
     index fk_wa_street (a_street_id ASC),
     constraint fk_wa_street 
         foreign key (a_street_id) 
             references street (id) 
-                on delete RESTRICT,
+                on delete RESTRICT on update RESTRICT,
     index fk_wb_street (b_street_id ASC),
     constraint fk_ba_street 
         foreign key (b_street_id) 
             references street (id) 
-                on delete RESTRICT,
+                on delete RESTRICT on update RESTRICT,
     index fk_w_user (user_id ASC),
     constraint fk_w_user
         foreign key (user_id)
             references user (id)
-                on delete RESTRICT
+                on delete RESTRICT on update RESTRICT,
+    index fk_w_userm (userm_id ASC),
+    constraint fk_w_userm
+        foreign key (userm_id)
+            references user (id)
+                on delete RESTRICT on update RESTRICT
 )engine=innodb;
+
+delimiter //
+
+CREATE TRIGGER category_before_update
+BEFORE update ON category
+FOR EACH ROW
+BEGIN
+  DECLARE cnt INT;
+  DECLARE done TINYINT(1) DEFAULT 0;  
+  DECLARE cur CURSOR FOR
+    SELECT 
+      count(category_id)
+    FROM 
+      transportation      
+    WHERE 
+      category_id = new.id AND status>0;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+  OPEN cur;
+  REPEAT
+    FETCH cur INTO cnt;
+    IF cnt>0 AND new.kateg_id <> old.kateg_id THEN
+      SET new.kateg_id = old.kateg_id;
+    END IF;
+  UNTIL done END REPEAT;
+  CLOSE cur;
+END
+//
+
+delimiter ;

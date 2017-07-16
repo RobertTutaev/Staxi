@@ -6,6 +6,7 @@ import { TransportationService } from '../../_services/transportation.service';
 import { SController } from '../../_classes/s.controller';
 import { Status } from '../../_classes/status';
 import { Statuses } from '../../_mock/statuses';
+import { AuthService } from '../../_services/auth.service';
 
 @Component({
   selector: 'transportations',
@@ -16,7 +17,8 @@ export class TransportationsComponent extends SController implements OnInit {
   transportations: Transportation[] = [];
   statuses: Status[] = Statuses;
 
-  constructor(private transportationService: TransportationService,
+  constructor(private authService: AuthService,
+              private transportationService: TransportationService,
               private route: ActivatedRoute,
               private router: Router) { super(); }
   
