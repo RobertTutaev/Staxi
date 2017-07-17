@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { MdDatepicker } from '@angular/material';
 
 import { Car } from '../../_classes/list/car';
@@ -50,7 +50,6 @@ export class TransportationComponent implements OnInit {
               private streetService: StreetService,
               private transportationService: TransportationService,
               private route: ActivatedRoute,
-              private router: Router,
               private location: Location) { }
   
   ngOnInit() {

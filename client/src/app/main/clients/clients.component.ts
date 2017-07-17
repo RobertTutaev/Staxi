@@ -8,7 +8,7 @@ import { SController } from '../../_classes/s.controller';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-//import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
@@ -30,11 +30,11 @@ export class ClientsComponent extends SController implements OnInit {
     this.clients = this.searchTerms
       .debounceTime(300)        // wait 300ms after each keystroke before considering the term
       .distinctUntilChanged()   // ignore if next search term is same as previous
-      .switchMap(term => { console.log(term); return term   // switch to new observable each time the term changes
+      .switchMap(term => term   // switch to new observable each time the term changes
         // return the http search observable
         ? this.clientService.search(term)
         // or the observable of empty heroes if there was no search term
-        : Observable.of<Client[]>([]);})
+        : Observable.of<Client[]>([]))
       .catch(error => Observable.of<Client[]>([]));
   }
   
