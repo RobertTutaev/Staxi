@@ -1,15 +1,15 @@
 <form class="st-form" (ngSubmit)="onSubmit(); transportationForm.reset();" #transportationForm="ngForm">
     <dl>
         <dt>Автотранспорт*</dt> 
-        <dd><select name="car" [(ngModel)]="selectedCarId" required>
+        <dd><select name="car" [(ngModel)]="selectedCarId" class="form-control" required>
                 <option *ngFor="let car of cars" [ngValue]="car.id">[{{car.name}}] {{car.gos_no}}</option>
             </select></dd>
         <dt>Пункт доставки*</dt>
-        <dd><select name="punkt" [(ngModel)]="selectedPunktId" required>
+        <dd><select name="punkt" [(ngModel)]="selectedPunktId" class="form-control" required>
                 <option *ngFor="let punkt of punkts" [ngValue]="punkt.id">{{punkt.name}}</option>
             </select></dd>
         <dt>Категория*</dt>
-        <dd><select name="category" [(ngModel)]="selectedCategoryId" required>
+        <dd><select name="category" [(ngModel)]="selectedCategoryId" class="form-control selectpicker" required>
                 <option *ngFor="let category of categories" [ngValue]="category.id">
                     [{{category.dt_begin | date: 'dd.MM.yyyy'}} - {{category.dt_end | date: 'dd.MM.yyyy'}}] {{category.kateg}}
                 </option>
@@ -20,7 +20,8 @@
                     #a_street 
                     class="form-control search-box" 
                     (keyup)="searchStreet('a_street', a_street.value)"
-                    name="a_street" (blur)="searchStreet('a_street')" 
+                    name="a_street" 
+                    (blur)="searchStreet('a_street')" 
                     [(ngModel)]="transportation.a_street"
                     autocomplete="off"
                     required>
@@ -37,7 +38,8 @@
                 [(ngModel)]="transportation.a_dom" 
                 #a_dom="ngModel" 
                 maxlength="4" 
-                placeholder="Дом" 
+                placeholder="Дом"
+                class="form-control"  
                 required
                 autocomplete="off">
             <small [hidden]="a_dom.valid || a_dom.pristine">
@@ -47,10 +49,11 @@
         <dd><input 
                 type="text" 
                 name="a_korp" 
-                [(ngModel)]="transportation.a_korp" 
+                [(ngModel)]="transportation.a_korp"
                 #a_korp="ngModel" 
                 maxlength="4" 
                 placeholder="Корп"
+                class="form-control" 
                 autocomplete="off">
             <small [hidden]="a_korp.valid || a_korp.pristine">
                 Необходимо корректное значение
@@ -64,7 +67,7 @@
                 #a_dt="ngModel" 
                 date-format="DD.MM.YYYY HH:mm"
                 readonly="readonly" 
-                class="form-control"                 
+                class="form-control"
                 required></dd>
         <dt>Б.Улица*</dt>
         <dd><div class="search-component">
@@ -91,6 +94,7 @@
                 #b_dom="ngModel" 
                 maxlength="4" 
                 placeholder="Дом" 
+                class="form-control" 
                 required
                 autocomplete="off">
             <small [hidden]="b_dom.valid || b_dom.pristine">
@@ -104,6 +108,7 @@
                 #b_korp="ngModel" 
                 maxlength="4" 
                 placeholder="Корп"
+                class="form-control" 
                 autocomplete="off">
             <small [hidden]="b_korp.valid || b_korp.pristine">
                 Необходимо корректное значение
@@ -129,7 +134,7 @@
                 class="form-control" 
                 rows="3"></textarea></dd>
         <dt *ngIf="authService.isSignedIn && authService.authUser.role3">Статус перевозки</dt>
-        <dd *ngIf="authService.isSignedIn && authService.authUser.role3"><select name="status" [(ngModel)]="selectedStatus" required>
+        <dd *ngIf="authService.isSignedIn && authService.authUser.role3"><select name="status" [(ngModel)]="selectedStatus" class="form-control" required>
                 <option *ngFor="let status of statuses" [ngValue]="status.id">{{status.name}}</option>
             </select></dd>
         

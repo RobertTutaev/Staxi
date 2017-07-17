@@ -3,7 +3,15 @@
 <form class="st-form" (ngSubmit)="onSubmit(); docForm.reset();" #docForm="ngForm">
     <dl>
         <dt>Название*</dt>
-        <dd><input type="text" name="name" [(ngModel)]="doc.name" placeholder="Название" required #name="ngModel" maxlength="100"></dd>
+        <dd><input 
+                type="text" 
+                name="name" 
+                [(ngModel)]="doc.name" 
+                placeholder="Название" 
+                required 
+                #name="ngModel" 
+                maxlength="100"
+                class="form-control"></dd>
 
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>

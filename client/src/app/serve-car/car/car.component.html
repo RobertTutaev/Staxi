@@ -11,6 +11,7 @@
                 required 
                 #name="ngModel" 
                 maxlength="100"
+                class="form-control"
                 autocomplete="off"></dd>
         <dt>Гос. номер*</dt>
         <dd><input 
@@ -21,6 +22,7 @@
                 required 
                 #gos_no="ngModel" 
                 maxlength="12"
+                class="form-control"
                 autocomplete="off"></dd>
         <dt>Цвет</dt>
         <dd><input 
@@ -30,10 +32,11 @@
                 placeholder="Снежная королева" 
                 #color="ngModel" 
                 maxlength="100"
+                class="form-control"
                 autocomplete="off"></dd>
         <dt>Территория*</dt>
         <dd>
-            <select name="territory" [(ngModel)]="selectedTerritoryId" required>
+            <select name="territory" [(ngModel)]="selectedTerritoryId" class="form-control" required>
                 <option *ngFor="let territory of territories" [ngValue]="territory.id">
                     {{territory.name}}
                 </option>
@@ -47,6 +50,7 @@
                 placeholder="Анатолий" 
                 #driver_name="ngModel" 
                 maxlength="255"
+                class="form-control"
                 autocomplete="off"></dd>
         <dt>Телефон водителя</dt>
         <dd><input 
@@ -55,15 +59,16 @@
                 [(ngModel)]="car.driver_phone" 
                 placeholder="8-909-909-99-99" 
                 #driver_phone="ngModel"
-                 maxlength="50" 
-                 pattern="^[0-9-+]+$"
-                 autocomplete="off"></dd>
+                maxlength="50" 
+                class="form-control"
+                pattern="^[0-9-+]+$"
+                autocomplete="off"></dd>
         <dt>Тип</dt>
         <dd><input 
                 type="checkbox" 
                 value="true" 
                 name="type" 
-                id="carType" 
+                id="carType"                 
                 [(ngModel)]="car.type">
             <label for="carType">Автобус (иначе Автомобиль)</label></dd>
  

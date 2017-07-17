@@ -6,7 +6,7 @@ var resp = require('../lib/resp');
 router.route('/')
   .get(function(req, res, next) {
 
-    sql = "SELECT a.*, b.name as territory "+
+    var sql = "SELECT a.*, b.name as territory "+
         "FROM street a left join territory b on a.territory_id = b.id ";
     
     if (req.query.name) {

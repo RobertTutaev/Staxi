@@ -6,21 +6,27 @@ var resp = require('../lib/resp');
 router.route('/')
   .get(function(req, res, next) {
     
-    models.sequelize.query(
-        "SELECT a.*, " +
-            "b.name as street, " +
-            "trim(concat(c.first_name,' ',c.last_name)) as user, " +
-            "trim(concat(d.first_name,' ',d.last_name)) as userm " +
-        "FROM client a " + 
-            "left join street b on a.street_id = b.id " +
-            "join user c on a.user_id = c.id " +
-            "left join user d on a.userm_id = d.id", models.value )
+        var sql = 
+            "SELECT a.*, " +
+                "b.name as street, " +
+                "trim(concat(c.first_name,' ',c.last_name)) as user, " +
+                "trim(concat(d.first_name,' ',d.last_name)) as userm " +
+            "FROM client a " + 
+                "left join street b on a.street_id = b.id " +
+                "join user c on a.user_id = c.id " +
+                "left join user d on a.userm_id = d.id ";        
+    
+        if (req.query.snils) {
+            sql = sql + "WHERE a.snils like '%" + req.query.snils + "%'";
+        }
+        
+        models.sequelize.query(sql, models.value )
 
-        .spread(function(values, metadata) {
-            res.json(resp({
-                data: values
-            }));
-        });
+            .spread(function(values, metadata) {
+                res.json(resp({
+                    data: values
+                }));
+            });
 });
 
 router.route('/:id')

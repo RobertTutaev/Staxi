@@ -37,9 +37,10 @@ export class StreetService {
   }
 
   search(term: string): Observable<Street[]> {
-    return this.http
-        .get(`${this.streetsUrl}/?name=${term}`)
-        .map(response => response.json().data as Street[]);
+    const url = `${this.streetsUrl}/?name=${term}`;
+    
+    return this.http.get(url)
+      .map(response => response.json().data as Street[]);
   }
 
   delete(id: number): Promise<void> {

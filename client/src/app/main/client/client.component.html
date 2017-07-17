@@ -12,6 +12,7 @@
                 maxlength="14"
                 minlength="14"
                 pattern="\d\d\d-\d\d\d-\d\d\d-\d\d"
+                class="form-control"
                 autocomplete="off">
             <small [hidden]="snils.valid || snils.pristine">
                 Необходим корректный СНИЛС
@@ -26,6 +27,7 @@
                 #im="ngModel" 
                 maxlength="100"
                 autocomplete="off"
+                class="form-control"
                 pattern="^[а-яА-ЯёЁ]+$">
             <small [hidden]="im.valid || im.pristine">
                 Необходимо корректное имя
@@ -38,6 +40,7 @@
                 placeholder="Отчество" 
                 #ot="ngModel" 
                 maxlength="100"
+                class="form-control"
                 pattern="^[а-яА-ЯёЁ]+$"></dd>
         
         <br>

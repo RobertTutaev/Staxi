@@ -1,23 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Client } from '../../_classes/list/client';
 import { ClientService } from '../../_services/client.service';
 import { SController } from '../../_classes/s.controller';
 
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+
 @Component({
-  selector: 'client-clients',
+  selector: 'clients',
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.sass']
 })
 export class ClientsComponent extends SController implements OnInit {
-  clients: Client[] = [];
-  
+  clients: Observable<Client[]>;
+  private searchTerms: Subject<string> = new Subject<string>();
+
   constructor(private clientService: ClientService,
               private router: Router) { super(); }
-  
+
   ngOnInit() {
-    this.clientService.getClients().then((clients: Client[]) => this.clients = clients);
+    this.clients = this.searchTerms
+      .debounceTime(300)        // wait 300ms after each keystroke before considering the term
+      .distinctUntilChanged()   // ignore if next search term is same as previous
+      .switchMap(term => { console.log(term); return term   // switch to new observable each time the term changes
+        // return the http search observable
+        ? this.clientService.search(term)
+        // or the observable of empty heroes if there was no search term
+        : Observable.of<Client[]>([]);})
+      .catch(error => Observable.of<Client[]>([]));
+  }
+  
+  searchClient(term: string) {
+    console.log(term);
+    this.searchTerms.next(term);
   }
 
   onSelect(client: Client) {
@@ -27,6 +50,6 @@ export class ClientsComponent extends SController implements OnInit {
   onDelete(client: Client) {
     if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.clientService.delete(client.id)
-        .then((res: any) => res.rslt ? this.clients = this.clients.filter(k => k !== client) : null);
+        .then((res: any) => res.rslt ? this.clients.map(clients => clients.filter(k => k !== client)) : null);
   }
 }

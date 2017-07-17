@@ -3,33 +3,78 @@
 <form class="st-form" (ngSubmit)="onSubmit(); userForm.reset();" #userForm="ngForm">
     <dl>
         <dt>Email*</dt>
-        <dd><input type="text" name="username" [(ngModel)]="user.username" placeholder="xxx@yyy.zzz" required #username="ngModel" maxlength="100" pattern="^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$">
+        <dd><input 
+                type="text" 
+                name="username" 
+                [(ngModel)]="user.username" 
+                placeholder="xxx@yyy.zzz" 
+                required 
+                #username="ngModel" 
+                maxlength="100"
+                class="form-control" 
+                pattern="^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$">
             <small [hidden]="username.valid || username.pristine">
                 Необходим корректный email
             </small></dd>
         <dt>Пароль (6 символов: a-z, A-Z и 0-9)*</dt>
-        <dd><input type="password" name="password" [(ngModel)]="user.password" placeholder="Пароль" required #password="ngModel" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{6})$" validateEqual="confirmPassword" reverse="true">
+        <dd><input 
+                type="password" 
+                name="password" 
+                [(ngModel)]="user.password" 
+                placeholder="Пароль" 
+                required 
+                #password="ngModel" 
+                class="form-control"
+                pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{6})$" 
+                validateEqual="confirmPassword" 
+                reverse="true">
             <small [hidden]="password.valid || password.pristine">
                 Необходим корректный пароль
             </small></dd>
         <dt>Пароль повторно*</dt>
-        <dd><input type="password" name="confirmPassword" [(ngModel)]="user.confirmPassword" placeholder="Пароль" required #confirmPassword="ngModel" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{6})$" validateEqual="password" reverse="false">
+        <dd><input 
+                type="password" 
+                name="confirmPassword" 
+                [(ngModel)]="user.confirmPassword" 
+                placeholder="Пароль" 
+                required 
+                #confirmPassword="ngModel" 
+                pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{6})$" 
+                validateEqual="password" 
+                class="form-control"
+                reverse="false">
             <small [hidden]="confirmPassword.valid || confirmPassword.pristine">
                 Пароли не совпадают
             </small></dd>
         <dt>И.О.*</dt>
-        <dd><input type="text" name="first_name" [(ngModel)]="user.first_name" placeholder="И.О." required #first_name="ngModel" maxlength="100">
+        <dd><input 
+                type="text" 
+                name="first_name" 
+                [(ngModel)]="user.first_name" 
+                placeholder="И.О." 
+                required 
+                #first_name="ngModel" 
+                maxlength="100"
+                class="form-control">
             <small [hidden]="first_name.valid || first_name.pristine">
                 Необходимы корректные И.О.
             </small></dd>
         <dt>Фамилия*</dt>
-        <dd><input type="text" name="last_name" [(ngModel)]="user.last_name" placeholder="Фамилия" required #last_name="ngModel" maxlength="100">
+        <dd><input 
+                type="text" 
+                name="last_name" 
+                [(ngModel)]="user.last_name" 
+                placeholder="Фамилия" 
+                required 
+                #last_name="ngModel" 
+                maxlength="100"
+                class="form-control">
             <small [hidden]="last_name.valid || last_name.pristine">
                 Необходима корректная фамилия
             </small></dd>
         <dt>Организация*</dt> 
         <dd>
-            <select name="firm" [(ngModel)]="selectedFirmId" required>
+            <select name="firm" [(ngModel)]="selectedFirmId" class="form-control" required>
                 <option *ngFor="let firm of firms" [ngValue]="firm.id">{{firm.name}}</option>
             </select>
         </dd>

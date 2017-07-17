@@ -4,12 +4,21 @@
     <dl>
         <dt>Территория*</dt>
         <dd>
-            <select name="territory" [(ngModel)]="selectedTerritoryId" required>
+            <select name="territory" [(ngModel)]="selectedTerritoryId" class="form-control" required>
                 <option *ngFor="let territory of territories" [ngValue]="territory.id">{{territory.name}}</option>
             </select>
         </dd>
         <dt>Название*</dt>
-        <dd><input type="text" name="name" [(ngModel)]="firm.name" placeholder="Название" required #name="ngModel" maxlength="255" size="60"></dd>
+        <dd><input 
+                type="text" 
+                name="name" 
+                [(ngModel)]="firm.name" 
+                placeholder="Название" 
+                required 
+                #name="ngModel" 
+                maxlength="255" 
+                size="60"
+                class="form-control"></dd>
 
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>

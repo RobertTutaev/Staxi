@@ -1,6 +1,8 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
+import { Observable }     from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { Client } from '../_classes/list/client';
 
@@ -32,6 +34,13 @@ export class ClientService {
         .then(response => response.json().data as Client)
         .catch(this.handleError);
     }
+  }
+
+  search(term: string): Observable<Client[]> {
+    const url = `${this.clientsUrl}/?snils=${term}`;
+    
+    return this.http.get(url)
+      .map(response => response.json().data as Client[]);
   }
 
   delete(id: number): Promise<void> {

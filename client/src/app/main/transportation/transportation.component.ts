@@ -1,8 +1,7 @@
-import 'rxjs/add/operator/switchMap';
-import { Location }               from '@angular/common';
-
-import { Component, OnInit, Input } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { MdDatepicker } from '@angular/material';
 
 import { Car } from '../../_classes/list/car';
 import { CarService } from '../../_services/car.service';
@@ -18,15 +17,11 @@ import { Status } from '../../_classes/status';
 import { Statuses } from '../../_mock/statuses';
 import { AuthService } from '../../_services/auth.service';
 
-import { MdDatepicker } from '@angular/material';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
-import { Observable }        from 'rxjs/Observable';
-import { Subject }           from 'rxjs/Subject';
-
-// Observable class extensions
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
-
-// Observable operators
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -46,7 +41,7 @@ export class TransportationComponent implements OnInit {
 
   streetDivName: string = 'a_street';
   streets: Observable<Street[]>;
-  private searchTerms = new Subject<string>();
+  private searchTerms : Subject<string> = new Subject<string>();
   
   constructor(private authService: AuthService,
               private carService: CarService,
@@ -75,7 +70,7 @@ export class TransportationComponent implements OnInit {
         ? this.streetService.search(term)
         // or the observable of empty heroes if there was no search term
         : Observable.of<Street[]>([]))
-      .catch(error => Observable.of<Street[]>([]));   
+      .catch(error => Observable.of<Street[]>([]));
 
     this.route.params
       .switchMap((params: Params) => this.transportationService.getTransportation(+params['idc']))

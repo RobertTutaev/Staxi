@@ -2,9 +2,23 @@
     <form class="st-form" (ngSubmit)="signin(); signinForm.reset();" #signinForm="ngForm">
       <dl *ngIf="!authService.isSignedIn">
         <dt>Email*</dt>
-        <dd><input type="text" name="username" [(ngModel)]="user.username" placeholder="Название" #username="ngModel" required></dd>
+        <dd><input 
+              type="text" 
+              name="username" 
+              [(ngModel)]="user.username" 
+              placeholder="Название" 
+              #username="ngModel"
+              class="form-control" 
+              required></dd>
         <dt>Пароль*</dt>
-        <dd><input type="password" name="password" [(ngModel)]="user.password" placeholder="Пароль" #password="ngModel" required></dd>
+        <dd><input 
+              type="password" 
+              name="password" 
+              [(ngModel)]="user.password" 
+              placeholder="Пароль" 
+              #password="ngModel" 
+              class="form-control"
+              required></dd>
         
         <br>
         <button class="btn btn-info" type="submit" [disabled]="signinForm.form.invalid || signinForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> Войти</button>          
