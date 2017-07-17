@@ -8,7 +8,7 @@ import { SController } from '../../_classes/s.controller';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-import 'rxjs/add/operator/switchMap';
+//import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
@@ -39,7 +39,6 @@ export class ClientsComponent extends SController implements OnInit {
   }
   
   searchClient(term: string) {
-    console.log(term);
     this.searchTerms.next(term);
   }
 
