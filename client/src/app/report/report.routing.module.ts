@@ -4,6 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { TabComponent } from './tab/tab.component';
 import { AComponent } from './a/a.component';
 import { AuthGuard } from '../_services/auth-guard.service';
+import { Report } from '../_classes/report';
+
+const report: Report = new Report();
 
 const reportsRoutes: Routes = [
   { 
@@ -12,7 +15,7 @@ const reportsRoutes: Routes = [
     component: TabComponent,
     children: [
 
-      { path: 'a', component: AComponent }
+      { path: report.getUrlMask('a'), component: AComponent },
 
     ]
   }

@@ -65,10 +65,7 @@ export class TransportationService {
   }
 
   getReportA(report: Report): Promise<Transportation[]> {
-    let url = `${this.transportationsUrl}/report/a/`;
-    
-    for (var prop in report)
-      url+=`?${prop}=${report[prop]}`;
+    const url = `${this.transportationsUrl}/report/a${report.getUrl()}`;
     
     return this.http.get(url)
       .toPromise()
@@ -77,7 +74,7 @@ export class TransportationService {
   }
 
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
+    console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
 }

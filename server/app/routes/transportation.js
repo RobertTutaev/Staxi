@@ -135,14 +135,14 @@ router.route('/:id')
     );
 });
 
-router.route('/report/a')
+router.route('/report/a/:firmId/:aDt/:bDt/:status/:withChilds')
   .get(function(req, res, next) {
 
-    var firmId = req.query.firmId ? parseInt(req.query.firmId) : 0;
-    var aDt = req.query.a_dt ? req.query.a_dt : new Date(2000, 1, 1);
-    var bDt = req.query.b_dt ? req.query.b_dt : new Date(2100, 1, 1);
-    var status = req.query.status ? parseInt(req.query.status) : 0;
-    var withChilds = req.query.withChilds ? Boolean(req.query.withChilds) : false;
+    var firmId = req.params.firmId ? parseInt(req.params.firmId) : 0;
+    var aDt = req.params.aDt ? req.params.aDt : new Date(2000, 1, 1);
+    var bDt = req.params.bDt ? req.params.bDt : new Date(2100, 1, 1);
+    var status = req.params.status ? parseInt(req.params.status) : 0;
+    var withChilds = req.params.withChilds ? Boolean(req.params.withChilds) : false;
     var sql = 
         "SELECT a.*, "+        
             "h.name as firm, " +
