@@ -1,9 +1,5 @@
 <form class="st-form" (ngSubmit)="onSubmit(); transportationForm.reset();" #transportationForm="ngForm">
-    <dl>
-        <dt>Автотранспорт*</dt> 
-        <dd><select name="car" [(ngModel)]="selectedCarId" class="form-control" required>
-                <option *ngFor="let car of cars" [ngValue]="car.id">[{{car.name}}] {{car.gos_no}}</option>
-            </select></dd>
+    <dl>        
         <dt>Пункт доставки*</dt>
         <dd><select name="punkt" [(ngModel)]="selectedPunktId" class="form-control" required>
                 <option *ngFor="let punkt of punkts" [ngValue]="punkt.id">{{punkt.name}}</option>
@@ -19,9 +15,10 @@
                 <input 
                     #a_street 
                     class="form-control search-box" 
+                    (focus)="searchStreet('a_street')"
                     (keyup)="searchStreet('a_street', a_street.value)"
-                    name="a_street" 
-                    (blur)="searchStreet('a_street')" 
+                    (blur)="searchStreet('a_street')"
+                    name="a_street"                    
                     [(ngModel)]="transportation.a_street"
                     autocomplete="off"
                     required>
@@ -39,7 +36,8 @@
                 #a_dom="ngModel" 
                 maxlength="4" 
                 placeholder="Дом"
-                class="form-control"  
+                class="form-control"
+                pattern="[0-9]+"
                 required
                 autocomplete="off">
             <small [hidden]="a_dom.valid || a_dom.pristine">
@@ -57,26 +55,16 @@
                 autocomplete="off">
             <small [hidden]="a_korp.valid || a_korp.pristine">
                 Необходимо корректное значение
-            </small></dd>
-        <dt>А.Дата и время*</dt>
-        <dd><input 
-                type="text" 
-                ngui-datetime-picker 
-                name="a_dt" 
-                [(ngModel)]="transportation.a_dt" 
-                #a_dt="ngModel" 
-                date-format="DD.MM.YYYY HH:mm"
-                readonly="readonly" 
-                class="form-control"
-                required></dd>
+            </small></dd>        
         <dt>Б.Улица*</dt>
         <dd><div class="search-component">
                 <input 
                     #b_street 
                     class="form-control search-box" 
-                    (keyup)="searchStreet('b_street', b_street.value)" 
-                    name="b_street" 
+                    (focus)="searchStreet('b_street')" 
+                    (keyup)="searchStreet('b_street', b_street.value)"                    
                     (blur)="searchStreet('b_street')"
+                    name="b_street" 
                     [(ngModel)]="transportation.b_street"
                     autocomplete="off" 
                     required>
@@ -90,11 +78,12 @@
         <dd><input 
                 type="text" 
                 name="b_dom" 
-                [(ngModel)]="transportation.b_dom" 
+                [(ngModel)]="transportation.b_dom"                
                 #b_dom="ngModel" 
                 maxlength="4" 
                 placeholder="Дом" 
                 class="form-control" 
+                pattern="[0-9]+"
                 required
                 autocomplete="off">
             <small [hidden]="b_dom.valid || b_dom.pristine">
@@ -113,17 +102,6 @@
             <small [hidden]="b_korp.valid || b_korp.pristine">
                 Необходимо корректное значение
             </small></dd>
-        <dt>Б.Время</dt>
-        <dd><input 
-                type="text" 
-                ngui-datetime-picker 
-                [(ngModel)]="transportation.b_dt" 
-                name="b_dt" 
-                time-only="true" 
-                date-format="HH:mm" 
-                readonly="readonly" 
-                class="form-control" 
-                min-hour="{{ transportation.a_dt | date: 'HH' }}"></dd>
         <dt>Комментарий</dt>
         <dd><textarea 
                 name="comment" 
@@ -133,6 +111,35 @@
                 maxlength="255" 
                 class="form-control" 
                 rows="3"></textarea></dd>
+        <dt>Автотранспорт*</dt>
+        <dd><select name="car" [(ngModel)]="selectedCarId" class="form-control" required>
+                <option *ngFor="let car of cars" [ngValue]="car.id">[{{car.name}}] {{car.gos_no}}</option>
+            </select></dd>
+        <dt>А.Дата и время*</dt>
+        <dd><input
+                type="text"
+                ngui-datetime-picker
+                name="a_dt"
+                [(ngModel)]="transportation.a_dt"
+                (valueChanged)='transportationForm.form.markAsDirty()'
+                #a_dt="ngModel" 
+                date-format="DD.MM.YYYY HH:mm"
+                min-date="Date.now()"
+                readonly="readonly" 
+                class="form-control"
+                required></dd>
+        <dt>Б.Время</dt>
+        <dd><input
+                type="text" 
+                ngui-datetime-picker 
+                [(ngModel)]="transportation.b_dt" 
+                (valueChanged)='transportationForm.form.markAsDirty()'
+                name="b_dt" 
+                time-only="true" 
+                date-format="HH:mm" 
+                readonly="readonly" 
+                class="form-control" 
+                min-hour="{{ transportation.a_dt | date: 'HH' }}"></dd>
         <dt *ngIf="authService.isSignedIn && authService.authUser.role3">Статус перевозки</dt>
         <dd *ngIf="authService.isSignedIn && authService.authUser.role3"><select name="status" [(ngModel)]="selectedStatus" class="form-control" required>
                 <option *ngFor="let status of statuses" [ngValue]="status.id">{{status.name}}</option>

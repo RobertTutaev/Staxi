@@ -5,7 +5,9 @@ var resp = require('../lib/resp');
 
 router.route('/c:id')
   .get(function(req, res, next) {
-    models.sequelize.query(
+
+    var idValue = parseInt(req.params.id);
+    var sql = 
         "SELECT a.*, " +
             "b.style as type, " +
             "trim(concat(c.first_name,' ',c.last_name)) as user, " +
@@ -14,13 +16,22 @@ router.route('/c:id')
             "left join type b on a.type_id = b.id " +
             "join user c on a.user_id = c.id " +
             "left join user d on a.userm_id = d.id " +
-        "WHERE a.client_id = "+ parseInt(req.params.id), models.value )
+        "WHERE a.client_id = :id";    
 
-        .spread(function(values, metadata) {
+    models.sequelize.query(sql, { replacements: { id: idValue }, type: models.sequelize.QueryTypes.SELECT })
+        .then(
+        function(values) {
             res.json(resp({
                 data: values
             }));
-        });
+        }, 
+        function(err) {
+            res.json(resp({
+                rslt: false,
+                msg: 'Не удалось получить список! Ошибка: ' + err.message
+            }));
+        }
+    );
 });
 
 router.route('/:id')

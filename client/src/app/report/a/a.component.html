@@ -1,0 +1,79 @@
+<form class="st-form" #rForm="ngForm">
+    <dl>
+        <dt>Организация*</dt> 
+        <dd><select name="firm" [(ngModel)]="selectedFirmId" required>
+                <option *ngFor="let firm of firms" [ngValue]="firm.id">{{firm.name}}</option>
+            </select></dd>
+        <dt>Дата начала*</dt> 
+        <dd><input 
+                mdInput 
+                type="text" 
+                id="aDt" 
+                readonly="readonly" 
+                [mdDatepicker]="pickerADt" 
+                name="aDt" 
+                [(ngModel)]="report.aDt" 
+                #aDt="ngModel"
+                placeholder="Дата"
+                required>
+            <button mdSuffix [mdDatepickerToggle]="pickerADt"></button>
+            <md-datepicker #pickerADt></md-datepicker>
+            <small [hidden]="aDt.valid || aDt.pristine">
+                Необходимо корректное значение
+            </small></dd>
+        <dt>Дата окончания*</dt> 
+        <dd><input 
+                mdInput type="text" 
+                id="bDt" 
+                readonly="readonly" 
+                [mdDatepicker]="pickerBDt" 
+                name="bDt" 
+                [(ngModel)]="report.bDt" 
+                #bDt="ngModel"
+                placeholder="Дата"
+                required>
+            <button mdSuffix [mdDatepickerToggle]="pickerBDt"></button>
+            <md-datepicker #pickerBDt></md-datepicker>
+            <small [hidden]="bDt.valid || bDt.pristine">
+                Необходимо корректное значение
+            </small></dd>
+        <dt>Статус перевозки</dt>
+        <dd><select name="status" [(ngModel)]="selectedStatus" required>
+                <option *ngFor="let status of statuses" [ngValue]="status.id">{{status.name}}</option>
+            </select></dd>
+
+        <br>
+        <dd><button 
+                class="btn btn-default" 
+                (click)="onClick();" 
+                [disabled]="rForm.form.invalid || rForm.form.pristine">Сформировать</button></dd>
+    </dl>
+</form>
+
+<table class="table table-hover table-list">
+    <thead>
+        <tr>
+            <th>Код</th>
+            <th>Организация</th>
+            <th>Трансп.</th>
+            <th>А.Дт</th>
+            <th>Б.Т</th>
+            <th>А.Откуда</th>
+            <th>Б.Куда</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let transportation of transportations" 
+            (click)="onSelect(transportation)"
+            data-toggle="tooltip" 
+            title="{{ transportation | modifyInfo }}">
+            <td>{{ transportation.id }}</td>
+            <td>{{ transportation.firm }}</td>
+            <td>{{ transportation.car }}</td>
+            <td>{{ transportation.a_dt | date: 'dd.MM.yyyy HH:mm' }}</td>            
+            <td>{{ transportation.b_dt | date: 'HH:mm' }}</td>
+            <td>{{ transportation.a_adr }}</td>
+            <td>{{ transportation.b_adr }}</td>
+        </tr>
+    </tbody>
+</table>

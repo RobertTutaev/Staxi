@@ -26,5 +26,6 @@ export class Transportation {
             public dt: number = null,
             public userm_id: number = null,
             public userm: string = null,
-            public dtm: number = null) { }
+            public dtm: number = null,
+            public firm: string = '') { }
 }

@@ -7,14 +7,24 @@ var bcrypt  = require('bcrypt-nodejs');
 router.route('/')
   .get(function(req, res, next) {
     
-    models.sequelize.query(
-        "SELECT a.*, b.name as firm FROM user a left join firm b on a.firm_id = b.id", models.value )
-        
-        .spread(function(values, metadata) {
+    var sql = 
+        "SELECT a.*, b.name as firm " +
+        "FROM user a left join firm b on a.firm_id = b.id";    
+
+    models.sequelize.query(sql, { type: models.sequelize.QueryTypes.SELECT })
+        .then(
+        function(values) {
             res.json(resp({
                 data: values
             }));
-        });
+        }, 
+        function(err) {
+            res.json(resp({
+                rslt: false,
+                msg: 'Не удалось получить список! Ошибка: ' + err.message
+            }));
+        }
+    );
 });
 
 router.route('/:id')

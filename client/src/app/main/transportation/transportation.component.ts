@@ -39,6 +39,7 @@ export class TransportationComponent implements OnInit {
   statuses: Status[] = Statuses;
   transportation: Transportation = new Transportation();
 
+  streetName: {} = {a_street: '', b_street: ''};
   streetDivName: string = 'a_street';
   streets: Observable<Street[]>;
   private searchTerms : Subject<string> = new Subject<string>();
@@ -62,7 +63,7 @@ export class TransportationComponent implements OnInit {
       .subscribe((categories: Category[]) => this.categories = categories);
     
     this.streets = this.searchTerms
-      .debounceTime(300)        // wait 300ms after each keystroke before considering the term
+      .debounceTime(400)        // wait 300ms after each keystroke before considering the term
       .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap(term => term   // switch to new observable each time the term changes
         // return the http search observable
@@ -76,6 +77,8 @@ export class TransportationComponent implements OnInit {
       .subscribe((transportation: Transportation) => {
           this.transportation = transportation;
           this.status = transportation.status;
+          this.streetName['a_street'] = this.transportation['a_street'];
+          this.streetName['b_street'] = this.transportation['b_street'];
         });
   }
 
@@ -83,7 +86,7 @@ export class TransportationComponent implements OnInit {
   searchStreet(name: string, term: string = ''): void {
     this.streetDivName = name;
     if (term ==='') {
-      this.transportation[this.streetDivName] = '';
+      this.transportation[this.streetDivName] = this.streetName[name];
     }
 
     this.searchTerms.next(term);
@@ -92,6 +95,7 @@ export class TransportationComponent implements OnInit {
   setStreetId(name: string, street: Street): void {
     this.transportation[name + '_id'] = street.id;
     this.transportation[name] = street.name + ' ' + street.socr;
+    this.streetName[name] = this.transportation[name];
   }
 
   onSubmit() {

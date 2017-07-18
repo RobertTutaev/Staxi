@@ -3,6 +3,7 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
 import { Transportation } from '../_classes/list/transportation';
+import { Report } from '../_classes/report';
 
 @Injectable()
 export class TransportationService {
@@ -38,6 +39,7 @@ export class TransportationService {
 
   delete(id: number): Promise<void> {
     const url = `${this.transportationsUrl}/${id}`;
+
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
       .then(response => response.json())
@@ -54,10 +56,23 @@ export class TransportationService {
 
   update(transportation: Transportation): Promise<Transportation> {
     const url = `${this.transportationsUrl}/${transportation.id}`;
+
     return this.http
       .put(url, JSON.stringify(transportation), {headers: this.headers})
       .toPromise()
       .then(() => transportation)
+      .catch(this.handleError);
+  }
+
+  getReportA(report: Report): Promise<Transportation[]> {
+    let url = `${this.transportationsUrl}/report/a/`;
+    
+    for (var prop in report)
+      url+=`?${prop}=${report[prop]}`;
+    
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json().data as Transportation[])
       .catch(this.handleError);
   }
 

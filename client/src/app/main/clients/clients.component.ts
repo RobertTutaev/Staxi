@@ -28,7 +28,7 @@ export class ClientsComponent extends SController implements OnInit {
 
   ngOnInit() {
     this.clients = this.searchTerms
-      .debounceTime(300)        // wait 300ms after each keystroke before considering the term
+      .debounceTime(600)        // wait 300ms after each keystroke before considering the term
       .distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap(term => term   // switch to new observable each time the term changes
         // return the http search observable

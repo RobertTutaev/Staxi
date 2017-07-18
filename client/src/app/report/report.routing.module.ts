@@ -2,17 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { TabComponent } from './tab/tab.component';
-import { ReportAComponent } from './reportA/reportA.component';
+import { AComponent } from './a/a.component';
 import { AuthGuard } from '../_services/auth-guard.service';
 
 const reportsRoutes: Routes = [
   { 
-    path: 'reports',
+    path: 'report',
     canActivate: [AuthGuard],
     component: TabComponent,
     children: [
 
-      { path: 'a', component: ReportAComponent }
+      { path: 'a', component: AComponent }
 
     ]
   }
@@ -30,4 +30,4 @@ const reportsRoutes: Routes = [
   ]
 
 })
-export class ReportsRoutingModule { }
+export class ReportRoutingModule { }

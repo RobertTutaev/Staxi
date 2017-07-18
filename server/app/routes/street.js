@@ -6,20 +6,26 @@ var resp = require('../lib/resp');
 router.route('/')
   .get(function(req, res, next) {
 
-    var sql = "SELECT a.*, b.name as territory "+
-        "FROM street a left join territory b on a.territory_id = b.id ";
-    
-    if (req.query.name) {
-        sql = sql + "WHERE lower(concat(a.name,' ',a.socr)) like lower('%" + req.query.name + "%')";
-    }
-    
-    models.sequelize.query(sql, models.value )
+    var nameValue = '%' + (req.query.name ? req.query.name.replace(/[^-a-zA-Zа-яА-ЯёЁ0-9\., \(\):]/gim,'') : '') + '%';
+    var sql = 
+        "SELECT a.*, b.name as territory " +
+        "FROM street a left join territory b on a.territory_id = b.id " +
+        "WHERE lower(concat(a.name,' ',a.socr)) like lower(:name)";    
 
-        .spread(function(values, metadata) {
+    models.sequelize.query(sql, { replacements: { name: nameValue }, type: models.sequelize.QueryTypes.SELECT })
+        .then(
+        function(values) {
             res.json(resp({
                 data: values
             }));
-        });
+        }, 
+        function(err) {
+            res.json(resp({
+                rslt: false,
+                msg: 'Не удалось получить список! Ошибка: ' + err.message
+            }));
+        }
+    );
 });
 
 router.route('/:id')

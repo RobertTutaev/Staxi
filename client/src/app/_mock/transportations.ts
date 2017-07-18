@@ -28,7 +28,8 @@ export let Transportations: Transportation[] = [
     dt: Date.parse('12.31.2017 13:00'),
     userm_id: 11,
     userm: 'А.А. Чехов',
-    dtm: null
+    dtm: null,
+    firm: 'КЦСОН Ленинского района г. Челябинска'
   },
   {
     id: 1,
@@ -57,6 +58,7 @@ export let Transportations: Transportation[] = [
     dt: Date.parse('13.31.2017 13:00'),
     userm_id: 11,
     userm: 'А.А. Сехов',
-    dtm: null
+    dtm: null,
+    firm: 'КЦСОН Ленинского района г. Челябинска'
   }
 ];

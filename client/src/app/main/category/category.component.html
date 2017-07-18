@@ -2,11 +2,11 @@
     <dl>
         <dt>Вид категории*</dt> 
         <dd><select name="kateg" [(ngModel)]="selectedKategId" class="form-control select-kateg" required>
-                <option *ngFor="let kateg of kategs || async" [ngValue]="kateg.id">{{kateg.name}}</option>
+                <option *ngFor="let kateg of kategs" [ngValue]="kateg.id">{{kateg.name}}</option>
             </select></dd>
         <dt>Документ подтверждающий право*</dt> 
         <dd><select name="doc" [(ngModel)]="selectedDocId" class="form-control" required>
-                <option *ngFor="let doc of docs || async" [ngValue]="doc.id">{{doc.name}}</option>
+                <option *ngFor="let doc of docs" [ngValue]="doc.id">{{doc.name}}</option>
             </select></dd>
         <dt>Серия документа</dt>
         <dd><input 

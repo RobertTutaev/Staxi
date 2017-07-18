@@ -6,14 +6,24 @@ var resp = require('../lib/resp');
 router.route('/')
   .get(function(req, res, next) {
     
-    models.sequelize.query(
-        "SELECT a.*, b.name as territory FROM territory a left join territory b on a.territory_id = b.id", models.value )
+    var sql = 
+        "SELECT a.*, b.name as territory " +
+        "FROM territory a left join territory b on a.territory_id = b.id";    
 
-        .spread(function(values, metadata) {
+    models.sequelize.query(sql, { type: models.sequelize.QueryTypes.SELECT })
+        .then(
+        function(values) {
             res.json(resp({
                 data: values
             }));
-        });
+        }, 
+        function(err) {
+            res.json(resp({
+                rslt: false,
+                msg: 'Не удалось получить список! Ошибка: ' + err.message
+            }));
+        }
+    );
 });
 
 router.route('/:id')

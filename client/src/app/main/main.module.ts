@@ -28,7 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     CommonModule,
     MaterialModule,
-    MdNativeDateModule,    
+    MdNativeDateModule,
     FormsModule,
     MainRoutingModule
   ],
