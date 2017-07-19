@@ -6,7 +6,7 @@ import { AComponent } from './a/a.component';
 import { AuthGuard } from '../_services/auth-guard.service';
 import { Report } from '../_classes/report';
 
-const report: Report = new Report();
+let report: Report = new Report();
 
 const reportsRoutes: Routes = [
   { 

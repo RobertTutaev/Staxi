@@ -2,6 +2,7 @@ export class Transportation {
     constructor(
             public id: number = null,
             public client_id: number = null,
+            public client: string = '',
             public car_id: number = null,
             public car: string = null,
             public punkt_id: number = null,

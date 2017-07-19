@@ -139,18 +139,25 @@ router.route('/report/a/:firmId/:aDt/:bDt/:status/:withChilds')
   .get(function(req, res, next) {
 
     var firmId = req.params.firmId ? parseInt(req.params.firmId) : 0;
-    var aDt = req.params.aDt ? req.params.aDt : new Date(2000, 1, 1);
-    var bDt = req.params.bDt ? req.params.bDt : new Date(2100, 1, 1);
+    var aDt = req.params.aDt ? new Date(parseInt(req.params.aDt)) : new Date(2000, 1, 1);
+    var bDt = req.params.bDt ? new Date(parseInt(req.params.bDt)) : new Date(2100, 1, 1);
     var status = req.params.status ? parseInt(req.params.status) : 0;
     var withChilds = req.params.withChilds ? Boolean(req.params.withChilds) : false;
-    var sql = 
-        "SELECT a.*, "+        
+    var sql =
+        "SELECT " +
+            "a.id, " +
+            "a.client_id, " +
+            "a.a_dt, " +
+            "a.b_dt, " +
+            "a.dt, " +
+            "a.dtm, " +
             "h.name as firm, " +
-            "concat(b.name,' (',b.gos_no,')') as car, " +
+            "concat('Наз.: ',b.name,'; г.н.: ',b.gos_no,'; вод.: ',ifnull(b.driver_name,''),'; тел.: ',ifnull(b.driver_phone,'')) as car, " +
             "trim(concat(c.first_name,' ',c.last_name)) as user, " +
             "trim(concat(g.first_name,' ',g.last_name)) as userm, " +
             "concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr, " +
-            "concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr " +            
+            "concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr, " +
+            "concat('СНИЛС: ',i.snils,'; И.О.: ',i.im,' ',ifnull(i.ot,''),'; тел.: ',ifnull(j.name,'')) as client " +
         "FROM transportation a " +
             "join car b on a.car_id = b.id " +
             "join user c on a.user_id = c.id " +
@@ -159,6 +166,8 @@ router.route('/report/a/:firmId/:aDt/:bDt/:status/:withChilds')
             "join street f on a.b_street_id = f.id " +
             "left join user g on a.userm_id = g.id " +
             "join firm h on c.firm_id = h.id " +
+            "join client i on i.id = a.client_id " +
+            "left join contact j on j.client_id = i.id and j.type_id = 1 " +
         "WHERE " + 
             "h.id = :firmId AND " +
             "a.a_dt >= :aDt AND " +

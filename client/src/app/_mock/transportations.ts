@@ -4,6 +4,7 @@ export let Transportations: Transportation[] = [
   {
     id: 1,
     client_id: 11,
+    client: '',
     car_id: 3,
     car: 'а412ао74',
     punkt_id: 1,
@@ -34,6 +35,7 @@ export let Transportations: Transportation[] = [
   {
     id: 1,
     client_id: 11,
+    client: '',
     car_id: 4,
     car: 'у435ка174',
     punkt_id: 1,

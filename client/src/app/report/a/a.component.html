@@ -1,9 +1,7 @@
-<form class="st-form" #rForm="ngForm">
-    <dl>
-        <dt>Организация*</dt> 
-        <dd><select name="firm" [(ngModel)]="selectedFirmId" required>
-                <option *ngFor="let firm of firms" [ngValue]="firm.id">{{firm.name}}</option>
-            </select></dd>
+<div class="container">
+  <form class="rows" #rForm="ngForm">
+
+    <div class="col-sm-4">        
         <dt>Дата начала*</dt> 
         <dd><input 
                 mdInput 
@@ -36,19 +34,32 @@
             <md-datepicker #pickerBDt></md-datepicker>
             <small [hidden]="bDt.valid || bDt.pristine">
                 Необходимо корректное значение
-            </small></dd>
+            </small></dd>        
+    </div>
+
+    <div class="col-sm-4">
+        <dt>Организация*</dt> 
+        <dd><select name="firm" [(ngModel)]="selectedFirmId" required>
+                <option *ngFor="let firm of firms" [ngValue]="firm.id">{{firm.name}}</option>
+            </select></dd>
         <dt>Статус перевозки</dt>
         <dd><select name="status" [(ngModel)]="selectedStatus" required>
                 <option *ngFor="let status of statuses" [ngValue]="status.id">{{status.name}}</option>
-            </select></dd>
+            </select></dd>        
+    </div>
 
+    <div class="clearfix"></div>
+
+    <div class="col-sm-8">
         <br>
-        <dd><button 
-                class="btn btn-default" 
-                (click)="onClick();" 
-                [disabled]="rForm.form.invalid || rForm.form.pristine">Сформировать</button></dd>
-    </dl>
-</form>
+        <button 
+            class="btn btn-default" 
+            (click)="onClick();" 
+            [disabled]="rForm.form.invalid || rForm.form.pristine">Сформировать</button>
+    </div>
+
+  </form>
+</div>
 
 <table class="table table-hover table-list">
     <thead>
@@ -60,6 +71,7 @@
             <th>Б.Т</th>
             <th>А.Откуда</th>
             <th>Б.Куда</th>
+            <th>Клиент</th>
         </tr>
     </thead>
     <tbody>
@@ -74,6 +86,7 @@
             <td>{{ transportation.b_dt | date: 'HH:mm' }}</td>
             <td>{{ transportation.a_adr }}</td>
             <td>{{ transportation.b_adr }}</td>
+            <td>{{ transportation.client }}</td>
         </tr>
     </tbody>
 </table>

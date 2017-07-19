@@ -2,6 +2,8 @@ import { Location } from '@angular/common';
 import { Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { Report } from '../../_classes/report';
+
 @Component({
   selector: 'tab',
   templateUrl: './tab.component.html',
@@ -9,6 +11,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class TabComponent {
   id: number;
+  report: Report = new Report();
   
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -24,7 +27,7 @@ export class TabComponent {
   isActiveRoute(route: string [], useFullName = false) {
     const cur_route = route.join('/');
     let loc_route = this.location.path();
-      
+    
     if (!useFullName)
       loc_route = loc_route.substr(0, cur_route.length);
 

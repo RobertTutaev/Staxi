@@ -20,24 +20,25 @@ export class AComponent implements OnInit {
   statuses: Status[] = Statuses;
   transportations: Transportation[] = [];
   
-  constructor(private firmService: FirmService,
-              private transportationService: TransportationService,
+  constructor(private transportationService: TransportationService,
+              private firmService: FirmService,
+              private route: ActivatedRoute,
               private router: Router) { }
   
   ngOnInit() {
-    this.firmService.getFirms().then((firms: Firm[]) => {
-        this.firms = firms;
-    });    
+    this.firmService.getFirms().then((firms: Firm[]) => this.firms = firms);
+    
+    this.route.params
+      .switchMap((params: Params) => this.transportationService.getReportA(this.report.clone(params)))
+      .subscribe((transportations: Transportation[]) => this.transportations = transportations);
   }
 
   onSelect(transportation: Transportation) {
     this.router.navigate(['/client', transportation.client_id, 'transportation', transportation.id]);
   }
 
-  onClick() {
-    this.transportationService
-      .getReportA(this.report)
-      .then((transportations: Transportation[]) => this.transportations = transportations);
+  onClick() {    
+    this.router.navigate(this.report.getUrl(['report', 'a']));
   }
 
   get selectedStatus(): number {
@@ -54,7 +55,7 @@ export class AComponent implements OnInit {
 
   set selectedFirmId(value: number) {
     this.report.firmId = value;
-  } 
+  }
 
   onDelete(transportation: Transportation) {
     if(confirm('Вы действительно хотите удалить текущую запись?'))

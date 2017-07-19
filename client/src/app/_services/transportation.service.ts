@@ -65,7 +65,7 @@ export class TransportationService {
   }
 
   getReportA(report: Report): Promise<Transportation[]> {
-    const url = `${this.transportationsUrl}/report/a${report.getUrl()}`;
+    const url = `${this.transportationsUrl}/report/a${report.getUrlValue()}`;
     
     return this.http.get(url)
       .toPromise()
