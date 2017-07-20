@@ -96,6 +96,7 @@ router.route('/:id')
             }
         }).then(
         function() {
+            console.log(resp());
             res.json(resp());
         }, 
         function(err) {

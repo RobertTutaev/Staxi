@@ -24,15 +24,18 @@ export class TerritoryComponent implements OnInit {
   
   ngOnInit() {
 
-    this.territoryService.getTerritories().then((territories: Territory[]) => {
+    this.territoryService.getTerritories().then((territories: Territory[]) => {        
         this.territories = territories;
         this.territories.unshift(new Territory());
         this.route.params     
           .switchMap((params: Params) => this.territoryService.getTerritory(+params['id']))
-          .subscribe((territory: Territory) => this.territory = territory);
+          .subscribe((territory: Territory) => {
+            this.territory = territory;
+            this.territories = this.territories.filter(k => k.id !== this.territory.id);
+          });
       });
   }
-
+  
   onSubmit() {
     if (this.territory.id)
       this.territoryService.update(this.territory)

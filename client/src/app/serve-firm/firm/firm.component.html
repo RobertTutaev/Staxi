@@ -2,6 +2,12 @@
 
 <form class="st-form" (ngSubmit)="onSubmit(); firmForm.reset();" #firmForm="ngForm">
     <dl>
+        <dt>Организация курирующая вводимую организацию</dt>
+        <dd>
+            <select name="firm" [(ngModel)]="selectedFirmId" class="form-control">
+                <option *ngFor="let f of firms" [ngValue]="f.id">{{f.name}}</option>
+            </select>
+        </dd>
         <dt>Территория*</dt>
         <dd>
             <select name="territory" [(ngModel)]="selectedTerritoryId" class="form-control" required>
@@ -12,11 +18,11 @@
         <dd><input 
                 type="text" 
                 name="name" 
-                [(ngModel)]="firm.name" 
-                placeholder="Название" 
-                required 
-                #name="ngModel" 
-                maxlength="255" 
+                [(ngModel)]="firm.name"
+                placeholder="Название"
+                required
+                #name="ngModel"
+                maxlength="255"
                 size="60"
                 class="form-control"></dd>
 

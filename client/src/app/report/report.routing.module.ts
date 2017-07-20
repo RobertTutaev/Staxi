@@ -4,9 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { TabComponent } from './tab/tab.component';
 import { AComponent } from './a/a.component';
 import { AuthGuard } from '../_services/auth-guard.service';
-import { Report } from '../_classes/report';
-
-let report: Report = new Report();
 
 const reportsRoutes: Routes = [
   { 
@@ -15,7 +12,7 @@ const reportsRoutes: Routes = [
     component: TabComponent,
     children: [
 
-      { path: report.getUrlMask('a'), component: AComponent },
+      { path: 'a/:firmId/:aDt/:bDt/:status/:withChilds', component: AComponent },
 
     ]
   }
@@ -31,6 +28,5 @@ const reportsRoutes: Routes = [
   providers: [
     AuthGuard
   ]
-
 })
 export class ReportRoutingModule { }

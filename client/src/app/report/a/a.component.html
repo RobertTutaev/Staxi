@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container st-form">
   <form class="rows" #rForm="ngForm">
 
-    <div class="col-sm-4">        
+    <div class="col-md-6">        
         <dt>Дата начала*</dt> 
         <dd><input 
                 mdInput 
@@ -19,6 +19,18 @@
             <small [hidden]="aDt.valid || aDt.pristine">
                 Необходимо корректное значение
             </small></dd>
+    </div>
+
+    <div class="col-md-6">
+        <dt>Организация*</dt> 
+        <dd><select name="firm" [(ngModel)]="selectedFirmId" required>
+                <option *ngFor="let firm of firms" [ngValue]="firm.id">{{firm.name}}</option>
+            </select></dd>        
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-6">
         <dt>Дата окончания*</dt> 
         <dd><input 
                 mdInput type="text" 
@@ -37,25 +49,41 @@
             </small></dd>        
     </div>
 
-    <div class="col-sm-4">
-        <dt>Организация*</dt> 
-        <dd><select name="firm" [(ngModel)]="selectedFirmId" required>
-                <option *ngFor="let firm of firms" [ngValue]="firm.id">{{firm.name}}</option>
-            </select></dd>
+    <div class="col-md-3">
         <dt>Статус перевозки</dt>
         <dd><select name="status" [(ngModel)]="selectedStatus" required>
                 <option *ngFor="let status of statuses" [ngValue]="status.id">{{status.name}}</option>
             </select></dd>        
     </div>
 
+    <div class="col-md-3">
+        <dt>Курирование</dt>
+        <dd><input 
+                type="checkbox" 
+                value="true" 
+                name="withChilds" 
+                id="withChilds"                 
+                [(ngModel)]="report.withChilds">
+            <label for="carType">с подчиненными</label></dd>
+    </div>
+
     <div class="clearfix"></div>
 
-    <div class="col-sm-8">
-        <br>
+    <br>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-6">
         <button 
-            class="btn btn-default" 
+            class="btn btn-info" 
             (click)="onClick();" 
-            [disabled]="rForm.form.invalid || rForm.form.pristine">Сформировать</button>
+            [disabled]="rForm.form.invalid || rForm.form.pristine"><span class="glyphicon glyphicon-flash"></span> Сформировать</button>
+    </div>
+
+    <div class="col-md-6">
+        <button 
+            class="btn btn-default"
+            [disabled]="!transportations.length"><span class="glyphicon glyphicon-save-file"></span> Скачать</button>
     </div>
 
   </form>

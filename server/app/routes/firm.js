@@ -7,8 +7,12 @@ router.route('/')
   .get(function(req, res, next) {
     
     var sql = 
-        "SELECT a.*, b.name as territory " +
-        "FROM firm a left join territory b on a.territory_id = b.id";    
+        "SELECT a.*, " +      
+            "b.name as firm, " +
+            "c.name as territory " +
+        "FROM firm a " +
+            "left join firm b on a.firm_id = b.id " +
+            "left join territory c on a.territory_id = c.id";
 
     models.sequelize.query(sql, { type: models.sequelize.QueryTypes.SELECT })
         .then(

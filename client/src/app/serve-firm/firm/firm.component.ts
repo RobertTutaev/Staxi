@@ -4,10 +4,10 @@ import { Location }               from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Territory } from '../../_classes/list/territory';
-import { TerritoryService } from '../../_services/territory.service';
 import { Firm } from '../../_classes/list/firm';
 import { FirmService } from '../../_services/firm.service';
+import { Territory } from '../../_classes/list/territory';
+import { TerritoryService } from '../../_services/territory.service';
 
 @Component({
   selector: 'firm-firm',
@@ -15,10 +15,11 @@ import { FirmService } from '../../_services/firm.service';
   styleUrls: ['./firm.component.sass']
 })
 export class FirmComponent implements OnInit {
-  
-  territories: Territory[] = [];  
-  firm: Firm = new Firm();
 
+  firm: Firm = new Firm();
+  firms: Firm[] = [];
+  territories: Territory[] = [];
+  
   constructor(private territoryService: TerritoryService,
               private firmService: FirmService,
               private route: ActivatedRoute,
@@ -26,12 +27,16 @@ export class FirmComponent implements OnInit {
               private location: Location) { }
   
   ngOnInit() {
-    this.territoryService.getTerritories().then((territories: Territory[]) => {
-        this.territories = territories;
-        this.route.params     
-          .switchMap((params: Params) => this.firmService.getFirm(+params['id']))
-          .subscribe((firm: Firm) => this.firm = firm);
-      });
+    this.firmService.getFirms().then((firms: Firm[]) => {
+      this.firms = firms;
+      this.firms.unshift(new Firm());
+    });
+    
+    this.territoryService.getTerritories().then((territories: Territory[]) => this.territories = territories);
+
+    this.route.params     
+      .switchMap((params: Params) => this.firmService.getFirm(+params['id']))
+      .subscribe((firm: Firm) => this.firm = firm);
   }
 
   onSubmit() {
@@ -42,6 +47,14 @@ export class FirmComponent implements OnInit {
       this.firmService.create(this.firm)
         .then(() => this.gotoBack());
   }
+
+  get selectedFirmId(): number {
+    return this.firm.firm_id;
+  }
+
+  set selectedFirmId(value: number) {
+    this.firm.firm_id = value;
+  } 
 
   get selectedTerritoryId(): number {
     return this.firm.territory_id;

@@ -1,7 +1,7 @@
 <h4 class="h4-sprav"><span class="h4-sprav-span">Отчеты</span></h4>
 
 <ul class="nav nav-tabs">
-    <li [class.active]="isActiveRoute(report.getUrl(['/report', 'a']))">
+    <li [class.active]="isActiveRoute(['/report', 'a'])">
         <a [routerLink]="report.getUrl(['a'])">Реестр заявок</a>
     </li>    
     <li [class.active]="isActiveRoute(['/client', id, 'contact'])">

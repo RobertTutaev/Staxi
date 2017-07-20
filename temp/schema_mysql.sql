@@ -44,14 +44,7 @@ create table territory(
 )engine=innodb;
 
 insert into territory (id, territory_id, name) values
-    (1, null, 'Челябинск'),
-    (2, 1, 'Челябинск, Калининский район'),
-    (3, 1, 'Челябинск, Курчатовский район'),
-    (4, 1, 'Челябинск, Ленинский район'),
-    (5, 1, 'Челябинск, Металлургический район'),
-    (6, 1, 'Челябинск, Советский район'),
-    (7, 1, 'Челябинск, Тракторозаводский район'),
-    (8, 1, 'Челябинск, Центральный район');
+    (1, null, 'Челябинск');
 
 create table street(
     id integer primary key auto_increment,
@@ -2109,9 +2102,15 @@ insert into punkt (id, name) values
     (13, 'Почтовые отделения');
 
 create table firm(
-    id integer primary key auto_increment,    
-    territory_id integer,
+    id integer primary key auto_increment,
+    firm_id integer,
+    territory_id integer not null,
     name varchar(255),
+    index fk_f_firm (firm_id ASC),
+    constraint fk_f_firm 
+        foreign key (firm_id) 
+            references firm (id) 
+                on delete RESTRICT on update RESTRICT,
     index fk_f_territory (territory_id ASC),
     constraint fk_f_territory 
         foreign key (territory_id) 
@@ -2120,15 +2119,16 @@ create table firm(
 )engine=innodb;
 
 insert into firm (territory_id, name) values
-    (1, 'КСП города Челябинска'),
-    (1, 'МКУ «Социальный дом ветеранов»'),
-    (2, 'МБУ «КЦСОН по Калининскому району города Челябинска»'),
-    (3, 'МБУ «КЦСОН по Курчатовскому району города Челябинска»'),
-    (4, 'МБУ «КЦСОН по Ленинскому району города Челябинска»'),
-    (5, 'МБУ «КЦСОН по Металлургическому району города Челябинска»'),
-    (6, 'МБУ «КЦСОН по Советскому району города Челябинска»'),
-    (7, 'МБУ «КЦСОН по Тракторозаводскому району города Челябинска»'),
-    (8, 'МБУ «КЦСОН по Центральному району города Челябинска»');
+    (1, 'МКУ «Социальный дом ветеранов»');
+insert into firm (firm_id, territory_id, name) values
+    (1, 1, 'КСП города Челябинска'),
+    (1, 1, 'МБУ «КЦСОН по Калининскому району города Челябинска»'),
+    (1, 1, 'МБУ «КЦСОН по Курчатовскому району города Челябинска»'),
+    (1, 1, 'МБУ «КЦСОН по Ленинскому району города Челябинска»'),
+    (1, 1, 'МБУ «КЦСОН по Металлургическому району города Челябинска»'),
+    (1, 1, 'МБУ «КЦСОН по Советскому району города Челябинска»'),
+    (1, 1, 'МБУ «КЦСОН по Тракторозаводскому району города Челябинска»'),
+    (1, 1, 'МБУ «КЦСОН по Центральному району города Челябинска»');
 
 create table user(
     id integer primary key auto_increment,
@@ -2155,13 +2155,14 @@ create table user(
 
 insert into user(username, password, first_name, last_name, firm_id, checked, role0, role1, role2, role3, role4) values 
     ('opo_usr@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'А.А.', 'Администратор', 1, 1, 1, 1, 1, 1, 1),
-    ('dveteranov@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'К.К.', 'Координатор', 2, 1, 1, 1, 1, 1, 1),
-    ('zentr2515@yandex.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор 1', 3, 1, 1, 1, 1, 0, 0),
-    ('kcson74@yandex.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор 2', 4, 1, 1, 1, 1, 0, 0),
-    ('kcsonlen@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор 3', 5, 1, 1, 1, 1, 0, 0),
-    ('kcson_chmz@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор 4', 6, 1, 1, 1, 1, 0, 0),
-    ('mukcsonsov@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор 5', 7, 1, 1, 1, 1, 0, 0),
-    ('mukcon_tzr@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор 6', 8, 1, 1, 1, 1, 0, 0),
+    ('dveteranov@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'К.К.', 'Координатор', 1, 1, 1, 1, 1, 1, 1),
+    ('usz@cheladmin.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор КСП', 2, 1, 1, 1, 1, 0, 0),
+    ('zentr2515@yandex.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор КЦСОН1', 3, 1, 1, 1, 1, 0, 0),
+    ('kcson74@yandex.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор КЦСОН2', 4, 1, 1, 1, 1, 0, 0),
+    ('kcsonlen@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор КЦСОН3', 5, 1, 1, 1, 1, 0, 0),
+    ('kcson_chmz@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор КЦСОН4', 6, 1, 1, 1, 1, 0, 0),
+    ('mukcsonsov@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор КЦСОН5', 7, 1, 1, 1, 1, 0, 0),
+    ('mukcon_tzr@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор КЦСОН6', 8, 1, 1, 1, 1, 0, 0),
     ('socobs@ya.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор 7', 9, 1, 1, 1, 1, 0, 0);
 
 create table client(
@@ -2348,13 +2349,13 @@ BEFORE update ON category
 FOR EACH ROW
 BEGIN
   DECLARE cnt INT;
-  DECLARE done TINYINT(1) DEFAULT 0;  
+  DECLARE done TINYINT(1) DEFAULT 0;
   DECLARE cur CURSOR FOR
-    SELECT 
+    SELECT
       count(category_id)
-    FROM 
-      transportation      
-    WHERE 
+    FROM
+      transportation
+    WHERE
       category_id = new.id AND status>0;
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 

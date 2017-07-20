@@ -143,6 +143,8 @@ router.route('/report/a/:firmId/:aDt/:bDt/:status/:withChilds')
     var bDt = req.params.bDt ? new Date(parseInt(req.params.bDt)) : new Date(2100, 1, 1);
     var status = req.params.status ? parseInt(req.params.status) : 0;
     var withChilds = req.params.withChilds ? Boolean(req.params.withChilds) : false;
+
+    console.log(aDt);
     var sql =
         "SELECT " +
             "a.id, " +
@@ -157,7 +159,7 @@ router.route('/report/a/:firmId/:aDt/:bDt/:status/:withChilds')
             "trim(concat(g.first_name,' ',g.last_name)) as userm, " +
             "concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr, " +
             "concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr, " +
-            "concat('СНИЛС: ',i.snils,'; И.О.: ',i.im,' ',ifnull(i.ot,''),'; тел.: ',ifnull(j.name,'')) as client " +
+            "concat('СНИЛС: ',i.snils,'; И.О.: ',i.im,' ',ifnull(i.ot,''),'; тел.: ',ifnull(j.name,''),'; кат.: ',l.name) as client " +
         "FROM transportation a " +
             "join car b on a.car_id = b.id " +
             "join user c on a.user_id = c.id " +
@@ -168,10 +170,11 @@ router.route('/report/a/:firmId/:aDt/:bDt/:status/:withChilds')
             "join firm h on c.firm_id = h.id " +
             "join client i on i.id = a.client_id " +
             "left join contact j on j.client_id = i.id and j.type_id = 1 " +
+            "join category k on a.category_id = k.id " +
+            "join kateg l on k.kateg_id = l.id " +
         "WHERE " + 
             "h.id = :firmId AND " +
-            "a.a_dt >= :aDt AND " +
-            "a.b_dt <= :bDt AND " +
+            "DATE(a.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt) AND " +
             "a.status = :status " +
         "ORDER BY " +
             "firm, " +

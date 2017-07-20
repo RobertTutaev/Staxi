@@ -39,7 +39,7 @@ export class UserService {
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
       .then(response => response.json())
-      .catch(this.handleError);
+      .catch(this.handleError); 
   }
 
   create(user: User): Promise<User> {

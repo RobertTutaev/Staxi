@@ -30,7 +30,7 @@ export class TabComponent {
     
     if (!useFullName)
       loc_route = loc_route.substr(0, cur_route.length);
-
+    
     return loc_route == cur_route;
   } 
 }

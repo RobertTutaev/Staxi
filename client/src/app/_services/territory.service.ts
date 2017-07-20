@@ -38,7 +38,7 @@ export class TerritoryService {
     const url = `${this.territoriesUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
-      .then(() => null)
+      .then(response => response.json())
       .catch(this.handleError);
   }
 
