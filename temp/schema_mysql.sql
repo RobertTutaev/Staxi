@@ -2371,3 +2371,81 @@ END
 //
 
 delimiter ;
+
+delimiter //
+
+CREATE TRIGGER contact_before_update
+BEFORE update ON contact
+FOR EACH ROW
+BEGIN
+  DECLARE cnt INT;
+  DECLARE done TINYINT(1) DEFAULT 0;
+  DECLARE cur CURSOR FOR
+    SELECT
+      count(type_id)
+    FROM
+      contact
+    WHERE
+      client_id = new.client_id AND type_id = 1;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+  IF new.type_id = 1 THEN
+    OPEN cur;
+    REPEAT
+      FETCH cur INTO cnt;
+      IF cnt>0 THEN
+        SET new.type_id = 2;
+      END IF;
+    UNTIL done END REPEAT;
+    CLOSE cur;
+  END IF;
+END
+//
+
+delimiter ;
+
+delimiter //
+
+CREATE TRIGGER contact_before_insert
+BEFORE insert ON contact
+FOR EACH ROW
+BEGIN
+  DECLARE cnt INT;
+  DECLARE done TINYINT(1) DEFAULT 0;
+  DECLARE cur CURSOR FOR
+    SELECT
+      count(type_id)
+    FROM
+      contact
+    WHERE
+      client_id = new.client_id AND type_id = 1;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+  IF new.type_id = 1 THEN
+    OPEN cur;
+    REPEAT
+      FETCH cur INTO cnt;
+      IF cnt>0 THEN
+        SET new.type_id = 2;
+      END IF;
+    UNTIL done END REPEAT;
+    CLOSE cur;
+  END IF;
+END
+//
+
+delimiter ;
+
+delimiter //
+
+CREATE TRIGGER type_before_update
+BEFORE update ON type
+FOR EACH ROW
+BEGIN
+  IF new.id < 3 AND new.name <> old.name THEN
+    SET new.name = old.name;
+  END IF;
+END
+//
+
+delimiter ;

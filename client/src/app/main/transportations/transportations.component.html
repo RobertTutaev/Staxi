@@ -27,7 +27,7 @@
             <td>{{ transportation.b_dt | date: 'HH:mm' }}</td>
             <td>{{ getStatusName(transportation) }}</td>
             <td>{{ transportation.user }}</td>
-            <td *ngIf="!transportation.status || authService.isSignedIn && authService.authUser.role3 && transportation.status === 1" (click)="onDelete(transportation); $event.stopPropagation();"><span class="glyphicon glyphicon-remove-sign"></span></td>
+            <td><span *ngIf="!transportation.status || authService.isSignedIn && authService.authUser.role3 && transportation.status === 1" (click)="onDelete(transportation); $event.stopPropagation();" class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
     </tbody>
 </table>

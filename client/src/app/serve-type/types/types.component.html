@@ -18,7 +18,7 @@
             <td>{{ type.mask }}</td>
             <td>{{ type.placeholder }}</td>
             <td>{{ type.style }}</td>
-            <td (click)="onDelete(type); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
+            <td><span *ngIf="type.id > 2" (click)="onDelete(type); $event.stopPropagation()" class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
     </tbody>
 </table> 
