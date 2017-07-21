@@ -2,20 +2,56 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models');
 var resp = require('../lib/resp');
+var tools = require('../lib/tools');
 
 router.route('/')
   .get(function(req, res, next) {
     
-    var sql = 
-        "SELECT a.*, b.name as territory " +
-        "FROM territory a left join territory b on a.territory_id = b.id";    
+    var user = req.user;
+    if(user !== undefined) user = user.toJSON();    
 
-    models.sequelize.query(sql, { type: models.sequelize.QueryTypes.SELECT })
+    var sql_prepare = 
+        "SELECT b.territory_id " +
+        "FROM user a " +
+            "join firm b on a.firm_id = b.id " +
+        "WHERE " +
+            "a.id = : id";
+    
+    models.sequelize.query(sql_prepare, { replacements: { id: user.id }, type: models.sequelize.QueryTypes.SELECT })
         .then(
-        function(values) {
-            res.json(resp({
-                data: values
-            }));
+        function(iArray) {            
+
+            var sValue = user.territory_id;
+            
+            var outputArray = tools.getOutputArray({
+                    searchValue: sValue,
+                    inputArray: iArray,
+                    parentFieldName: 'id',
+                    childFieldName: 'territory_id'
+                });
+
+            var sql = 
+                "SELECT a.*, " +
+                    "b.name as territory " +
+                "FROM territory a " +
+                    "left join territory b on a.territory_id = b.id " +
+                "WHERE " +
+                    "a.territory_id in (:oArray)";
+            
+            models.sequelize.query(sql, { replacements: { oArray: outputArray }, type: models.sequelize.QueryTypes.SELECT })
+                .then(
+                function(values) {
+                    res.json(resp({
+                        data: values
+                    }));},
+                function(err) {
+                    res.json(resp({
+                        rslt: false,
+                        msg: 'Не удалось получить список! Ошибка: ' + err.message
+                    }));
+                }
+            );
+
         }, 
         function(err) {
             res.json(resp({

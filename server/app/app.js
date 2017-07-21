@@ -11,7 +11,6 @@ var bcrypt          = require('bcrypt-nodejs');
 var path            = require('path');
 var passport        = require('passport');
 var LocalStrategy   = require('passport-local').Strategy;
-var models          = require('./models/index');
 var config          = require('./config/config.json')[env];
 var app             = express();
 var cors            = require('cors');
