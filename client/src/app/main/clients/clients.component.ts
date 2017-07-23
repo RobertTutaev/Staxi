@@ -20,6 +20,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
   styleUrls: ['./clients.component.sass']
 })
 export class ClientsComponent extends SController implements OnInit {
+  searchText: string = '';  
   clients: Observable<Client[]>;
   private searchTerms: Subject<string> = new Subject<string>();
 
@@ -29,7 +30,7 @@ export class ClientsComponent extends SController implements OnInit {
   ngOnInit() {
     this.clients = this.searchTerms
       .debounceTime(600)        // wait 300ms after each keystroke before considering the term
-      .distinctUntilChanged()   // ignore if next search term is same as previous
+      //.distinctUntilChanged()   // ignore if next search term is same as previous
       .switchMap(term => term   // switch to new observable each time the term changes
         // return the http search observable
         ? this.clientService.search(term)
@@ -49,6 +50,6 @@ export class ClientsComponent extends SController implements OnInit {
   onDelete(client: Client) {
     if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.clientService.delete(client.id)
-        .then((res: any) => res.rslt ? this.clients.map(clients => clients.filter(k => k !== client)) : null);
+        .then((res: any) => res.rslt ? this.searchTerms.next(this.searchText) : null);
   }
 }

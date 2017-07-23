@@ -86,10 +86,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    status: {
-      type: DataTypes.INTEGER(1),
-      allowNull: true,
-      defaultValue: '0'
+    status_id: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      references: {
+        model: 'status',
+        key: 'id'
+      }
     },
     user_id: {
       type: DataTypes.INTEGER(11),

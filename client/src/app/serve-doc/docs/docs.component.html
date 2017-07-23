@@ -12,7 +12,7 @@
         <tr *ngFor="let doc of docs | orderBy: {property: column, direction: direction}" (click)="onSelect(doc)">
             <td>{{ doc.id }}</td>
             <td>{{ doc.name }}</td>
-            <td (click)="onDelete(doc); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
+            <td><span *ngIf="doc.id > 1" (click)="onDelete(doc); $event.stopPropagation()" class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
     </tbody>
 </table> 

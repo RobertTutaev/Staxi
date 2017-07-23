@@ -4,8 +4,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Transportation } from '../../_classes/list/transportation';
 import { TransportationService } from '../../_services/transportation.service';
 import { SController } from '../../_classes/s.controller';
-import { Status } from '../../_classes/status';
-import { Statuses } from '../../_mock/statuses';
 import { AuthService } from '../../_services/auth.service';
 
 @Component({
@@ -15,7 +13,6 @@ import { AuthService } from '../../_services/auth.service';
 })
 export class TransportationsComponent extends SController implements OnInit {
   transportations: Transportation[] = [];
-  statuses: Status[] = Statuses;
 
   constructor(private authService: AuthService,
               private transportationService: TransportationService,
@@ -36,9 +33,5 @@ export class TransportationsComponent extends SController implements OnInit {
     if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.transportationService.delete(transportation.id)
         .then((res: any) => res.rslt ? this.transportations = this.transportations.filter(k => k !== transportation) : null);
-  }
-
-  getStatusName(transportation: Transportation): string {
-    return this.statuses[transportation.status].name;
   }
 }

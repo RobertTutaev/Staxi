@@ -141,7 +141,7 @@
                 class="form-control" 
                 min-hour="{{ transportation.a_dt | date: 'HH' }}"></dd>
         <dt *ngIf="authService.isSignedIn && authService.authUser.role3">Статус перевозки</dt>
-        <dd *ngIf="authService.isSignedIn && authService.authUser.role3"><select name="status" [(ngModel)]="selectedStatus" class="form-control" required>
+        <dd *ngIf="authService.isSignedIn && authService.authUser.role3"><select name="status" [(ngModel)]="selectedStatusId" class="form-control" required>
                 <option *ngFor="let status of statuses" [ngValue]="status.id">{{status.name}}</option>
             </select></dd>
         

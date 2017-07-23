@@ -3,7 +3,6 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
 import { Transportation } from '../_classes/list/transportation';
-import { Report } from '../_classes/report';
 
 @Injectable()
 export class TransportationService {
@@ -62,16 +61,7 @@ export class TransportationService {
       .toPromise()
       .then(() => transportation)
       .catch(this.handleError);
-  }
-
-  getReportA(report: Report): Promise<Transportation[]> {
-    const url = `${this.transportationsUrl}/report/a${report.getUrlValue()}`;
-    
-    return this.http.get(url)
-      .toPromise()
-      .then(response => response.json().data as Transportation[])
-      .catch(this.handleError);
-  }
+  }  
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error);

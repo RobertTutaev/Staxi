@@ -1,7 +1,14 @@
 <h4 class="h4-sprav">Справочник: <span class="h4-sprav-span">Улицы</span></h4>
 
 <div class="form-group">
-  <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Название" maxlength="100">
+  <input 
+        type="text" 
+        [(ngModel)]="searchText" 
+        class="form-control"
+        (keyup)="searchStreet(searchText)"
+        placeholder="Название" 
+        maxlength="100"
+        autocomplete="off">
 </div>
 
 <table class="table table-hover table-list">
@@ -15,8 +22,8 @@
             <th><a routerLink="/street" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
-    <tbody *ngIf="streets.length">
-        <tr *ngFor="let street of streets | filter: {property: 'name', value: searchText} | orderBy: {property: column, direction: direction}" (click)="onSelect(street)">
+    <tbody>
+        <tr *ngFor="let street of streets | async | orderBy: {property: column, direction: direction}" (click)="onSelect(street)">
             <td>{{ street.id }}</td>
             <td>{{ street.territory }}</td>
             <td>{{ street.name }}</td>

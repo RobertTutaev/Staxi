@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Report } from '../../_classes/report';
+import { AReport } from '../../_classes/report/a.report';
 import { Firm } from '../../_classes/list/firm';
 import { FirmService } from '../../_services/firm.service';
-import { Status } from '../../_classes/status';
-import { Statuses } from '../../_mock/statuses';
+import { Status } from '../../_classes/list/status';
+import { StatusService } from '../../_services/status.service';
 import { Transportation } from '../../_classes/list/transportation';
-import { TransportationService } from '../../_services/transportation.service';
+import { ReportService } from '../../_services/report.service';
 
 @Component({
   selector: 'report-a',
@@ -15,21 +15,24 @@ import { TransportationService } from '../../_services/transportation.service';
   styleUrls: ['./a.component.sass']
 })
 export class AComponent implements OnInit {
-  report: Report = new Report();
+  report: AReport = new AReport();
   firms: Firm[] = [];
-  statuses: Status[] = Statuses;
+  statuses: Status[] = [];
   transportations: Transportation[] = [];
   
-  constructor(private transportationService: TransportationService,
+  constructor(private reportService: ReportService,
               private firmService: FirmService,
+              private statusService: StatusService,
               private route: ActivatedRoute,
               private router: Router) { }
   
   ngOnInit() {
     this.firmService.getFirms().then((firms: Firm[]) => this.firms = firms);
+
+    this.statusService.getStatuses().then((statuses: Status[]) => this.statuses = statuses);
     
     this.route.params
-      .switchMap((params: Params) => this.transportationService.getReportA(this.report.clone(params)))
+      .switchMap((params: Params) => this.reportService.getA(this.report.clone(params)))
       .subscribe((transportations: Transportation[]) => this.transportations = transportations);
   }
 
@@ -41,12 +44,12 @@ export class AComponent implements OnInit {
     this.router.navigate(this.report.getUrl(['report', 'a']));
   }
 
-  get selectedStatus(): number {
-    return this.report.status;
+  get selectedStatusId(): number {
+    return this.report.statusId;
   }
 
-  set selectedStatus(value: number) {
-    this.report.status = value;
+  set selectedStatusId(value: number) {
+    this.report.statusId = value;
   }
 
   get selectedFirmId(): number {
@@ -55,11 +58,5 @@ export class AComponent implements OnInit {
 
   set selectedFirmId(value: number) {
     this.report.firmId = value;
-  }
-
-  onDelete(transportation: Transportation) {
-    if(confirm('Вы действительно хотите удалить текущую запись?'))
-      this.transportationService.delete(transportation.id)
-        .then((res: any) => res.rslt ? this.transportations = this.transportations.filter(k => k !== transportation) : null);
   }
 }

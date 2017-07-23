@@ -8,15 +8,15 @@ router.route('/c:id')
 
     var idValue = parseInt(req.params.id);
     var sql = 
-        "SELECT a.*, " +
-            "b.style as type, " +
-            "trim(concat(c.first_name,' ',c.last_name)) as user, " +
-            "trim(concat(d.first_name,' ',d.last_name)) as userm " +
-        "FROM contact a " + 
-            "left join type b on a.type_id = b.id " +
-            "join user c on a.user_id = c.id " +
-            "left join user d on a.userm_id = d.id " +
-        "WHERE a.client_id = :id";    
+        `SELECT a.*,
+            b.style as type,
+            trim(concat(c.first_name,' ',c.last_name)) as user,
+            trim(concat(d.first_name,' ',d.last_name)) as userm
+        FROM contact a
+            join type b on a.type_id = b.id 
+            join user c on a.user_id = c.id
+            left join user d on a.userm_id = d.id
+        WHERE a.client_id = :id`;    
 
     models.sequelize.query(sql, { replacements: { id: idValue }, type: models.sequelize.QueryTypes.SELECT })
         .then(

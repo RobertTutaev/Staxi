@@ -12,8 +12,8 @@ import { Street } from '../../_classes/list/street';
 import { StreetService } from '../../_services/street.service';
 import { Transportation } from '../../_classes/list/transportation';
 import { TransportationService } from '../../_services/transportation.service';
-import { Status } from '../../_classes/status';
-import { Statuses } from '../../_mock/statuses';
+import { Status } from '../../_classes/list/status';
+import { StatusService } from '../../_services/status.service';
 import { AuthService } from '../../_services/auth.service';
 
 import { Observable } from 'rxjs/Observable';
@@ -35,7 +35,7 @@ export class TransportationComponent implements OnInit {
   punkts: Punkt[] = [];
   categories: Category[] = [];
   status: number = 0;
-  statuses: Status[] = Statuses;
+  statuses: Status[] = [];
   transportation: Transportation = new Transportation();
 
   streetName: {} = {a_street: '', b_street: ''};
@@ -48,6 +48,7 @@ export class TransportationComponent implements OnInit {
               private punktService: PunktService,
               private categoryService: CategoryService,
               private streetService: StreetService,
+              private statusService: StatusService,
               private transportationService: TransportationService,
               private route: ActivatedRoute,
               private location: Location) { }
@@ -56,6 +57,8 @@ export class TransportationComponent implements OnInit {
     this.carService.getCars().then((cars: Car[]) => this.cars = cars);
 
     this.punktService.getPunkts().then((punkts: Punkt[]) => this.punkts = punkts);
+
+    this.statusService.getStatuses().then((statuses: Status[]) => this.statuses = statuses);
 
     this.route.parent.parent.params
       .switchMap((params: Params) => this.categoryService.getCategories(+params['id']))
@@ -75,7 +78,7 @@ export class TransportationComponent implements OnInit {
       .switchMap((params: Params) => this.transportationService.getTransportation(+params['idc']))
       .subscribe((transportation: Transportation) => {
           this.transportation = transportation;
-          this.status = transportation.status;
+          this.status = transportation.status_id;
           this.streetName['a_street'] = this.transportation['a_street'];
           this.streetName['b_street'] = this.transportation['b_street'];
         });
@@ -141,12 +144,12 @@ export class TransportationComponent implements OnInit {
     this.transportation.category_id = value;
   }
 
-  get selectedStatus(): number {
-    return this.transportation.status;
+  get selectedStatusId(): number {
+    return this.transportation.status_id;
   }
 
-  set selectedStatus(value: number) {
-    this.transportation.status = value;
+  set selectedStatusId(value: number) {
+    this.transportation.status_id = value;
   } 
 
   get getHH(): any {

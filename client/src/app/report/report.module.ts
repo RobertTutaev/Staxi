@@ -5,7 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { ReportRoutingModule } from './report.routing.module';
 import { TabComponent } from './tab/tab.component';
 import { AComponent } from './a/a.component';
+import { BComponent } from './b/b.component';
 import { ToolsModule } from '../tools/tools.module';
+import { ReportService } from '../_services/report.service';
 
 import { MaterialModule, MdNativeDateModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,7 +24,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   declarations: [
     TabComponent,
-    AComponent
+    AComponent,
+    BComponent
+  ],
+  providers: [
+    ReportService
   ]
 })
 export class ReportModule { }

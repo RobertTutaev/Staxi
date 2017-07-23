@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { TabComponent } from './tab/tab.component';
 import { AComponent } from './a/a.component';
+import { BComponent } from './b/b.component';
 import { AuthGuard } from '../_services/auth-guard.service';
 
 const reportsRoutes: Routes = [
@@ -12,7 +13,8 @@ const reportsRoutes: Routes = [
     component: TabComponent,
     children: [
 
-      { path: 'a/:firmId/:aDt/:bDt/:status/:withChilds', component: AComponent },
+      { path: 'a/:firmId/:aDt/:bDt/:statusId/:withChilds', component: AComponent },
+      { path: 'b/:firmId/:aYear/:aMonth/:withChilds', component: BComponent },
 
     ]
   }

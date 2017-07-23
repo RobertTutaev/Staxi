@@ -6,7 +6,7 @@
         [ngModel]="searchText | snils" 
         (ngModelChange)="searchText=$event" 
         class="form-control" 
-        (keyup)="searchClient(searchText)" 
+        (keyup)="searchClient(searchText)"
         placeholder="СНИЛС" 
         maxlength="14"
         pattern="\d\d\d-\d\d\d-\d\d\d-\d\d"
@@ -25,7 +25,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let client of clients | async | filter: {property: 'snils', value: searchText} | orderBy: {property: column, direction: direction}" 
+        <tr *ngFor="let client of clients | async | orderBy: {property: column, direction: direction}" 
             (click)="onSelect(client)"
             data-toggle="tooltip" 
             title="{{ client | modifyInfo }}">

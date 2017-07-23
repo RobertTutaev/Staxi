@@ -1,4 +1,4 @@
-import { Status } from '../_classes/status';
+import { Status } from '../_classes/list/status';
 
 export let Statuses: Status[] = [
   {

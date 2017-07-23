@@ -3,40 +3,34 @@ var router = express.Router();
 var models = require('../models');
 var resp = require('../lib/resp');
 var bcrypt  = require('bcrypt-nodejs');
-var tools = require('../lib/tools');
+var dbtools = require('../lib/dbtools');
 
 router.route('/')
   .get(function(req, res, next) {
 
-    models.firm.findAll()
-        .then(
-        function(iArray) {
+    var user = req.user;
+    if(user !== undefined) user = user.toJSON();
 
-            var user = req.user;
-            if(user !== undefined) user = user.toJSON();
-            var sValue = user.firm_id;
-
-            var outputArray = tools.getOutputArray({
-                    searchValue: sValue,
-                    inputArray: iArray,
-                    parentFieldName: 'id',
-                    childFieldName: 'firm_id'
-                });
-                
+    dbtools.getOutputArray(
+        'firm', 
+        user.firm_id, 
+        function(outputArray) {
+            
             var sql = 
-                "SELECT a.*, " +
-                    "b.name as firm " +
-                "FROM user a " +
-                    "left join firm b on a.firm_id = b.id " +
-                "WHERE " +
-                    "a.firm_id in (:oArray)";
+                `SELECT a.*,
+                    b.name as firm
+                FROM user a
+                    left join firm b on a.firm_id = b.id
+                WHERE
+                    a.firm_id in (:oArray)`;    
             
             models.sequelize.query(sql, { replacements: { oArray: outputArray }, type: models.sequelize.QueryTypes.SELECT })
                 .then(
-                function(values) {
+                function(values) {                    
                     res.json(resp({
                         data: values
-                    }));},
+                    }));
+                }, 
                 function(err) {
                     res.json(resp({
                         rslt: false,
@@ -45,12 +39,6 @@ router.route('/')
                 }
             );
 
-        }, 
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось получить список! Ошибка: ' + err.message
-            }));
         }
     );
 });

@@ -1,10 +1,4 @@
-export class Report {
-    constructor(
-            public firmId: number = null,
-            public aDt: number = Date.now(),
-            public bDt: number = Date.now(),
-            public status: number = 0,
-            public withChilds: number = 0) { }
+export class Report {    
 
     getUrl(routerLinkArray: Array<any> = []): Array<any> {
         return routerLinkArray.concat(Object.keys(this).map((prop: string) => +this[prop]));

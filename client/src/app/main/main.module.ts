@@ -16,6 +16,7 @@ import { ClientService } from '../_services/client.service';
 import { ContactService } from '../_services/contact.service';
 import { CategoryService } from '../_services/category.service';
 import { TransportationService } from '../_services/transportation.service';
+import { StatusService } from '../_services/status.service';
 import { MainRoutingModule } from './main.routing.module';
 import { ToolsModule } from '../tools/tools.module';
 
@@ -44,6 +45,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TransportationsComponent
   ],
   providers: [
+    StatusService,
     ClientService,
     ContactService,
     CategoryService,

@@ -11,14 +11,10 @@
                 [mdDatepicker]="pickerADt" 
                 name="aDt" 
                 [(ngModel)]="report.aDt" 
-                #aDt="ngModel"
                 placeholder="Дата"
                 required>
             <button mdSuffix [mdDatepickerToggle]="pickerADt"></button>
-            <md-datepicker #pickerADt></md-datepicker>
-            <small [hidden]="aDt.valid || aDt.pristine">
-                Необходимо корректное значение
-            </small></dd>
+            <md-datepicker #pickerADt></md-datepicker></dd>
     </div>
 
     <div class="col-md-6">
@@ -38,22 +34,11 @@
                 readonly="readonly" 
                 [mdDatepicker]="pickerBDt" 
                 name="bDt" 
-                [(ngModel)]="report.bDt" 
-                #bDt="ngModel"
+                [(ngModel)]="report.bDt"
                 placeholder="Дата"
                 required>
             <button mdSuffix [mdDatepickerToggle]="pickerBDt"></button>
-            <md-datepicker #pickerBDt></md-datepicker>
-            <small [hidden]="bDt.valid || bDt.pristine">
-                Необходимо корректное значение
-            </small></dd>        
-    </div>
-
-    <div class="col-md-3">
-        <dt>Статус перевозки</dt>
-        <dd><select name="status" [(ngModel)]="selectedStatus" required>
-                <option *ngFor="let status of statuses" [ngValue]="status.id">{{status.name}}</option>
-            </select></dd>        
+            <md-datepicker #pickerBDt></md-datepicker></dd>        
     </div>
 
     <div class="col-md-3">
@@ -67,6 +52,13 @@
             <label for="carType">с подчин. орган.</label></dd>
     </div>
 
+    <div class="col-md-3">
+        <dt>Статус</dt>
+        <dd><select name="status" [(ngModel)]="selectedStatusId" required>
+                <option *ngFor="let status of statuses" [ngValue]="status.id">{{status.name}}</option>
+            </select></dd>
+    </div>
+    
     <div class="clearfix"></div>
 
     <br>
@@ -95,8 +87,8 @@
             <th>Код</th>
             <th>Организация</th>
             <th>Трансп.</th>
-            <th>А.Дт</th>
-            <th>Б.Т</th>
+            <th>А.Дата Время</th>
+            <th>Б.Время</th>
             <th>А.Откуда</th>
             <th>Б.Куда</th>
             <th>Клиент</th>

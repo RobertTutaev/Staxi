@@ -2,13 +2,13 @@
 
 <form class="st-form" (ngSubmit)="onSubmit(); territoryForm.reset();" #territoryForm="ngForm">
     <dl>
-        <dt>Территория содержащая вводимую территорию</dt>
+        <dt>Территория содержащая вводимую территорию*</dt>
         <dd>
-            <select name="territory_id" [(ngModel)]="selectedTerritoryId" class="form-control">
+            <select name="territory_id" [(ngModel)]="selectedTerritoryId" class="form-control" required>
                 <option *ngFor="let t of territories" [ngValue]="t.id">{{t.name}}</option>
             </select>
         </dd>
-        <dt>Название*</dt>
+        <dt>Название вводимой территории*</dt>
         <dd><input 
                 type="text" 
                 name="name" 
