@@ -5,6 +5,7 @@ var models = require('../models');
 var resp = require('../lib/resp');
 var dbtools = require('../lib/dbtools');
 var XlsxPopulate = require('xlsx-populate');
+var moment = require('moment');
 
 router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
   .get(function(req, res, next) {
@@ -73,25 +74,35 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
                 function(values) {
 
 
-                    XlsxPopulate.fromBlankAsync()
+                    XlsxPopulate.fromFileAsync('./app/templates/report_a.xlsx')
                     .then(workbook => {                        
                         
                         var wSheet = workbook.sheet(0);
-                        wSheet.active(true);
                         
                         values.forEach((v, i) => {
                             var j = 1;
-                            wSheet.row(i+1).cell(j++).value(v.id);
-                            wSheet.row(i+1).cell(j++).value(v.firm);
-                            wSheet.row(i+1).cell(j++).value(v.car);
-                            wSheet.row(i+1).cell(j++).value(v.a_dt).style("numberFormat", "dd.mm.yyyy");
-                            wSheet.row(i+1).cell(j++).value(v.b_dt).style("numberFormat", "mm:ss");
-                            wSheet.row(i+1).cell(j++).value(v.a_adr);
-                            wSheet.row(i+1).cell(j++).value(v.b_adr);
-                            wSheet.row(i+1).cell(j++).value(v.client);
+                            wSheet.row(i+5).cell(j++).value(v.id);
+                            wSheet.row(i+5).cell(j).borderStyle='thin';
+                            wSheet.row(i+5).cell(j++).value(v.firm);
+                            wSheet.row(i+5).cell(j++).value(v.car);
+                            wSheet.row(i+5).cell(j++).value(v.a_dt).style("numberFormat", "dd.mm.yyyy hh:MM");
+                            wSheet.row(i+5).cell(j++).value(v.b_dt).style("numberFormat", "hh:MM");
+                            wSheet.row(i+5).cell(j++).value(v.a_adr);
+                            wSheet.row(i+5).cell(j++).value(v.b_adr);
+                            wSheet.row(i+5).cell(j++).value(v.client);
                         });
+
+                        var dt= new Date();
+
+                        return workbook.toFileAsync(`./app/public/report_a_${moment(dt).format('YYYY.MM.DD.hh.mm.ss')}.xlsx`);
+                    
+                        /*                        
+                        return workbook.outputAsync();
+                    }).then(data => {
+                        var dt= new Date();
+                        res.attachment(`report_a_${moment(dt).format('YYYY.MM.DD.hh.mm.ss')}.xlsx`);                      
                         
-                        return workbook.toFileAsync("./out.xlsx");
+                        res.send(data);*/
                     });
 
 
