@@ -9,7 +9,7 @@
             <th><a [routerLink]="['../']" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>            
         </tr>
     </thead>
-    <tbody *ngIf="contacts.length">
+    <tbody>
         <tr *ngFor="let contact of contacts | orderBy: {property: column, direction: direction}" 
             (click)="onSelect(contact)"
             data-toggle="tooltip" 

@@ -8,7 +8,7 @@
             <th><a routerLink="/punkt" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
-    <tbody *ngIf="punkts.length">
+    <tbody>
         <tr *ngFor="let punkt of punkts | orderBy: {property: column, direction: direction}" (click)="onSelect(punkt)">
             <td>{{ punkt.id }}</td>
             <td>{{ punkt.name }}</td>

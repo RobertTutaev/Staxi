@@ -2073,7 +2073,7 @@ create table car(
     name varchar(100),
     color varchar(100),
     gos_no varchar(12),
-    territory_id integer,
+    territory_id integer not null,
     driver_name varchar(255),
     driver_phone varchar(50),
     type tinyint(1) DEFAULT 0,
@@ -2084,8 +2084,8 @@ create table car(
                 on delete RESTRICT on update RESTRICT
 )engine=innodb;
 
-insert into car (name, gos_no, driver_name, driver_phone) values
-    ('Лада Vesta', 'к762ук174', 'Иван', '8-909-454-45-45');
+insert into car (name, gos_no, territory_id, driver_name, driver_phone) values
+    ('Лада Vesta', 'к762ук174', 4, 'Иван', '8-909-454-45-45');
 
 create table punkt(
     id integer primary key auto_increment,
@@ -2481,6 +2481,38 @@ FOR EACH ROW
 BEGIN
   IF new.id < 2 AND new.name <> old.name THEN
     SET new.name = old.name;
+  END IF;
+END
+//
+
+delimiter ;
+
+delimiter //
+
+CREATE TRIGGER car_before_update
+BEFORE update ON car
+FOR EACH ROW
+BEGIN
+  DECLARE cnt INT;
+  DECLARE done TINYINT(1) DEFAULT 0;
+  DECLARE cur CURSOR FOR
+    SELECT
+      count(id)
+    FROM
+      transportation
+    WHERE
+      car_id=new.id AND status_id>1;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+  IF new.type <> old.type THEN
+    OPEN cur;
+    REPEAT
+      FETCH cur INTO cnt;
+      IF cnt>0 THEN
+        SET new.type = old.type;
+      END IF;
+    UNTIL done END REPEAT;
+    CLOSE cur;
   END IF;
 END
 //

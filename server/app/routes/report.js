@@ -4,8 +4,9 @@ var router = express.Router();
 var models = require('../models');
 var resp = require('../lib/resp');
 var dbtools = require('../lib/dbtools');
+var XlsxPopulate = require('xlsx-populate');
 
-router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds')
+router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
   .get(function(req, res, next) {
 
     var firmId = req.params.firmId ? parseInt(req.params.firmId) : 0;
@@ -28,7 +29,7 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds')
                     a.dt,
                     a.dtm,
                     h.name as firm,
-                    concat('Наз.: ',b.name,'; г.н.: ',b.gos_no,'; вод.: ',ifnull(b.driver_name,''),'; тел.: ',ifnull(b.driver_phone,'')) as car,
+                    concat('Наз.: ',b.name,'; г.н.: ',b.gos_no,'; вод.: ',ifnull(b.driver_name,''),'; цвет: ',ifnull(b.color,''),'; тел.: ',ifnull(b.driver_phone,'')) as car,
                     trim(concat(c.first_name,' ',c.last_name)) as user,
                     trim(concat(g.first_name,' ',g.last_name)) as userm,
                     concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr,
@@ -69,7 +70,31 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds')
                     type: models.sequelize.QueryTypes.SELECT 
                 })
                 .then(
-                function(values) {                    
+                function(values) {
+
+
+                    XlsxPopulate.fromBlankAsync()
+                    .then(workbook => {                        
+                        
+                        var wSheet = workbook.sheet(0);
+                        wSheet.active(true);
+                        
+                        values.forEach((v, i) => {
+                            var j = 1;
+                            wSheet.row(i+1).cell(j++).value(v.id);
+                            wSheet.row(i+1).cell(j++).value(v.firm);
+                            wSheet.row(i+1).cell(j++).value(v.car);
+                            wSheet.row(i+1).cell(j++).value(v.a_dt).style("numberFormat", "dd.mm.yyyy");
+                            wSheet.row(i+1).cell(j++).value(v.b_dt).style("numberFormat", "mm:ss");
+                            wSheet.row(i+1).cell(j++).value(v.a_adr);
+                            wSheet.row(i+1).cell(j++).value(v.b_adr);
+                            wSheet.row(i+1).cell(j++).value(v.client);
+                        });
+                        
+                        return workbook.toFileAsync("./out.xlsx");
+                    });
+
+
                     res.json(resp({
                         data: values
                     }));
@@ -86,13 +111,17 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds')
     );
 });
 
-router.route('/b/:firmId/:aYear/:bMonth/:withChilds')
+router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
   .get(function(req, res, next) {
 
     var firmId = req.params.firmId ? parseInt(req.params.firmId) : 0;
     var aYear = req.params.aYear ? parseInt(req.params.aYear) : (new Date()).getFullYear();
     var aMonth = req.params.aMonth ? parseInt(req.params.aMonth) : (new Date()).getMonth() + 1;
     var withChilds = req.params.withChilds ? (parseInt(req.params.withChilds) ? true : false) : false;
+    console.log(firmId);
+    var aDtMonth= new Date(aYear, aMonth, 1);
+    var aDtYear = new Date(aYear, 1, 1);
+    var bDt     = new Date(aYear, aMonth + 1, 0);
     
     dbtools.getOutputArray(
         'firm', 
@@ -100,85 +129,87 @@ router.route('/b/:firmId/:aYear/:bMonth/:withChilds')
         function(outputArray) {
             
             var sql =
-`SELECT	
-	100 as n,
-	'sdsds' as name,
-	count(if(c.type=0, t.id, null)) as i0,
-	count(if(c.type>0, t.id, null)) as i1
-FROM status s
-	left join transportation t on s.id = t.status_id
-	left join car c on c.id = t.car_id
-WHERE 
-	s.id>1
-UNION	
-SELECT
-	100+@i:=@i+1,
-	s.name,
-	count(if(c.type=0, t.id, null)),
-	count(if(c.type>0, t.id, null))	
-FROM status s
-	left join transportation t on s.id = t.status_id
-	left join car c on c.id = t.car_id,
-	(select @i:=0) i
-WHERE 
-	s.id>1
-GROUP BY
-	s.name
-UNION
-SELECT
-	200,
-	'sdsfgfds',
-	null,
-	null
-UNION
-SELECT
-	200+@j:=@j+1,
-	p.name,
-	count(if(c.type=0, t.id, null)),
-	count(if(c.type>0, t.id, null))
-FROM punkt p
-	left join transportation t on p.id = t.punkt_id
-	left join car c on c.id = t.car_id,
-	(select @j:=0) j
-WHERE 
-	t.status_id=2 or t.status_id is null
-group by
-	p.name
-UNION
-SELECT
-	300,
-	'sdkjkjsfgfds',
-	null,
-	null
-UNION
-SELECT
-	300+@k:=@k+1,
-	a.name,
-	count(if(c.type=0, t.id, null)),
-	count(if(c.type>0, t.id, null))
-FROM kateg a
-	left join category b on b.kateg_id=a.id
-	left join transportation t on b.id = t.category_id
-	left join car c on c.id = t.car_id,
-	(select @k:=0) k
-WHERE 
-	t.status_id=2 or t.status_id is null
-group by
-	a.name
-ORDER BY
-	n`;
-var sql = 
-        `SELECT * FROM car`;            
+                `SELECT
+                    100 as n,
+                    'Поступило заявок в т.ч.:' as name,
+                    count(if(c.type=0, u.firm_id, null)) as i0,
+                    count(if(c.type>0, u.firm_id, null)) as i1
+                FROM status s
+                    left join transportation t on s.id = t.status_id and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
+                    left join user u on t.user_id = u.id and u.firm_id in (:oArray)
+                    left join car c on c.id = t.car_id                    
+                WHERE
+                    s.id>1
+                UNION
+                SELECT
+                    100+@i:=@i+1,
+                    s.name,
+                    count(if(c.type=0, u.firm_id, null)),
+                    count(if(c.type>0, u.firm_id, null))
+                FROM status s
+                    left join transportation t on s.id = t.status_id and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
+                    left join user u on t.user_id = u.id and u.firm_id in (:oArray)
+                    left join car c on c.id = t.car_id,
+                    (select @i:=0) i
+                WHERE
+                    s.id>1
+                GROUP BY
+                    s.name
+                UNION
+                SELECT
+                    200,
+                    'Социально значимые объекты инфраструктуры города Челябинска',
+                    null,
+                    null
+                UNION
+                SELECT
+                    200+@j:=@j+1,
+                    p.name,
+                    count(if(c.type=0, u.firm_id, null)),
+                    count(if(c.type>0, u.firm_id, null))
+                FROM punkt p
+                    left join transportation t on p.id = t.punkt_id and t.status_id=2 and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
+                    left join user u on t.user_id = u.id and u.firm_id in (:oArray)
+                    left join car c on c.id = t.car_id,
+                    (select @j:=0) j	
+                group by
+                    p.name
+                UNION
+                SELECT
+                    300,
+                    'Категории граждан, имеющие право на обслуживание социальной службой',
+                    null,
+                    null
+                UNION
+                SELECT
+                    300+@k:=@k+1,
+                    a.name,
+                    count(if(c.type=0, u.firm_id, null)),
+                    count(if(c.type>0, u.firm_id, null))
+                FROM kateg a
+                    left join category b on b.kateg_id=a.id
+                    left join transportation t on b.id = t.category_id and t.status_id=2 and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
+                    left join user u on t.user_id = u.id and u.firm_id in (:oArray)
+                    left join car c on c.id = t.car_id,
+                    (select @k:=0) k
+                group by
+                    a.name
+                ORDER BY
+                    n`;  
+        
             async.parallel([
-                // i0
+                // i0, i1
                 function(callback){
                     models.sequelize.query(
                         sql, 
                         { 
-                            replacements: {
-                        }, 
-                        type: models.sequelize.QueryTypes.SELECT 
-                    })
+                            replacements: { 
+                                oArray: withChilds ? outputArray : [firmId],
+                                aDt: aDtMonth,
+                                bDt: bDt 
+                            },  
+                            type: models.sequelize.QueryTypes.SELECT 
+                        })
                     .then(
                         function(values){
                             callback(null, values)
@@ -188,15 +219,18 @@ var sql =
                         }
                     );
                 },
-                // i1
+                // i2, i3
                 function(callback){
                     models.sequelize.query(
                         sql, 
                         { 
-                            replacements: {
-                        }, 
-                        type: models.sequelize.QueryTypes.SELECT 
-                    })
+                            replacements: { 
+                                oArray: withChilds ? outputArray : [firmId],
+                                aDt: aDtYear,
+                                bDt: bDt 
+                            },  
+                            type: models.sequelize.QueryTypes.SELECT 
+                        })
                     .then(
                         function(values){
                             callback(null, values)
@@ -205,46 +239,23 @@ var sql =
                             callback(err, null)
                         }
                     );
-                },
-                // i2
-                function(callback){
-                    models.sequelize.query(
-                        sql, 
-                        { 
-                            replacements: {
-                        }, 
-                        type: models.sequelize.QueryTypes.SELECT 
-                    })
-                    .then(
-                        function(values){
-                            callback(null, values)
-                        },
-                        function(err){
-                            callback(err, null)
-                        }
-                    );
-                },
-                // i3
-                function(callback){
-                    models.sequelize.query(
-                        sql, 
-                        { 
-                            replacements: {
-                        }, 
-                        type: models.sequelize.QueryTypes.SELECT 
-                    })
-                    .then(
-                        function(values){
-                            callback(null, values)
-                        },
-                        function(err){
-                            callback(err, null)
-                        }
-                    );
-                }
-                ],
-                function(err, results){
-                    console.log(results);
+                }],
+                function(err, values){
+                    if(err) {
+                        res.json(resp({
+                            rslt: false,
+                            msg: 'Не удалось получить список! Ошибка: ' + err.message
+                        }));
+                    } else {
+                        values[0].forEach(function(element, index, array) {
+                                element.i2 = values[1][index].i0;
+                                element.i3 = values[1][index].i1;
+                            });
+                        
+                        res.json(resp({
+                            data: values[0]
+                        }));
+                    }
                 }
             );
         }

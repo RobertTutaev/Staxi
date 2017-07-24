@@ -2,29 +2,42 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models');
 var resp = require('../lib/resp');
+var dbtools = require('../lib/dbtools');
 
 router.route('/')
   .get(function(req, res, next) {
 
-    var sql = 
-        `SELECT 
-            a.*, 
-            b.name as territory 
-        FROM car a 
-            join territory b on a.territory_id = b.id`;
+    var user = req.user;
+    if(user !== undefined) user = user.toJSON();
 
-    models.sequelize.query(sql, { type: models.sequelize.QueryTypes.SELECT })
-        .then(
-        function(values) {
-            res.json(resp({
-                data: values
-            }));
-        }, 
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось получить список! Ошибка: ' + err.message
-            }));
+    dbtools.getOutputArrayForTerritory(
+        user.firm_id, 
+        function(outputArray) {
+            
+            var sql = 
+               `SELECT 
+                    a.*, 
+                    b.name as territory 
+                FROM car a 
+                    join territory b on a.territory_id = b.id
+                WHERE
+                    b.id in (:oArray)`;
+            
+            models.sequelize.query(sql, { replacements: { oArray: outputArray }, type: models.sequelize.QueryTypes.SELECT })
+                .then(
+                function(values) {                    
+                    res.json(resp({
+                        data: values
+                    }));
+                }, 
+                function(err) {
+                    res.json(resp({
+                        rslt: false,
+                        msg: 'Не удалось получить список! Ошибка: ' + err.message
+                    }));
+                }
+            );
+
         }
     );
 });

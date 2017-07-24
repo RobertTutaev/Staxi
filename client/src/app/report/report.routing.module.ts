@@ -13,8 +13,8 @@ const reportsRoutes: Routes = [
     component: TabComponent,
     children: [
 
-      { path: 'a/:firmId/:aDt/:bDt/:statusId/:withChilds', component: AComponent },
-      { path: 'b/:firmId/:aYear/:aMonth/:withChilds', component: BComponent },
+      { path: 'a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile', component: AComponent },
+      { path: 'b/:firmId/:aYear/:aMonth/:withChilds/:getFile', component: BComponent },
 
     ]
   }

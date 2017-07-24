@@ -68,13 +68,14 @@
     <div class="col-md-6">
         <button 
             class="btn btn-info" 
-            (click)="onClick();" 
+            (click)="onClick();"
             [disabled]="rForm.form.invalid || rForm.form.pristine"><span class="glyphicon glyphicon-flash"></span> Сформировать</button>
     </div>
 
     <div class="col-md-6">
         <button 
             class="btn btn-default"
+            (click)="onGetFile();"
             [disabled]="!transportations.length"><span class="glyphicon glyphicon-save-file"></span> Скачать</button>
     </div>
 

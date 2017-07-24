@@ -8,7 +8,7 @@
             <th><a routerLink="/kateg" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
-    <tbody *ngIf="kategs.length">
+    <tbody>
         <tr *ngFor="let kateg of kategs | orderBy: {property: column, direction: direction}" (click)="onSelect(kateg)">
             <td>{{ kateg.id }}</td>
             <td>{{ kateg.name }}</td>

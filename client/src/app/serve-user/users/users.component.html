@@ -17,7 +17,7 @@
             <th><a routerLink="/user" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
-    <tbody *ngIf="users.length">
+    <tbody>
         <tr *ngFor="let user of users | orderBy: {property: column, direction: direction}" 
             (click)="onSelect(user)" 
             data-toggle="tooltip" 

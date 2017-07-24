@@ -8,7 +8,7 @@
             <th><a routerLink="/doc" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
-    <tbody *ngIf="docs.length">
+    <tbody>
         <tr *ngFor="let doc of docs | orderBy: {property: column, direction: direction}" (click)="onSelect(doc)">
             <td>{{ doc.id }}</td>
             <td>{{ doc.name }}</td>

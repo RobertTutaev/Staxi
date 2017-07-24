@@ -13,7 +13,7 @@
             <th><a [routerLink]="['../']" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
-    <tbody *ngIf="transportations.length">
+    <tbody>
         <tr *ngFor="let transportation of transportations | orderBy: {property: column, direction: direction}" 
             (click)="onSelect(transportation)"
             data-toggle="tooltip" 

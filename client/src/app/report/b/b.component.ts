@@ -33,7 +33,8 @@ export class BComponent implements OnInit {
       .subscribe((bs: B[]) => this.bs = bs);
   }
 
-  onClick() {    
+  onClick() {
+    this.report.getFile = 0; 
     this.router.navigate(this.report.getUrl(['report', 'b']));
   }
 

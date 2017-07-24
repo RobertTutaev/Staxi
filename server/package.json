@@ -21,7 +21,8 @@
     "mysql2": "^1.3.5",
     "passport": "*",
     "passport-local": "*",
-    "sequelize": "*"
+    "sequelize": "*",
+    "xlsx-populate": "^1.8.2"
   },
   "devDependencies": {
     "connect-livereload": "^0.6.0",

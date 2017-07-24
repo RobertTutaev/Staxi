@@ -11,7 +11,7 @@
             <th><a routerLink="/type" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
-    <tbody *ngIf="types.length">
+    <tbody>
         <tr *ngFor="let type of types | orderBy: {property: column, direction: direction}" (click)="onSelect(type)">
             <td>{{ type.id }}</td>
             <td>{{ type.name }}</td>

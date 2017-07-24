@@ -69,7 +69,7 @@
   </form>
 </div>
 
-<table class="table table-bordered table-report">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th rowspan="2">№</th>
@@ -86,7 +86,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let b of bs" 
-            data-toggle="tooltip">
+            data-toggle="tooltip" [class.set-bold]="!(b.n % 100)">
             <td>{{ b.n }}</td>
             <td>{{ b.name }}</td>
             <td>{{ b.i0 }}</td>

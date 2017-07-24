@@ -10,7 +10,7 @@
             <th><a [routerLink]="['../']" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
-    <tbody *ngIf="categories.length">
+    <tbody>
         <tr *ngFor="let category of categories | orderBy: {property: column, direction: direction}" 
             (click)="onSelect(category)"
             data-toggle="tooltip" 

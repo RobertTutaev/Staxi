@@ -40,9 +40,15 @@ export class AComponent implements OnInit {
     this.router.navigate(['/client', transportation.client_id, 'transportation', transportation.id]);
   }
 
-  onClick() {    
+  onClick() {
+    this.report.getFile = 0;
     this.router.navigate(this.report.getUrl(['report', 'a']));
   }
+
+  onGetFile() {
+    this.report.getFile = 1;
+    this.router.navigate(this.report.getUrl(['report', 'a']));
+  } 
 
   get selectedStatusId(): number {
     return this.report.statusId;

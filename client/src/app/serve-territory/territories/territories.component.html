@@ -9,7 +9,7 @@
             <th><a routerLink="/territory" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
-    <tbody *ngIf="territories.length">
+    <tbody>
         <tr *ngFor="let territory of territories | orderBy: {property: column, direction: direction}" (click)="onSelect(territory)">
             <td>{{ territory.id }}</td>
             <td>{{ territory.territory }}</td>

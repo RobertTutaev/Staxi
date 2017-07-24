@@ -10,7 +10,7 @@
             <th><a routerLink="/firm" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
-    <tbody *ngIf="firms.length">
+    <tbody>
         <tr *ngFor="let firm of firms | orderBy: {property: column, direction: direction}" (click)="onSelect(firm)">
             <td>{{ firm.id }}</td>
             <td>{{ firm.firm }}</td>
