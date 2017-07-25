@@ -4,8 +4,7 @@ var router = express.Router();
 var models = require('../models');
 var resp = require('../lib/resp');
 var dbtools = require('../lib/dbtools');
-var XlsxPopulate = require('xlsx-populate');
-var moment = require('moment');
+var dbreports = require('../lib/dbreports');
 
 router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
   .get(function(req, res, next) {
@@ -14,7 +13,13 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
     var aDt = req.params.aDt ? new Date(parseInt(req.params.aDt)) : new Date(2000, 1, 1);
     var bDt = req.params.bDt ? new Date(parseInt(req.params.bDt)) : new Date(2100, 1, 1);
     var statusId = req.params.statusId ? parseInt(req.params.statusId) : 0;
-    var withChilds = req.params.withChilds ? (parseInt(req.params.withChilds) ? true : false) : false;
+    var withChilds = req.params.withChilds ? parseInt(req.params.withChilds) : false;
+    var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
+
+    if (!firmId)
+        return  res.json(resp({
+                    data: []
+                }));
     
     dbtools.getOutputArray(
         'firm', 
@@ -73,42 +78,18 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
                 .then(
                 function(values) {
 
+                    // Если необходим файл
+                    if (getFile) {
+                        var user = req.user;
+                        if(user !== undefined) user = user.toJSON();
 
-                    XlsxPopulate.fromFileAsync('./app/templates/report_a.xlsx')
-                    .then(workbook => {                        
-                        
-                        var wSheet = workbook.sheet(0);
-                        
-                        values.forEach((v, i) => {
-                            var j = 1;
-                            wSheet.row(i+5).cell(j++).value(v.id);
-                            wSheet.row(i+5).cell(j).borderStyle='thin';
-                            wSheet.row(i+5).cell(j++).value(v.firm);
-                            wSheet.row(i+5).cell(j++).value(v.car);
-                            wSheet.row(i+5).cell(j++).value(v.a_dt).style("numberFormat", "dd.mm.yyyy hh:MM");
-                            wSheet.row(i+5).cell(j++).value(v.b_dt).style("numberFormat", "hh:MM");
-                            wSheet.row(i+5).cell(j++).value(v.a_adr);
-                            wSheet.row(i+5).cell(j++).value(v.b_adr);
-                            wSheet.row(i+5).cell(j++).value(v.client);
-                        });
-
-                        var dt= new Date();
-
-                        return workbook.toFileAsync(`./app/public/report_a_${moment(dt).format('YYYY.MM.DD.hh.mm.ss')}.xlsx`);
-                    
-                        /*                        
-                        return workbook.outputAsync();
-                    }).then(data => {
-                        var dt= new Date();
-                        res.attachment(`report_a_${moment(dt).format('YYYY.MM.DD.hh.mm.ss')}.xlsx`);                      
-                        
-                        res.send(data);*/
-                    });
-
-
-                    res.json(resp({
-                        data: values
-                    }));
+                        dbreports.getA(values, user, firmId, aDt, bDt, statusId, withChilds, res);                        
+                    // Если необходим результат
+                    } else {
+                        res.json(resp({
+                            data: values
+                        }));
+                    }
                 }, 
                 function(err) {
                     res.json(resp({
@@ -128,11 +109,17 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
     var firmId = req.params.firmId ? parseInt(req.params.firmId) : 0;
     var aYear = req.params.aYear ? parseInt(req.params.aYear) : (new Date()).getFullYear();
     var aMonth = req.params.aMonth ? parseInt(req.params.aMonth) : (new Date()).getMonth() + 1;
-    var withChilds = req.params.withChilds ? (parseInt(req.params.withChilds) ? true : false) : false;
-    console.log(firmId);
+    var withChilds = req.params.withChilds ? parseInt(req.params.withChilds) : 0;
+    var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
+
     var aDtMonth= new Date(aYear, aMonth, 1);
     var aDtYear = new Date(aYear, 1, 1);
     var bDt     = new Date(aYear, aMonth + 1, 0);
+
+    if (!firmId)
+        return  res.json(resp({
+                    data: []
+                }));
     
     dbtools.getOutputArray(
         'firm', 
@@ -263,9 +250,19 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
                                 element.i3 = values[1][index].i1;
                             });
                         
-                        res.json(resp({
-                            data: values[0]
-                        }));
+                        // Если необходим файл
+                        if (getFile) {
+                            var user = req.user;
+                            if(user !== undefined) user = user.toJSON();
+
+                            dbreports.getB(values[0], user, firmId, aYear, aMonth, withChilds, res);
+
+                        // Если необходим результат
+                        } else {
+                            res.json(resp({
+                                data: values[0]
+                            }));
+                        }
                     }
                 }
             );

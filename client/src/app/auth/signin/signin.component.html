@@ -1,5 +1,5 @@
 <div class="col-md-6 col-md-offset-3">
-    <form class="st-form" (ngSubmit)="signin(); signinForm.reset();" #signinForm="ngForm">
+    <form class="st-form" #signinForm="ngForm">
       <dl *ngIf="!authService.isSignedIn">
         <dt>Email*</dt>
         <dd><input 
@@ -21,7 +21,7 @@
               required></dd>
         
         <br>
-        <button class="btn btn-info" type="submit" [disabled]="signinForm.form.invalid || signinForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> Войти</button>          
+        <button class="btn btn-info" (click)="signin()" [disabled]="signinForm.form.invalid || signinForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> Войти</button>          
       </dl>
 
       <dl *ngIf="authService.isSignedIn">

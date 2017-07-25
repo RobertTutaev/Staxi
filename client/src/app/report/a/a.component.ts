@@ -41,14 +41,12 @@ export class AComponent implements OnInit {
   }
 
   onClick() {
-    this.report.getFile = 0;
     this.router.navigate(this.report.getUrl(['report', 'a']));
   }
 
   onGetFile() {
-    this.report.getFile = 1;
-    this.router.navigate(this.report.getUrl(['report', 'a']));
-  } 
+    this.reportService.getAFile(this.report);    
+  }
 
   get selectedStatusId(): number {
     return this.report.statusId;

@@ -49,16 +49,23 @@ export class SigninComponent implements OnInit {
 
   signin() {
     this.message = 'Авторизация ...';
-
-    this.authService.signin(this.user).then(() => {
-
-      this.setMessage();
-      this.goTo();
-    });
+    
+    setTimeout(() =>
+      this.authService.signin(this.user).then(() => {
+  
+        this.setMessage();
+        this.goTo();
+      }),
+      1000
+    );
   }
 
   signout() {
-    this.authService.signout();
-    this.setMessage();
+    setTimeout(() =>
+      this.authService.signout().then(() =>  
+        this.setMessage()
+      ),
+      1000
+    );
   }
 }

@@ -63,32 +63,33 @@
     <div class="col-md-6">
         <button 
             class="btn btn-default"
-            [disabled]="!bs.length"><span class="glyphicon glyphicon-save-file"></span> Скачать</button>
+            (click)="onGetFile();"
+            [disabled]="!bs.length || rForm.form.invalid || rForm.form.pristine"><span class="glyphicon glyphicon-save-file"></span> Скачать</button>
     </div>
 
   </form>
 </div>
 
-<table class="table table-bordered">
+<table class="table table-bordered text-center">
     <thead>
         <tr>
-            <th rowspan="2">№</th>
-            <th rowspan="2">Вид информации</th>
-            <th colspan="2">За месяц</th>
-            <th colspan="2">С нарастающим итогом с начала года</th>
+            <th rowspan="2" class="text-center">№</th>
+            <th rowspan="2" class="text-center">Вид информации</th>
+            <th colspan="2" class="text-center">За месяц</th>
+            <th colspan="2" class="text-center">С нарастающим итогом с начала года</th>
         </tr>
         <tr>    
-            <th>Легковой автомобиль</th>
-            <th>Автобус</th>
-            <th>Легковой автомобиль</th>
-            <th>Автобус</th>
+            <th class="text-center">Легковой автомобиль</th>
+            <th class="text-center">Автобус</th>
+            <th class="text-center">Легковой автомобиль</th>
+            <th class="text-center">Автобус</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let b of bs" 
             data-toggle="tooltip" [class.set-bold]="!(b.n % 100)">
             <td>{{ b.n }}</td>
-            <td>{{ b.name }}</td>
+            <td class="text-left">{{ b.name }}</td>
             <td>{{ b.i0 }}</td>
             <td>{{ b.i1 }}</td>            
             <td>{{ b.i2 }}</td>

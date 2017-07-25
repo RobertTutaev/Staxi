@@ -73,10 +73,10 @@
     </div>
 
     <div class="col-md-6">
-        <button 
+        <button
             class="btn btn-default"
             (click)="onGetFile();"
-            [disabled]="!transportations.length"><span class="glyphicon glyphicon-save-file"></span> Скачать</button>
+            [disabled]="!transportations.length || rForm.form.invalid || rForm.form.pristine"><span class="glyphicon glyphicon-save-file"></span> Скачать</button>
     </div>
 
   </form>

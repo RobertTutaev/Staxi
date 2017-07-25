@@ -34,8 +34,11 @@ export class BComponent implements OnInit {
   }
 
   onClick() {
-    this.report.getFile = 0; 
     this.router.navigate(this.report.getUrl(['report', 'b']));
+  }
+
+  onGetFile() {
+    this.reportService.getBFile(this.report);    
   }
 
   get selectedMonth(): number {
