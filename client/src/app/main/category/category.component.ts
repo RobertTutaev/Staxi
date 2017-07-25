@@ -1,8 +1,8 @@
 import 'rxjs/add/operator/switchMap';
 import { Location } from '@angular/common';
-
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import * as async from 'async';
 
 import { Kateg } from '../../_classes/list/kateg';
 import { KategService } from '../../_services/kateg.service';
@@ -20,8 +20,7 @@ export class CategoryComponent implements OnInit {
   selectedKateg: Kateg = new Kateg();
   kategs: Kateg[] = [];
   selectedDoc: Doc = new Doc();
-  docs: Doc[] = [];
-  isOk: number = 0;
+  docs: Doc[] = [];  
   category: Category = new Category();
   
   constructor(private kategService: KategService,
@@ -32,31 +31,32 @@ export class CategoryComponent implements OnInit {
               private location: Location) { }
   
   ngOnInit() {
-    this.kategService.getKategs().then((kategs: Kateg[]) => {
-        this.kategs = kategs;
-        this.isOk++;
-        this.init();
-    });
-
-    this.docService.getDocs().then((docs: Doc[]) => {
-        this.docs = docs;
-        this.isOk++;
-        this.init();
-    });
-    this.route.params     
-      .switchMap((params: Params) => this.categoryService.getCategory(+params['idc']))
-      .subscribe((category: Category) => {        
-        this.category = category;        
-        this.isOk++;
-        this.init();                    
-    });
-  }
-
-  init() {
-    if(this.isOk>2) {
-      this.selectedKateg = this.kategs.find(myObj => myObj.id === this.category.kateg_id);
-      this.selectedDoc = this.docs.find(myObj => myObj.id === this.category.doc_id);
-    }
+    async.parallel(
+      [
+        // Kategs
+        callback => {
+          this.kategService.getKategs().then((kategs: Kateg[]) => this.kategs = kategs);
+          callback(null, true);
+        },
+        // Docs
+        callback => {
+          this.docService.getDocs().then((docs: Doc[]) => this.docs = docs);
+          callback(null, true);
+        },
+        // Category
+        callback => {
+          this.route.params     
+            .switchMap((params: Params) => this.categoryService.getCategory(+params['idc']))
+            .subscribe((category: Category) => this.category = category);
+            callback(null, true);
+        }
+      ],
+      // Results
+      (err, values) => {
+          this.selectedKateg = this.kategs.find(myObj => myObj.id === this.category.kateg_id);
+          this.selectedDoc = this.docs.find(myObj => myObj.id === this.category.doc_id);
+      }
+    );
   }
 
   onSubmit() {

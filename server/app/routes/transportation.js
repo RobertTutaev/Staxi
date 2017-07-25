@@ -43,6 +43,50 @@ router.route('/c:id')
     );
 });
 
+router.route('/stat:id')
+  .get(function(req, res, next) {
+    
+    var crDt = new Date();
+    var year = crDt.getFullYear();
+    var aDt = new Date(year, 1, 1);
+    var bDt = new Date(year, 12, 0);    
+    var sql =
+        `SELECT	
+            s.id,
+            s.name,
+            count(t.id) as cnt
+        FROM status s
+            LEFT JOIN transportation t on s.id = t.status_id AND t.client_id = :id AND DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
+        GROUP BY
+            s.id,
+            s.name`;
+
+    models.sequelize.query(
+            sql, 
+            { 
+                replacements: { 
+                    id: parseInt(req.params.id),
+                    aDt: aDt,
+                    bDt: bDt
+                }, 
+                type: models.sequelize.QueryTypes.SELECT 
+            }
+        )
+        .then(
+        function(values) {
+            res.json(resp({
+                data: values
+            }));
+        }, 
+        function(err) {
+            res.json(resp({
+                rslt: false,
+                msg: 'Не удалось получить список! Ошибка: ' + err.message
+            }));
+        }
+    );
+});
+
 router.route('/:id')
   .get(function(req, res, next) {
     

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { Stat } from '../../_classes/list/stat';
 import { Transportation } from '../../_classes/list/transportation';
 import { TransportationService } from '../../_services/transportation.service';
 import { SController } from '../../_classes/s.controller';
@@ -12,6 +13,7 @@ import { AuthService } from '../../_services/auth.service';
   styleUrls: ['./transportations.component.sass']
 })
 export class TransportationsComponent extends SController implements OnInit {
+  stats: Stat[] = [];
   transportations: Transportation[] = [];
 
   constructor(private authService: AuthService,
@@ -20,6 +22,10 @@ export class TransportationsComponent extends SController implements OnInit {
               private router: Router) { super(); }
   
   ngOnInit() {
+    this.route.parent.parent.params
+      .switchMap((params: Params) => this.transportationService.getStat(+params['id']))
+      .subscribe((stats: Stat[]) => this.stats = stats);
+
     this.route.parent.parent.params
       .switchMap((params: Params) => this.transportationService.getTransportations(+params['id']))
       .subscribe((transportations: Transportation[]) => this.transportations = transportations);

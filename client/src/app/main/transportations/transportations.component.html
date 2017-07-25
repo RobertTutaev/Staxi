@@ -1,3 +1,10 @@
+<div class="row">
+    <div class="center">
+        <div class="col-xs-12 col-sm-2"><span class="h4-sprav">За тек. год:</span></div>
+        <div class="col-xs-12 col-sm-2" *ngFor="let stat of stats"><span class="h4-sprav">{{ stat.name }}</span> - <span class="h4-sprav-span">{{ stat.cnt }}</span></div>
+    </div>
+</div>
+
 <table class="table table-hover table-list">
     <thead>
         <tr>

@@ -2,6 +2,7 @@ import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
+import { Stat } from '../_classes/list/stat';
 import { Transportation } from '../_classes/list/transportation';
 
 @Injectable()
@@ -16,9 +17,9 @@ export class TransportationService {
     const url = `${this.transportationsUrl}/c${id}`;
 
     return this.http.get(url)
-               .toPromise()
-               .then(response => response.json().data as Transportation[])
-               .catch(this.handleError);
+      .toPromise()
+      .then(response => response.json().data as Transportation[])
+      .catch(this.handleError);
   }
 
   getTransportation(id: number): Promise<Transportation> {
@@ -34,6 +35,15 @@ export class TransportationService {
         .then(response => response.json().data as Transportation)
         .catch(this.handleError);
     }
+  }
+
+  getStat(id: number): Promise<Stat[]> {
+    const url = `${this.transportationsUrl}/stat${id}`;
+
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json().data as Stat[])
+      .catch(this.handleError);
   }
 
   delete(id: number): Promise<void> {
