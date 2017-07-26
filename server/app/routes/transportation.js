@@ -3,11 +3,13 @@ var router = express.Router();
 var models = require('../models');
 var resp = require('../lib/resp');
 var dbtools = require('../lib/dbtools');
+var dbreports = require('../lib/dbreports');
 
-router.route('/c:id')
+router.route('/c:id/:getFile')
   .get(function(req, res, next) {
     
-    var idValue = parseInt(req.params.id);
+    var clientId = parseInt(req.params.id);
+    var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
     var sql = 
         `SELECT a.*, 
             concat(b.name,' (',b.gos_no,')') as car,
@@ -27,12 +29,21 @@ router.route('/c:id')
             left join user g on a.userm_id = g.id
         WHERE a.client_id = :id`;    
 
-    models.sequelize.query(sql, { replacements: { id: idValue }, type: models.sequelize.QueryTypes.SELECT })
+    models.sequelize.query(sql, { replacements: { id: clientId }, type: models.sequelize.QueryTypes.SELECT })
         .then(
         function(values) {
-            res.json(resp({
-                data: values
-            }));
+            // Если необходим файл
+            if (getFile) {
+                var user = req.user;
+                if(user !== undefined) user = user.toJSON();
+                
+                dbreports.getT(values, user, clientId, res);
+            // Если необходим результат
+            } else {
+                res.json(resp({
+                    data: values
+                }));
+            }
         }, 
         function(err) {
             res.json(resp({

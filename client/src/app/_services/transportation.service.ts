@@ -1,25 +1,38 @@
 import { Injectable }    from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, ResponseContentType } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
 import { Stat } from '../_classes/list/stat';
 import { Transportation } from '../_classes/list/transportation';
+import { RService } from '../_classes/r.service';
 
 @Injectable()
-export class TransportationService {
+export class TransportationService extends RService{
 
   private headers = new Headers({'Content-Type': 'application/json'});
   private transportationsUrl = environment.myEndpoint + 'api/transportation';
 
-  constructor(private http: Http) {}
+  constructor(private http: Http) { super(); }
 
   getTransportations(id: number): Promise<Transportation[]> {
-    const url = `${this.transportationsUrl}/c${id}`;
+    const url = `${this.transportationsUrl}/c${id}/0`;
 
     return this.http.get(url)
       .toPromise()
       .then(response => response.json().data as Transportation[])
       .catch(this.handleError);
+  }
+
+  getTFile(id: number) {
+    const url = `${this.transportationsUrl}/c${id}/1`;
+
+    return this.http.get(url, {
+            headers: this.headers,
+            responseType: ResponseContentType.Blob
+        })
+        .toPromise()
+        .then(response => this.saveAsBlob(response, 't'))
+        .catch(error => this.handleError(error));
   }
 
   getTransportation(id: number): Promise<Transportation> {
@@ -71,10 +84,5 @@ export class TransportationService {
       .toPromise()
       .then(() => transportation)
       .catch(this.handleError);
-  }  
-
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
   }
 }

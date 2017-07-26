@@ -2068,25 +2068,6 @@ insert into street (id, territory_id, name, socr, post, nda) values
     (2013, 4, 'Прохладная', 'ул', '', '740000010002083'),
     (2014, 4, 'Наркома Малышева', 'ул', '', '740000010002082');
 
-create table car(
-    id integer primary key auto_increment,
-    name varchar(100),
-    color varchar(100),
-    gos_no varchar(12),
-    territory_id integer not null,
-    driver_name varchar(255),
-    driver_phone varchar(50),
-    type tinyint(1) DEFAULT 0,
-    index fk_c_territory (territory_id ASC),
-    constraint fk_c_territory
-        foreign key (territory_id)
-            references territory (id)
-                on delete RESTRICT on update RESTRICT
-)engine=innodb;
-
-insert into car (name, gos_no, territory_id, driver_name, driver_phone) values
-    ('Лада Vesta', 'к762ук174', 4, 'Иван', '8-909-454-45-45');
-
 create table punkt(
     id integer primary key auto_increment,
     name varchar(255)
@@ -2135,6 +2116,25 @@ insert into firm (firm_id, territory_id, name) values
     (1, 4, 'МБУ «КЦСОН по Советскому району города Челябинска»'),
     (1, 4, 'МБУ «КЦСОН по Тракторозаводскому району города Челябинска»'),
     (1, 4, 'МБУ «КЦСОН по Центральному району города Челябинска»');
+
+create table car(
+    id integer primary key auto_increment,
+    name varchar(100),
+    color varchar(100),
+    gos_no varchar(12),
+    territory_id integer not null,
+    driver_name varchar(255),
+    driver_phone varchar(50),
+    type tinyint(1) DEFAULT 0,
+    index fk_c_territory (territory_id ASC),
+    constraint fk_c_territory
+        foreign key (territory_id)
+            references territory (id)
+                on delete RESTRICT on update RESTRICT
+)engine=innodb;
+
+insert into car (name, gos_no, territory_id, driver_name, driver_phone) values
+    ('Лада Vesta', 'к762ук174', 4, 'Иван', '8-909-454-45-45');
 
 create table user(
     id integer primary key auto_increment,
@@ -2214,7 +2214,7 @@ create table type(
 )engine=innodb;
 
 insert into type (name, mask, placeholder, style) values
-    ('Телефон (основной)', '^[0-9-+]+$', 'nnn-nn-nn (n-nnn-nnn-nn-nn)', 'glyphicon glyphicon-earphone'),
+    ('Телефон (основной)', '^[0-9-+,\ ]+$', 'nnn-nn-nn (n-nnn-nnn-nn-nn)', 'glyphicon glyphicon-earphone'),
     ('Телефон', '^[0-9-+]+$', 'nnn-nn-nn (n-nnn-nnn-nn-nn)', 'glyphicon glyphicon-phone-alt'),    
     ('Email', '^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$', 'xxx@yyy.zzz', 'glyphicon glyphicon-envelope');
 

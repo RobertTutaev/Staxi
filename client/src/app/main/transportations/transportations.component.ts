@@ -31,6 +31,12 @@ export class TransportationsComponent extends SController implements OnInit {
       .subscribe((transportations: Transportation[]) => this.transportations = transportations);
   }
 
+  onGetFile() {
+    this.route.parent.parent.params
+      .switchMap((params: Params) => this.transportationService.getTFile(+params['id']))
+      .subscribe();    
+  }
+
   onSelect(transportation: Transportation) {
     this.router.navigate(['../', transportation.id], { relativeTo: this.route });
   }
@@ -39,5 +45,5 @@ export class TransportationsComponent extends SController implements OnInit {
     if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.transportationService.delete(transportation.id)
         .then((res: any) => res.rslt ? this.transportations = this.transportations.filter(k => k !== transportation) : null);
-  }
+  } 
 }

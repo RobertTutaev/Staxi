@@ -5,33 +5,37 @@ var async = require('async');
 
 moment.locale('ru-RU');
 
-var getInfo = function(firmId, statusId, myCallback) {
+var getInfoModelValues = function(modelName, id, callback) {
+
+    if(!id) callback(null, []);
+
+    models[modelName].findById(parseInt(id))
+        .then(
+            function(value, err) {
+                callback(null, value);
+            }, 
+            function(err) {
+                callback(err, null);
+            }
+        );
+}
+
+var getInfo = function(firmId, statusId, clientId, myCallback) {
 
     async.parallel([
-        // firm
-        function(callback){
-            models.firm.findById(parseInt(firmId))
-                .then(
-                function(value, err) {
-                    callback(null, value);
-                }, 
-                function(err) {
-                    callback(err, null);
-                }
-            );
-        },
-        // Status
-        function(callback){
-            models.status.findById(parseInt(firmId))
-                .then(
-                function(value, err) {
-                    callback(null, value);
-                }, 
-                function(err) {
-                    callback(err, null);
-                }
-            );
-        }],
+            // firm
+            function(callback){
+                getInfoModelValues('firm', firmId, callback);
+            },
+            // Status
+            function(callback){
+                getInfoModelValues('status', statusId, callback);
+            },
+            // Client
+            function(callback){
+               getInfoModelValues('client', clientId, callback);
+            }
+        ],
         function(err, values){
             return myCallback(err, values);
         }
@@ -44,6 +48,7 @@ var getA = function(values, user, firmId, aDt, bDt, statusId, withChilds, res){
     getInfo(
         firmId,
         statusId,
+        0,
         function(err, result) {
 
             if (!err)
@@ -91,6 +96,7 @@ var getB = function(values, user, firmId, aYear, aMonth, withChilds, res){
     getInfo(
         firmId,
         0,
+        0,
         function(err, result) {
 
             if (!err)
@@ -134,8 +140,59 @@ var getB = function(values, user, firmId, aYear, aMonth, withChilds, res){
 
 }
 
+var getT = function(values, user, clientId, res){
+
+    getInfo(
+        0,
+        0,
+        clientId,
+        function(err, result) {
+    
+            if (!err)
+                XlsxPopulate.fromFileAsync('./app/templates/report_t.xlsx')
+                .then(workbook => {                    
+                    var wSheet = workbook.sheet(0);
+                    var dt = new Date();
+                    console.log(1111);
+                    wSheet.row(2).cell(1).value(`СНИЛС: ${result[2].snils}; Имя Отчество: ${result[2].im} ${result[2].ot}`);
+                    wSheet.row(3).cell(1).value(`[ ID: ${result[2].id}; сформирован: ${moment(dt).format('DD.MM.YYYY hh:mm:ss')} ]`);
+
+                    values.forEach((v, i) => {
+                        var j = 1;
+                        wSheet.row(i+5).cell(j++).value(i+1);
+                        wSheet.row(i+5).cell(j++).value(v.id);
+                        wSheet.row(i+5).cell(j++).value(v.punkt);
+                        wSheet.row(i+5).cell(j++).value(v.a_adr);
+                        wSheet.row(i+5).cell(j++).value(v.b_adr);
+                        wSheet.row(i+5).cell(j++).value(v.car);
+                        wSheet.row(i+5).cell(j++).value(v.a_dt).style("numberFormat", "dd.mm.yyyy hh:MM");
+                        wSheet.row(i+5).cell(j++).value(v.b_dt).style("numberFormat", "hh:MM");
+                        wSheet.row(i+5).cell(j++).value(v.status);
+                        wSheet.row(i+5).cell(j++).value(v.user);
+                    });
+
+                    wSheet.range(4, 1, 4 + values.length, 10).style({border: true});
+
+                    wSheet.range(6 + values.length, 1, 6 + values.length, 10).merged(true);
+                    wSheet.row(6 + values.length).cell(1).style({horizontalAlignment : 'left'});
+                    wSheet.row(6 + values.length).cell(1).value(`Пользователь: ${user.first_name} ${user.last_name}`); 
+
+                    return workbook.outputAsync();
+                })
+                .then(data => {
+                    var dt= new Date();
+                    res.attachment(`output.xlsx`);                      
+                    
+                    res.send(data);
+                });
+        }
+    );
+
+}
+
 module.exports = {
     getInfo: getInfo,
     getA: getA,
-    getB: getB
-}
+    getB: getB,
+    getT: getT
+};
