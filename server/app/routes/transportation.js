@@ -48,7 +48,7 @@ router.route('/stat:id')
     
     var crDt = new Date();
     var year = crDt.getFullYear();
-    var aDt = new Date(year, 1, 1);
+    var aDt = new Date(year, 0, 1);
     var bDt = new Date(year, 12, 0);    
     var sql =
         `SELECT	

@@ -10,8 +10,8 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
   .get(function(req, res, next) {
 
     var firmId = req.params.firmId ? parseInt(req.params.firmId) : 0;
-    var aDt = req.params.aDt ? new Date(parseInt(req.params.aDt)) : new Date(2000, 1, 1);
-    var bDt = req.params.bDt ? new Date(parseInt(req.params.bDt)) : new Date(2100, 1, 1);
+    var aDt = req.params.aDt ? new Date(parseInt(req.params.aDt)) : new Date(2000, 0, 1);
+    var bDt = req.params.bDt ? new Date(parseInt(req.params.bDt)) : new Date(2100, 0, 1);
     var statusId = req.params.statusId ? parseInt(req.params.statusId) : 0;
     var withChilds = req.params.withChilds ? parseInt(req.params.withChilds) : false;
     var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
@@ -113,7 +113,7 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
     var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
 
     var aDtMonth= new Date(aYear, aMonth, 1);
-    var aDtYear = new Date(aYear, 1, 1);
+    var aDtYear = new Date(aYear, 0, 1);
     var bDt     = new Date(aYear, aMonth + 1, 0);
 
     if (!firmId)

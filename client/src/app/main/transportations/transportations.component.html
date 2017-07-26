@@ -1,7 +1,7 @@
 <div class="row">
     <div class="center">
-        <div class="col-xs-12 col-sm-2"><span class="h4-sprav">За тек. год:</span></div>
-        <div class="col-xs-12 col-sm-2" *ngFor="let stat of stats"><span class="h4-sprav">{{ stat.name }}</span> - <span class="h4-sprav-span">{{ stat.cnt }}</span></div>
+        <div class="col-xs-12 col-sm-2"><span class="center-info-b">За тек. год:</span></div>
+        <div class="col-xs-12 col-sm-2" *ngFor="let stat of stats"><span class="center-info-a">{{ stat.name }} - </span><span class="center-info-b">{{ stat.cnt }}</span></div>
     </div>
 </div>
 
@@ -21,7 +21,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let transportation of transportations | orderBy: {property: column, direction: direction}" 
+        <tr *ngFor="let transportation of transportations | orderBy: {property: column, direction: direction}"
             (click)="onSelect(transportation)"
             data-toggle="tooltip" 
             title="{{ transportation | modifyInfo }}">
