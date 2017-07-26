@@ -7,17 +7,18 @@ moment.locale('ru-RU');
 
 var getInfoModelValues = function(modelName, id, callback) {
 
-    if(!id) callback(null, []);
+    if(!id) return callback(null, null);
 
     models[modelName].findById(parseInt(id))
-        .then(
-            function(value, err) {
-                callback(null, value);
-            }, 
-            function(err) {
-                callback(err, null);
-            }
-        );
+    .then(
+        function(value, err) {
+            return callback(null, value);
+        }, 
+        function(err) {
+            return callback(err, null);
+        }
+    );
+
 }
 
 var getInfo = function(firmId, statusId, clientId, myCallback) {
@@ -153,7 +154,7 @@ var getT = function(values, user, clientId, res){
                 .then(workbook => {                    
                     var wSheet = workbook.sheet(0);
                     var dt = new Date();
-                    console.log(1111);
+                    
                     wSheet.row(2).cell(1).value(`СНИЛС: ${result[2].snils}; Имя Отчество: ${result[2].im} ${result[2].ot}`);
                     wSheet.row(3).cell(1).value(`[ ID: ${result[2].id}; сформирован: ${moment(dt).format('DD.MM.YYYY hh:mm:ss')} ]`);
 
