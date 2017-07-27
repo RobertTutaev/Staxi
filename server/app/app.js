@@ -89,7 +89,7 @@ passport.use(new LocalStrategy(function(username, password, done) {
         function(err) {
             return done(err);
         }
-    );    
+    );
 }));
 
 passport.serializeUser(function(user, done) {

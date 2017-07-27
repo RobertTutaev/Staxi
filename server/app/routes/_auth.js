@@ -24,7 +24,7 @@ var mustAuthenticatedMw = function (req, res, next) {
 function granted(req, res, next, roles) {
     var user = req.user;
 
-    if (req.isAuthenticated() && user !== undefined) {
+    if (req.isAuthenticated() && user && user.checked) {
         
         models.user.findById(parseInt(user.id)).then(
             function(value) {                

@@ -2,6 +2,7 @@
 /client/tmp
 /client/node_modules
 /server/node_modules
+/server/app/public
 /e2e/*.js
 /e2e/*.map
 /.vscode

@@ -2133,8 +2133,14 @@ create table car(
                 on delete RESTRICT on update RESTRICT
 )engine=innodb;
 
-insert into car (name, gos_no, territory_id, driver_name, driver_phone) values
-    ('Лада Vesta', 'к762ук174', 4, 'Иван', '8-909-454-45-45');
+insert into car (name, color, gos_no, territory_id, driver_name, driver_phone) values
+    ('LIFAN',       'с149мт174',    'Синий',                        4, 'Раиль Салимгареевич',       '8 904 304 79 63'),
+    ('LIFAN',       'к227му174',    'Серебро',                      4, 'Владимир Петрович',         '8 904 304 72 94'),
+    ('ВАЗ',         'к939та74',     'Светло-серебристый металлик',  4, 'Валерий Михайлович',        '8 904 304 79 94'),
+    ('LADA GRANTA', 'у623со174',    'Белый',                        4, 'Константин Викторович',     '8 904 304 94 73'),
+    ('ВАЗ',         'у720тв74',     'Сине-зеленый',                 4, 'Владимир Александрович',    '8 904 304 87 30'),
+    ('LADA',        'к894ев174',    'Серо-зеленый металлик',        4, 'Сергей Владимирович',       '8 904 304 82 34'),
+    ('LADA',        'к893ев174',    'Серо-зеленый металлик',        4, 'Владимир Владимирович',     '8 904 304 70 43');
 
 create table user(
     id integer primary key auto_increment,
@@ -2160,16 +2166,16 @@ create table user(
 )engine=innodb;
 
 insert into user(username, password, first_name, last_name, firm_id, checked, role0, role1, role2, role3, role4) values 
-    ('opo_usr@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'А.А.', 'Администратор', 1, 1, 1, 1, 1, 1, 1),
-    ('dveteranov@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'К.К.', 'Координатор', 1, 1, 1, 1, 1, 1, 1),
-    ('usz@cheladmin.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор КСП', 2, 1, 1, 1, 1, 0, 0),
-    ('zentr2515@yandex.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор КЦСОН1', 3, 1, 1, 1, 1, 0, 0),
-    ('kcson74@yandex.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор КЦСОН2', 4, 1, 1, 1, 1, 0, 0),
-    ('kcsonlen@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор КЦСОН3', 5, 1, 1, 1, 1, 0, 0),
-    ('kcson_chmz@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор КЦСОН4', 6, 1, 1, 1, 1, 0, 0),
-    ('mukcsonsov@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор КЦСОН5', 7, 1, 1, 1, 1, 0, 0),
-    ('mukcon_tzr@mail.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор КЦСОН6', 8, 1, 1, 1, 1, 0, 0),
-    ('socobs@ya.ru', '$2a$10$1ufAcNi3sAyKnina67AzN.AUAlKqajSqpTBhN/6f1vZtblt4nknL.', 'О.О.', 'Оператор 7', 9, 1, 1, 1, 1, 0, 0);
+    ('opo_usr@mail.ru',     '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'А.А.', 'Администратор',    1, 1, 1, 1, 1, 1, 1),
+    ('dveteranov@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'К.К.', 'Координатор',      1, 1, 1, 1, 1, 1, 1),
+    ('usz@cheladmin.ru',    '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КСП',     2, 1, 1, 1, 1, 0, 0),
+    ('zentr2515@yandex.ru', '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН1',  3, 1, 1, 1, 1, 0, 0),
+    ('kcson74@yandex.ru',   '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН2',  4, 1, 1, 1, 1, 0, 0),
+    ('kcsonlen@mail.ru',    '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН3',  5, 1, 1, 1, 1, 0, 0),
+    ('kcson_chmz@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН4',  6, 1, 1, 1, 1, 0, 0),
+    ('mukcsonsov@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН5',  7, 1, 1, 1, 1, 0, 0),
+    ('mukcon_tzr@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН6',  8, 1, 1, 1, 1, 0, 0),
+    ('socobs@ya.ru',        '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН7',  9, 1, 1, 1, 1, 0, 0);
 
 create table client(
     id integer primary key auto_increment,
