@@ -21,7 +21,7 @@ export class SigninComponent implements OnInit {
 
   ngOnInit() {
     if (!this.authService.isSignedIn) {      
-      this.authService.issign().then(() => this.goTo())
+      this.authService.isSign().then(() => this.goTo())
     }
   }
 

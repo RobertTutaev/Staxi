@@ -1,51 +1,38 @@
 var express = require('express');
 var router = express.Router();
-var models = require('../models');
 var resp = require('../lib/resp');
 var passport= require('passport');
 
 var respError401 = resp({
-    rslt: false, 
-    status: 401, 
+    rslt: false,
+    status: 401,
     msg: 'Unauthorized'
 });
 
 var respError403 = resp({
-    rslt: false, 
-    status: 403, 
+    rslt: false,
+    status: 403,
     msg: 'Forbidden'
 });
 
-var mustAuthenticatedMw = function (req, res, next) {
-    if (req.isAuthenticated()) next();
-    else res.json(respError401);
-};
-
 function granted(req, res, next, roles) {
-    var user = req.user;
-
-    if (req.isAuthenticated() && user && user.checked) {
+    //Если пользователь прошел авторизацию, то проверяем дальше ....
+    if (req.isAuthenticated()) {
         
-        models.user.findById(parseInt(user.id)).then(
-            function(value) {                
-                if (roles.some(role => !!value[role])) next();
-                else res.json(respError403);
-            }, 
-            function(err) {
-                res.json(respError403);
-            }
-        );
+        //Проверяем его роли (role) и статус (checked)
+        if (req.user) {            
+            if (roles.some(role => !!req.user[role]) && !!req.user.checked) next();
+            else res.json(respError403);
+        } else
+            res.json(respError403);
 
-    } else {
-        res.json(respError403);
-    }
+    //Иначе "требуется авторизация"
+    } else
+        res.json(respError401);
 }
 //=============================================================================
 
-//1. Проверим авторизацию для всех маршрутов
-router.all('/api*', mustAuthenticatedMw);
-
-//2. Проверяем права водителя (role1)
+// 1. Проверяем права водителя (role1)
 router.get(['/api/transportation*',
             '/api/status*'
         ], 
@@ -59,7 +46,7 @@ router.put(['/api/transportation*'
             granted(req, res, next, ['role1', 'role2', 'role3', 'role4']);
         });
 
-//3. Проверяем права оператора (role2) и координатора (role3)
+// 2. Проверяем права оператора (role2) и координатора (role3)
 router.get(['/api/territory*',
             '/api/street*',
             '/api/kateg*',
@@ -84,7 +71,7 @@ router.all([
             granted(req, res, next, ['role2', 'role3', 'role4']);
         });
 
-// 4. Проверяем права администратора (role4)
+// 3. Проверяем права администратора (role4)
 router.put(['/api/user*',
             '/api/territory*',
             '/api/street*',

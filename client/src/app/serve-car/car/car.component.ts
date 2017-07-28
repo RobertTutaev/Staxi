@@ -4,8 +4,8 @@ import { Location }               from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Territory } from '../../_classes/list/territory';
-import { TerritoryService } from '../../_services/territory.service';
+import { Firm } from '../../_classes/list/firm';
+import { FirmService } from '../../_services/firm.service';
 import { Car } from '../../_classes/list/car';
 import { CarService } from '../../_services/car.service';
 
@@ -15,19 +15,19 @@ import { CarService } from '../../_services/car.service';
   styleUrls: ['./car.component.sass']
 })
 export class CarComponent implements OnInit {
-  territories: Territory[] = []; 
+  firms: Firm[] = []; 
   car: Car = new Car(); 
   
-  constructor(private territoryService: TerritoryService,
+  constructor(private firmService: FirmService,
               private carService: CarService,
               private route: ActivatedRoute,
               private router: Router,
               private location: Location) { }
   
   ngOnInit() {
-    this.territoryService.getTerritories().then((territories: Territory[]) => {
-        this.territories = territories;
-        this.route.params     
+    this.firmService.getFirms().then((firms: Firm[]) => {
+        this.firms = firms;
+        this.route.params
           .switchMap((params: Params) => this.carService.getCar(+params['id']))
           .subscribe((car: Car) => this.car = car);
       });
@@ -37,18 +37,18 @@ export class CarComponent implements OnInit {
     if (this.car.id)
       this.carService.update(this.car)
         .then(() => this.gotoBack());
-    else 
+    else
       this.carService.create(this.car)
         .then(() => this.gotoBack());
   }
 
-  get selectedTerritoryId(): number {
-    return this.car.territory_id;
+  get selectedFirmId(): number {
+    return this.car.firm_id;
   }
 
-  set selectedTerritoryId(value: number) {
-    this.car.territory_id = value;
-  } 
+  set selectedFirmId(value: number) {
+    this.car.firm_id = value;
+  }
 
   gotoBack() {
     this.location.back();

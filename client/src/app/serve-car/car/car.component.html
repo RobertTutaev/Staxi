@@ -34,11 +34,11 @@
                 maxlength="100"
                 class="form-control"
                 autocomplete="off"></dd>
-        <dt>Территория*</dt>
+        <dt>Организация*</dt>
         <dd>
-            <select name="territory" [(ngModel)]="selectedTerritoryId" class="form-control" required>
-                <option *ngFor="let territory of territories" [ngValue]="territory.id">
-                    {{territory.name}}
+            <select name="firm" [(ngModel)]="selectedFirmId" class="form-control" required>
+                <option *ngFor="let firm of firms" [ngValue]="firm.id">
+                    {{firm.name}}
                 </option>
             </select>
         </dd>

@@ -7,7 +7,7 @@
             <th (click)="onSort('name')">Название <i class="fa" [ngClass]="{'fa-sort': column != 'name', 'fa-sort-asc': (column == 'name' && isDesc), 'fa-sort-desc': (column == 'name' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('gos_no')">Гос. номер <i class="fa" [ngClass]="{'fa-sort': column != 'gos_no', 'fa-sort-asc': (column == 'gos_no' && isDesc), 'fa-sort-desc': (column == 'gos_no' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('color')">Цвет <i class="fa" [ngClass]="{'fa-sort': column != 'color', 'fa-sort-asc': (column == 'color' && isDesc), 'fa-sort-desc': (column == 'color' && !isDesc) }" aria-hidden="true"></i></th>            
-            <th (click)="onSort('territory')">Территория <i class="fa" [ngClass]="{'fa-sort': column != 'territory', 'fa-sort-asc': (column == 'territory' && isDesc), 'fa-sort-desc': (column == 'territory' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('firm')">Организация <i class="fa" [ngClass]="{'fa-sort': column != 'firm', 'fa-sort-asc': (column == 'firm' && isDesc), 'fa-sort-desc': (column == 'firm' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('type')">Тип <i class="fa" [ngClass]="{'fa-sort': column != 'type', 'fa-sort-asc': (column == 'type' && isDesc), 'fa-sort-desc': (column == 'type' && !isDesc) }" aria-hidden="true"></i></th>
             <th><a routerLink="/car" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
@@ -18,7 +18,7 @@
             <td>{{ car.name }}</td>
             <td>{{ car.gos_no }}</td>
             <td>{{ car.color }}</td>
-            <td>{{ car.territory }}</td>
+            <td>{{ car.firm }}</td>
             <td>{{ car.type ? 'Автобус' : 'Автомобиль' }}</td>            
             <td (click)="onDelete(car); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>

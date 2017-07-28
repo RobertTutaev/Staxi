@@ -20,11 +20,11 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(12),
       allowNull: true
     },
-    territory_id: {
+    firm_id: {
       type: DataTypes.INTEGER(11),
-      allowNull: true,
+      allowNull: false,
       references: {
-        model: 'territory',
+        model: 'firm',
         key: 'id'
       }
     },

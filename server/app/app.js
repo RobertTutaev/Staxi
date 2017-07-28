@@ -73,16 +73,18 @@ app.use(function(err, req, res, next) {
 // Работаем с passport =========================================================
 passport.use(new LocalStrategy(function(username, password, done) {
     models.user.find({ where: { username: username } }).then(
-        function(data) {
-            var user = data;
-            if(user === null) {
+        function(user) {
+            if (!user) 
                 return done(null, false, {message: 'Неверный логин!'});
-            } else {
-                user = data.toJSON();
-                if(!bcrypt.compareSync(password, user.password)) {
+            else {
+                user = user.toJSON();
+                if (!bcrypt.compareSync(password, user.password)) 
                     return done(null, false, {message: 'Неверный пароль!'});
-                } else {
-                    return done(null, user);
+                else {
+                    if (!user.checked) 
+                        return done(null, false, {message: 'Пользователь заблокирован!'});
+                    else 
+                        return done(null, user);
                 }
             }
         }, 

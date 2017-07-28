@@ -5,7 +5,7 @@ var resp = require('../lib/resp');
 var emptyArrayValue = 0;
 
 var getOutputArray = function(modelName, searchValue, callback) {
-
+    
     models[modelName].findAll()
         .then(
         function(iArray) {

@@ -3,13 +3,13 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { environment } from '../../environments/environment';
+import { Resp } from '../_classes/resp';
 import { User } from '../_classes/list/user';
 
 @Injectable()
 export class AuthService {
   redirectUrl: string;
-  user: User = null;
-
+  private resp: Resp = new Resp();
   private headers = new Headers({'Content-Type': 'application/json'});
   private authUrl = environment.myEndpoint + 'auth/';
 
@@ -19,7 +19,10 @@ export class AuthService {
     return this.http
         .post(this.authUrl + 'signin', JSON.stringify({ username, password }), {headers: this.headers})
         .toPromise()
-        .then(res => this.user = res.json().data as User)
+        .then(res => {
+          this.resp = res.json();
+          return this.resp.data as User;
+        })
         .catch(this.handleError);
   }
 
@@ -27,24 +30,30 @@ export class AuthService {
     return this.http
         .post(this.authUrl + 'signout', JSON.stringify({}), {headers: this.headers})
         .toPromise()
-        .then(res => !res.json().data ? this.user = null : this.user)
+        .then(res => {
+          this.resp = res.json();
+          return this.resp.data as User;
+        })
         .catch(this.handleError);
   }
 
-  issign(): Promise<User> {
+  isSign(): Promise<User> {
     return this.http
         .get(this.authUrl + 'issign', JSON.stringify({}))
         .toPromise()
-        .then(res => !res.json().data ? this.user = null : this.user = res.json().data as User)
+        .then(res => {
+          this.resp = res.json();
+          return this.resp.data as User;
+        })
         .catch(this.handleError);
   }
-
+  
   get isSignedIn(): boolean {
-    return !!this.user;
+    return !!this.resp.data;
   }
 
   get authUser(): User {
-    return this.user;
+    return this.resp.data;
   }
 
   private handleError(error: any): Promise<any> {

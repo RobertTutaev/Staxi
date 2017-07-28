@@ -10,18 +10,19 @@ router.route('/')
     var user = req.user;
     if(user !== undefined) user = user.toJSON();
 
-    dbtools.getOutputArrayForTerritory(
-        user.firm_id, 
+    dbtools.getOutputArray(
+        'firm',
+        user.firm_id,
         function(outputArray) {
             
             var sql = 
-               `SELECT 
-                    a.*, 
-                    b.name as territory 
-                FROM car a 
-                    join territory b on a.territory_id = b.id
+               `SELECT
+                    a.*,
+                    b.name as firm
+                FROM car a
+                    join firm b on a.firm_id = b.id
                 WHERE
-                    b.id in (:oArray)`;
+                    a.firm_id in (:oArray)`;
             
             models.sequelize.query(sql, { replacements: { oArray: outputArray }, type: models.sequelize.QueryTypes.SELECT })
                 .then(
@@ -44,12 +45,21 @@ router.route('/')
 
 router.route('/:id')
   .get(function(req, res, next) {
+
+    var sql = 
+        `SELECT 
+            a.*, 
+            b.name as firm 
+        FROM car a 
+            join firm b on a.firm_id = b.id
+        WHERE
+            a.id = :id`;
     
-    models.car.findById(parseInt(req.params.id))
+    models.sequelize.query(sql, { replacements: { id: parseInt(req.params.id) }, type: models.sequelize.QueryTypes.SELECT })
         .then(
-        function(value) {
-            res.json(resp({                
-                data: value
+        function(values) {                    
+            res.json(resp({
+                data: values[0]
             }));
         }, 
         function(err) {
@@ -59,6 +69,7 @@ router.route('/:id')
             }));
         }
     );
+
 });
 
 router.route('/')
