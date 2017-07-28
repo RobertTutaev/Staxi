@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NguiDatetimePickerModule, NguiDatetime } from '@ngui/datetime-picker';
 
 import { FilterPipe } from './pipes/filter.pipe';
-import { OrderByPipe } from './pipes/orderby.pipe';
+import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SnilsPipe } from './pipes/snils.pipe';
 import { ModifyInfoPipe } from './pipes/modifyInfo.pipe';
 import { EqualValidatorDirective } from './directives/equal-validator.directive';

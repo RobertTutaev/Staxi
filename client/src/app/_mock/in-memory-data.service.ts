@@ -12,7 +12,7 @@ import { Punkts } from './punkts';
 import { Streets } from './streets';
 import { Territories } from './territories';
 import { Kategs } from './kategs';
-import { Users } from './Users';
+import { Users } from './users';
 
 export class InMemoryDataService implements InMemoryDbService {  
 
