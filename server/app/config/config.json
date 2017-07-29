@@ -27,7 +27,7 @@
     }
   },
   "production": {
-    "port": 80,
+    "port": 8080,
     "db": {
         "username": "root",
         "password": "electric@000",
