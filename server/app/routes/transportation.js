@@ -102,10 +102,12 @@ router.route('/:id')
   .get(function(req, res, next) {
     
     var sql =
-        `SELECT a.*, 
+        `SELECT a.*,
+            concat(b.name,' (',b.gos_no,')') as car,
             concat(e.name,' ',e.socr) as a_street, 
             concat(f.name,' ',f.socr) as b_street 
-        FROM transportation a 
+        FROM transportation a
+            join car b on a.car_id = b.id
             join street e on a.a_street_id = e.id 
             join street f on a.b_street_id = f.id 
         WHERE a.id = :id`;

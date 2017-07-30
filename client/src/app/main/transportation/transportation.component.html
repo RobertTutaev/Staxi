@@ -113,7 +113,7 @@
                 rows="3"></textarea></dd>
         <dt>Автотранспорт*</dt>
         <dd><select name="car" [(ngModel)]="selectedCarId" class="form-control" required>
-                <option *ngFor="let car of cars" [ngValue]="car.id">[{{car.name}}] {{car.gos_no}}</option>
+                <option *ngFor="let car of cars" [ngValue]="car.id">{{car.name}} {{car.gos_no ? '(' + car.gos_no + ')' : ''}}</option>
             </select></dd>
         <dt>А.Дата и время*</dt>
         <dd><input

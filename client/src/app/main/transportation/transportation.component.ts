@@ -53,8 +53,7 @@ export class TransportationComponent implements OnInit {
               private route: ActivatedRoute,
               private location: Location) { }
   
-  ngOnInit() {
-    this.carService.getCars().then((cars: Car[]) => this.cars = cars);
+  ngOnInit() {    
 
     this.punktService.getPunkts().then((punkts: Punkt[]) => this.punkts = punkts);
 
@@ -74,14 +73,23 @@ export class TransportationComponent implements OnInit {
         : Observable.of<Street[]>([]))
       .catch(error => Observable.of<Street[]>([]));
 
-    this.route.params
-      .switchMap((params: Params) => this.transportationService.getTransportation(+params['idc']))
-      .subscribe((transportation: Transportation) => {
+    this.carService.getCars().then((cars: Car[]) => {
+      this.cars = cars;
+      this.route.params
+        .switchMap((params: Params) => this.transportationService.getTransportation(+params['idc']))
+        .subscribe((transportation: Transportation) => {          
           this.transportation = transportation;
           this.status = transportation.status_id;
           this.streetName['a_street'] = this.transportation['a_street'];
           this.streetName['b_street'] = this.transportation['b_street'];
+          if (!this.cars.filter(k => k.id === transportation.car_id).length) {
+            let car: Car = new Car();
+            car.id = transportation.car_id;
+            car.name = transportation.car;
+            this.cars.push(car);
+          }
         });
+      });
   }
 
   // Push a search term into the observable stream.
