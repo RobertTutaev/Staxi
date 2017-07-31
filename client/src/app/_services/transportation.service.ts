@@ -14,8 +14,8 @@ export class TransportationService extends RService{
 
   constructor(private http: Http) { super(); }
 
-  getTransportations(id: number): Promise<Transportation[]> {
-    const url = `${this.transportationsUrl}/c${id}/0`;
+  getTransportations(id: number, column: string = 'id', direction: number = -1): Promise<Transportation[]> {
+    const url = `${this.transportationsUrl}/c${id}/0/${column}/${direction}`;
 
     return this.http.get(url)
       .toPromise()
@@ -23,8 +23,8 @@ export class TransportationService extends RService{
       .catch(this.handleError);
   }
 
-  getTFile(id: number) {
-    const url = `${this.transportationsUrl}/c${id}/1`;
+  getTFile(id: number, column: string = 'id', direction: number = -1) {
+    const url = `${this.transportationsUrl}/c${id}/1/${column}/${direction}`;
 
     return this.http.get(url, {
             headers: this.headers,

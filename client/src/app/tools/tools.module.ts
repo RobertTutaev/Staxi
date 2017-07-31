@@ -6,6 +6,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SnilsPipe } from './pipes/snils.pipe';
 import { ModifyInfoPipe } from './pipes/modifyInfo.pipe';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { EqualValidatorDirective } from './directives/equal-validator.directive';
 
 NguiDatetime.daysOfWeek = [
@@ -54,6 +55,7 @@ NguiDatetime.locale = {
     OrderByPipe,
     SnilsPipe,
     ModifyInfoPipe,
+    CapitalizePipe,
     EqualValidatorDirective
   ],
   exports: [
@@ -61,7 +63,8 @@ NguiDatetime.locale = {
     FilterPipe,
     OrderByPipe,
     SnilsPipe,
-    ModifyInfoPipe
+    ModifyInfoPipe,
+    CapitalizePipe
   ]
 })
 export class ToolsModule { } 

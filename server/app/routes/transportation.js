@@ -5,11 +5,13 @@ var resp = require('../lib/resp');
 var dbtools = require('../lib/dbtools');
 var dbreports = require('../lib/dbreports');
 
-router.route('/c:id/:getFile')
+router.route('/c:id/:getFile/:column/:direction')
   .get(function(req, res, next) {
     
     var clientId = parseInt(req.params.id);
     var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
+    var column = req.params.column ? req.params.column.replace(/[^a-zA-Z]/gi,'') : 'id';    
+    var direction = req.params.direction ? (parseInt(req.params.direction)>0 ? 'asc' : 'desc'): 'desc';
     var sql = 
         `SELECT a.*, 
             concat(b.name,' (',b.gos_no,')') as car,
@@ -27,9 +29,10 @@ router.route('/c:id/:getFile')
             join street f on a.b_street_id = f.id
             join status h on a.status_id = h.id
             left join user g on a.userm_id = g.id
-        WHERE a.client_id = :id`;    
+        WHERE a.client_id = :id 
+            ORDER BY ${column} ${direction}`;    
 
-    models.sequelize.query(sql, { replacements: { id: clientId }, type: models.sequelize.QueryTypes.SELECT })
+    models.sequelize.query(sql, {replacements: {id: clientId}, type: models.sequelize.QueryTypes.SELECT})
         .then(
         function(values) {
             // Если необходим файл

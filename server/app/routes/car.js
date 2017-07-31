@@ -4,9 +4,10 @@ var models = require('../models');
 var resp = require('../lib/resp');
 var dbtools = require('../lib/dbtools');
 
-router.route('/')
+router.route('/c:checkStatus')
   .get(function(req, res, next) {
 
+    var checkStatus = req.params.checkStatus ? parseInt(req.params.checkStatus) : 0;
     var user = req.user;
     if(user !== undefined) user = user.toJSON();
 
@@ -22,9 +23,18 @@ router.route('/')
                 FROM car a
                     join firm b on a.firm_id = b.id
                 WHERE
-                    a.firm_id in (:oArray)`;
+                    a.firm_id in (:oArray) and
+                    a.status >= :status`;
             
-            models.sequelize.query(sql, { replacements: { oArray: outputArray }, type: models.sequelize.QueryTypes.SELECT })
+            models.sequelize.query(
+                    sql, 
+                    { 
+                        replacements: { 
+                            oArray: outputArray,
+                            status: checkStatus 
+                        }, 
+                        type: models.sequelize.QueryTypes.SELECT 
+                    })
                 .then(
                 function(values) {                    
                     res.json(resp({

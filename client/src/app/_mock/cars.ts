@@ -10,7 +10,8 @@ export let Cars: Car[] = [
     firm: 'КЦСОН Калининского',
     driver_name: 'Анатолий',
     driver_phone: '8 909 909 909',
-    type: false    
+    type: false,
+    status: true
   },
   {
     id: 2,
@@ -21,7 +22,8 @@ export let Cars: Car[] = [
     firm: 'КЦСОН Калининского',
     driver_name: 'Гоша',
     driver_phone: '8 999 909 909',
-    type: false
+    type: false,
+    status: true
   },
   {
     id: 3,
@@ -32,6 +34,7 @@ export let Cars: Car[] = [
     firm: 'КЦСОН Калининского',
     driver_name: 'Петро',
     driver_phone: '8 909 888 888',
-    type: true
+    type: true,
+    status: true
   }
 ];

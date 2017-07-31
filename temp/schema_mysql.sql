@@ -2126,6 +2126,7 @@ create table car(
     driver_name varchar(255),
     driver_phone varchar(50),
     type tinyint(1) DEFAULT 0,
+    status tinyint(1) DEFAULT 1,
     index fk_c_firm (firm_id ASC),
     constraint fk_c_firm
         foreign key (firm_id)
@@ -2222,7 +2223,7 @@ create table type(
 
 insert into type (name, mask, placeholder, style) values
     ('Телефон (основной)', '^[0-9-+,\ ]+$', 'nnn-nn-nn (n-nnn-nnn-nn-nn)', 'glyphicon glyphicon-earphone'),
-    ('Телефон', '^[0-9-+]+$', 'nnn-nn-nn (n-nnn-nnn-nn-nn)', 'glyphicon glyphicon-phone-alt'),    
+    ('Телефон', '^[0-9-+\ ]+$', 'nnn-nn-nn (n-nnn-nnn-nn-nn)', 'glyphicon glyphicon-phone-alt'),    
     ('Email', '^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$', 'xxx@yyy.zzz', 'glyphicon glyphicon-envelope');
 
 create table contact(

@@ -9,17 +9,19 @@
             <th (click)="onSort('color')">Цвет <i class="fa" [ngClass]="{'fa-sort': column != 'color', 'fa-sort-asc': (column == 'color' && isDesc), 'fa-sort-desc': (column == 'color' && !isDesc) }" aria-hidden="true"></i></th>            
             <th (click)="onSort('firm')">Организация <i class="fa" [ngClass]="{'fa-sort': column != 'firm', 'fa-sort-asc': (column == 'firm' && isDesc), 'fa-sort-desc': (column == 'firm' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('type')">Тип <i class="fa" [ngClass]="{'fa-sort': column != 'type', 'fa-sort-asc': (column == 'type' && isDesc), 'fa-sort-desc': (column == 'type' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('status')">Вкл. <i class="fa" [ngClass]="{'fa-sort': column != 'status', 'fa-sort-asc': (column == 'status' && isDesc), 'fa-sort-desc': (column == 'status' && !isDesc) }" aria-hidden="true"></i></th>
             <th><a routerLink="/car" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let car of cars | orderBy: {property: column, direction: direction}" (click)="onSelect(car)">
-            <td>{{ car.id }}</td>
+            <td>{{ car.id }}</td>            
             <td>{{ car.name }}</td>
             <td>{{ car.gos_no }}</td>
             <td>{{ car.color }}</td>
             <td>{{ car.firm }}</td>
-            <td>{{ car.type ? 'Автобус' : 'Автомобиль' }}</td>            
+            <td>{{ car.type ? 'Автобус' : 'Автомобиль' }}</td>
+            <td><span class='{{ car.status ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>          
             <td (click)="onDelete(car); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
     </tbody>

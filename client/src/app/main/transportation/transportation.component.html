@@ -147,6 +147,12 @@
         
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
-        <button *ngIf="!status || authService.isSignedIn && authService.authUser.role3 && status === 1" class="btn btn-info" type="submit" [disabled]="transportationForm.form.invalid || transportationForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> {{transportation.id ? 'Изменить' : 'Добавить'}}</button>
+        <button 
+            *ngIf="!status || authService.isSignedIn && authService.authUser.role3 && status === 1" 
+            class="btn btn-info" 
+            type="submit" 
+            [disabled]="transportationForm.form.invalid || transportationForm.form.pristine">
+                <span class="glyphicon glyphicon-ok"></span> {{transportation.id ? 'Изменить' : 'Добавить'}}
+        </button>
     </dl>
 </form>

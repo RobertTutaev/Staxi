@@ -12,8 +12,9 @@ export class CarService {
 
   constructor(private http: Http) {}
 
-  getCars(): Promise<Car[]> {
-    return this.http.get(this.carsUrl)
+  getCars(checkStatus: boolean = false): Promise<Car[]> {
+    const url = `${this.carsUrl}/c${+checkStatus}`;
+    return this.http.get(url)
                .toPromise()
                .then(response => response.json().data as Car[])
                .catch(this.handleError);

@@ -73,7 +73,7 @@ export class TransportationComponent implements OnInit {
         : Observable.of<Street[]>([]))
       .catch(error => Observable.of<Street[]>([]));
 
-    this.carService.getCars().then((cars: Car[]) => {
+    this.carService.getCars(true).then((cars: Car[]) => {
       this.cars = cars;
       this.route.params
         .switchMap((params: Params) => this.transportationService.getTransportation(+params['idc']))
@@ -82,7 +82,8 @@ export class TransportationComponent implements OnInit {
           this.status = transportation.status_id;
           this.streetName['a_street'] = this.transportation['a_street'];
           this.streetName['b_street'] = this.transportation['b_street'];
-          if (!this.cars.filter(k => k.id === transportation.car_id).length) {
+
+          if (transportation.car_id && !this.cars.filter(k => k.id === transportation.car_id).length) {
             let car: Car = new Car();
             car.id = transportation.car_id;
             car.name = transportation.car;

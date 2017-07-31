@@ -33,8 +33,8 @@ export class TransportationsComponent extends SController implements OnInit {
 
   onGetFile() {
     this.route.parent.parent.params
-      .switchMap((params: Params) => this.transportationService.getTFile(+params['id']))
-      .subscribe();    
+      .switchMap((params: Params) => this.transportationService.getTFile(+params['id'], this.column, this.direction))
+      .subscribe();
   }
 
   onSelect(transportation: Transportation) {

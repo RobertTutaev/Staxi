@@ -61,19 +61,34 @@
                 #driver_phone="ngModel"
                 maxlength="50" 
                 class="form-control"
-                pattern="^[0-9-+]+$"
+                pattern="^[0-9-+\ ]+$"
                 autocomplete="off"></dd>
         <dt>Тип</dt>
         <dd><input 
                 type="checkbox" 
                 value="true" 
                 name="type" 
-                id="carType"                 
-                [(ngModel)]="car.type">
+                id="carType" 
+                [(ngModel)]="car.type"
+                (checked)="carForm.form.markAsDirty()">
             <label for="carType">Автобус (иначе Автомобиль)</label></dd>
+        <dt>Статус</dt>
+        <dd><input 
+                type="checkbox"
+                value="true"
+                name="status"
+                id="carStatus"
+                [(ngModel)]="car.status"
+                (checked)="carForm.form.markAsDirty()">
+            <label for="carStatus">включен</label></dd>
  
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
-        <button class="btn btn-info" type="submit" [disabled]="carForm.form.invalid || carForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> {{car.id ? 'Изменить' : 'Добавить'}}</button>
+        <button 
+            class="btn btn-info" 
+            type="submit" 
+            [disabled]="carForm.form.invalid || carForm.form.pristine">
+            <span class="glyphicon glyphicon-ok"></span> {{car.id ? 'Изменить' : 'Добавить'}}
+        </button>
     </dl>
 </form>

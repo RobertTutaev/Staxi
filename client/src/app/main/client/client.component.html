@@ -5,7 +5,7 @@
                 type="text" 
                 name="snils" 
                 [ngModel]="client.snils | snils"
-                (ngModelChange)="client.snils=$event"                
+                (ngModelChange)="client.snils=$event"
                 placeholder="СНИЛС"                 
                 required 
                 #snils="ngModel"
@@ -20,8 +20,9 @@
         <dt>Имя*</dt>
         <dd><input 
                 type="text" 
-                name="im" 
-                [(ngModel)]="client.im" 
+                name="im"
+                [ngModel]="client.im | capitalize"
+                (ngModelChange)="client.im=$event"
                 placeholder="Имя" 
                 required 
                 #im="ngModel" 
@@ -30,18 +31,22 @@
                 class="form-control"
                 pattern="^[а-яА-ЯёЁ]+$">
             <small [hidden]="im.valid || im.pristine">
-                Необходимо корректное имя
+                Необходимо корректное Имя
             </small></dd>
         <dt>Отчество</dt>
         <dd><input 
                 type="text" 
-                name="ot" 
-                [(ngModel)]="client.ot"
+                name="ot"
+                [ngModel]="client.ot | capitalize"
+                (ngModelChange)="client.ot=$event"
                 placeholder="Отчество" 
                 #ot="ngModel" 
                 maxlength="100"
                 class="form-control"
-                pattern="^[а-яА-ЯёЁ]+$"></dd>
+                pattern="^[а-яА-ЯёЁ]+$">
+            <small [hidden]="ot.valid || ot.pristine">
+                Необходимо корректное Отчество
+            </small></dd>
         
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>

@@ -21,7 +21,7 @@
               required></dd>
         
         <br>
-        <button class="btn btn-info" (click)="signin()" [disabled]="signinForm.form.invalid || signinForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> Войти</button>          
+        <button class="btn btn-info" (click)="signin()" [disabled]="signinForm.form.invalid"><span class="glyphicon glyphicon-ok"></span> Войти</button>          
       </dl>
 
       <dl *ngIf="authService.isSignedIn">

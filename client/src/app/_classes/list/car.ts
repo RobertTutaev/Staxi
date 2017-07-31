@@ -8,5 +8,6 @@ export class Car {
             public firm: string = null,
             public driver_name: string = '',
             public driver_phone: string = '',
-            public type: boolean = false) { }
+            public type: boolean = false,
+            public status: boolean = true) { }
 }
