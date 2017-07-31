@@ -79,7 +79,7 @@
             </select>
         </dd>
         <dt>Роли</dt> 
-        <dd><input type="checkbox" value="true" name="role0" id="role0" [(ngModel)]="user.role0">
+        <dd><input type="checkbox" value="true" name="role0" id="role0" [(ngModel)]="user.role0" [disabled]="true">
             <label for="role0">пользователь (R0)</label></dd>
         <dd><input type="checkbox" value="true" name="role1" id="role1" [(ngModel)]="user.role1">
             <label for="role1">водитель (R1)</label></dd>
