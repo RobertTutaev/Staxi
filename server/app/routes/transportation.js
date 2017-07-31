@@ -10,7 +10,7 @@ router.route('/c:id/:getFile/:column/:direction')
     
     var clientId = parseInt(req.params.id);
     var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
-    var column = req.params.column ? req.params.column.replace(/[^a-zA-Z]/gi,'') : 'id';    
+    var column = req.params.column ? req.params.column.replace(/[^a-zA-Z\-_]/gi,'') : 'id';    
     var direction = req.params.direction ? (parseInt(req.params.direction)>0 ? 'asc' : 'desc'): 'desc';
     var sql = 
         `SELECT a.*, 
