@@ -38,7 +38,7 @@ export class BComponent implements OnInit {
   }
 
   onGetFile() {
-    this.reportService.getBFile(this.report);    
+    this.reportService.getBFile(this.report);
   }
 
   get selectedMonth(): number {

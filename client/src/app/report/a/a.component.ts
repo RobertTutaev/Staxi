@@ -45,7 +45,7 @@ export class AComponent implements OnInit {
   }
 
   onGetFile() {
-    this.reportService.getAFile(this.report);    
+    this.reportService.getAFile(this.report);
   }
 
   get selectedStatusId(): number {

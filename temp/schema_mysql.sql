@@ -2295,16 +2295,16 @@ create table category(
 )engine=innodb;
 
 create table status (
-    id integer primary key,
+    id integer primary key auto_increment,
     name varchar(100)
 )engine=innodb;
 
-insert into status (id, name) values 
-    (0, 'Заявлено'),
-    (1, 'Одобрено'), 
-    (2, 'Обслужено'),
-    (3, 'Отказано' ), 
-    (4, 'Отменено' );
+insert into status (name) values
+    ('Заявлено'),
+    ('Одобрено'),
+    ('Обслужено'),
+    ('Отказано'),
+    ('Отменено');
 
 create table transportation(
     id integer primary key auto_increment,

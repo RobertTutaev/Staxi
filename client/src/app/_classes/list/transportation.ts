@@ -21,7 +21,7 @@ export class Transportation {
             public b_adr: string = null,
             public b_dt: number = null,
             public comment: string = null,
-            public status_id: number = 0,
+            public status_id: number = 1,
             public status: string = null,
             public user_id: number = null,
             public user: string = null,

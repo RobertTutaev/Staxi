@@ -51,7 +51,7 @@ var getA = function(values, user, firmId, aDt, bDt, statusId, withChilds, res){
         statusId,
         0,
         function(err, result) {
-
+            
             if (!err)
                 XlsxPopulate.fromFileAsync('./app/templates/report_a.xlsx')
                 .then(workbook => {                                        

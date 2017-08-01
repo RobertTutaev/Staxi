@@ -5,7 +5,7 @@ export class AReport extends Report {
             public firmId: number = null,
             public aDt: number = Date.now(),
             public bDt: number = Date.now(),
-            public statusId: number = 0,
+            public statusId: number = 1,
             public withChilds: number = 0,
             public getFile: number = 0) { super(); }
 }

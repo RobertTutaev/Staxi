@@ -77,12 +77,12 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
                 })
                 .then(
                 function(values) {
-
+                    
                     // Если необходим файл
                     if (getFile) {
                         var user = req.user;
                         if(user !== undefined) user = user.toJSON();
-
+                        
                         dbreports.getA(values, user, firmId, aDt, bDt, statusId, withChilds, res);                        
                     // Если необходим результат
                     } else {
@@ -166,7 +166,7 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
                     count(if(c.type=0, u.firm_id, null)),
                     count(if(c.type>0, u.firm_id, null))
                 FROM punkt p
-                    left join transportation t on p.id = t.punkt_id and t.status_id=2 and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
+                    left join transportation t on p.id = t.punkt_id and t.status_id=3 and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
                     left join user u on t.user_id = u.id and u.firm_id in (:oArray)
                     left join car c on c.id = t.car_id,
                     (select @j:=0) j	
@@ -186,7 +186,7 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
                     count(if(c.type>0, u.firm_id, null))
                 FROM kateg a
                     left join category b on b.kateg_id=a.id
-                    left join transportation t on b.id = t.category_id and t.status_id=2 and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
+                    left join transportation t on b.id = t.category_id and t.status_id=3 and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
                     left join user u on t.user_id = u.id and u.firm_id in (:oArray)
                     left join car c on c.id = t.car_id,
                     (select @k:=0) k

@@ -40,8 +40,8 @@
             <td>{{ transportation.a_dt | date: 'dd.MM.yyyy HH:mm' }}</td>
             <td>{{ transportation.b_dt | date: 'HH:mm' }}</td>
             <td>{{ transportation.status }}</td>
-            <td>{{ transportation.user }}</td>
-            <td><span *ngIf="!transportation.status_id || authService.isSignedIn && authService.authUser.role3 && transportation.status_id === 1" (click)="onDelete(transportation); $event.stopPropagation();" class="glyphicon glyphicon-remove-sign"></span></td>
+            <td>{{ transportation.user }} {{ transportation.status_id }}</td>
+            <td><span *ngIf="transportation.status_id === 1 || authService.isSignedIn && authService.authUser.role3 && transportation.status_id === 2" (click)="onDelete(transportation); $event.stopPropagation();" class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
     </tbody>
 </table>
