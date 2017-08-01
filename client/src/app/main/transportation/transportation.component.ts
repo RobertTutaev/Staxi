@@ -34,7 +34,7 @@ export class TransportationComponent implements OnInit {
   cars: Car[] = [];
   punkts: Punkt[] = [];
   categories: Category[] = [];
-  status: number = 0;
+  status: number = 1;
   statuses: Status[] = [];
   transportation: Transportation = new Transportation();
 
