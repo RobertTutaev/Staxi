@@ -10,7 +10,7 @@
                 readonly="readonly" 
                 [mdDatepicker]="pickerADt" 
                 name="aDt" 
-                [(ngModel)]="report.aDt" 
+                [(ngModel)]="report.aDt"
                 placeholder="Дата"
                 required>
             <button mdSuffix [mdDatepickerToggle]="pickerADt"></button>
@@ -29,7 +29,8 @@
     <div class="col-md-6">
         <dt>Дата окончания*</dt> 
         <dd><input 
-                mdInput type="text" 
+                mdInput 
+                type="text" 
                 id="bDt" 
                 readonly="readonly" 
                 [mdDatepicker]="pickerBDt" 
