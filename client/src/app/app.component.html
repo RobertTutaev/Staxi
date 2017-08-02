@@ -15,6 +15,13 @@
     <a routerLink="/signin"><span class="glyphicon glyphicon-user"></span></a>
   </li>
 
+  <li class="dropdown pull-right">
+    <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-file"></span><b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      <li><a href="docs/staxi_manual.docx" download target="_blank">Краткая инструкция</a></li>
+    </ul>
+  </li>
+
   <li *ngIf="authService.isSignedIn && authService.authUser.role4" class="dropdown pull-right">
     <a href="#" data-toggle="dropdown" class="dropdown-toggle"><span class="glyphicon glyphicon-cog"></span> Справочники<b class="caret"></b></a>
     <ul class="dropdown-menu">

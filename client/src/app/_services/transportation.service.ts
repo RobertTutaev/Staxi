@@ -31,7 +31,7 @@ export class TransportationService extends RService{
             responseType: ResponseContentType.Blob
         })
         .toPromise()
-        .then(response => this.saveAsBlob(response, 't'))
+        .then(response => this.saveAsBlobExcel(response, 't'))
         .catch(error => this.handleError(error));
   }
 

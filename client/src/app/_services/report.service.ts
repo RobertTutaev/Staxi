@@ -35,7 +35,7 @@ export class ReportService extends RService{
             responseType: ResponseContentType.Blob
         })
         .toPromise()
-        .then(response => this.saveAsBlob(response, 'a'))
+        .then(response => this.saveAsBlobExcel(response, 'a'))
         .catch(error => this.handleError(error));
   }
 
@@ -59,7 +59,7 @@ export class ReportService extends RService{
             responseType: ResponseContentType.Blob
         })
         .toPromise()
-        .then(response => this.saveAsBlob(response, 'b'))
+        .then(response => this.saveAsBlobExcel(response, 'b'))
         .catch(error => this.handleError(error));
   }
 }
