@@ -102,7 +102,10 @@
             <small [hidden]="b_korp.valid || b_korp.pristine">
                 Необходимо корректное значение
             </small></dd>
-        <dt>Комментарий</dt>
+        <dt>Сопровождающий</dt> 
+        <dd><input type="checkbox" value="true" name="convoy" id="convoy" [(ngModel)]="transportation.convoy">
+            <label for="convoy">наличие</label></dd>
+        <dt>Комментарий</dt> 
         <dd><textarea 
                 name="comment" 
                 [(ngModel)]="transportation.comment" 

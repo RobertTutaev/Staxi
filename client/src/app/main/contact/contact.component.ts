@@ -66,7 +66,7 @@ export class ContactComponent implements OnInit {
       this.selectedType = this.types.find(myObj => myObj.id === value);
       this.contact.type_id = value;
     }    
-  } 
+  }
 
   gotoBack() {
     this.location.back();

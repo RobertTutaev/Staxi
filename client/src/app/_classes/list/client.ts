@@ -11,7 +11,7 @@ export class Client {
             public dom: number = null,
             public korp: string = null,
             public kv: string = null,
-            public checked: boolean = true,
+            public reason_id: number = 1,
             public user_id: number = null,
             public user: string = null,            
             public dt: number = null,

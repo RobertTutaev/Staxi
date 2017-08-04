@@ -21,6 +21,7 @@
             <th (click)="onSort('car')">Трансп. <i class="fa" [ngClass]="{'fa-sort': column != 'car', 'fa-sort-asc': (column == 'car' && isDesc), 'fa-sort-desc': (column == 'car' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('a_dt')">А.Дт.Вр. <i class="fa" [ngClass]="{'fa-sort': column != 'a_dt', 'fa-sort-asc': (column == 'a_dt' && isDesc), 'fa-sort-desc': (column == 'a_dt' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('b_dt')">Б.Вр. <i class="fa" [ngClass]="{'fa-sort': column != 'b_dt', 'fa-sort-asc': (column == 'b_dt' && isDesc), 'fa-sort-desc': (column == 'b_dt' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('comment')">Коммент. <i class="fa" [ngClass]="{'fa-sort': column != 'comment', 'fa-sort-asc': (column == 'comment' && isDesc), 'fa-sort-desc': (column == 'comment' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('status')">Статус <i class="fa" [ngClass]="{'fa-sort': column != 'status', 'fa-sort-asc': (column == 'status' && isDesc), 'fa-sort-desc': (column == 'status' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('user')">Пользователь <i class="fa" [ngClass]="{'fa-sort': column != 'user', 'fa-sort-asc': (column == 'user' && isDesc), 'fa-sort-desc': (column == 'user' && !isDesc) }" aria-hidden="true"></i></th>
             <th><a [routerLink]="['../']" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
@@ -28,8 +29,9 @@
     </thead>
     <tbody>
         <tr *ngFor="let transportation of transportations | orderBy: {property: column, direction: direction}"
+            [ngClass]="transportation.convoy ? 'tr_transportation_convoy': ''"
             (click)="onSelect(transportation)"
-            data-toggle="tooltip" 
+            data-toggle="tooltip"
             title="{{ transportation | modifyInfo }}">
             <td></td>
             <td>{{ transportation.id }}</td>
@@ -39,6 +41,7 @@
             <td>{{ transportation.car }}</td>
             <td>{{ transportation.a_dt | date: 'dd.MM.yyyy HH:mm' }}</td>
             <td>{{ transportation.b_dt | date: 'HH:mm' }}</td>
+            <td>{{ transportation.comment }}</td>
             <td>{{ transportation.status }}</td>
             <td>{{ transportation.user }} {{ transportation.status_id }}</td>
             <td><span *ngIf="transportation.status_id === 1 || authService.isSignedIn && authService.authUser.role3 && transportation.status_id === 2" (click)="onDelete(transportation); $event.stopPropagation();" class="glyphicon glyphicon-remove-sign"></span></td>

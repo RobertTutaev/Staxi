@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('status', {
+  return sequelize.define('reason', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
@@ -10,9 +10,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     name: {
       type: DataTypes.STRING(100),
-      allowNull: true
+      allowNull: true,
+      unique: true
     }
   }, {
-    tableName: 'status'
+    tableName: 'reason'
   });
 };

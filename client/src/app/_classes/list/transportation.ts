@@ -20,6 +20,7 @@ export class Transportation {
             public b_korp: string = '',
             public b_adr: string = null,
             public b_dt: number = null,
+            public convoy: boolean = false,            
             public comment: string = null,
             public status_id: number = 1,
             public status: string = null,

@@ -86,6 +86,54 @@ var getA = function(values, user, firmId, aDt, bDt, statusId, withChilds, res){
                     res.attachment(`output.xlsx`);                      
                     
                     res.send(data);
+                });              
+        }
+    );
+
+}
+
+var getC = function(values, user, carId, aDt, statusId, res){
+
+    getInfo(
+        firmId,
+        statusId,
+        0,
+        function(err, result) {
+            
+            if (!err)
+                XlsxPopulate.fromFileAsync('./app/templates/report_c.xlsx')
+                .then(workbook => {                                        
+                    var wSheet = workbook.sheet(0);
+                    var dt = new Date();
+                    
+                    wSheet.row(2).cell(1).value(result[0].name);
+                    wSheet.row(3).cell(1).value(`[ Период: ${moment(aDt).format('DD.MM.YYYY')} - ${moment(bDt).format('DD.MM.YYYY')}; отбор: ${ withChilds ? 'с подчин. орган.' : 'без подчин. орган.' }; статус: ${result[1].name}; сформирован: ${moment(dt).format('DD.MM.YYYY hh:mm:ss')} ]`);
+
+                    values.forEach((v, i) => {
+                        var j = 1;
+                        wSheet.row(i+5).cell(j++).value(v.id);
+                        wSheet.row(i+5).cell(j++).value(v.firm);
+                        wSheet.row(i+5).cell(j++).value(v.car);
+                        wSheet.row(i+5).cell(j++).value(v.a_dt).style("numberFormat", "dd.mm.yyyy hh:MM");
+                        wSheet.row(i+5).cell(j++).value(v.b_dt).style("numberFormat", "hh:MM");
+                        wSheet.row(i+5).cell(j++).value(v.a_adr);
+                        wSheet.row(i+5).cell(j++).value(v.b_adr);
+                        wSheet.row(i+5).cell(j++).value(v.client);
+                    });
+
+                    wSheet.range(5, 1, 4 + values.length, 8).style({border: true});
+
+                    wSheet.range(6 + values.length, 1, 6 + values.length, 8).merged(true);
+                    wSheet.row(6 + values.length).cell(1).style({horizontalAlignment : 'left'});
+                    wSheet.row(6 + values.length).cell(1).value(`Пользователь: ${user.first_name} ${user.last_name}`);
+                                                                  
+                    return workbook.outputAsync();
+                })
+                .then(data => {
+                    var dt= new Date();
+                    res.attachment(`output.xlsx`);                      
+                    
+                    res.send(data);
                 });                    
         }
     );
@@ -168,13 +216,14 @@ var getT = function(values, user, clientId, res){
                         wSheet.row(i+5).cell(j++).value(v.car);
                         wSheet.row(i+5).cell(j++).value(v.a_dt).style("numberFormat", "dd.mm.yyyy hh:MM");
                         wSheet.row(i+5).cell(j++).value(v.b_dt).style("numberFormat", "hh:MM");
+                        wSheet.row(i+5).cell(j++).value(v.comment);
                         wSheet.row(i+5).cell(j++).value(v.status);
                         wSheet.row(i+5).cell(j++).value(v.user);
                     });
 
-                    wSheet.range(4, 1, 4 + values.length, 10).style({border: true});
+                    wSheet.range(4, 1, 4 + values.length, 11).style({border: true});
 
-                    wSheet.range(6 + values.length, 1, 6 + values.length, 10).merged(true);
+                    wSheet.range(6 + values.length, 1, 6 + values.length, 11).merged(true);
                     wSheet.row(6 + values.length).cell(1).style({horizontalAlignment : 'left'});
                     wSheet.row(6 + values.length).cell(1).value(`Пользователь: ${user.first_name} ${user.last_name}`); 
 
@@ -195,5 +244,6 @@ module.exports = {
     getInfo: getInfo,
     getA: getA,
     getB: getB,
+    getC: getC,
     getT: getT
 };

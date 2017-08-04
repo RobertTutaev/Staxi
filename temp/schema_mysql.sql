@@ -2179,6 +2179,17 @@ insert into user(username, password, first_name, last_name, firm_id, checked, ro
     ('mukcon_tzr@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН6',  8, 1, 1, 1, 1, 0, 0),
     ('socobs@ya.ru',        '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН7',  9, 1, 1, 1, 1, 0, 0);
 
+create table reason(
+    id integer primary key auto_increment,
+    name varchar(100) unique
+)engine=innodb;
+
+insert into reason(name) values 
+    ('<Отсутствует>'),
+    ('Умер(ла)'),
+    ('Убыл(а)'),
+    ('Иной');
+
 create table client(
     id integer primary key auto_increment,
     snils varchar(14) not null unique,
@@ -2190,12 +2201,17 @@ create table client(
     dom integer,
     korp varchar(5),
     kv varchar(5),
-    checked tinyint(1) DEFAULT 0,
+    reason_id integer not null,
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
     userm_id integer,
     dtm datetime ON UPDATE CURRENT_TIMESTAMP,
     index fk_l_snils (snils ASC),
+    index fk_l_reason (reason_id ASC),
+    constraint fk_l_reason
+        foreign key (reason_id)
+            references reason (id)
+                on delete RESTRICT on update RESTRICT,
     index fk_l_street (street_id ASC),
     constraint fk_l_street
         foreign key (street_id)
@@ -2320,6 +2336,7 @@ create table transportation(
     b_dom integer not null,
     b_korp varchar(5) DEFAULT '',
     b_dt datetime,
+    convoy tinyint(1) DEFAULT 0,
     comment text,
     status_id integer not null,
     user_id integer not null,

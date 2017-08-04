@@ -25,9 +25,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let client of clients | async | orderBy: {property: column, direction: direction}" 
+        <tr *ngFor="let client of clients | async | orderBy: {property: column, direction: direction}"
+            [ngClass]="client.reason_id>1 ? 'tr_client_reason': ''"
             (click)="onSelect(client)"
-            data-toggle="tooltip" 
+            data-toggle="tooltip"
             title="{{ client | modifyInfo }}">
             <td>{{ client.id }}</td>
             <td>{{ client.snils }}</td>

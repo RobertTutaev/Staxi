@@ -49,10 +49,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(5),
       allowNull: true
     },
-    checked: {
-      type: DataTypes.INTEGER(1),
-      allowNull: true,
-      defaultValue: '0'
+    reason_id: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      references: {
+        model: 'reason',
+        key: 'id'
+      }
     },
     user_id: {
       type: DataTypes.INTEGER(11),

@@ -47,6 +47,12 @@
             <small [hidden]="ot.valid || ot.pristine">
                 Необходимо корректное Отчество
             </small></dd>
+        <dt>Статус*</dt> 
+        <dd><select name="reason" [(ngModel)]="selectedReasonId" class="form-control" required>
+                <option *ngFor="let reason of reasons" [ngValue]="reason.id">
+                    {{reason.name}}
+                </option>
+            </select></dd>
         
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>

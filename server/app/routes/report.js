@@ -137,7 +137,7 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
                     left join user u on t.user_id = u.id and u.firm_id in (:oArray)
                     left join car c on c.id = t.car_id                    
                 WHERE
-                    s.id>1
+                    s.id>2
                 UNION
                 SELECT
                     100+@i:=@i+1,
@@ -150,7 +150,7 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
                     left join car c on c.id = t.car_id,
                     (select @i:=0) i
                 WHERE
-                    s.id>1
+                    s.id>2
                 GROUP BY
                     s.name
                 UNION
