@@ -1,66 +1,52 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { AReport } from '../../_classes/report/a.report';
-import { Firm } from '../../_classes/list/firm';
-import { FirmService } from '../../_services/firm.service';
-import { Status } from '../../_classes/list/status';
-import { StatusService } from '../../_services/status.service';
-import { Transportation } from '../../_classes/list/transportation';
+import { CReport } from '../../_classes/report/c.report';
+import { C } from '../../_classes/list/c';
+import { Car } from '../../_classes/list/car';
+import { CarService } from '../../_services/car.service';
 import { ReportService } from '../../_services/report.service';
 
 @Component({
-  selector: 'report-a',
-  templateUrl: './a.component.html',
-  styleUrls: ['./a.component.sass']
+  selector: 'report-c',
+  templateUrl: './c.component.html',
+  styleUrls: ['./c.component.sass']
 })
-export class AComponent implements OnInit {
-  report: AReport = new AReport();
-  firms: Firm[] = [];
-  statuses: Status[] = [];
-  transportations: Transportation[] = [];
+export class CComponent implements OnInit {
+  report: CReport = new CReport();
+  cs: C[] = [];
+  cars: Car[] = [];
   
   constructor(private reportService: ReportService,
-              private firmService: FirmService,
-              private statusService: StatusService,
+              private carService: CarService,
               private route: ActivatedRoute,
               private router: Router) { }
   
   ngOnInit() {
-    this.firmService.getFirms().then((firms: Firm[]) => this.firms = firms);
-
-    this.statusService.getStatuses().then((statuses: Status[]) => this.statuses = statuses);
+    this.carService.getCars().then((cars: Car[]) => this.cars = cars);
     
     this.route.params
-      .switchMap((params: Params) => this.reportService.getA(this.report.clone(params)))
-      .subscribe((transportations: Transportation[]) => this.transportations = transportations);
+      .switchMap((params: Params) => this.reportService.getC(this.report.clone(params)))
+      .subscribe((cs: C[]) => this.cs = cs);
   }
 
-  onSelect(transportation: Transportation) {
-    this.router.navigate(['/client', transportation.client_id, 'transportation', transportation.id]);
+  onSelect(c: C) {
+    this.router.navigate(['/client', c.client_id, 'transportation', c.id]);
   }
 
   onClick() {
-    this.router.navigate(this.report.getUrl(['report', 'a']));
+    this.router.navigate(this.report.getUrl(['report', 'c']));
   }
 
   onGetFile() {
-    this.reportService.getAFile(this.report);
+    this.reportService.getCFile(this.report);
   }
 
-  get selectedStatusId(): number {
-    return this.report.statusId;
+  get selectedCarId(): number {
+    return this.report.carId;
   }
 
-  set selectedStatusId(value: number) {
-    this.report.statusId = value;
-  }
-
-  get selectedFirmId(): number {
-    return this.report.firmId;
-  }
-
-  set selectedFirmId(value: number) {
-    this.report.firmId = value;
+  set selectedCarId(value: number) {
+    this.report.carId = value;
   }
 }

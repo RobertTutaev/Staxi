@@ -12,6 +12,7 @@
                 name="aDt" 
                 [(ngModel)]="report.aDt"
                 placeholder="Дата"
+                size="10"
                 required>
             <button mdSuffix [mdDatepickerToggle]="pickerADt"></button>
             <md-datepicker #pickerADt></md-datepicker></dd>
@@ -34,9 +35,10 @@
                 id="bDt" 
                 readonly="readonly" 
                 [mdDatepicker]="pickerBDt" 
-                name="bDt" 
+                name="bDt"
                 [(ngModel)]="report.bDt"
                 placeholder="Дата"
+                size="10"
                 required>
             <button mdSuffix [mdDatepickerToggle]="pickerBDt"></button>
             <md-datepicker #pickerBDt></md-datepicker></dd>        
@@ -99,6 +101,8 @@
     <tbody>
         <tr *ngFor="let transportation of transportations" 
             (click)="onSelect(transportation)"
+            [class.tr-transportation-convoy]="transportation.convoy"
+            [class.tr-client-reason]="transportation.reason_id>1"
             data-toggle="tooltip" 
             title="{{ transportation | modifyInfo }}">
             <td>{{ transportation.id }}</td>

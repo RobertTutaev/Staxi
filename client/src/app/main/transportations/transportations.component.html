@@ -29,7 +29,8 @@
     </thead>
     <tbody>
         <tr *ngFor="let transportation of transportations | orderBy: {property: column, direction: direction}"
-            [ngClass]="transportation.convoy ? 'tr_transportation_convoy': ''"
+            [class.tr-transportation-convoy]="transportation.convoy"
+            [class.tr-client-reason]="transportation.reason_id>1"
             (click)="onSelect(transportation)"
             data-toggle="tooltip"
             title="{{ transportation | modifyInfo }}">

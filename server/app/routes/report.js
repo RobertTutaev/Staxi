@@ -30,17 +30,19 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
                 `SELECT
                     a.id,
                     a.client_id,
+                    i.reason_id,
+                    a.convoy,
                     a.a_dt,
                     a.b_dt,
                     a.dt,
                     a.dtm,
                     h.name as firm,
-                    concat('Наз.: ',b.name,'; г.н.: ',b.gos_no,'; вод.: ',ifnull(b.driver_name,''),'; цвет: ',ifnull(b.color,''),'; тел.: ',ifnull(b.driver_phone,'')) as car,
+                    concat(b.name,'; г.н.: ',b.gos_no,'; вод.: ',ifnull(b.driver_name,''),'; цвет: ',ifnull(b.color,''),'; тел.: ',ifnull(b.driver_phone,'')) as car,
                     trim(concat(c.first_name,' ',c.last_name)) as user,
                     trim(concat(g.first_name,' ',g.last_name)) as userm,
                     concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr,
                     concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr,
-                    concat('СНИЛС: ',i.snils,'; И.О.: ',i.im,' ',ifnull(i.ot,''),'; тел.: ',ifnull(j.name,''),'; док.: ',m.name,'; кат.: ',l.name) as client
+                    concat('СНИЛС: ',i.snils,'; И.О.: ',i.im,' ',ifnull(i.ot,''),if(a.convoy>0,' (сопровожд.)',''),'; тел.: ',ifnull(j.name,''),'; док.: ',m.name,'; кат.: ',l.name) as client
                 FROM transportation a
                     join car b on a.car_id = b.id
                     join user c on a.user_id = c.id
@@ -268,6 +270,82 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
             );
         }
     );
+});
+
+router.route('/c/:carId/:aDt/:getFile')
+  .get(function(req, res, next) {
+
+    var carId = req.params.carId ? parseInt(req.params.carId) : 0;
+    var aDt = req.params.aDt ? new Date(parseInt(req.params.aDt)) : new Date();
+    var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
+
+    if (!carId)
+        return  res.json(resp({
+                    data: []
+                }));
+               
+    var sql =
+        `SELECT
+            a.id,                    
+            concat(DATE_FORMAT(a.a_dt, '%d.%m.%Y %H:%i'),'-',IF(ISNULL(a.b_dt),DATE_FORMAT(a.a_dt, '%H:%i'),DATE_FORMAT(a.b_dt, '%H:%i'))) as dt,
+            i.reason_id,
+            a.status_id,
+            a.convoy,
+            concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr,
+            concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr,
+            a.client_id,
+            concat(i.im,' ',ifnull(i.ot,''),if(a.convoy>0,' (сопровожд.)','')) as client_name,
+            ifnull(j.name,'') as client_contact,
+            concat('СНИЛС: ',i.snils,'; док.: ',m.name,'; кат.: ',l.name) as client_info
+        FROM transportation a
+            join user c on a.user_id = c.id
+            join street e on a.a_street_id = e.id
+            join street f on a.b_street_id = f.id
+            join client i on i.id = a.client_id
+            left join contact j on j.client_id = i.id and j.type_id = 1
+            join category k on a.category_id = k.id
+            join kateg l on k.kateg_id = l.id
+            join doc m on k.doc_id = m.id
+        WHERE
+            a.car_id = :carId AND
+            DATE(a.a_dt) = DATE(:aDt) AND
+            a.status_id in (2, 3)
+        ORDER BY
+            a.a_dt`;
+        
+    models.sequelize.query(
+            sql, 
+            { 
+                replacements: { 
+                    carId: carId,
+                    aDt: aDt
+            }, 
+            type: models.sequelize.QueryTypes.SELECT 
+        })
+        .then(
+        function(values) {
+            
+            // Если необходим файл
+            if (getFile) {
+                var user = req.user;
+                if(user !== undefined) user = user.toJSON();
+                
+                dbreports.getC(values, user, carId, aDt, res);                        
+            // Если необходим результат
+            } else {
+                res.json(resp({
+                    data: values
+                }));
+            }
+        }, 
+        function(err) {
+            res.json(resp({
+                rslt: false,
+                msg: 'Не удалось получить список! Ошибка: ' + err.message
+            }));
+        }
+    );
+
 });
 
 module.exports = router;

@@ -4,6 +4,9 @@
     <li [class.active]="isActiveRoute(['/report', 'a'])">
         <a [routerLink]="aReport.getUrl(['a'])">Реестр заявок</a>
     </li>    
+    <li [class.active]="isActiveRoute(['/report', 'c'])">
+        <a [routerLink]="cReport.getUrl(['c'])">Путевой лист</a>
+    </li>
     <li [class.active]="isActiveRoute(['/report', 'b'])">
         <a [routerLink]="bReport.getUrl(['b'])">Отчет о деятельности</a>
     </li>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, ResponseContentType } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { B } from '../_classes/list/b';
+import { C } from '../_classes/list/c';
 import { Transportation } from '../_classes/list/transportation';
 import { AReport } from '../_classes/report/a.report';
 import { BReport } from '../_classes/report/b.report';
@@ -62,13 +63,13 @@ export class ReportService extends RService{
         .catch(error => this.handleError(error));
   }
 
-  getC(cReport: CReport): Promise<Transportation[]> {
+  getC(cReport: CReport): Promise<C[]> {
     cReport.getFile = 0;
     const url = `${this.transportationsUrl}/c${cReport.getUrlValue()}`;
     
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json().data as Transportation[])
+      .then(response => response.json().data as C[])
       .catch(this.handleError);
   }
 

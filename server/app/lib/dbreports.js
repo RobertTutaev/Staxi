@@ -21,7 +21,7 @@ var getInfoModelValues = function(modelName, id, callback) {
 
 }
 
-var getInfo = function(firmId, statusId, clientId, myCallback) {
+var getInfo = function(firmId, statusId, clientId, carId, myCallback) {
 
     async.parallel([
             // firm
@@ -35,6 +35,10 @@ var getInfo = function(firmId, statusId, clientId, myCallback) {
             // Client
             function(callback){
                getInfoModelValues('client', clientId, callback);
+            },
+            // Car
+            function(callback){
+               getInfoModelValues('car', carId, callback);
             }
         ],
         function(err, values){
@@ -49,6 +53,7 @@ var getA = function(values, user, firmId, aDt, bDt, statusId, withChilds, res){
     getInfo(
         firmId,
         statusId,
+        0,
         0,
         function(err, result) {
             
@@ -92,58 +97,11 @@ var getA = function(values, user, firmId, aDt, bDt, statusId, withChilds, res){
 
 }
 
-var getC = function(values, user, carId, aDt, statusId, res){
-
-    getInfo(
-        firmId,
-        statusId,
-        0,
-        function(err, result) {
-            
-            if (!err)
-                XlsxPopulate.fromFileAsync('./app/templates/report_c.xlsx')
-                .then(workbook => {                                        
-                    var wSheet = workbook.sheet(0);
-                    var dt = new Date();
-                    
-                    wSheet.row(2).cell(1).value(result[0].name);
-                    wSheet.row(3).cell(1).value(`[ Период: ${moment(aDt).format('DD.MM.YYYY')} - ${moment(bDt).format('DD.MM.YYYY')}; отбор: ${ withChilds ? 'с подчин. орган.' : 'без подчин. орган.' }; статус: ${result[1].name}; сформирован: ${moment(dt).format('DD.MM.YYYY hh:mm:ss')} ]`);
-
-                    values.forEach((v, i) => {
-                        var j = 1;
-                        wSheet.row(i+5).cell(j++).value(v.id);
-                        wSheet.row(i+5).cell(j++).value(v.firm);
-                        wSheet.row(i+5).cell(j++).value(v.car);
-                        wSheet.row(i+5).cell(j++).value(v.a_dt).style("numberFormat", "dd.mm.yyyy hh:MM");
-                        wSheet.row(i+5).cell(j++).value(v.b_dt).style("numberFormat", "hh:MM");
-                        wSheet.row(i+5).cell(j++).value(v.a_adr);
-                        wSheet.row(i+5).cell(j++).value(v.b_adr);
-                        wSheet.row(i+5).cell(j++).value(v.client);
-                    });
-
-                    wSheet.range(5, 1, 4 + values.length, 8).style({border: true});
-
-                    wSheet.range(6 + values.length, 1, 6 + values.length, 8).merged(true);
-                    wSheet.row(6 + values.length).cell(1).style({horizontalAlignment : 'left'});
-                    wSheet.row(6 + values.length).cell(1).value(`Пользователь: ${user.first_name} ${user.last_name}`);
-                                                                  
-                    return workbook.outputAsync();
-                })
-                .then(data => {
-                    var dt= new Date();
-                    res.attachment(`output.xlsx`);                      
-                    
-                    res.send(data);
-                });                    
-        }
-    );
-
-}
-
 var getB = function(values, user, firmId, aYear, aMonth, withChilds, res){
 
     getInfo(
         firmId,
+        0,
         0,
         0,
         function(err, result) {
@@ -189,12 +147,60 @@ var getB = function(values, user, firmId, aYear, aMonth, withChilds, res){
 
 }
 
+var getC = function(values, user, carId, aDt, res){
+
+    getInfo(
+        0,
+        0,
+        0,
+        carId,
+        function(err, result) {
+            
+            if (!err)
+                XlsxPopulate.fromFileAsync('./app/templates/report_c.xlsx')
+                .then(workbook => {                                        
+                    var wSheet = workbook.sheet(0);
+                    var dt = new Date();
+                    
+                    wSheet.row(2).cell(1).value(`${result[3].name}; гос. номер: ${result[3].gos_no}; дата: ${moment(aDt).format('DD.MM.YYYY')}`);
+                    wSheet.row(3).cell(1).value(`[ Водитель: ${result[3].driver_name}; цвет: ${result[3].color}; телефон: ${result[3].driver_phone}; сформирован: ${moment(dt).format('DD.MM.YYYY hh:mm:ss')} ]`);
+
+                    values.forEach((v, i) => {
+                        var j = 1;
+                        wSheet.row(i+6).cell(j++).value(v.dt);
+                        wSheet.row(i+6).cell(j++).value(v.a_adr);
+                        wSheet.row(i+6).cell(j++).value(v.b_adr);
+                        wSheet.row(i+6).cell(j++).value(v.client_name);
+                        wSheet.row(i+6).cell(j++).value(v.client_contact);
+                        wSheet.row(i+6).cell(j++).value(v.client_info);
+                    });
+
+                    wSheet.range(6, 1, 5 + values.length, 6).style({border: true});
+
+                    wSheet.range(7 + values.length, 1, 7 + values.length, 6).merged(true);
+                    wSheet.row(7 + values.length).cell(1).style({horizontalAlignment : 'left'});
+                    wSheet.row(7 + values.length).cell(1).value(`Пользователь: ${user.first_name} ${user.last_name}`);
+                                                                  
+                    return workbook.outputAsync();
+                })
+                .then(data => {
+                    var dt= new Date();
+                    res.attachment(`output.xlsx`);                      
+                    
+                    res.send(data);
+                });                    
+        }
+    );
+
+}
+
 var getT = function(values, user, clientId, res){
 
     getInfo(
         0,
         0,
         clientId,
+        0,
         function(err, result) {
     
             if (!err)

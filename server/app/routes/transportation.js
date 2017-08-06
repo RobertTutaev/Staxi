@@ -13,7 +13,8 @@ router.route('/c:id/:getFile/:column/:direction')
     var column = req.params.column ? req.params.column.replace(/[^a-zA-Z\-_]/gi,'') : 'id';    
     var direction = req.params.direction ? (parseInt(req.params.direction)>0 ? 'asc' : 'desc'): 'desc';
     var sql = 
-        `SELECT a.*, 
+        `SELECT a.*,
+            j.reason_id,
             concat(b.name,' (',b.gos_no,')') as car,
             d.name as punkt,
             trim(concat(c.first_name,' ',c.last_name)) as user,
@@ -28,6 +29,7 @@ router.route('/c:id/:getFile/:column/:direction')
             join street e on a.a_street_id = e.id
             join street f on a.b_street_id = f.id
             join status h on a.status_id = h.id
+            join client j on a.client_id = j.id
             left join user g on a.userm_id = g.id
         WHERE a.client_id = :id 
             ORDER BY ${column} ${direction}`;    

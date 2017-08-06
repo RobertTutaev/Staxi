@@ -2,14 +2,14 @@
   <form class="rows" #rForm="ngForm">
 
     <div class="col-md-6">        
-        <dt>Год*</dt> 
-        <dd><input 
+        <dt>Год*</dt>
+        <dd><input
                 id="aYear"
-                type="number" 
-                name="aYear" 
+                type="number"
+                name="aYear"
                 [(ngModel)]="report.aYear"
                 #aYear="ngModel"
-                min="2000" 
+                min="2000"
                 max="2100"
                 required>
             <small [hidden]="aYear.valid || aYear.pristine">
@@ -18,7 +18,7 @@
     </div>
 
     <div class="col-md-6">
-        <dt>Организация*</dt> 
+        <dt>Организация*</dt>
         <dd><select name="firm" [(ngModel)]="selectedFirmId" required>
                 <option *ngFor="let firm of firms" [ngValue]="firm.id">{{firm.name}}</option>
             </select></dd>
