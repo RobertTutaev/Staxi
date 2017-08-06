@@ -24,6 +24,10 @@ import { ToolsModule } from '../tools/tools.module';
 import { MaterialModule, MdNativeDateModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { DateAdapter, MD_DATE_FORMATS } from '@angular/material';
+import { OurDateAdapter } from './OurDateAdapter';
+import { LOCALE_ID } from '@angular/core';
+
 @NgModule({
   imports: [    
     ToolsModule,
@@ -46,6 +50,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TransportationsComponent
   ],
   providers: [
+    {provide: DateAdapter, useClass: OurDateAdapter},
+    {provide: LOCALE_ID, useValue: 'ru'},
+    //{provide: MD_DATE_FORMATS, useValue: 'MM.DD.YYYY'},
     ReasonService,
     StatusService,
     ClientService,

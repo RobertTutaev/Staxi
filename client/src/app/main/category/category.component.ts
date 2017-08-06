@@ -28,7 +28,7 @@ export class CategoryComponent implements OnInit {
               private categoryService: CategoryService,
               private route: ActivatedRoute,
               private router: Router,
-              private location: Location) { }
+              private location: Location) { }  
   
   ngOnInit() {
     async.parallel(
