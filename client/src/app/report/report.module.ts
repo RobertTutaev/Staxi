@@ -10,17 +10,11 @@ import { CComponent } from './c/c.component';
 import { ToolsModule } from '../tools/tools.module';
 import { ReportService } from '../_services/report.service';
 
-import { MaterialModule, MdNativeDateModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 @NgModule({
   imports: [
-    BrowserAnimationsModule,
-    CommonModule,
-    MaterialModule,
-    MdNativeDateModule,
-    FormsModule,
     ToolsModule,
+    CommonModule,    
+    FormsModule,    
     ReportRoutingModule
   ],
   declarations: [

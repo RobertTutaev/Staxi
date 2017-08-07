@@ -7,7 +7,6 @@
                 mdInput
                 type="text"
                 id="aDt"
-                readonly="readonly"
                 [mdDatepicker]="pickerADt"
                 name="aDt"
                 [(ngModel)]="report.aDt"
@@ -17,11 +16,11 @@
                 <button mdSuffix [mdDatepickerToggle]="pickerADt"></button>
             <md-datepicker #pickerADt></md-datepicker></dd>
     </div>
-
-    <div class="clearfix"></div>    
+    
+    <div class="clearfix"></div>
 
     <div class="col-md-12">
-        <dt>Автотранспорт*</dt> 
+        <dt>Автотранспорт*</dt>
         <dd><select name="car" [(ngModel)]="selectedCarId" required>
                 <option *ngFor="let car of cars" [ngValue]="car.id">{{car.name}} ({{car.gos_no}})</option>
             </select></dd>

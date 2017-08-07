@@ -101,10 +101,6 @@ export class CategoryComponent implements OnInit {
     }
   }
 
-  get min():any {
-    return new Date(2018, 10, 10);
-  }
-
   gotoBack() {
     this.location.back();
   }

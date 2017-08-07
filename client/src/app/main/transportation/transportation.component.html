@@ -124,7 +124,7 @@
                 ngui-datetime-picker
                 name="a_dt"
                 [(ngModel)]="transportation.a_dt"
-                (valueChanged)='transportationForm.form.markAsDirty()'
+                (valueChanged)="transportationForm.form.markAsDirty()"
                 #a_dt="ngModel" 
                 date-format="DD.MM.YYYY HH:mm"
                 min-date="Date.now()"
@@ -136,7 +136,7 @@
                 type="text" 
                 ngui-datetime-picker 
                 [(ngModel)]="transportation.b_dt" 
-                (valueChanged)='transportationForm.form.markAsDirty()'
+                (valueChanged)="transportationForm.form.markAsDirty()"
                 name="b_dt" 
                 time-only="true" 
                 date-format="HH:mm" 

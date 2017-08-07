@@ -35,54 +35,39 @@
                 Необходимо корректное значение длиной не более 20 символов
             </small></dd>
         <dt>Дата документа</dt>
-        <dd><input 
-                mdInput
-                type="text" 
-                id="dateDocDt" 
-                readonly="readonly" 
-                [mdDatepicker]="pickerDocDt" 
-                name="doc_dt" 
-                [(ngModel)]="category.doc_dt" 
-                #doc_dt="ngModel"
-                placeholder="Дата" >
-            <button mdSuffix [mdDatepickerToggle]="pickerDocDt"></button>
-            <md-datepicker #pickerDocDt></md-datepicker>
-            <small [hidden]="doc_dt.valid || doc_dt.pristine">
-                Необходимо корректное значение
-            </small></dd>
+        <dd><input
+                type="text"
+                ngui-datetime-picker
+                name="doc_dt"
+                [(ngModel)]="category.doc_dt"
+                (valueChanged)="categoryForm.form.markAsDirty()"
+                date-format="DD.MM.YYYY"
+                readonly="readonly"
+                date-only="true" 
+                class="form-control"></dd>
         <dt>Дата начала*</dt>
-        <dd><input 
-                mdInput 
-                type="text" 
-                id="dateDtBegin" 
-                readonly="readonly" 
-                [mdDatepicker]="pickerDtBegin"
-                name="dt_begin" 
-                [(ngModel)]="category.dt_begin" 
-                #dt_begin="ngModel"
-                placeholder="Дата"
-                required>
-            <button mdSuffix [mdDatepickerToggle]="pickerDtBegin"></button>
-            <md-datepicker #pickerDtBegin></md-datepicker>
-            <small [hidden]="dt_begin.valid || dt_begin.pristine">
-                Необходимо корректное значение
-            </small></dd>
-        <dt>Дата окончания*</dt>
-        <dd><input 
-                mdInput type="text" 
-                id="dateDtEnd" 
-                readonly="readonly" 
-                [mdDatepicker]="pickerDtEnd" 
-                name="dt_end" 
-                [(ngModel)]="category.dt_end" 
-                #dt_end="ngModel"
-                placeholder="Дата"
-                required>
-            <button mdSuffix [mdDatepickerToggle]="pickerDtEnd"></button>
-            <md-datepicker #pickerDtEnd></md-datepicker>
-            <small [hidden]="dt_end.valid || dt_end.pristine">
-                Необходимо корректное значение
-            </small></dd>
+        <dd><input
+                type="text"
+                ngui-datetime-picker
+                name="dt_begin"
+                [(ngModel)]="category.dt_begin"
+                (valueChanged)="categoryForm.form.markAsDirty()"
+                date-format="DD.MM.YYYY"
+                readonly="readonly"
+                date-only="true" 
+                class="form-control"
+                required></dd>
+        <dt>Дата окончания</dt>
+        <dd><input
+                type="text"
+                ngui-datetime-picker
+                name="dt_end"
+                [(ngModel)]="category.dt_end"
+                (valueChanged)="categoryForm.form.markAsDirty()"
+                date-format="DD.MM.YYYY"
+                readonly="readonly"
+                date-only="true"
+                class="form-control"></dd>
 
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>

@@ -9,6 +9,13 @@ import { ModifyInfoPipe } from './pipes/modifyInfo.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { EqualValidatorDirective } from './directives/equal-validator.directive';
 
+import { MaterialModule, MdNativeDateModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { DateAdapter, MD_DATE_FORMATS } from '@angular/material';
+import { ToolsDateAdapter } from './tools.date.adapter';
+import { LOCALE_ID } from '@angular/core';
+
 NguiDatetime.daysOfWeek = [
     { fullName: 'Воскресенье', shortName: 'Вс' },
     { fullName: 'Понедельник', shortName: 'Пн' },
@@ -46,7 +53,7 @@ NguiDatetime.locale = {
   };
 
 @NgModule({
-  imports: [
+  imports: [    
     NguiDatetimePickerModule,
     CommonModule
   ],
@@ -59,12 +66,19 @@ NguiDatetime.locale = {
     EqualValidatorDirective
   ],
   exports: [
+    BrowserAnimationsModule,
+    MaterialModule,
+    MdNativeDateModule,
     NguiDatetimePickerModule,
     FilterPipe,
     OrderByPipe,
     SnilsPipe,
     ModifyInfoPipe,
     CapitalizePipe
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: ToolsDateAdapter },
+    { provide: LOCALE_ID, useValue: 'ru' }
   ]
 })
 export class ToolsModule { } 

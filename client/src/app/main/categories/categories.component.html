@@ -11,9 +11,9 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let category of categories | orderBy: {property: column, direction: direction}" 
+        <tr *ngFor="let category of categories | orderBy: {property: column, direction: direction}"
             (click)="onSelect(category)"
-            data-toggle="tooltip" 
+            data-toggle="tooltip"
             title="{{ category | modifyInfo }}">
             <td>{{ category.id }}</td>
             <td>{{ category.kateg }}</td>

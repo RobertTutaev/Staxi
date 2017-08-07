@@ -21,20 +21,10 @@ import { StatusService } from '../_services/status.service';
 import { MainRoutingModule } from './main.routing.module';
 import { ToolsModule } from '../tools/tools.module';
 
-import { MaterialModule, MdNativeDateModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { DateAdapter, MD_DATE_FORMATS } from '@angular/material';
-import { OurDateAdapter } from './OurDateAdapter';
-import { LOCALE_ID } from '@angular/core';
-
 @NgModule({
   imports: [    
-    ToolsModule,
-    BrowserAnimationsModule,
-    CommonModule,
-    MaterialModule,
-    MdNativeDateModule,
+    ToolsModule,    
+    CommonModule,    
     FormsModule,
     MainRoutingModule
   ],
@@ -49,10 +39,7 @@ import { LOCALE_ID } from '@angular/core';
     TransportationComponent,
     TransportationsComponent
   ],
-  providers: [
-    {provide: DateAdapter, useClass: OurDateAdapter},
-    {provide: LOCALE_ID, useValue: 'ru'},
-    //{provide: MD_DATE_FORMATS, useValue: 'MM.DD.YYYY'},
+  providers: [    
     ReasonService,
     StatusService,
     ClientService,

@@ -2282,21 +2282,21 @@ create table category(
     doc_ser varchar(10),
     doc_number varchar(20),
     doc_dt datetime,
-    dt_begin datetime default CURRENT_TIMESTAMP,
-    dt_end datetime not null default '01.01.2100',
+    dt_begin datetime not null default CURRENT_TIMESTAMP,
+    dt_end datetime,
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,
     userm_id integer,
     dtm datetime ON UPDATE CURRENT_TIMESTAMP,
     index fk_k_client (client_id ASC),
-    constraint fk_k_client 
-        foreign key (client_id) 
+    constraint fk_k_client
+        foreign key (client_id)
             references client (id)
                 on delete RESTRICT on update RESTRICT,
     index fk_k_kateg (kateg_id ASC),
     constraint fk_k_kateg 
-        foreign key (kateg_id) 
-            references kateg (id) 
+        foreign key (kateg_id)
+            references kateg (id)
                 on delete RESTRICT on update RESTRICT,
     index fk_k_user (user_id ASC),
     constraint fk_k_user
@@ -2404,13 +2404,13 @@ BEGIN
     FROM
       transportation
     WHERE
-      category_id = new.id AND status>0;
+      category_id = new.id AND status_id>1;
   DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 
   OPEN cur;
   REPEAT
     FETCH cur INTO cnt;
-    IF cnt>0 AND new.kateg_id <> old.kateg_id THEN
+    IF cnt > 0 AND new.kateg_id <> old.kateg_id THEN
       SET new.kateg_id = old.kateg_id;
     END IF;
   UNTIL done END REPEAT;
@@ -2533,7 +2533,7 @@ BEGIN
     OPEN cur;
     REPEAT
       FETCH cur INTO cnt;
-      IF cnt>0 THEN
+      IF cnt > 0 THEN
         SET new.type = old.type;
       END IF;
     UNTIL done END REPEAT;
