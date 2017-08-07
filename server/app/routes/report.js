@@ -294,7 +294,7 @@ router.route('/c/:carId/:aDt/:getFile')
             concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr,
             concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr,
             a.client_id,
-            concat(i.im,' ',ifnull(i.ot,''),if(a.convoy>0,' (сопровожд.)','')) as client_name,
+            concat(i.im,' ',ifnull(i.ot,''),if(a.convoy>0,' (сопровождение)','')) as client_name,
             ifnull(j.name,'') as client_contact,
             concat('СНИЛС: ',i.snils,'; док.: ',m.name,'; кат.: ',l.name) as client_info
         FROM transportation a
