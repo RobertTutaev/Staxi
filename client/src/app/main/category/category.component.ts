@@ -60,10 +60,11 @@ export class CategoryComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.category);
     this.route.parent.parent.params
       .subscribe((params: Params) => {
         const client_id = +params['id'];
-
+        
         if (this.category.id) {
           if (this.category.client_id === client_id)
             this.categoryService.update(this.category)

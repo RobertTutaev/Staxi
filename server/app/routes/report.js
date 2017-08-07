@@ -287,7 +287,7 @@ router.route('/c/:carId/:aDt/:getFile')
     var sql =
         `SELECT
             a.id,                    
-            concat(DATE_FORMAT(a.a_dt, '%d.%m.%Y %H:%i'),'-',IF(ISNULL(a.b_dt),DATE_FORMAT(a.a_dt, '%H:%i'),DATE_FORMAT(a.b_dt, '%H:%i'))) as dt,
+            concat(DATE_FORMAT(a.a_dt, '%d.%m.%Y %H:%i'),'-',IF(ISNULL(a.b_dt),'00:00',DATE_FORMAT(a.b_dt, '%H:%i'))) as dt,
             i.reason_id,
             a.status_id,
             a.convoy,
@@ -314,8 +314,8 @@ router.route('/c/:carId/:aDt/:getFile')
             a.a_dt`;
         
     models.sequelize.query(
-            sql, 
-            { 
+            sql,
+            {
                 replacements: { 
                     carId: carId,
                     aDt: aDt
@@ -323,8 +323,7 @@ router.route('/c/:carId/:aDt/:getFile')
             type: models.sequelize.QueryTypes.SELECT 
         })
         .then(
-        function(values) {
-            
+        function(values) {                      
             // Если необходим файл
             if (getFile) {
                 var user = req.user;

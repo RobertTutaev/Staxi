@@ -42,13 +42,12 @@ module.exports = function(sequelize, DataTypes) {
     },
     dt_begin: {
       type: DataTypes.DATE,
-      allowNull: true,
+      allowNull: false,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
     dt_end: {
       type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: '2001-01-21 00:00:00'
+      allowNull: true
     },
     user_id: {
       type: DataTypes.INTEGER(11),
