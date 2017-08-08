@@ -114,9 +114,10 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
     var withChilds = req.params.withChilds ? parseInt(req.params.withChilds) : 0;
     var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
 
-    var aDtMonth= new Date(aYear, aMonth, 1);
+    var aDtMonth= new Date(aYear, aMonth - 1, 1);
     var aDtYear = new Date(aYear, 0, 1);
-    var bDt     = new Date(aYear, aMonth + 1, 0);
+    var bDt     = new Date(aYear, aMonth, 0);
+    console.log(aYear, aMonth);
 
     if (!firmId)
         return  res.json(resp({
