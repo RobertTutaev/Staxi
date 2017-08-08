@@ -60,7 +60,6 @@ export class CategoryComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.category);
     this.route.parent.parent.params
       .subscribe((params: Params) => {
         const client_id = +params['id'];

@@ -10,8 +10,8 @@ router.route('/c:id')
     var sql = 
         `SELECT a.*, 
             b.name as kateg,
-            trim(concat(c.first_name,' ',c.last_name)) as user,
-            trim(concat(e.first_name,' ',e.last_name)) as userm,
+            concat(c.first_name,' ',c.last_name) as user,
+            concat(e.first_name,' ',e.last_name) as userm,
             d.name as doc
         FROM category a
             left join kateg b on a.kateg_id = b.id

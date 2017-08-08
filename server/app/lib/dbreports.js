@@ -5,6 +5,9 @@ var async = require('async');
 
 moment.locale('ru-RU');
 
+const constReport0 = 'Пользователь: ';
+const constReport1 = 'Телефон: ';
+
 var getInfoModelValues = function(modelName, id, callback) {
 
     if(!id) return callback(null, null);
@@ -13,6 +16,34 @@ var getInfoModelValues = function(modelName, id, callback) {
     .then(
         function(value, err) {
             return callback(null, value);
+        }, 
+        function(err) {
+            return callback(err, null);
+        }
+    );
+
+}
+
+var getInfoCar = function(id, callback) {
+
+    if(!id) return callback(null, null);
+
+    var sql = 
+        `SELECT 
+            a.*, 
+            b.name as firm,
+            concat(c.first_name,' ',c.last_name) as user,
+            c.phone
+        FROM car a 
+            join firm b on a.firm_id = b.id
+            join user c on a.user_id = c.id
+        WHERE
+            a.id = :id`;
+    
+    models.sequelize.query(sql, { replacements: { id: parseInt(id) }, type: models.sequelize.QueryTypes.SELECT })
+        .then(
+        function(values) {                    
+            return callback(null, values[0]);
         }, 
         function(err) {
             return callback(err, null);
@@ -34,11 +65,11 @@ var getInfo = function(firmId, statusId, clientId, carId, myCallback) {
             },
             // Client
             function(callback){
-               getInfoModelValues('client', clientId, callback);
+                getInfoModelValues('client', clientId, callback);
             },
             // Car
             function(callback){
-               getInfoModelValues('car', carId, callback);
+                getInfoCar(carId, callback);
             }
         ],
         function(err, values){
@@ -82,7 +113,11 @@ var getA = function(values, user, firmId, aDt, bDt, statusId, withChilds, res){
 
                     wSheet.range(6 + values.length, 1, 6 + values.length, 8).merged(true);
                     wSheet.row(6 + values.length).cell(1).style({horizontalAlignment : 'left'});
-                    wSheet.row(6 + values.length).cell(1).value(`Пользователь: ${user.first_name} ${user.last_name}`);
+                    wSheet.row(6 + values.length).cell(1).value(`${constReport0}${user.first_name} ${user.last_name}`);
+
+                    wSheet.range(7 + values.length, 1, 7 + values.length, 8).merged(true);
+                    wSheet.row(7 + values.length).cell(1).style({horizontalAlignment : 'left'});
+                    wSheet.row(7 + values.length).cell(1).value(`${constReport1}${user.phone}`);
                                                                   
                     return workbook.outputAsync();
                 })
@@ -132,7 +167,11 @@ var getB = function(values, user, firmId, aYear, aMonth, withChilds, res){
 
                     wSheet.range(7 + values.length, 1, 7 + values.length, 6).merged(true);
                     wSheet.row(7 + values.length).cell(1).style({horizontalAlignment : 'left'});
-                    wSheet.row(7 + values.length).cell(1).value(`Пользователь: ${user.first_name} ${user.last_name}`); 
+                    wSheet.row(7 + values.length).cell(1).value(`${constReport0}${user.first_name} ${user.last_name}`);
+
+                    wSheet.range(8 + values.length, 1, 8 + values.length, 6).merged(true);
+                    wSheet.row(8 + values.length).cell(1).style({horizontalAlignment : 'left'});
+                    wSheet.row(8 + values.length).cell(1).value(`${constReport1}${user.phone}`);
 
                     return workbook.outputAsync();
                 })
@@ -163,7 +202,7 @@ var getC = function(values, user, carId, aDt, res){
                     var dt = new Date();
                     
                     wSheet.row(2).cell(1).value(`${result[3].name}; гос. номер: ${result[3].gos_no}; дата: ${moment(aDt).format('DD.MM.YYYY')}`);
-                    wSheet.row(3).cell(1).value(`[ Водитель: ${result[3].driver_name}; цвет: ${result[3].color}; телефон: ${result[3].driver_phone}; сформирован: ${moment(dt).format('DD.MM.YYYY hh:mm:ss')} ]`);
+                    wSheet.row(3).cell(1).value(`[ Водитель: ${result[3].user}; цвет: ${result[3].color}; телефон: ${result[3].phone}; сформирован: ${moment(dt).format('DD.MM.YYYY hh:mm:ss')} ]`);
 
                     values.forEach((v, i) => {
                         var j = 1;
@@ -179,7 +218,11 @@ var getC = function(values, user, carId, aDt, res){
 
                     wSheet.range(7 + values.length, 1, 7 + values.length, 6).merged(true);
                     wSheet.row(7 + values.length).cell(1).style({horizontalAlignment : 'left'});
-                    wSheet.row(7 + values.length).cell(1).value(`Пользователь: ${user.first_name} ${user.last_name}`);
+                    wSheet.row(7 + values.length).cell(1).value(`${constReport0}${user.first_name} ${user.last_name}`);
+
+                    wSheet.range(8 + values.length, 1, 8 + values.length, 6).merged(true);
+                    wSheet.row(8 + values.length).cell(1).style({horizontalAlignment : 'left'});
+                    wSheet.row(8 + values.length).cell(1).value(`${constReport1}${user.phone}`);
                                                                   
                     return workbook.outputAsync();
                 })
@@ -231,7 +274,12 @@ var getT = function(values, user, clientId, res){
 
                     wSheet.range(6 + values.length, 1, 6 + values.length, 11).merged(true);
                     wSheet.row(6 + values.length).cell(1).style({horizontalAlignment : 'left'});
-                    wSheet.row(6 + values.length).cell(1).value(`Пользователь: ${user.first_name} ${user.last_name}`); 
+                    wSheet.row(6 + values.length).cell(1).value(`${constReport0}${user.first_name} ${user.last_name}`);
+
+                    wSheet.range(7 + values.length, 1, 7 + values.length, 11).merged(true);
+                    wSheet.row(7 + values.length).cell(1).style({horizontalAlignment : 'left'});
+                    wSheet.row(7 + values.length).cell(1).value(`${constReport1}${user.phone}`);
+
 
                     return workbook.outputAsync();
                 })

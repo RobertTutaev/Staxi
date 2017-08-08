@@ -8,6 +8,7 @@
             <th (click)="onSort('gos_no')">Гос. номер <i class="fa" [ngClass]="{'fa-sort': column != 'gos_no', 'fa-sort-asc': (column == 'gos_no' && isDesc), 'fa-sort-desc': (column == 'gos_no' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('color')">Цвет <i class="fa" [ngClass]="{'fa-sort': column != 'color', 'fa-sort-asc': (column == 'color' && isDesc), 'fa-sort-desc': (column == 'color' && !isDesc) }" aria-hidden="true"></i></th>            
             <th (click)="onSort('firm')">Организация <i class="fa" [ngClass]="{'fa-sort': column != 'firm', 'fa-sort-asc': (column == 'firm' && isDesc), 'fa-sort-desc': (column == 'firm' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('user')">Водитель <i class="fa" [ngClass]="{'fa-sort': column != 'user', 'fa-sort-asc': (column == 'user' && isDesc), 'fa-sort-desc': (column == 'user' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('type')">Тип <i class="fa" [ngClass]="{'fa-sort': column != 'type', 'fa-sort-asc': (column == 'type' && isDesc), 'fa-sort-desc': (column == 'type' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('status')">Вкл. <i class="fa" [ngClass]="{'fa-sort': column != 'status', 'fa-sort-asc': (column == 'status' && isDesc), 'fa-sort-desc': (column == 'status' && !isDesc) }" aria-hidden="true"></i></th>
             <th><a routerLink="/car" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
@@ -20,6 +21,7 @@
             <td>{{ car.gos_no }}</td>
             <td>{{ car.color }}</td>
             <td>{{ car.firm }}</td>
+            <td>{{ car.user }}</td>
             <td>{{ car.type ? 'Автобус' : 'Автомобиль' }}</td>
             <td><span class='{{ car.status ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>          
             <td (click)="onDelete(car); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>

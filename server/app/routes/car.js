@@ -19,9 +19,11 @@ router.route('/c:checkStatus')
             var sql = 
                `SELECT
                     a.*,
-                    b.name as firm
+                    b.name as firm,
+                    concat(c.first_name,' ',c.last_name) as user
                 FROM car a
                     join firm b on a.firm_id = b.id
+                    join user c on a.user_id = c.id
                 WHERE
                     a.firm_id in (:oArray) and
                     a.status >= :status`;
@@ -59,9 +61,11 @@ router.route('/:id')
     var sql = 
         `SELECT 
             a.*, 
-            b.name as firm 
+            b.name as firm,
+            concat(c.first_name,' ',c.last_name) as user
         FROM car a 
             join firm b on a.firm_id = b.id
+            join user c on a.user_id = c.id
         WHERE
             a.id = :id`;
     

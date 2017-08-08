@@ -6,6 +6,7 @@ export class User {
             public confirmPassword: string = null,
             public first_name: string = null,
             public last_name: string = null,
+            public phone: string = null,
             public firm_id: number = null,
             public firm: string = null,
             public role0: boolean = true,

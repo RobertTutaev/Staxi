@@ -10,8 +10,8 @@ router.route('/c:id')
     var sql = 
         `SELECT a.*,
             b.style as type,
-            trim(concat(c.first_name,' ',c.last_name)) as user,
-            trim(concat(d.first_name,' ',d.last_name)) as userm
+            concat(c.first_name,' ',c.last_name) as user,
+            concat(d.first_name,' ',d.last_name) as userm
         FROM contact a
             join type b on a.type_id = b.id 
             join user c on a.user_id = c.id

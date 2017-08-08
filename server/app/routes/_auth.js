@@ -36,7 +36,8 @@ function granted(req, res, next, roles) {
 router.get(['/api/transportation*',
             '/api/status*',
             '/api/reason*',
-            '/api/report*'
+            '/api/report*',
+            '/api/car*'
         ], 
         function (req, res, next) {
             granted(req, res, next, ['role1', 'role2', 'role3', 'role4']);
@@ -54,8 +55,7 @@ router.get(['/api/territory*',
             '/api/kateg*',
             '/api/punkt*',
             '/api/firm*',
-            '/api/doc*',
-            '/api/car*',
+            '/api/doc*',            
             '/api/type*'
         ], 
         function (req, res, next) {

@@ -72,7 +72,21 @@
             <small [hidden]="last_name.valid || last_name.pristine">
                 Необходима корректная фамилия
             </small></dd>
-        <dt>Организация*</dt> 
+        <dt>Телефон*</dt>
+        <dd><input 
+                type="text" 
+                name="phone" 
+                [(ngModel)]="user.phone" 
+                placeholder="nnn-nn-nn (n-nnn-nnn-nn-nn)"
+                pattern="^[0-9-+\ ]+$"
+                required 
+                #phone="ngModel"
+                maxlength="100"
+                class="form-control">
+            <small [hidden]="phone.valid || phone.pristine">
+                Необходим корректный номер телефона
+            </small></dd>
+        <dt>Организация*</dt>
         <dd>
             <select name="firm" [(ngModel)]="selectedFirmId" class="form-control" required>
                 <option *ngFor="let firm of firms" [ngValue]="firm.id">{{firm.name}}</option>

@@ -37,9 +37,9 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
                     a.dt,
                     a.dtm,
                     h.name as firm,
-                    concat(b.name,'; г.н.: ',b.gos_no,'; вод.: ',ifnull(b.driver_name,''),'; цвет: ',ifnull(b.color,''),'; тел.: ',ifnull(b.driver_phone,'')) as car,
-                    trim(concat(c.first_name,' ',c.last_name)) as user,
-                    trim(concat(g.first_name,' ',g.last_name)) as userm,
+                    concat(b.name,'; г.н.: ',b.gos_no,'; цвет: ',ifnull(b.color,'')) as car,
+                    concat(c.first_name,' ',c.last_name) as user,
+                    concat(g.first_name,' ',g.last_name) as userm,
                     concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr,
                     concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr,
                     concat('СНИЛС: ',i.snils,'; И.О.: ',i.im,' ',ifnull(i.ot,''),if(a.convoy>0,' (сопровожд.)',''),'; тел.: ',ifnull(j.name,''),'; док.: ',m.name,'; кат.: ',l.name) as client

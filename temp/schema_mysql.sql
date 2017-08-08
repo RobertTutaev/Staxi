@@ -2117,39 +2117,13 @@ insert into firm (firm_id, territory_id, name) values
     (2, 4, 'МБУ «КЦСОН по Тракторозаводскому району города Челябинска»'),
     (2, 4, 'МБУ «КЦСОН по Центральному району города Челябинска»');
 
-create table car(
-    id integer primary key auto_increment,
-    name varchar(100),
-    color varchar(100),
-    gos_no varchar(12),
-    firm_id integer not null,
-    driver_name varchar(255),
-    driver_phone varchar(50),
-    type tinyint(1) DEFAULT 0,
-    status tinyint(1) DEFAULT 1,
-    index fk_c_firm (firm_id ASC),
-    constraint fk_c_firm
-        foreign key (firm_id)
-            references firm (id)
-                on delete RESTRICT on update RESTRICT
-)engine=innodb;
-
-insert into car 
-    (name,          gos_no,         color,                         firm_id,    driver_name,                driver_phone) values
-    ('LIFAN',       'с149мт174',    'Синий',                        3,          'Раиль Салимгареевич',       '8 904 304 79 63'),
-    ('LIFAN',       'к227му174',    'Серебро',                      4,          'Владимир Петрович',         '8 904 304 72 94'),
-    ('ВАЗ',         'к939та74',     'Светло-серебристый металлик',  5,          'Валерий Михайлович',        '8 904 304 79 94'),
-    ('LADA GRANTA', 'у623со174',    'Белый',                        6,          'Константин Викторович',     '8 904 304 94 73'),
-    ('ВАЗ',         'у720тв74',     'Сине-зеленый',                 7,          'Владимир Александрович',    '8 904 304 87 30'),
-    ('LADA',        'к894ев174',    'Серо-зеленый металлик',        8,          'Сергей Владимирович',       '8 904 304 82 34'),
-    ('LADA',        'к893ев174',    'Серо-зеленый металлик',        9,          'Владимир Владимирович',     '8 904 304 70 43');
-
 create table user(
     id integer primary key auto_increment,
     username varchar(100) unique,
     password varchar(100),
     first_name varchar(100) not null,
     last_name varchar(100) not null,
+    phone varchar(50) not null, 
     firm_id integer,
     role0 tinyint(1) DEFAULT 1,
     role1 tinyint(1) DEFAULT 0,
@@ -2167,17 +2141,57 @@ create table user(
     index fk_u_username (username ASC)
 )engine=innodb;
 
-insert into user(username, password, first_name, last_name, firm_id, checked, role0, role1, role2, role3, role4) values 
-    ('opo_usr@mail.ru',     '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'А.А.', 'Администратор',    1, 1, 1, 1, 1, 1, 1),
-    ('dveteranov@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'К.К.', 'Координатор',      1, 1, 1, 1, 1, 1, 1),
-    ('usz@cheladmin.ru',    '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КСП',     2, 1, 1, 1, 1, 0, 0),
-    ('zentr2515@yandex.ru', '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН1',  3, 1, 1, 1, 1, 0, 0),
-    ('kcson74@yandex.ru',   '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН2',  4, 1, 1, 1, 1, 0, 0),
-    ('kcsonlen@mail.ru',    '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН3',  5, 1, 1, 1, 1, 0, 0),
-    ('kcson_chmz@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН4',  6, 1, 1, 1, 1, 0, 0),
-    ('mukcsonsov@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН5',  7, 1, 1, 1, 1, 0, 0),
-    ('mukcon_tzr@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН6',  8, 1, 1, 1, 1, 0, 0),
-    ('socobs@ya.ru',        '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН7',  9, 1, 1, 1, 1, 0, 0);
+insert into user(username, password, first_name, last_name, phone, firm_id, checked, role0, role1, role2, role3, role4) values 
+    ('opo_usr@mail.ru',     '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'А.А.', 'Администратор',    '729 82 23',        1, 1, 1, 0, 1, 1, 1),
+    ('dveteranov@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'К.К.', 'Координатор',      '740 29 69',        1, 1, 1, 0, 1, 1, 1),
+    ('usz@cheladmin.ru',    '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КСП',     '729 82 18',        2, 1, 1, 0, 1, 0, 0),
+
+    ('zentr2515@yandex.ru', '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН1',  '791 59 45',        3, 1, 1, 0, 1, 0, 0),
+    ('kcson74@yandex.ru',   '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН2',  '225 23 64',        4, 1, 1, 0, 1, 0, 0),
+    ('kcsonlen@mail.ru',    '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН3',  '256 30 73',        5, 1, 1, 0, 1, 0, 0),
+    ('kcson_chmz@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН4',  '735 70 47',        6, 1, 1, 0, 1, 0, 0),
+    ('mukcsonsov@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН5',  '261 85 77',        7, 1, 1, 0, 1, 0, 0),
+    ('mukcon_tzr@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН6',  '730 55 86',        8, 1, 1, 0, 1, 0, 0),
+    ('socobs@ya.ru',        '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'О.О.', 'Оператор КЦСОН7',  '731 70 04',        9, 1, 1, 0, 1, 0, 0),
+
+    ('stdriver_1@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'Р.С.', 'Каримов',          '8 904 304 79 63',  3, 1, 1, 1, 0, 0, 0),
+    ('stdriver_2@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'В.П.', 'Кудряков',         '8 904 304 72 94',  4, 1, 1, 1, 0, 0, 0),
+    ('stdriver_3@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'В.М.', 'Долгошеин',        '8 904 304 79 94',  5, 1, 1, 1, 0, 0, 0),
+    ('stdriver_4@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'К.В.', 'Романов',          '8 904 304 94 73',  6, 1, 1, 1, 0, 0, 0),
+    ('stdriver_5@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'В.А.', 'Худорожков',       '8 904 304 87 30',  7, 1, 1, 1, 0, 0, 0),
+    ('stdriver_6@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'С.В.', 'Полозов',          '8 904 304 82 34',  8, 1, 1, 1, 0, 0, 0),
+    ('stdriver_7@mail.ru',  '$2a$10$VqS9hsLiTj2MKysUDFvKb.RbHUFV1WaAxN6SSenc7TRwnna5L.Inu', 'В.В.', 'Моржов',           '8 904 304 70 43',  9, 1, 1, 1, 0, 0, 0);
+
+create table car(
+    id integer primary key auto_increment,
+    name varchar(100),
+    color varchar(100),
+    gos_no varchar(12),
+    firm_id integer not null,
+    user_id integer not null,
+    type tinyint(1) DEFAULT 0,
+    status tinyint(1) DEFAULT 1,
+    index fk_r_firm (firm_id ASC),
+    constraint fk_r_firm
+        foreign key (firm_id)
+            references firm (id)
+                on delete RESTRICT on update RESTRICT,
+    index fk_r_user (user_id ASC),
+    constraint fk_r_user
+        foreign key (user_id)
+            references user (id)
+                on delete RESTRICT on update RESTRICT
+)engine=innodb;
+
+insert into car
+    (name,          gos_no,         color,                         firm_id,    user_id) values
+    ('LIFAN',       'с149мт174',    'Синий',                        3,         11),
+    ('LIFAN',       'к227му174',    'Серебро',                      4,         12),
+    ('ВАЗ',         'к939та74',     'Светло-серебристый металлик',  5,         13),
+    ('LADA GRANTA', 'у623со174',    'Белый',                        6,         14),
+    ('ВАЗ',         'у720тв74',     'Сине-зеленый',                 7,         15),
+    ('LADA',        'к894ев174',    'Серо-зеленый металлик',        8,         16),
+    ('LADA',        'к893ев174',    'Серо-зеленый металлик',        9,         17);
 
 create table reason(
     id integer primary key auto_increment,

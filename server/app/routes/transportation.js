@@ -17,8 +17,8 @@ router.route('/c:id/:getFile/:column/:direction')
             j.reason_id,
             concat(b.name,' (',b.gos_no,')') as car,
             d.name as punkt,
-            trim(concat(c.first_name,' ',c.last_name)) as user,
-            trim(concat(g.first_name,' ',g.last_name)) as userm,
+            concat(c.first_name,' ',c.last_name) as user,
+            concat(g.first_name,' ',g.last_name) as userm,
             concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr,
             concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr,
             h.name as status

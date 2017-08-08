@@ -42,27 +42,14 @@
                 </option>
             </select>
         </dd>
-        <dt>Водитель</dt>
-        <dd><input 
-                type="text" 
-                name="driver_name" 
-                [(ngModel)]="car.driver_name" 
-                placeholder="Анатолий" 
-                #driver_name="ngModel" 
-                maxlength="255"
-                class="form-control"
-                autocomplete="off"></dd>
-        <dt>Телефон водителя</dt>
-        <dd><input 
-                type="text" 
-                name="driver_phone" 
-                [(ngModel)]="car.driver_phone" 
-                placeholder="8-909-909-99-99" 
-                #driver_phone="ngModel"
-                maxlength="50" 
-                class="form-control"
-                pattern="^[0-9-+\ ]+$"
-                autocomplete="off"></dd>
+        <dt>Водитель (пользователь)*</dt>
+        <dd>
+            <select name="user" [(ngModel)]="selectedUserId" class="form-control" required>
+                <option *ngFor="let user of users" [ngValue]="user.id">
+                    {{user.first_name}} {{user.last_name}}
+                </option>
+            </select>
+        </dd>
         <dt>Тип</dt>
         <dd><input 
                 type="checkbox" 
