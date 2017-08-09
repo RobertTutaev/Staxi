@@ -288,7 +288,7 @@ router.route('/c/:carId/:aDt/:getFile')
     var sql =
         `SELECT
             a.id,                    
-            concat(DATE_FORMAT(a.a_dt, '%d.%m.%Y %H:%i'),'-',IF(ISNULL(a.b_dt),'00:00',DATE_FORMAT(a.b_dt, '%H:%i'))) as dt,
+            concat(DATE_FORMAT(a.a_dt, '%H:%i'),'-',IF(ISNULL(a.b_dt),'00:00',DATE_FORMAT(a.b_dt, '%H:%i'))) as dt,
             i.reason_id,
             a.status_id,
             a.convoy,
