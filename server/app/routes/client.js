@@ -6,7 +6,16 @@ var resp = require('../lib/resp');
 router.route('/')
   .get(function(req, res, next) {
 
-    var snilsValue = '%' + (req.query.snils ? req.query.snils.replace(/[^-0-9]/gim,'') : '') + '%';
+    var snils = `%${(req.query.snils ? req.query.snils.replace(/[^-0-9]/gim,'') : '')}%`;
+
+    var fio = req.query.snils ? req.query.snils.replace(/[-0-9]/gim,'').trim() : '';
+    var fioArray = fio.split(/ {1,}/);
+    var fam =   `${fioArray[0] ? fioArray[0] : '%'}%`;
+    var im =    `${fioArray[1] ? fioArray[1] : '%'}%`;
+    var ot =    `${fioArray[2] ? fioArray[2] : '%'}%`;
+    
+    console.log(snils, fioArray);
+
     var sql = 
         `SELECT a.*,
             b.name as street,
@@ -16,9 +25,22 @@ router.route('/')
             left join street b on a.street_id = b.id
             join user c on a.user_id = c.id
             left join user d on a.userm_id = d.id
-        WHERE a.snils like :snils`;    
+        WHERE 
+            a.snils like :snils and
+            a.fam like :fam and
+            a.im like :im and
+            a.ot like :ot`;
 
-    models.sequelize.query(sql, { replacements: { snils: snilsValue }, type: models.sequelize.QueryTypes.SELECT })
+    models.sequelize.query(
+        sql, { 
+            replacements: { 
+                snils:  snils,
+                fam:    fam,
+                im:     im,
+                ot:     ot
+            }, 
+            type: models.sequelize.QueryTypes.SELECT 
+        })
         .then(
         function(values) {
             res.json(resp({

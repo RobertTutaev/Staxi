@@ -252,7 +252,7 @@ var getT = function(values, user, clientId, res){
                     var wSheet = workbook.sheet(0);
                     var dt = new Date();
                     
-                    wSheet.row(2).cell(1).value(`СНИЛС: ${result[2].snils}; Имя Отчество: ${result[2].im} ${result[2].ot}`);
+                    wSheet.row(2).cell(1).value(`СНИЛС: ${result[2].snils}; Ф. Имя Отчество: ${result[2].fam} ${result[2].im} ${result[2].ot}`);
                     wSheet.row(3).cell(1).value(`[ ID: ${result[2].id}; сформирован: ${moment(dt).format('DD.MM.YYYY hh:mm:ss')} ]`);
 
                     values.forEach((v, i) => {

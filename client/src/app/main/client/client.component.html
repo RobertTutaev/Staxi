@@ -17,19 +17,37 @@
             <small [hidden]="snils.valid || snils.pristine">
                 Необходим корректный СНИЛС
             </small></dd>
+        <dt>Ф.*</dt>
+        <dd><input 
+                type="text" 
+                name="fam"
+                [ngModel]="client.fam | capitalize | familia"
+                (ngModelChange)="client.fam=$event"
+                (blur)="client.fam = fam.value"
+                placeholder="Ф."
+                required 
+                #fam="ngModel" 
+                maxlength="2"
+                autocomplete="off"
+                class="form-control"
+                pattern="^[А-ЯЁ]\.$">
+            <small [hidden]="fam.valid || fam.pristine">
+                Необходима корректная Фамилия
+            </small></dd>
         <dt>Имя*</dt>
         <dd><input 
                 type="text" 
                 name="im"
                 [ngModel]="client.im | capitalize"
                 (ngModelChange)="client.im=$event"
+                (blur)="client.im = im.value"
                 placeholder="Имя" 
                 required 
                 #im="ngModel" 
                 maxlength="100"
                 autocomplete="off"
                 class="form-control"
-                pattern="^[а-яА-ЯёЁ]+$">
+                pattern="^[А-ЯЁ]([а-яё]+)$">
             <small [hidden]="im.valid || im.pristine">
                 Необходимо корректное Имя
             </small></dd>
@@ -39,11 +57,12 @@
                 name="ot"
                 [ngModel]="client.ot | capitalize"
                 (ngModelChange)="client.ot=$event"
-                placeholder="Отчество" 
+                (blur)="client.ot = ot.value"
+                placeholder="Отчество"
                 #ot="ngModel" 
                 maxlength="100"
                 class="form-control"
-                pattern="^[а-яА-ЯёЁ]+$">
+                pattern="^[А-ЯЁ]([а-яё]+)$">
             <small [hidden]="ot.valid || ot.pristine">
                 Необходимо корректное Отчество
             </small></dd>

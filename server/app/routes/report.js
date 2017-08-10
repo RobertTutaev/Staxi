@@ -42,7 +42,7 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
                     concat(g.first_name,' ',g.last_name) as userm,
                     concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr,
                     concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr,
-                    concat('СНИЛС: ',i.snils,'; И.О.: ',i.im,' ',ifnull(i.ot,''),if(a.convoy>0,' (сопровожд.)',''),'; тел.: ',ifnull(j.name,''),'; док.: ',m.name,'; кат.: ',l.name) as client
+                    concat('СНИЛС: ',i.snils,'; Ф.И.О.: ',i.fam,' ',i.im,' ',ifnull(i.ot,''),if(a.convoy>0,' (сопровожд.)',''),'; тел.: ',ifnull(j.name,''),'; док.: ',m.name,'; кат.: ',l.name) as client
                 FROM transportation a
                     join car b on a.car_id = b.id
                     join user c on a.user_id = c.id
@@ -295,7 +295,7 @@ router.route('/c/:carId/:aDt/:getFile')
             concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr,
             concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr,
             a.client_id,
-            concat(i.im,' ',ifnull(i.ot,''),if(a.convoy>0,' (сопровождение)','')) as client_name,
+            concat(i.fam,' ',i.im,' ',ifnull(i.ot,''),if(a.convoy>0,' (сопровождение)','')) as client_name,
             ifnull(j.name,'') as client_contact,
             concat('СНИЛС: ',i.snils,'; док.: ',m.name,'; кат.: ',l.name) as client_info
         FROM transportation a

@@ -7,8 +7,8 @@
         (ngModelChange)="searchText=$event" 
         class="form-control" 
         (keyup)="searchClient(searchText)"
-        placeholder="СНИЛС" 
-        maxlength="14"
+        placeholder="СНИЛС / Ф. Имя Отчество" 
+        maxlength="100"
         pattern="\d\d\d-\d\d\d-\d\d\d-\d\d"
         autocomplete="off">
 </div>
@@ -18,6 +18,7 @@
         <tr>
             <th (click)="onSort('id')">Код <i class="fa" [ngClass]="{'fa-sort': column != 'id', 'fa-sort-asc': (column == 'id' && isDesc), 'fa-sort-desc': (column == 'id' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('snils')">СНИЛС <i class="fa" [ngClass]="{'fa-sort': column != 'snils', 'fa-sort-asc': (column == 'snils' && isDesc), 'fa-sort-desc': (column == 'snils' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('fam')">Ф. <i class="fa" [ngClass]="{'fa-sort': column != 'fam', 'fa-sort-asc': (column == 'fam' && isDesc), 'fa-sort-desc': (column == 'fam' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('im')">Имя <i class="fa" [ngClass]="{'fa-sort': column != 'im', 'fa-sort-asc': (column == 'im' && isDesc), 'fa-sort-desc': (column == 'im' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('ot')">Отчество <i class="fa" [ngClass]="{'fa-sort': column != 'ot', 'fa-sort-asc': (column == 'ot' && isDesc), 'fa-sort-desc': (column == 'ot' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('user')">Пользователь <i class="fa" [ngClass]="{'fa-sort': column != 'user', 'fa-sort-asc': (column == 'user' && isDesc), 'fa-sort-desc': (column == 'user' && !isDesc) }" aria-hidden="true"></i></th>
@@ -32,6 +33,7 @@
             title="{{ client | modifyInfo }}">
             <td>{{ client.id }}</td>
             <td>{{ client.snils }}</td>
+            <td>{{ client.fam }}</td>
             <td>{{ client.im }}</td>
             <td>{{ client.ot }}</td>
             <td>{{ client.user }}</td>

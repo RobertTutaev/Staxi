@@ -2220,7 +2220,7 @@ create table client(
     dt datetime default CURRENT_TIMESTAMP,
     userm_id integer,
     dtm datetime ON UPDATE CURRENT_TIMESTAMP,
-    index fk_l_snils (snils ASC),
+    index fk_l_snils_fam_im_ot (snils, fam, im, ot),
     index fk_l_reason (reason_id ASC),
     constraint fk_l_reason
         foreign key (reason_id)

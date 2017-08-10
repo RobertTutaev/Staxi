@@ -7,6 +7,7 @@ import { OrderByPipe } from './pipes/orderBy.pipe';
 import { SnilsPipe } from './pipes/snils.pipe';
 import { ModifyInfoPipe } from './pipes/modifyInfo.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { FamiliaPipe } from './pipes/familia.pipe';
 import { EqualValidatorDirective } from './directives/equal-validator.directive';
 
 import { MaterialModule, MdNativeDateModule } from '@angular/material';
@@ -63,6 +64,7 @@ NguiDatetime.locale = {
     SnilsPipe,
     ModifyInfoPipe,
     CapitalizePipe,
+    FamiliaPipe,
     EqualValidatorDirective
   ],
   exports: [
@@ -74,7 +76,8 @@ NguiDatetime.locale = {
     OrderByPipe,
     SnilsPipe,
     ModifyInfoPipe,
-    CapitalizePipe
+    CapitalizePipe,
+    FamiliaPipe
   ],
   providers: [
     { provide: DateAdapter, useClass: ToolsDateAdapter },
