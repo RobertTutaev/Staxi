@@ -50,6 +50,10 @@ http://www.advancesharp.com/blog/1211/angular-2-search-and-sort-with-ngfor-repea
 /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8})$/
 (?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,12}
 
+ФИАС
+==========
+http://wiki.gis-lab.info/w/%D0%A4%D0%98%D0%90%D0%A1
+
 Ionic
 ==========
 https://www.djamware.com/post/58e657b680aca764ec903c2d/ionic-3-and-angular-4-mobile-app-example

@@ -6,17 +6,16 @@ var resp = require('../lib/resp');
 router.route('/')
   .get(function(req, res, next) {
 
-    var snils = `%${(req.query.snils ? req.query.snils.replace(/[^-0-9]/gim,'') : '')}%`;
-
-    var fio = req.query.snils ? req.query.snils.replace(/[-0-9]/gim,'').trim() : '';
-    var fioArray = fio.split(/ {1,}/);
+    var snilsValue = (req.query.snils ? req.query.snils.replace(/[^-0-9]/gim,'') : '');
+    var snils = `%${snilsValue}%`;
+    var fioValue = req.query.snils ? req.query.snils.replace(/[^ а-яёА-ЯЁ]/gim,'').trim() : '';
+    var fioArray = fioValue.split(/ {1,}/);
     var fam =   `${fioArray[0] ? fioArray[0] : '%'}%`;
     var im =    `${fioArray[1] ? fioArray[1] : '%'}%`;
     var ot =    `${fioArray[2] ? fioArray[2] : '%'}%`;
+    if (snilsValue === '' && fioValue === '') snils = '_';
     
-    console.log(snils, fioArray);
-
-    var sql = 
+    var sql =
         `SELECT a.*,
             b.name as street,
             concat(c.first_name,' ',c.last_name) as user,
@@ -27,9 +26,9 @@ router.route('/')
             left join user d on a.userm_id = d.id
         WHERE 
             a.snils like :snils and
-            a.fam like :fam and
-            a.im like :im and
-            a.ot like :ot`;
+            upper(a.fam) like upper(:fam) and
+            upper(a.im) like upper(:im) and
+            upper(a.ot) like upper(:ot)`;
 
     models.sequelize.query(
         sql, { 
