@@ -4,9 +4,9 @@ import { User } from '../../_classes/list/user';
 import { AuthProvider } from '../../providers/auth/auth';
 
 @Component({
-  selector: 'auth-signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.sass']
+  selector: 'signin',
+  templateUrl: './signin.html',
+  styleUrls: ['./signin.scss']
 })
 
 export class SigninComponent implements OnInit {
