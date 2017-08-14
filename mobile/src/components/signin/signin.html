@@ -1,0 +1,37 @@
+<div class="col-md-6 col-md-offset-3">
+    <form class="st-form" #signinForm="ngForm">
+      <dl *ngIf="!authService.isSignedIn">
+        <dt>Email*</dt>
+        <dd><input 
+              type="text" 
+              name="username" 
+              [(ngModel)]="user.username" 
+              placeholder="Название" 
+              #username="ngModel"
+              class="form-control" 
+              required></dd>
+        <dt>Пароль*</dt>
+        <dd><input 
+              type="password" 
+              name="password" 
+              [(ngModel)]="user.password" 
+              placeholder="Пароль" 
+              #password="ngModel" 
+              class="form-control"
+              required></dd>
+        
+        <br>
+        <button class="btn btn-info" (click)="signin()" [disabled]="signinForm.form.invalid"><span class="glyphicon glyphicon-ok"></span> Войти</button>          
+      </dl>
+
+      <dl *ngIf="authService.isSignedIn">
+        
+        <br>
+        Пользователь: <b>{{ authService.authUser.first_name }} {{ authService.authUser.last_name }}</b>
+        <br>
+        <button class="btn btn-info" (click)="signout()">Выйти</button>
+      </dl>
+    </form>
+
+    <p>{{ message }}</p>
+</div>
