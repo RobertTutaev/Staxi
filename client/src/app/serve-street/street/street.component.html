@@ -4,7 +4,7 @@
     <dl>
         <dt>Территория*</dt>
         <dd>
-            <select name="territory" [(ngModel)]="selectedTerritoryId" class="form-control"required>
+            <select name="territory" [(ngModel)]="selectedTerritoryId" class="form-control" required>
                 <option *ngFor="let territory of territories" [ngValue]="territory.id">{{territory.name}}</option>
             </select>
         </dd> 
@@ -14,20 +14,26 @@
                 name="name" 
                 [(ngModel)]="street.name" 
                 placeholder="Название" 
-                required 
-                #name="ngModel" 
+                required
                 class="form-control"
-                maxlength="200"></dd>
+                #name="ngModel"
+                maxlength="200">
+                <small [hidden]="name.valid || name.pristine">
+                    Необходим корректное название
+                </small></dd>
         <dt>Сокращение*</dt>
-        <dd><input 
+        <dd><input
                 type="text" 
                 name="socr" 
                 [(ngModel)]="street.socr"
                 placeholder="ул, пер, пр-кт, тракт, ..." 
-                required 
-                #socr="ngModel" 
+                required
+                #socr="ngModel"
                 maxlength="20"
-                class="form-control"></dd>
+                class="form-control">
+                <small [hidden]="socr.valid || socr.pristine">
+                    Необходим корректное сокращение
+                </small></dd>
         <dt>Почтовый индекс</dt>
         <dd><input 
                 type="text" 
@@ -36,7 +42,23 @@
                 #post="ngModel" 
                 maxlength="6" 
                 pattern="[1-9](\d{5})"
-                class="form-control"></dd>
+                class="form-control">
+                <small [hidden]="post.valid || post.pristine">
+                    Необходим корректный почтовый индекс
+                </small></dd>
+        <dt>Код ФИАС (AOGUID)</dt>
+        <dd><input 
+                type="text" 
+                name="aoguid" 
+                [(ngModel)]="street.aoguid" 
+                #aoguid="ngModel" 
+                maxlength="36"
+                size="36"
+                pattern="[\-0-9a-z]{36}"
+                class="form-control">
+                <small [hidden]="aoguid.valid || aoguid.pristine">
+                    Необходим корректный код ФИАС
+                </small></dd>
         
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>

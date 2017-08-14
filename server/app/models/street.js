@@ -31,6 +31,10 @@ module.exports = function(sequelize, DataTypes) {
     nda: {
       type: DataTypes.STRING(15),
       allowNull: true
+    },
+    aoguid: {
+      type: DataTypes.STRING(36),
+      allowNull: true
     }
   }, {
     tableName: 'street'

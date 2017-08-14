@@ -19,6 +19,7 @@
             <th (click)="onSort('name')">Название <i class="fa" [ngClass]="{'fa-sort': column != 'name', 'fa-sort-asc': (column == 'name' && isDesc), 'fa-sort-desc': (column == 'name' && !isDesc) }" aria-hidden="true"></i></th>
             <th>Сокр.</th>
             <th (click)="onSort('post')">Индекс <i class="fa" [ngClass]="{'fa-sort': column != 'post', 'fa-sort-asc': (column == 'post' && isDesc), 'fa-sort-desc': (column == 'post' && !isDesc) }" aria-hidden="true"></i></th>
+            <th (click)="onSort('aoguid')">Код ФИАС<i class="fa" [ngClass]="{'fa-sort': column != 'aoguid', 'fa-sort-asc': (column == 'aoguid' && isDesc), 'fa-sort-desc': (column == 'aoguid' && !isDesc) }" aria-hidden="true"></i></th>
             <th><a routerLink="/street" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
         </tr>
     </thead>
@@ -27,8 +28,9 @@
             <td>{{ street.id }}</td>
             <td>{{ street.territory }}</td>
             <td>{{ street.name }}</td>
-            <td>{{ street.socr }}</td>            
-            <td>{{ street.post }}</td>            
+            <td>{{ street.socr }}</td>
+            <td>{{ street.post }}</td>
+            <td>{{ street.aoguid }}</td>
             <td (click)="onDelete(street); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
         </tr>
     </tbody>
