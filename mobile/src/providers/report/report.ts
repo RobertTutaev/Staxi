@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, ResponseContentType } from '@angular/http';
+import { Http } from '@angular/http';
 import { C } from '../../_classes/list/c';
 import { CReport } from '../../_classes/report/c.report';
 import 'rxjs/add/operator/map';
@@ -12,8 +12,6 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class ReportProvider {
-  
-  private headers = new Headers({'Content-Type': 'application/json'});
   private transportationsUrl = 'api/report';
 
   constructor(private http: Http) { }

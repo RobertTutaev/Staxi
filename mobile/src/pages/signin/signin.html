@@ -1,0 +1,47 @@
+<!--
+  Generated template for the SigninPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>signin</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-list *ngIf="!authService.isSignedIn">
+    <ion-item>
+      <ion-label stacked>Email*</ion-label>
+      <ion-input type="text" [(ngModel)]="user.username" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Пароль*</ion-label>
+      <ion-input type="password" [(ngModel)]="user.password" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <button ion-button full color="success" (click)="signin()">Войти</button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="authService.isSignedIn">
+    <ion-item>
+      Пользователь: <b>{{ authService.authUser.first_name }} {{ authService.authUser.last_name }}</b>
+      <br>
+      <button class="btn btn-info" (click)="signout()">Выйти</button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <p>{{ message }}</p>
+    </ion-item>
+  </ion-list>
+  
+</ion-content>

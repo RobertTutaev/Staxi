@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { SigninComponent } from './signin/signin';
+
 @NgModule({
-	declarations: [SigninComponent],
+	declarations: [],
 	imports: [],
-	exports: [SigninComponent]
+	exports: []
 })
 export class ComponentsModule {}

@@ -1,20 +1,33 @@
 import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { User } from '../../_classes/list/user';
 import { AuthProvider } from '../../providers/auth/auth';
 
-@Component({
-  selector: 'signin',
-  templateUrl: './signin.html',
-  styleUrls: ['./signin.scss']
-})
+/**
+ * Generated class for the SigninPage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
 
-export class SigninComponent implements OnInit {
+@IonicPage()
+@Component({
+  selector: 'page-signin',
+  templateUrl: 'signin.html',
+})
+export class SigninPage implements OnInit{
   user: User = new User();
   message: string;
 
-  constructor(private authProvider: AuthProvider) { 
+  constructor(public navCtrl: NavController,
+              private authProvider: AuthProvider,
+              public navParams: NavParams) {
     this.setMessage();
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad SigninPage');
   }
 
   ngOnInit() {
@@ -35,13 +48,13 @@ export class SigninComponent implements OnInit {
 
         // Set our navigation extras object
         // that passes on our global query params and fragment
-        let navigationExtras: NavigationExtras = {
+        /*let navigationExtras: NavigationExtras = {
           queryParamsHandling: 'preserve',
           preserveFragment: true
         };
 
         // Redirect the user
-        this.router.navigate([redirect], navigationExtras);
+        this.router.navigate([redirect], navigationExtras);*/
     }
   }
 
@@ -57,4 +70,5 @@ export class SigninComponent implements OnInit {
   signout() {
     this.authProvider.signout().then(() => this.setMessage());
   }
+
 }
