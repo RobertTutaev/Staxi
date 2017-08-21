@@ -21,9 +21,10 @@ export class SigninPage implements OnInit{
   message: string;
 
   constructor(public navCtrl: NavController,
-              private authProvider: AuthProvider,
-              public navParams: NavParams) {
+              public navParams: NavParams,
+              public authProvider: AuthProvider) {
     this.setMessage();
+    console.log(authProvider);
   }
 
   ionViewDidLoad() {

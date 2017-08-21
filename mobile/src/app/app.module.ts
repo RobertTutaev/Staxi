@@ -5,24 +5,28 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
+import { SigninPage } from '../pages/signin/signin';
+import { TransportationsPage } from '../pages/transportations/transportations';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthProvider } from '../providers/auth/auth';
 import { ReportProvider } from '../providers/report/report';
+import { CarProvider } from '../providers/car/car';
 
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
-    ContactPage,
     HomePage,
+    SigninPage,
+    TransportationsPage,
     TabsPage
   ],
   imports: [
+    HttpModule,
     BrowserModule,
     IonicModule.forRoot(MyApp)
   ],
@@ -30,8 +34,9 @@ import { ReportProvider } from '../providers/report/report';
   entryComponents: [
     MyApp,
     AboutPage,
-    ContactPage,
     HomePage,
+    SigninPage,
+    TransportationsPage,
     TabsPage
   ],
   providers: [
@@ -39,7 +44,8 @@ import { ReportProvider } from '../providers/report/report';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    ReportProvider
+    ReportProvider,
+    CarProvider
   ]
 })
 export class AppModule {}

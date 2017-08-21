@@ -1,0 +1,32 @@
+<!--
+  Generated template for the TransportationsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+
+
+  [class.tr-transportation-convoy]="c.convoy"
+  [class.tr-client-reason]="c.reason_id>1"
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Заявки</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let c of cs">
+      <p>{{ c.dt }}</p>
+      <p>{{ c.a_adr }}</p>
+      <p>{{ c.b_adr }}</p>
+      <p>{{ c.client_name }}</p>
+      <p>{{ c.client_contact }}</p>
+      <p>{{ c.client_info }}</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

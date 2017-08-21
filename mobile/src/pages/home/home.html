@@ -1,17 +1,33 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Главная</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content padding id="home" class="outer-content">
+    
+  <ion-list *ngIf="authProvider.isSignedIn">
+    <ion-item>
+      <ion-label>Дата</ion-label>
+      <ion-datetime displayFormat="DD.MM.YYYY" [(ngModel)]="selectedDt"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Автотранспорт</ion-label>
+      <ion-select [(ngModel)]="selectedCarId">
+        <ion-option *ngFor="let car of cars" [value]="car.id">{{car.name}} ({{car.gos_no}})</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <button ion-button full color="success" (click)="Transportations()">Сформировать</button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="!authProvider.isSignedIn">
+    <ion-item>
+      <button ion-button full color="success" (click)="Signin()">Войти</button>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
