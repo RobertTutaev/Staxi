@@ -16,17 +16,19 @@
 
 </ion-header>
 
+<ion-content padding id="transportations" class="outer-content">
 
-<ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let c of cs">
-      <p>{{ c.dt }}</p>
-      <p>{{ c.a_adr }}</p>
-      <p>{{ c.b_adr }}</p>
-      <p>{{ c.client_name }}</p>
-      <p>{{ c.client_contact }}</p>
-      <p>{{ c.client_info }}</p>
-    </ion-item>
-  </ion-list>
+    <ion-card *ngFor="let c of cs">
+      <ion-card-header class="tr_clock">
+        <ion-icon name="clock"></ion-icon> {{ c.dt }}
+      </ion-card-header>
+      <ion-card-content>        
+        <p class="tr_pin"><ion-icon name="pin"></ion-icon> {{ c.a_adr }}</p>                
+        <p class="tr_pin"><ion-icon name="pin"></ion-icon> {{ c.b_adr }}</p>
+        <p class="tr_contact"><ion-icon name="contact"></ion-icon> {{ c.client_name }}</p>
+        <p class="tr_phone"><ion-icon name="call"></ion-icon> {{ c.client_contact }}</p>          
+        <p class="tr_info"><ion-icon name="information-circle"></ion-icon> {{ c.client_info }}</p>
+      </ion-card-content>
+    </ion-card>
 
 </ion-content>

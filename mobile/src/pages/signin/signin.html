@@ -12,40 +12,34 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content padding id="signin" class="outer-content">
 
-  <ion-list *ngIf="!authProvider.isSignedIn">
-    <ion-item>
-      <ion-label stacked>Email*</ion-label>
-      <ion-input type="text" [(ngModel)]="user.username" required></ion-input>
-    </ion-item>
+  <div *ngIf="!authProvider.isSignedIn" >
+    <ion-list>
+      <ion-item>
+        <ion-label stacked>Email*</ion-label>
+        <ion-input type="text" [(ngModel)]="user.username" required></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label stacked>Пароль*</ion-label>
-      <ion-input type="password" [(ngModel)]="user.password" required></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label stacked>Пароль*</ion-label>
+        <ion-input type="password" [(ngModel)]="user.password" required></ion-input>
+      </ion-item>
+    </ion-list>
+        
+    <button ion-button full color="success" (click)="signin()" tabIcon="log-in"><ion-icon name="log-in"></ion-icon>&nbsp;Войти</button>
+  </div>
 
-    <ion-item>
-      <button ion-button full color="success" (click)="signin()" tabIcon="log-in">Войти</button>
-    </ion-item>
+  <div *ngIf="authProvider.isSignedIn">
+    <ion-list>
+      <ion-item>
+        Пользователь: <b>{{ authProvider.authUser.first_name }} {{ authProvider.authUser.last_name }}</b>
+      </ion-item>
+    </ion-list>
 
-    <ion-item>
-      <p>{{ message }}</p>
-    </ion-item>
-  </ion-list>
-
-  <ion-list *ngIf="authProvider.isSignedIn">
-    <ion-item>
-      Пользователь: <b>{{ authProvider.authUser.first_name }} {{ authProvider.authUser.last_name }}</b>
-    </ion-item>
-
-    <ion-item>
-      <button ion-button full color="success" (click)="signout()">Выйти</button>
-    </ion-item>
-
-    <ion-item>
-      <p>{{ message }}</p>
-    </ion-item>
-  </ion-list>
+    <button ion-button full color="success" (click)="signout()"><ion-icon name="log-out"></ion-icon>&nbsp;Выйти</button>
+  </div>
+  
+  <p>{{ message }}</p>    
   
 </ion-content>

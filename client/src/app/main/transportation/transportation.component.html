@@ -49,13 +49,27 @@
                 name="a_korp" 
                 [(ngModel)]="transportation.a_korp"
                 #a_korp="ngModel" 
-                maxlength="4" 
+                maxlength="10" 
                 placeholder="Корп"
                 class="form-control" 
                 autocomplete="off">
             <small [hidden]="a_korp.valid || a_korp.pristine">
                 Необходимо корректное значение
-            </small></dd>        
+            </small></dd>
+        <dt>А.Подъезд</dt>
+        <dd><input 
+                type="text" 
+                name="a_pod" 
+                [(ngModel)]="transportation.a_pod"                
+                #a_pod="ngModel" 
+                maxlength="2" 
+                placeholder="Подъезд" 
+                class="form-control" 
+                pattern="[0-9]+"
+                autocomplete="off">
+            <small [hidden]="a_pod.valid || a_pod.pristine">
+                Необходимо корректное значение
+            </small></dd>
         <dt>Б.Улица*</dt>
         <dd><div class="search-component">
                 <input 
@@ -95,11 +109,25 @@
                 name="b_korp" 
                 [(ngModel)]="transportation.b_korp" 
                 #b_korp="ngModel" 
-                maxlength="4" 
+                maxlength="10" 
                 placeholder="Корп"
                 class="form-control" 
                 autocomplete="off">
             <small [hidden]="b_korp.valid || b_korp.pristine">
+                Необходимо корректное значение
+            </small></dd>
+        <dt>Б.Подъезд</dt>
+        <dd><input 
+                type="text" 
+                name="b_pod" 
+                [(ngModel)]="transportation.b_pod"                
+                #b_pod="ngModel" 
+                maxlength="2" 
+                placeholder="Подъезд" 
+                class="form-control" 
+                pattern="[0-9]+"
+                autocomplete="off">
+            <small [hidden]="b_pod.valid || b_pod.pristine">
                 Необходимо корректное значение
             </small></dd>
         <dt>С сопровождением</dt> 

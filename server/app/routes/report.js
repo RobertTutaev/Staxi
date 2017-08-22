@@ -40,8 +40,8 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
                     concat(b.name,'; г.н.: ',b.gos_no,'; цвет: ',ifnull(b.color,'')) as car,
                     concat(c.first_name,' ',c.last_name) as user,
                     concat(g.first_name,' ',g.last_name) as userm,
-                    concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr,
-                    concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr,
+                    concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp,if(a.a_pod is null,'',concat(' (подъезд ',a.a_pod,')'))) as a_adr,
+                    concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp,if(a.b_pod is null,'',concat(' (подъезд ',a.b_pod,')'))) as b_adr,
                     concat('СНИЛС: ',i.snils,'; Ф.И.О.: ',i.fam,' ',i.im,' ',ifnull(i.ot,''),if(a.convoy>0,' (сопровожд.)',''),'; тел.: ',ifnull(j.name,''),'; док.: ',m.name,'; кат.: ',l.name) as client
                 FROM transportation a
                     join car b on a.car_id = b.id
@@ -292,8 +292,8 @@ router.route('/c/:carId/:aDt/:getFile')
             i.reason_id,
             a.status_id,
             a.convoy,
-            concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr,
-            concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr,
+            concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp,if(a.a_pod is null,'',concat(' (подъезд ',a.a_pod,')'))) as a_adr,
+            concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp,if(a.b_pod is null,'',concat(' (подъезд ',a.b_pod,')'))) as b_adr,
             a.client_id,
             concat(i.fam,' ',i.im,' ',ifnull(i.ot,''),if(a.convoy>0,' (сопровождение)','')) as client_name,
             ifnull(j.name,'') as client_contact,

@@ -19,8 +19,8 @@ router.route('/c:id/:getFile/:column/:direction')
             d.name as punkt,
             concat(c.first_name,' ',c.last_name) as user,
             concat(g.first_name,' ',g.last_name) as userm,
-            concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp) as a_adr,
-            concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp) as b_adr,
+            concat(e.name,', ',e.socr,', ',a.a_dom,a.a_korp,if(a.a_pod is null,'',concat(' (подъезд ',a.a_pod,')'))) as a_adr,
+            concat(f.name,', ',f.socr,', ',a.b_dom,a.b_korp,if(a.b_pod is null,'',concat(' (подъезд ',a.b_pod,')'))) as b_adr,
             h.name as status
         FROM transportation a
             join car b on a.car_id = b.id

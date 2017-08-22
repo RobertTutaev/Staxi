@@ -53,9 +53,13 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     a_korp: {
-      type: DataTypes.STRING(5),
+      type: DataTypes.STRING(10),
       allowNull: true,
       defaultValue: ''
+    },
+    a_pod: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true
     },
     a_dt: {
       type: DataTypes.DATE,
@@ -74,9 +78,13 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     b_korp: {
-      type: DataTypes.STRING(5),
+      type: DataTypes.STRING(10),
       allowNull: true,
       defaultValue: ''
+    },
+    b_pod: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true
     },
     b_dt: {
       type: DataTypes.DATE,

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { SigninPage } from '../signin/signin';
 import { TransportationsPage } from '../transportations/transportations';
@@ -6,34 +6,27 @@ import { Car } from '../../_classes/list/car';
 import { CReport } from '../../_classes/report/c.report';
 import { CarProvider } from '../../providers/car/car';
 import { AuthProvider } from '../../providers/auth/auth';
-import * as moment from 'moment';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
-  report: CReport = new CReport();
+export class HomePage implements OnInit{
+  dt: string = new Date().toISOString();
   cars: Car[] = [];
+  report: CReport = new CReport();
 
   constructor(public navCtrl: NavController,
               public authProvider: AuthProvider,              
-              private carProvider: CarProvider) {
-    this.carProvider.getCars().then((cars: Car[]) => this.cars = cars);
+              private carProvider: CarProvider) {    
   }
 
-  get selectedDt(): string {
-    if(this.report.aDt) 
-      return moment(this.report.aDt).format('YYYY-MM-DDTHH:mm:ss.sssZ');
-    else
-      return new Date().toISOString();
-  }
+  ngOnInit() {
+    this.carProvider.getCarsD().then((cars: Car[]) => {
+      this.cars = cars;
 
-  set selectedDt(value: string) {
-    if(value)
-      this.report.aDt = Date.parse(value);
-    else
-      this.report.aDt = Date.now();
+      if (cars.length) this.report.carId = cars[0].id;
+    });
   }
 
   get selectedCarId(): number {
@@ -49,6 +42,7 @@ export class HomePage {
   }
 
   Transportations() {
+    this.report.aDt = Date.parse(this.dt);
     this.navCtrl.push(TransportationsPage, {report: this.report});
   }
 }

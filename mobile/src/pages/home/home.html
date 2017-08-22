@@ -6,28 +6,27 @@
 
 <ion-content padding id="home" class="outer-content">
     
-  <ion-list *ngIf="authProvider.isSignedIn">
-    <ion-item>
-      <ion-label>Дата</ion-label>
-      <ion-datetime displayFormat="DD.MM.YYYY" [(ngModel)]="selectedDt"></ion-datetime>
-    </ion-item>
+  <div *ngIf="authProvider.isSignedIn">
+    <ion-list>
+      <ion-item>
+        <ion-label>Дата*</ion-label>
+        <ion-datetime displayFormat="DD.MM.YYYY" [(ngModel)]="dt"></ion-datetime>
+      </ion-item>
 
-    <ion-item>
-      <ion-label>Автотранспорт</ion-label>
-      <ion-select [(ngModel)]="selectedCarId">
-        <ion-option *ngFor="let car of cars" [value]="car.id">{{car.name}} ({{car.gos_no}})</ion-option>
-      </ion-select>
-    </ion-item>
+      <ion-item>
+        <ion-label>Автотранспорт*</ion-label>
+        <ion-select [(ngModel)]="selectedCarId" required>
+          <ion-option *ngFor="let car of cars" [value]="car.id">{{car.name}} ({{car.gos_no}})</ion-option>
+        </ion-select>
+      </ion-item>
 
-    <ion-item>
-      <button ion-button full color="success" (click)="Transportations()">Сформировать</button>
-    </ion-item>
-  </ion-list>
+    </ion-list>
 
-  <ion-list *ngIf="!authProvider.isSignedIn">
-    <ion-item>
-      <button ion-button full color="success" (click)="Signin()">Войти</button>
-    </ion-item>
-  </ion-list>
+    <button ion-button full color="secondary" (click)="Transportations()" [disabled]="!selectedCarId"><ion-icon name="car"></ion-icon>&nbsp;Сформировать</button>
+  </div>
+
+  <div *ngIf="!authProvider.isSignedIn">      
+    <button ion-button full color="success" (click)="Signin()"><ion-icon name="log-in"></ion-icon>&nbsp;Войти</button>
+  </div>
 
 </ion-content>

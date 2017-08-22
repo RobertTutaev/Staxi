@@ -42,8 +42,9 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     korp: {
-      type: DataTypes.STRING(5),
-      allowNull: true
+      type: DataTypes.STRING(10),
+      allowNull: true,
+      defaultValue: ''
     },
     kv: {
       type: DataTypes.STRING(5),

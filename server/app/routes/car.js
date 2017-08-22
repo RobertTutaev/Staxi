@@ -29,20 +29,20 @@ router.route('/c:checkStatus')
                     a.status >= :status`;
             
             models.sequelize.query(
-                    sql, 
-                    { 
-                        replacements: { 
+                    sql,
+                    {
+                        replacements: {
                             oArray: outputArray,
-                            status: checkStatus 
-                        }, 
-                        type: models.sequelize.QueryTypes.SELECT 
+                            status: checkStatus
+                        },
+                        type: models.sequelize.QueryTypes.SELECT
                     })
                 .then(
-                function(values) {                    
+                function(values) {
                     res.json(resp({
                         data: values
                     }));
-                }, 
+                },
                 function(err) {
                     res.json(resp({
                         rslt: false,
@@ -53,6 +53,50 @@ router.route('/c:checkStatus')
 
         }
     );
+});
+
+router.route('/d:checkStatus')
+.get(function(req, res, next) {
+
+    var checkStatus = req.params.checkStatus ? parseInt(req.params.checkStatus) : 0;
+    var user = req.user;
+    if(user !== undefined) user = user.toJSON();
+    
+    var sql =
+        `SELECT
+            a.*,
+            b.name as firm,
+            concat(c.first_name,' ',c.last_name) as user
+        FROM car a
+            join firm b on a.firm_id = b.id
+            join user c on a.user_id = c.id
+        WHERE
+            a.user_id = :userId AND
+            a.status >= :status`;
+
+    models.sequelize.query(
+            sql,
+            {
+                replacements: {
+                    userId: user.id,
+                    status: checkStatus
+                },
+                type: models.sequelize.QueryTypes.SELECT
+            })
+        .then(
+        function(values) {                    
+            res.json(resp({
+                data: values
+            }));
+        }, 
+        function(err) {
+            res.json(resp({
+                rslt: false,
+                msg: 'Не удалось получить список! Ошибка: ' + err.message
+            }));
+        }
+    );
+
 });
 
 router.route('/:id')
@@ -138,7 +182,7 @@ router.route('/:id')
         }).then(
         function() {
             res.json(resp());
-        }, 
+        },
         function(err) {
             res.json(resp({
                 rslt: false,
