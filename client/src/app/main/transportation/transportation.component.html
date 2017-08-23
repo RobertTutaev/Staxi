@@ -7,7 +7,7 @@
         <dt>Категория*</dt>
         <dd><select name="category" [(ngModel)]="selectedCategoryId" class="form-control selectpicker" required>
                 <option *ngFor="let category of categories" [ngValue]="category.id">
-                    [{{category.dt_begin | date: 'dd.MM.yyyy'}} - {{category.dt_end ? (category.dt_end | date: 'dd.MM.yyyy') : '__.__.____'}}] {{category.kateg}}
+                    [{{category.dt_begin ? (category.dt_begin | date: 'dd.MM.yyyy') : '__.__.____'}} - {{category.dt_end ? (category.dt_end | date: 'dd.MM.yyyy') : '__.__.____'}}] {{category.kateg}}
                 </option>
             </select></dd>
         <dt>A.Улица*</dt>

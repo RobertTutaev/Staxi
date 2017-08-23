@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { SigninPage } from '../signin/signin';
 import { TransportationsPage } from '../transportations/transportations';
@@ -11,7 +11,7 @@ import { AuthProvider } from '../../providers/auth/auth';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage implements OnInit{
+export class HomePage{
   dt: string = new Date().toISOString();
   cars: Car[] = [];
   report: CReport = new CReport();
@@ -21,12 +21,15 @@ export class HomePage implements OnInit{
               private carProvider: CarProvider) {    
   }
 
-  ngOnInit() {
-    this.carProvider.getCarsD().then((cars: Car[]) => {
-      this.cars = cars;
-
-      if (cars.length) this.report.carId = cars[0].id;
-    });
+  IonViewDidEnter() {
+    console.log('cars');
+    if (this.authProvider.isSignedIn)
+      this.carProvider.getCarsD().then((cars: Car[]) => {
+        this.cars = cars;
+  
+        if (!this.report.carId && cars && cars.length)
+          this.report.carId = cars[0].id;
+      });
   }
 
   get selectedCarId(): number {

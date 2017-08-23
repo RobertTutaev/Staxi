@@ -2208,8 +2208,7 @@ create table reason(
 insert into reason(name) values 
     ('<Отсутствует>'),
     ('Умер(ла)'),
-    ('Убыл(а)'),
-    ('Иной');
+    ('Убыл(а)');
 
 create table client(
     id integer primary key auto_increment,
@@ -2259,8 +2258,8 @@ create table type(
 )engine=innodb;
 
 insert into type (name, mask, placeholder, style) values
-    ('Телефон (основной)', '^[0-9-+,\ ]+$', 'nnn-nn-nn (n-nnn-nnn-nn-nn)', 'glyphicon glyphicon-earphone'),
-    ('Телефон', '^[0-9-+\ ]+$', 'nnn-nn-nn (n-nnn-nnn-nn-nn)', 'glyphicon glyphicon-phone-alt'),    
+    ('Телефон (основной)', '^[0-9,]+$', 'nnnnnnn,nnnnnnnnnnn', 'glyphicon glyphicon-earphone'),
+    ('Телефон', '^[0-9]+$', 'nnnnnnn', 'glyphicon glyphicon-phone-alt'),    
     ('Email', '^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$', 'xxx@yyy.zzz', 'glyphicon glyphicon-envelope');
 
 create table contact(
@@ -2303,7 +2302,7 @@ create table category(
     doc_ser varchar(10),
     doc_number varchar(20),
     doc_dt datetime,
-    dt_begin datetime not null default CURRENT_TIMESTAMP,
+    dt_begin datetime,
     dt_end datetime,
     user_id integer not null,
     dt datetime default CURRENT_TIMESTAMP,

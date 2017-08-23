@@ -7,12 +7,12 @@ router.route('/')
   .get(function(req, res, next) {
 
     var snilsValue = (req.query.snils ? req.query.snils.replace(/[^-0-9]/gim,'') : '');
-    var snils = `%${snilsValue}%`;
+    var snils = `${snilsValue  ? snilsValue             : '%'}%`;
     var fioValue = req.query.snils ? req.query.snils.replace(/[^ а-яёА-ЯЁ]/gim,'').trim() : '';
     var fioArray = fioValue.split(/ {1,}/);
-    var fam =   `${fioArray[0] ? fioArray[0] : '%'}%`;
-    var im =    `${fioArray[1] ? fioArray[1] : '%'}%`;
-    var ot =    `${fioArray[2] ? fioArray[2] : '%'}%`;
+    var fam =   `${fioArray[0] ? fioArray[0].charAt(0)  : '%'}%`;
+    var im =    `${fioArray[1] ? fioArray[1]            : '%'}%`;
+    var ot =    `${fioArray[2] ? fioArray[2]            : '%'}%`;
     if (snilsValue === '' && fioValue === '') snils = '_';
     
     var sql =
