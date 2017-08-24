@@ -7,8 +7,11 @@
 <ion-content padding id="home" class="outer-content">    
   
   <div *ngIf="authProvider.isSignedIn">
-    <h2>Определите условия для формирования путевого листа</h2>
     <ion-list>
+      <ion-list-header>
+        Путевой лист
+      </ion-list-header>
+
       <ion-item>
         <ion-label>Дата*</ion-label>
         <ion-datetime displayFormat="DD.MM.YYYY" [(ngModel)]="dt"></ion-datetime>
@@ -23,11 +26,11 @@
 
     </ion-list>
 
-    <button ion-button full color="secondary" (click)="Transportations()" [disabled]="!selectedCarId"><ion-icon name="car"></ion-icon>&nbsp;Сформировать</button>
+    <button ion-button full color="secondary" (click)="transportations()" [disabled]="!selectedCarId"><ion-icon name="car"></ion-icon>&nbsp;Сформировать</button>
   </div>
 
   <div *ngIf="!authProvider.isSignedIn">      
-    <button ion-button full color="success" (click)="Signin()"><ion-icon name="log-in"></ion-icon>&nbsp;Войти</button>
+    <button ion-button full color="success" (click)="signin()"><ion-icon name="log-in"></ion-icon>&nbsp;Войти</button>
   </div>
 
 </ion-content>

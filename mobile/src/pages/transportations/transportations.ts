@@ -39,7 +39,7 @@ export class TransportationsPage implements OnInit{
   }
 
   // Звонок
-  Call(c: C) {    
+  call(c: C) {    
     let cnArray = c.client_contact.split(/,{1,}/);
     let i = -1;
 
@@ -69,7 +69,7 @@ export class TransportationsPage implements OnInit{
     alert.present();    
   }
 
-  Map() {
+  map() {
     this.navCtrl.push(MapPage, {});
   }
 }

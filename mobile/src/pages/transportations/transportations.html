@@ -31,10 +31,10 @@
         <ion-grid>
             <ion-row>
               <ion-col>
-                <button ion-button round (click)="Call(c)" [disabled]="!c.client_contact"><ion-icon name="call" item-start></ion-icon>&nbsp;Звонок</button>
+                <button ion-button round (click)="call(c)" [disabled]="!c.client_contact"><ion-icon name="call" item-start></ion-icon>&nbsp;Звонок</button>
               </ion-col>
               <ion-col>
-                  <button ion-button round (click)="Map(c)" color="dark"><ion-icon name="map" item-start></ion-icon>&nbsp;Маршрут</button>
+                  <button ion-button round (click)="map(c)" color="dark"><ion-icon name="map" item-start></ion-icon>&nbsp;Маршрут</button>
               </ion-col>
             </ion-row>
           </ion-grid>

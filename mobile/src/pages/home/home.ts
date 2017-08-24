@@ -22,6 +22,13 @@ export class HomePage{
   }
 
   ionViewDidEnter() {
+    if (!this.authProvider.isSignedIn)
+      this.authProvider.isSign().then(() => this.getCars());
+    else 
+      this.getCars();
+  }
+
+  getCars() {
     // Если водитель прошел аутентификацию, то
     if (this.authProvider.isSignedIn) {
       // Если машин для выбора в списке нет, то пытаемся их получить
@@ -46,11 +53,11 @@ export class HomePage{
     this.report.carId = value;
   }
 
-  Signin() {
+  signin() {
     this.navCtrl.push(SigninPage);
   }
 
-  Transportations() {
+  transportations() {
     this.report.aDt = Date.parse(this.dt);
     this.navCtrl.push(TransportationsPage, {report: this.report});
   }
