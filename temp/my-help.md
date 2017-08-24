@@ -59,3 +59,11 @@ Ionic
 https://www.djamware.com/post/58e657b680aca764ec903c2d/ionic-3-and-angular-4-mobile-app-example
 http://www.9lessons.info/2017/06/ionic-angular-php-login-restful-api.html
 https://devdactic.com/ionic-auth-guards/
+
+Ionic звонок
+==========
+https://ionicframework.com/docs/native/call-number/
+
+Ionic взаимодействие с устройством
+==========
+https://ionicframework.com/docs/native/call-number/

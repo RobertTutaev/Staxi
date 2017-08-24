@@ -8,6 +8,7 @@ import { AboutPage } from '../pages/about/about';
 import { HomePage } from '../pages/home/home';
 import { SigninPage } from '../pages/signin/signin';
 import { TransportationsPage } from '../pages/transportations/transportations';
+import { MapPage } from '../pages/map/map';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -15,6 +16,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthProvider } from '../providers/auth/auth';
 import { ReportProvider } from '../providers/report/report';
 import { CarProvider } from '../providers/car/car';
+import { CallNumber } from '@ionic-native/call-number';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { CarProvider } from '../providers/car/car';
     HomePage,
     SigninPage,
     TransportationsPage,
+    MapPage,
     TabsPage
   ],
   imports: [
@@ -37,11 +40,13 @@ import { CarProvider } from '../providers/car/car';
     HomePage,
     SigninPage,
     TransportationsPage,
+    MapPage,
     TabsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    CallNumber,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     ReportProvider,

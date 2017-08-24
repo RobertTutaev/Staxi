@@ -21,15 +21,21 @@ export class HomePage{
               private carProvider: CarProvider) {    
   }
 
-  IonViewDidEnter() {
-    console.log('cars');
-    if (this.authProvider.isSignedIn)
-      this.carProvider.getCarsD().then((cars: Car[]) => {
-        this.cars = cars;
-  
-        if (!this.report.carId && cars && cars.length)
-          this.report.carId = cars[0].id;
-      });
+  ionViewDidEnter() {
+    // Если водитель прошел аутентификацию, то
+    if (this.authProvider.isSignedIn) {
+      // Если машин для выбора в списке нет, то пытаемся их получить
+      if (!this.cars.length)
+        this.carProvider.getCarsD().then((cars: Car[]) => {
+          this.cars = cars;
+    
+          if (!this.report.carId && cars && cars.length)
+            this.report.carId = cars[0].id;
+        });
+    // Если водитель не прошел аутентификацию или вышел, то
+    } else {
+      this.cars = [];
+    }
   }
 
   get selectedCarId(): number {

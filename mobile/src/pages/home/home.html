@@ -4,9 +4,10 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding id="home" class="outer-content">
-    
+<ion-content padding id="home" class="outer-content">    
+  
   <div *ngIf="authProvider.isSignedIn">
+    <h2>Определите условия для формирования путевого листа</h2>
     <ion-list>
       <ion-item>
         <ion-label>Дата*</ion-label>

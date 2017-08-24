@@ -26,9 +26,19 @@
         <p class="tr_pin"><ion-icon name="pin"></ion-icon> {{ c.a_adr }}</p>                
         <p class="tr_pin"><ion-icon name="pin"></ion-icon> {{ c.b_adr }}</p>
         <p class="tr_contact"><ion-icon name="contact"></ion-icon> {{ c.client_name }}</p>
-        <p class="tr_phone"><ion-icon name="call"></ion-icon> {{ c.client_contact }}</p>          
         <p class="tr_info"><ion-icon name="information-circle"></ion-icon> {{ c.client_info }}</p>
-      </ion-card-content>
+
+        <ion-grid>
+            <ion-row>
+              <ion-col>
+                <button ion-button round (click)="Call(c)" [disabled]="!c.client_contact"><ion-icon name="call" item-start></ion-icon>&nbsp;Звонок</button>
+              </ion-col>
+              <ion-col>
+                  <button ion-button round (click)="Map(c)" color="dark"><ion-icon name="map" item-start></ion-icon>&nbsp;Маршрут</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+      </ion-card-content>      
     </ion-card>
 
 </ion-content>
