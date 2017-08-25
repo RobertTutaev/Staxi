@@ -1,4 +1,4 @@
-export class C { 
+export class Cd { 
     constructor(
             public id: number = null,            
             public dt: string = null,

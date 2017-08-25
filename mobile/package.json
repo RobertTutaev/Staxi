@@ -57,8 +57,7 @@
       "mx.ferreyra.callnumber": {}
     },
     "platforms": [
-      "android",
-      "windows"
+      "android"
     ]
   }
 }

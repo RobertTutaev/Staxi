@@ -348,4 +348,81 @@ router.route('/c/:carId/:aDt/:getFile')
 
 });
 
+router.route('/cd/:carId/:aDt/:getFile')
+.get(function(req, res, next) {
+
+  var carId = req.params.carId ? parseInt(req.params.carId) : 0;
+  var aDt = req.params.aDt ? new Date(parseInt(req.params.aDt)) : new Date();
+  var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
+
+  if (!carId)
+      return  res.json(resp({
+                  data: []
+              }));
+             
+  var sql =
+      `SELECT
+          a.id,                    
+          concat(DATE_FORMAT(a.a_dt, '%H:%i'),IF(ISNULL(a.b_dt),'',DATE_FORMAT(a.b_dt, '-%H:%i'))) as dt,
+          i.reason_id,
+          a.status_id,
+          a.convoy,
+          concat(n.name,', ',e.name,' ',e.socr,', ',a.a_dom,a.a_korp,if(a.a_pod is null,'',concat(', ',a.a_pod,' под.'))) as a_adr,
+          concat(o.name,', ',f.name,' ',f.socr,', ',a.b_dom,a.b_korp,if(a.b_pod is null,'',concat(', ',a.b_pod,' под.'))) as b_adr,
+          a.client_id,
+          concat(i.fam,' ',i.im,' ',ifnull(i.ot,''),if(a.convoy>0,' (сопровождение)','')) as client_name,
+          ifnull(j.name,'') as client_contact,
+          concat('СНИЛС: ',i.snils,'; док.: ',m.name,'; кат.: ',l.name) as client_info
+      FROM transportation a
+          join user c on a.user_id = c.id
+          join street e on a.a_street_id = e.id
+          join street f on a.b_street_id = f.id
+          join client i on i.id = a.client_id
+          left join contact j on j.client_id = i.id and j.type_id = 1
+          join category k on a.category_id = k.id
+          join kateg l on k.kateg_id = l.id
+          join doc m on k.doc_id = m.id
+          join territory n on e.territory_id=n.id
+          join territory o on f.territory_id=o.id
+      WHERE
+          a.car_id = :carId AND
+          DATE(a.a_dt) = DATE(:aDt) AND
+          a.status_id in (2, 3)
+      ORDER BY
+          a.a_dt`;
+      
+  models.sequelize.query(
+          sql,
+          {
+              replacements: { 
+                  carId: carId,
+                  aDt: aDt
+          }, 
+          type: models.sequelize.QueryTypes.SELECT 
+      })
+      .then(
+      function(values) {                      
+          // Если необходим файл
+          if (getFile) {
+              var user = req.user;
+              if(user !== undefined) user = user.toJSON();
+              
+              dbreports.getC(values, user, carId, aDt, res);                        
+          // Если необходим результат
+          } else {
+              res.json(resp({
+                  data: values
+              }));
+          }
+      }, 
+      function(err) {
+          res.json(resp({
+              rslt: false,
+              msg: 'Не удалось получить список! Ошибка: ' + err.message
+          }));
+      }
+  );
+
+});
+
 module.exports = router;

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { C } from '../../_classes/list/c';
+import { Cd } from '../../_classes/list/cd';
 import { ReportProvider } from '../../providers/report/report';
 import { CReport } from '../../_classes/report/c.report';
 import { CallNumber } from '@ionic-native/call-number';
@@ -19,8 +19,8 @@ import { MapPage } from '../map/map';
   selector: 'page-transportations',
   templateUrl: 'transportations.html',
 })
-export class TransportationsPage implements OnInit{
-  cs: C[] = [];
+export class TransportationsPage{
+  cds: Cd[] = [];
   report: CReport = new CReport();
 
   constructor(
@@ -30,17 +30,13 @@ export class TransportationsPage implements OnInit{
       private callNumber: CallNumber,
       private reportProvider: ReportProvider) {}
 
-  ngOnInit() {    
-    this.reportProvider.getC(this.report.clone(this.navParams.get('report'))).then((cs: C[]) => this.cs = cs);
-  }
-
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TransportationsPage');
+    this.reportProvider.getCd(this.report.clone(this.navParams.get('report'))).then((cds: Cd[]) => this.cds = cds);
   }
 
   // Звонок
-  call(c: C) {    
-    let cnArray = c.client_contact.split(/,{1,}/);
+  call(cd: Cd) {    
+    let cnArray = cd.client_contact.split(/,{1,}/);
     let i = -1;
 
     let alert = this.alertCtrl.create();
@@ -62,14 +58,24 @@ export class TransportationsPage implements OnInit{
       text: 'Звонок',
       handler: data => {
         this.callNumber.callNumber("7298223", true)
-          .then(() => console.log('Launched dialer!'))
-          .catch(() => console.log('Error launching dialer'));
+          .then(() => console.log('Звонок инициализирован...'))
+          .catch(() => this.showErrorAlert('Внимание! Возникла ошибка инициализации...'));
       }
     });
     alert.present();    
   }
 
-  map() {
-    this.navCtrl.push(MapPage, {});
+  //Сообщение об ошибке
+  showErrorAlert(message: string) {
+    let alert = this.alertCtrl.create({
+      title: 'Ошибка',
+      subTitle: message,
+      buttons: ['Ок']
+    });
+    alert.present();
+  }
+
+  map(cd: Cd) {
+    this.navCtrl.push(MapPage, {cd: cd});
   }
 }
