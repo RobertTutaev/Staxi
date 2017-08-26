@@ -17,11 +17,11 @@
   <div id="floating-panel">
     <b>A. Откуда:</b>
     <br>
-    <ion-input type="text" [(ngModel)]="cd.a_adr" (change)="calculateAndDisplayRoute()" class="txtarea"></ion-input>
+    <ion-input type="text" [(ngModel)]="c.a_adr" (change)="calculateAndDisplayRoute()" class="txtarea"></ion-input>
     <br>
     <b>B. Куда:</b>
     <br>
-    <ion-input type="text" [(ngModel)]="cd.b_adr" (change)="calculateAndDisplayRoute()" class="txtarea"></ion-input>
+    <ion-input type="text" [(ngModel)]="c.b_adr" (change)="calculateAndDisplayRoute()" class="txtarea"></ion-input>
   </div>
 
   <div #map id="map"></div>

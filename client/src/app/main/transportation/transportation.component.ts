@@ -105,7 +105,7 @@ export class TransportationComponent implements OnInit {
 
   setStreetId(name: string, street: Street): void {
     this.transportation[name + '_id'] = street.id;
-    this.transportation[name] = street.name + ' ' + street.socr;
+    this.transportation[name] = `${street.territory}, ${street.name} ${street.socr}`;
     this.streetName[name] = this.transportation[name];
   }
 

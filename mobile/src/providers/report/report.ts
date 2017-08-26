@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Cd } from '../../_classes/list/cd';
+import { C } from '../../_classes/list/c';
 import { CReport } from '../../_classes/report/c.report';
 import 'rxjs/add/operator/map';
 
@@ -16,13 +16,13 @@ export class ReportProvider {
 
   constructor(private http: Http) { }
 
-  getCd(cReport: CReport): Promise<Cd[]> {
+  getC(cReport: CReport): Promise<C[]> {
     cReport.getFile = 0;
-    const url = `${this.reportUrl}/cd${cReport.getUrlValue()}`;
+    const url = `${this.reportUrl}/c${cReport.getUrlValue()}`;
     
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json().data as Cd[])
+      .then(response => response.json().data as C[])
       .catch(this.handleError);
   }
 

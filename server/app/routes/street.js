@@ -21,10 +21,19 @@ router.route('/')
                 FROM street a
                     join territory b on a.territory_id = b.id
                 WHERE
-                    lower(concat(a.name,' ',a.socr)) like lower(:name) AND
-                    a.territory_id in (:oArray)`;
+                    lower(concat(b.name,', ',a.name,' ',a.socr)) like lower(:name) AND
+                    a.territory_id in (:oArray)
+                LIMIT 30`;
             
-            models.sequelize.query(sql, { replacements: { name: nameValue, oArray: outputArray }, type: models.sequelize.QueryTypes.SELECT })
+            models.sequelize.query(
+                sql, 
+                { 
+                    replacements: {
+                        name: nameValue, 
+                        oArray: outputArray 
+                    }, 
+                    type: models.sequelize.QueryTypes.SELECT 
+                })
                 .then(
                 function(values) {                    
                     res.json(resp({

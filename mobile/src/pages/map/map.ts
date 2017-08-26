@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Cd } from '../../_classes/list/cd';
+import { C } from '../../_classes/list/c';
 import { AlertController } from 'ionic-angular';
 
 /**
@@ -18,7 +18,7 @@ declare var google;
   templateUrl: 'map.html',
 })
 export class MapPage {
-  cd: Cd;
+  c: C;
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
@@ -28,7 +28,7 @@ export class MapPage {
   constructor(public alertCtrl: AlertController,
               public navCtrl: NavController, 
               public navParams: NavParams) {
-    this.cd = this.navParams.get('cd');
+    this.c = this.navParams.get('c');
   }
 
   ionViewDidLoad(){
@@ -49,14 +49,14 @@ export class MapPage {
 
   calculateAndDisplayRoute() {
     this.directionsService.route({
-      origin: this.cd.a_adr,
-      destination: this.cd.b_adr,
+      origin: this.c.a_adr,
+      destination: this.c.b_adr,
       travelMode: 'DRIVING'
     }, (response, status) => {
       if (status === 'OK') {
         this.directionsDisplay.setDirections(response);
       } else {
-        this.showErrorAlert('Маршрут не проложен из-за ' + status);
+        this.showErrorAlert(`Маршрут не проложен! Ошибка: ${status}...`);
       }
     });
   }

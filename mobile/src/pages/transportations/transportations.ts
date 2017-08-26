@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Cd } from '../../_classes/list/cd';
+import { C } from '../../_classes/list/c';
 import { ReportProvider } from '../../providers/report/report';
 import { CReport } from '../../_classes/report/c.report';
 import { CallNumber } from '@ionic-native/call-number';
@@ -20,7 +20,7 @@ import { MapPage } from '../map/map';
   templateUrl: 'transportations.html',
 })
 export class TransportationsPage{
-  cds: Cd[] = [];
+  cs: C[] = [];
   report: CReport = new CReport();
 
   constructor(
@@ -31,12 +31,12 @@ export class TransportationsPage{
       private reportProvider: ReportProvider) {}
 
   ionViewDidLoad() {
-    this.reportProvider.getCd(this.report.clone(this.navParams.get('report'))).then((cds: Cd[]) => this.cds = cds);
+    this.reportProvider.getC(this.report.clone(this.navParams.get('report'))).then((cs: C[]) => this.cs = cs);
   }
 
   // Звонок
-  call(cd: Cd) {    
-    let cnArray = cd.client_contact.split(/,{1,}/);
+  call(c: C) {    
+    let cnArray = c.client_contact.split(/,{1,}/);
     let i = -1;
 
     let alert = this.alertCtrl.create();
@@ -75,7 +75,7 @@ export class TransportationsPage{
     alert.present();
   }
 
-  map(cd: Cd) {
-    this.navCtrl.push(MapPage, {cd: cd});
+  map(c: C) {
+    this.navCtrl.push(MapPage, {c: c});
   }
 }

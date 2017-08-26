@@ -19,8 +19,8 @@ router.route('/c:id/:getFile/:column/:direction')
             d.name as punkt,
             concat(c.first_name,' ',c.last_name) as user,
             concat(g.first_name,' ',g.last_name) as userm,
-            concat(e.name,' ',e.socr,', ',a.a_dom,a.a_korp,if(a.a_pod is null,'',concat(', ',a.a_pod,' под.'))) as a_adr,
-            concat(f.name,' ',f.socr,', ',a.b_dom,a.b_korp,if(a.b_pod is null,'',concat(', ',a.b_pod,' под.'))) as b_adr,
+            concat(n.name,', ',e.name,' ',e.socr,', ',a.a_dom,a.a_korp,if(a.a_pod is null,'',concat(', ',a.a_pod,' под.'))) as a_adr,
+            concat(o.name,', ',f.name,' ',f.socr,', ',a.b_dom,a.b_korp,if(a.b_pod is null,'',concat(', ',a.b_pod,' под.'))) as b_adr,
             h.name as status
         FROM transportation a
             join car b on a.car_id = b.id
@@ -31,6 +31,8 @@ router.route('/c:id/:getFile/:column/:direction')
             join status h on a.status_id = h.id
             join client j on a.client_id = j.id
             left join user g on a.userm_id = g.id
+            join territory n on e.territory_id=n.id
+            join territory o on f.territory_id=o.id
         WHERE a.client_id = :id 
             ORDER BY ${column} ${direction}`;    
 
@@ -109,12 +111,14 @@ router.route('/:id')
     var sql =
         `SELECT a.*,
             concat(b.name,' (',b.gos_no,')') as car,
-            concat(e.name,' ',e.socr) as a_street, 
-            concat(f.name,' ',f.socr) as b_street 
+            concat(n.name,', ',e.name,' ',e.socr) as a_street, 
+            concat(o.name,', ',f.name,' ',f.socr) as b_street 
         FROM transportation a
             join car b on a.car_id = b.id
-            join street e on a.a_street_id = e.id 
-            join street f on a.b_street_id = f.id 
+            join street e on a.a_street_id = e.id
+            join street f on a.b_street_id = f.id
+            join territory n on e.territory_id=n.id
+            join territory o on f.territory_id=o.id
         WHERE a.id = :id`;
 
     models.sequelize.query(sql, { replacements: { id: parseInt(req.params.id) }, type: models.sequelize.QueryTypes.SELECT })
