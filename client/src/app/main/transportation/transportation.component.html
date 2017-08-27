@@ -24,7 +24,7 @@
                     required>
                 <div *ngIf="streetDivName === 'a_street'">
                     <div *ngFor="let street of streets | async" (click)="setStreetId('a_street', street)" class="search-result" >
-                        {{ street.territory }}, {{ street.name }} {{ street.socr }}
+                        {{ street.territory }}, {{ street.socr }} {{ street.name }}
                     </div>
                 </div>
             </div></dd>
@@ -84,7 +84,7 @@
                     required>
                 <div *ngIf="streetDivName === 'b_street'">
                     <div *ngFor="let street of streets | async" (click)="setStreetId('b_street', street)" class="search-result" >
-                        {{ street.territory }}, {{ street.name }} {{ street.socr }}
+                        {{ street.territory }}, {{ street.socr }} {{ street.name }}
                     </div>
                 </div>
             </div></dd>
