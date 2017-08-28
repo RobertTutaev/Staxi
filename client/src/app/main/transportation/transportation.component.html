@@ -5,7 +5,7 @@
                 <option *ngFor="let punkt of punkts" [ngValue]="punkt.id">{{punkt.name}}</option>
             </select></dd>
         <dt>Категория*</dt>
-        <dd><select name="category" [(ngModel)]="selectedCategoryId" class="form-control selectpicker" required>
+        <dd><select name="category" [(ngModel)]="selectedCategoryId" class="form-control" required>
                 <option *ngFor="let category of categories" [ngValue]="category.id">
                     [{{category.dt_begin ? (category.dt_begin | date: 'dd.MM.yyyy') : '__.__.____'}} - {{category.dt_end ? (category.dt_end | date: 'dd.MM.yyyy') : '__.__.____'}}] {{category.kateg}}
                 </option>

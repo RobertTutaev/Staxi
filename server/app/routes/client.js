@@ -29,7 +29,7 @@ router.route('/')
             upper(a.fam) like upper(:fam) and
             upper(a.im) like upper(:im) and
             upper(a.ot) like upper(:ot)
-        LIMIT 30`;
+        LIMIT 20`;
 
     models.sequelize.query(
         sql, { 

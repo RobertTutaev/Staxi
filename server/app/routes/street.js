@@ -23,7 +23,7 @@ router.route('/')
                 WHERE
                     lower(concat(b.name,', ',a.socr,' ',a.name)) like lower(:name) AND
                     a.territory_id in (:oArray)
-                LIMIT 30`;
+                LIMIT 20`;
             
             models.sequelize.query(
                 sql, 
