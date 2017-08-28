@@ -12,7 +12,7 @@ export class ClientService {
   private headers = new Headers({'Content-Type': 'application/json'});
   private clientsUrl = environment.myEndpoint + 'api/client';
 
-  constructor(private http: Http) {}
+  constructor(private http: Http) { }
 
   getClients(): Promise<Client[]> {
     return this.http.get(this.clientsUrl)
@@ -25,7 +25,7 @@ export class ClientService {
     if (!id) {
       const promise: Promise<Client> = new Promise(() => new Client());
 
-      return promise.then();      
+      return promise.then();
     } else {
       const url = `${this.clientsUrl}/${id}`;
 
@@ -37,7 +37,7 @@ export class ClientService {
   }
 
   search(term: string): Observable<Client[]> {
-    const url = `${this.clientsUrl}/?snils=${term}`;
+    const url = `${this.clientsUrl}/?snils=${encodeURIComponent(term)}`;
     
     return this.http.get(url)
       .map(response => response.json().data as Client[]);

@@ -37,7 +37,7 @@ export class StreetService {
   }
 
   search(term: string): Observable<Street[]> {
-    const url = `${this.streetsUrl}/?name=${term}`;
+    const url = `${this.streetsUrl}/?name=${encodeURIComponent(term)}`;
     
     return this.http.get(url)
       .map(response => response.json().data as Street[]);

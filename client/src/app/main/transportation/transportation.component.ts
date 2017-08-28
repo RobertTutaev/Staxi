@@ -99,7 +99,7 @@ export class TransportationComponent implements OnInit {
     if (term ==='') {
       this.transportation[this.streetDivName] = this.streetName[name];
     }
-
+    
     this.searchTerms.next(term);
   }
 

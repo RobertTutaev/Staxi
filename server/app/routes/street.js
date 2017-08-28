@@ -21,7 +21,7 @@ router.route('/')
                 FROM street a
                     join territory b on a.territory_id = b.id
                 WHERE
-                    lower(concat(b.name,', ',a.name,' ',a.socr)) like lower(:name) AND
+                    lower(concat(b.name,', ',a.socr,' ',a.name)) like lower(:name) AND
                     a.territory_id in (:oArray)
                 LIMIT 30`;
             

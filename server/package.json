@@ -1,6 +1,6 @@
 {
   "name": "staxi-server",
-  "version": "1.0.42",
+  "version": "1.0.48",
   "author": "Robert Tutaev",
   "private": true,
   "scripts": {
