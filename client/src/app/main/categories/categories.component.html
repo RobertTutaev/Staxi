@@ -7,7 +7,7 @@
             <th (click)="onSort('dt_begin')">Дт. нач. <i class="fa" [ngClass]="{'fa-sort': column != 'dt_begin', 'fa-sort-asc': (column == 'dt_begin' && isDesc), 'fa-sort-desc': (column == 'dt_begin' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('dt_end')">Дт. оконч. <i class="fa" [ngClass]="{'fa-sort': column != 'dt_end', 'fa-sort-asc': (column == 'dt_end' && isDesc), 'fa-sort-desc': (column == 'dt_end' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('user')">Пользователь <i class="fa" [ngClass]="{'fa-sort': column != 'user', 'fa-sort-asc': (column == 'user' && isDesc), 'fa-sort-desc': (column == 'user' && !isDesc) }" aria-hidden="true"></i></th>
-            <th><a [routerLink]="['../']" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
+            <th><a [routerLink]="['../']" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign" title="Добавить"></span></a></th>
         </tr>
     </thead>
     <tbody>
@@ -21,7 +21,7 @@
             <td>{{ category.dt_begin | date: 'dd.MM.yyyy' }}</td>
             <td>{{ category.dt_end | date: 'dd.MM.yyyy' }}</td>
             <td>{{ category.user }}</td>
-            <td (click)="onDelete(category); $event.stopPropagation();"><span class="glyphicon glyphicon-remove-sign"></span></td>
+            <td (click)="onDelete(category); $event.stopPropagation();"><span class="glyphicon glyphicon-remove-sign" title="Удалить"></span></td>
         </tr>
     </tbody>
 </table>

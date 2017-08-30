@@ -5,12 +5,14 @@
         <dt>Организация курирующая вводимую организацию</dt>
         <dd>
             <select name="firm" [(ngModel)]="selectedFirmId" class="form-control">
+                <option [ngValue]="null" disabled></option>
                 <option *ngFor="let f of firms" [ngValue]="f.id">{{f.name}}</option>
             </select>
         </dd>
         <dt>Территория*</dt>
         <dd>
             <select name="territory" [(ngModel)]="selectedTerritoryId" class="form-control" required>
+                <option [ngValue]="null" disabled></option>
                 <option *ngFor="let territory of territories" [ngValue]="territory.id">{{territory.name}}</option>
             </select>
         </dd>

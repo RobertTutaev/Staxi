@@ -7,7 +7,7 @@
             <th (click)="onSort('firm')">Организация <i class="fa" [ngClass]="{'fa-sort': column != 'firm', 'fa-sort-asc': (column == 'firm' && isDesc), 'fa-sort-desc': (column == 'firm' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('territory')">Территория <i class="fa" [ngClass]="{'fa-sort': column != 'territory', 'fa-sort-asc': (column == 'territory' && isDesc), 'fa-sort-desc': (column == 'territory' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('name')">Название <i class="fa" [ngClass]="{'fa-sort': column != 'name', 'fa-sort-asc': (column == 'name' && isDesc), 'fa-sort-desc': (column == 'name' && !isDesc) }" aria-hidden="true"></i></th>
-            <th><a routerLink="/firm" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
+            <th><a routerLink="/firm" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign" title="Добавить"></span></a></th>
         </tr>
     </thead>
     <tbody>
@@ -16,7 +16,7 @@
             <td>{{ firm.firm }}</td>
             <td>{{ firm.territory }}</td>
             <td>{{ firm.name }}</td>
-            <td (click)="onDelete(firm); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
+            <td (click)="onDelete(firm); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign" title="Удалить"></span></td>
         </tr>
     </tbody>
 </table> 

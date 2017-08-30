@@ -41,6 +41,10 @@ export class TransportationsComponent extends SController implements OnInit {
     this.router.navigate(['../', transportation.id], { relativeTo: this.route });
   }
 
+  onCopy(transportation: Transportation) {
+    this.router.navigate(['../', transportation.id, 1], { relativeTo: this.route });
+  }
+
   onDelete(transportation: Transportation) {
     if(confirm('Вы действительно хотите удалить текущую запись?'))
       this.transportationService.delete(transportation.id)

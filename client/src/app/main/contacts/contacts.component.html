@@ -6,7 +6,7 @@
             <th (click)="onSort('name')">Контакт <i class="fa" [ngClass]="{'fa-sort': column != 'name', 'fa-sort-asc': (column == 'name' && isDesc), 'fa-sort-desc': (column == 'name' && !isDesc) }" aria-hidden="true"></i></th>
             <th>Комментарий</th>
             <th (click)="onSort('user')">Пользователь <i class="fa" [ngClass]="{'fa-sort': column != 'user', 'fa-sort-asc': (column == 'user' && isDesc), 'fa-sort-desc': (column == 'user' && !isDesc) }" aria-hidden="true"></i></th>
-            <th><a [routerLink]="['../']" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>            
+            <th><a [routerLink]="['../']" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign" title="Добавить"></span></a></th>            
         </tr>
     </thead>
     <tbody>
@@ -19,7 +19,7 @@
             <td>{{ contact.name }}</td>
             <td>{{ contact.comment }}</td>
             <td>{{ contact.user }}</td>
-            <td (click)="onDelete(contact); $event.stopPropagation();"><span class="glyphicon glyphicon-remove-sign"></span></td>
+            <td (click)="onDelete(contact); $event.stopPropagation();"><span class="glyphicon glyphicon-remove-sign" title="Удалить"></span></td>
         </tr>
     </tbody>
 </table> 

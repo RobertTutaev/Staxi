@@ -2,10 +2,12 @@
     <dl>        
         <dt>Пункт доставки*</dt>
         <dd><select name="punkt" [(ngModel)]="selectedPunktId" class="form-control" required>
+                <option [ngValue]="null" disabled></option>
                 <option *ngFor="let punkt of punkts" [ngValue]="punkt.id">{{punkt.name}}</option>
             </select></dd>
         <dt>Категория*</dt>
         <dd><select name="category" [(ngModel)]="selectedCategoryId" class="form-control" required>
+                <option [ngValue]="null" disabled></option>
                 <option *ngFor="let category of categories" [ngValue]="category.id">
                     [{{category.dt_begin ? (category.dt_begin | date: 'dd.MM.yyyy') : '__.__.____'}} - {{category.dt_end ? (category.dt_end | date: 'dd.MM.yyyy') : '__.__.____'}}] {{category.kateg}}
                 </option>
@@ -144,6 +146,7 @@
                 rows="3"></textarea></dd>
         <dt>Автотранспорт*</dt>
         <dd><select name="car" [(ngModel)]="selectedCarId" class="form-control" required>
+                <option [ngValue]="null" disabled></option>
                 <option *ngFor="let car of cars" [ngValue]="car.id">{{car.name}} {{car.gos_no ? '(' + car.gos_no + ')' : ''}}</option>
             </select></dd>
         <dt>А.Дата и время*</dt>
@@ -159,7 +162,10 @@
                 readonly="readonly" 
                 class="form-control"
                 required></dd>
-        <dt>Б.Время</dt>
+        <dt>Б.Время <span 
+                class="glyphicon glyphicon-remove-circle pointer" 
+                (click)="transportation.b_dt ?  transportationForm.form.markAsDirty() : null; transportation.b_dt ? transportation.b_dt = null : null" 
+                title="Удалить время"></span></dt>
         <dd><input
                 type="text" 
                 ngui-datetime-picker 

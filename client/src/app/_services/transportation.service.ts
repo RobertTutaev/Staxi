@@ -35,8 +35,9 @@ export class TransportationService extends RService{
         .catch(error => this.handleError(error));
   }
 
-  getTransportation(id: number): Promise<Transportation> {
+  getTransportation(id: number, cp: number = 0): Promise<Transportation> {
     if (!id) {
+      //1. Новая заявка
       const promise: Promise<Transportation> = new Promise(() => new Transportation());
 
       return promise.then();      
@@ -45,7 +46,31 @@ export class TransportationService extends RService{
 
       return this.http.get(url)
         .toPromise()
-        .then(response => response.json().data as Transportation)
+        .then(response => {
+          //2. Копирование заявки
+          if (cp) {
+            let t = response.json().data as Transportation;
+            
+            t.id = null;
+            t.car_id = null;
+            t.car = '',
+            t.a_dt = null;
+            t.b_dt = null;
+            t.status_id = 1;
+            t.user_id = null;
+            t.user = null;
+            t.dt = null;
+            t.userm_id = null;
+            t.userm = null;
+            t.dtm = null;
+
+            return t;
+
+          } else {
+            //3. Редактирование заявки
+            return response.json().data as Transportation;
+          }
+        })
         .catch(this.handleError);
     }
   }

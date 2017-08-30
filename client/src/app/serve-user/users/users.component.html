@@ -14,7 +14,7 @@
             <th (click)="onSort('role3')">R3 <i class="fa" [ngClass]="{'fa-sort': column != 'role3', 'fa-sort-asc': (column == 'role3' && isDesc), 'fa-sort-desc': (column == 'role3' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('role4')">R4 <i class="fa" [ngClass]="{'fa-sort': column != 'role4', 'fa-sort-asc': (column == 'role4' && isDesc), 'fa-sort-desc': (column == 'role4' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('checked')">Вкл. <i class="fa" [ngClass]="{'fa-sort': column != 'checked', 'fa-sort-asc': (column == 'checked' && isDesc), 'fa-sort-desc': (column == 'checked' && !isDesc) }" aria-hidden="true"></i></th>
-            <th><a routerLink="/user" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
+            <th><a routerLink="/user" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign" title="Добавить"></span></a></th>
         </tr>
     </thead>
     <tbody>
@@ -33,7 +33,7 @@
             <td><span class='{{ user.role3 ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
             <td><span class='{{ user.role4 ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
             <td><span class='{{ user.checked ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>
-            <td (click)="onDelete(user); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
+            <td (click)="onDelete(user); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign" title="Удалить"></span></td>
         </tr>
     </tbody>
 </table> 

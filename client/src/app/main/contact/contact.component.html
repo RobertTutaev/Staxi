@@ -2,6 +2,7 @@
     <dl>
         <dt>Тип*</dt> 
         <dd><select name="type" [(ngModel)]="selectedTypeId" class="form-control" required>
+                <option [ngValue]="null" disabled></option>
                 <option *ngFor="let type of types" [ngValue]="type.id">
                     {{type.name}}
                 </option>

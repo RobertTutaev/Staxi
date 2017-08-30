@@ -5,6 +5,7 @@
         <dt>Территория содержащая вводимую территорию*</dt>
         <dd>
             <select name="territory_id" [(ngModel)]="selectedTerritoryId" class="form-control" required>
+                <option [ngValue]="null" disabled></option>
                 <option *ngFor="let t of territories" [ngValue]="t.id">{{t.name}}</option>
             </select>
         </dd>

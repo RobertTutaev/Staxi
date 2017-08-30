@@ -8,7 +8,7 @@
             <th>Маска</th>
             <th>Placeholder</th>
             <th>CSS</th>
-            <th><a routerLink="/type" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
+            <th><a routerLink="/type" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign" title="Добавить"></span></a></th>
         </tr>
     </thead>
     <tbody>
@@ -18,7 +18,7 @@
             <td>{{ type.mask }}</td>
             <td>{{ type.placeholder }}</td>
             <td>{{ type.style }}</td>
-            <td><span *ngIf="type.id > 2" (click)="onDelete(type); $event.stopPropagation()" class="glyphicon glyphicon-remove-sign"></span></td>
+            <td><span *ngIf="type.id > 2" (click)="onDelete(type); $event.stopPropagation()" class="glyphicon glyphicon-remove-sign" title="Удалить"></span></td>
         </tr>
     </tbody>
 </table> 

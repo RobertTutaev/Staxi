@@ -20,7 +20,7 @@
             <th>Сокр.</th>
             <th (click)="onSort('post')">Индекс <i class="fa" [ngClass]="{'fa-sort': column != 'post', 'fa-sort-asc': (column == 'post' && isDesc), 'fa-sort-desc': (column == 'post' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('aoguid')">Код ФИАС<i class="fa" [ngClass]="{'fa-sort': column != 'aoguid', 'fa-sort-asc': (column == 'aoguid' && isDesc), 'fa-sort-desc': (column == 'aoguid' && !isDesc) }" aria-hidden="true"></i></th>
-            <th><a routerLink="/street" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
+            <th><a routerLink="/street" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign" title="Добавить"></span></a></th>
         </tr>
     </thead>
     <tbody>
@@ -31,7 +31,7 @@
             <td>{{ street.socr }}</td>
             <td>{{ street.post }}</td>
             <td>{{ street.aoguid }}</td>
-            <td (click)="onDelete(street); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
+            <td (click)="onDelete(street); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign" title="Удалить"></span></td>
         </tr>
     </tbody>
 </table>

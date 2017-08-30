@@ -11,7 +11,7 @@
             <th (click)="onSort('user')">Водитель <i class="fa" [ngClass]="{'fa-sort': column != 'user', 'fa-sort-asc': (column == 'user' && isDesc), 'fa-sort-desc': (column == 'user' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('type')">Тип <i class="fa" [ngClass]="{'fa-sort': column != 'type', 'fa-sort-asc': (column == 'type' && isDesc), 'fa-sort-desc': (column == 'type' && !isDesc) }" aria-hidden="true"></i></th>
             <th (click)="onSort('status')">Вкл. <i class="fa" [ngClass]="{'fa-sort': column != 'status', 'fa-sort-asc': (column == 'status' && isDesc), 'fa-sort-desc': (column == 'status' && !isDesc) }" aria-hidden="true"></i></th>
-            <th><a routerLink="/car" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
+            <th><a routerLink="/car" routerLinkActive="active"><span class="glyphicon glyphicon-plus-sign" title="Добавить"></span></a></th>
         </tr>
     </thead>
     <tbody>
@@ -24,7 +24,7 @@
             <td>{{ car.user }}</td>
             <td>{{ car.type ? 'Автобус' : 'Автомобиль' }}</td>
             <td><span class='{{ car.status ? "glyphicon glyphicon-ok-circle" : "" }}'></span></td>          
-            <td (click)="onDelete(car); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign"></span></td>
+            <td (click)="onDelete(car); $event.stopPropagation()"><span class="glyphicon glyphicon-remove-sign" title="Удалить"></span></td>
         </tr>
     </tbody>
 </table> 

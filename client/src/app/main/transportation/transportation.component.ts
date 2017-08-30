@@ -76,7 +76,7 @@ export class TransportationComponent implements OnInit {
     this.carService.getCars(true).then((cars: Car[]) => {
       this.cars = cars;
       this.route.params
-        .switchMap((params: Params) => this.transportationService.getTransportation(+params['idc']))
+        .switchMap((params: Params) => this.transportationService.getTransportation(+params['idc'], +params['cp']))
         .subscribe((transportation: Transportation) => {          
           this.transportation = transportation;
           this.status = transportation.status_id;
@@ -141,7 +141,7 @@ export class TransportationComponent implements OnInit {
     return this.transportation.punkt_id;
   }
 
-  set selectedPunktId(value: number) {
+  set selectedPunktId(value: number) {    
     this.transportation.punkt_id = value;
   }
 

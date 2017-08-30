@@ -55,6 +55,7 @@ const clientsRoutes: Routes = [
           
           { path: 'list', component: TransportationsComponent },
           { path: ':idc', component: TransportationComponent },
+          { path: ':idc/:cp', component: TransportationComponent },
           { path: '', component: TransportationComponent }
 
         ]
