@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { NavController, NavParams } from 'ionic-angular';
 import { User } from '../../_classes/list/user';
 import { AuthProvider } from '../../providers/auth/auth';
 
@@ -11,7 +10,6 @@ import { AuthProvider } from '../../providers/auth/auth';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-signin',
   templateUrl: 'signin.html',
@@ -37,7 +35,7 @@ export class SigninPage {
 
   signin() {
     this.message = 'Авторизация ...';    
-    this.authProvider.signin(this.user).then(() => this.setMessage());
+    this.authProvider.signin(this.user).then((user: User) => this.setMessage());
   }
 
   signout() {

@@ -13,7 +13,6 @@ import { User } from '../../_classes/list/user';
 */
 @Injectable()
 export class AuthProvider {
-  redirectUrl: string;
   private resp: Resp = new Resp();
   private headers = new Headers({'Content-Type': 'application/json'});
   private authUrl = 'auth/';
@@ -22,35 +21,35 @@ export class AuthProvider {
 
   signin({ username, password }): Promise<User> {
     return this.http
-        .post(this.authUrl + 'signin', JSON.stringify({ username, password }), {headers: this.headers})
-        .toPromise()
-        .then(res => {
-          this.resp = res.json();
-          return this.resp.data as User;
-        })
-        .catch(this.handleError);
+      .post(this.authUrl + 'signin', JSON.stringify({ username, password }), {headers: this.headers})
+      .toPromise()
+      .then(res => {
+        this.resp = res.json();
+        return this.resp.data as User;
+      })
+      .catch(this.handleError);
   }
 
   signout(): Promise<User> {
     return this.http
-        .post(this.authUrl + 'signout', JSON.stringify({}), {headers: this.headers})
-        .toPromise()
-        .then(res => {
-          this.resp = res.json();
-          return this.resp.data as User;
-        })
-        .catch(this.handleError);
+      .post(this.authUrl + 'signout', JSON.stringify({}), {headers: this.headers})
+      .toPromise()
+      .then(res => {
+        this.resp = res.json();
+        return this.resp.data as User;
+      })
+      .catch(this.handleError);
   }
 
   isSign(): Promise<User> {
     return this.http
-        .get(this.authUrl + 'issign', JSON.stringify({}))
-        .toPromise()
-        .then(res => {
-          this.resp = res.json();
-          return this.resp.data as User;
-        })
-        .catch(this.handleError);
+      .get(this.authUrl + 'issign', JSON.stringify({}))
+      .toPromise()
+      .then(res => {
+        this.resp = res.json();
+        return this.resp.data as User;
+      })
+      .catch(this.handleError);
   }
   
   get isSignedIn(): boolean {

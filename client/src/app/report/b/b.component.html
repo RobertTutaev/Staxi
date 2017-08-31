@@ -20,6 +20,7 @@
     <div class="col-md-6">
         <dt>Организация*</dt>
         <dd><select name="firm" [(ngModel)]="selectedFirmId" required>
+                <option [ngValue]="null" disabled></option>
                 <option *ngFor="let firm of firms" [ngValue]="firm.id">{{firm.name}}</option>
             </select></dd>
     </div>

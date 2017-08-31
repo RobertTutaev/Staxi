@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { C } from '../../_classes/list/c';
 import { AlertController } from 'ionic-angular';
 
@@ -12,7 +12,6 @@ import { AlertController } from 'ionic-angular';
 
 declare var google;
 
-@IonicPage()
 @Component({
   selector: 'page-map',
   templateUrl: 'map.html',

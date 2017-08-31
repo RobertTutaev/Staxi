@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { C } from '../../_classes/list/c';
 import { ReportProvider } from '../../providers/report/report';
 import { CReport } from '../../_classes/report/c.report';
@@ -14,7 +14,6 @@ import { MapPage } from '../map/map';
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-transportations',
   templateUrl: 'transportations.html',

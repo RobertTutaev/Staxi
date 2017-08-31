@@ -23,6 +23,7 @@
     <div class="col-md-12">
         <dt>Автотранспорт*</dt>
         <dd><select name="car" [(ngModel)]="selectedCarId" required>
+                <option [ngValue]="null" disabled></option>
                 <option *ngFor="let car of cars" [ngValue]="car.id">{{car.name}} ({{car.gos_no}})</option>
             </select></dd>
     </div>
