@@ -13,9 +13,7 @@ import { Car } from '../../_classes/list/car';
 export class CarProvider {
   private carsUrl ='api/car';
 
-  constructor(public http: Http) {
-    console.log('Hello CarProvider Provider');
-  }
+  constructor(public http: Http) { }
   
   getCarsD(checkStatus: boolean = false): Promise<Car[]> {
     const url = `${this.carsUrl}/d${+checkStatus}`;

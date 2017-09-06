@@ -56,7 +56,8 @@ export class TransportationsPage{
     alert.addButton({
       text: 'Звонок',
       handler: data => {
-        this.callNumber.callNumber("7298223", true)
+        console.log(data);
+        this.callNumber.callNumber(data, true)
           .then(() => console.log('Звонок инициализирован...'))
           .catch(() => this.showErrorAlert('Внимание! Возникла ошибка инициализации...'));
       }
