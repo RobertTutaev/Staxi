@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { C } from '../../_classes/list/c';
 import { CReport } from '../../_classes/report/c.report';
 import 'rxjs/add/operator/map';
+import { ENV } from '@environment';
 
 /*
   Generated class for the ReportProvider provider.
@@ -12,7 +13,7 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class ReportProvider {
-  private reportUrl = 'api/report';
+  private reportUrl = `${ENV.API_ENDPOINT}/api/car/report`;
 
   constructor(private http: Http) { }
 

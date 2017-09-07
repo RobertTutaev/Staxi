@@ -75,3 +75,7 @@ https://www.djamware.com/post/58f4da2080aca7414e78a638/step-by-step-tutorial-of-
 Ionic prod
 ==========
 https://forum.ionicframework.com/t/ionic-run-android-works-but-apk-does-not-access-internet/3867/15
+
+Ionic ENV
+==========
+https://artyomsokolov.com/how-to-use-different-environment-variables-for-production-and-development-with-ionic-3/

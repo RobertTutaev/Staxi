@@ -4,6 +4,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { Resp } from '../../_classes/resp';
 import { User } from '../../_classes/list/user';
+import { ENV } from '@environment';
 
 /*
   Generated class for the AuthProvider provider.
@@ -15,7 +16,7 @@ import { User } from '../../_classes/list/user';
 export class AuthProvider {
   private resp: Resp = new Resp();
   private headers = new Headers({'Content-Type': 'application/json'});
-  private authUrl = 'auth/';
+  private authUrl = `${ENV.API_ENDPOINT}/auth/`;
 
   constructor(private http: Http) {}
 
@@ -42,6 +43,7 @@ export class AuthProvider {
   }
 
   isSign(): Promise<User> {
+    console.log(this.authUrl + 'issign');
     return this.http
       .get(this.authUrl + 'issign', JSON.stringify({}))
       .toPromise()

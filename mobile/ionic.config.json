@@ -5,10 +5,6 @@
   "integrations": {
     "cordova": {}
   },
-  "proxies": [
-    {
-      "path": "/",
-      "proxyUrl": "http://95.78.162.220/"
-    }
+  "proxies": [    
   ]
 }

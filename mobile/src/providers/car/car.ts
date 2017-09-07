@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';  
 import { Car } from '../../_classes/list/car';
+import { ENV } from '@environment';
 
 /*
   Generated class for the CarProvider provider.
@@ -11,12 +12,13 @@ import { Car } from '../../_classes/list/car';
 */
 @Injectable()
 export class CarProvider {
-  private carsUrl ='api/car';
+  private carsUrl = `${ENV.API_ENDPOINT}/api/car`;
 
   constructor(public http: Http) { }
   
   getCarsD(checkStatus: boolean = false): Promise<Car[]> {
     const url = `${this.carsUrl}/d${+checkStatus}`;
+    console.log(url);
 
     return this.http.get(url)
       .toPromise()
@@ -25,7 +27,7 @@ export class CarProvider {
   }
 
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
+    console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
 }

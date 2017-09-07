@@ -60,5 +60,9 @@
         "platforms": [
             "android"
         ]
+    },
+    "config": {
+        "ionic_optimization": "./src/config/optimization.config.js",
+        "ionic_webpack": "./src/config/webpack.config.js"
     }
 }
