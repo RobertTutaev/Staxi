@@ -58,7 +58,8 @@
             "cordova-plugin-whitelist": {},
             "ionic-plugin-keyboard": {},
             "call-number": {},
-            "cordova-plugin-app-version": {}
+            "cordova-plugin-app-version": {},
+            "mx.ferreyra.callnumber": {}
         },
         "platforms": [
             "android"

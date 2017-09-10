@@ -1,3 +1,4 @@
 export const ENV = {
-  API_ENDPOINT: ''
+  API_ENDPOINT: '',
+  DEV: true
 };
