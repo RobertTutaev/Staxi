@@ -25,7 +25,7 @@ export class AuthProvider {
       .post(this.authUrl + 'signin', JSON.stringify({ username, password }), {headers: this.headers})
       .toPromise()
       .then(res => {
-        this.resp = res.json();
+        this.resp = res.json();        
         return this.resp.data as User;
       })
       .catch(this.handleError);
@@ -43,7 +43,6 @@ export class AuthProvider {
   }
 
   isSign(): Promise<User> {
-    console.log(this.authUrl + 'issign');
     return this.http
       .get(this.authUrl + 'issign', JSON.stringify({}))
       .toPromise()

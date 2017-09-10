@@ -11,7 +11,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Заявки</ion-title>
+    <ion-title>Заявки ({{cs.length}} шт.)</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -20,24 +20,32 @@
 
     <ion-card *ngFor="let c of cs">
       <ion-card-header class="tr_clock">
-        <ion-icon name="clock"></ion-icon> {{ c.dt }}
+        <ion-icon name="clock"></ion-icon> {{ c.dt }} <ion-icon name="checkmark" *ngIf="c.status_id === 3"></ion-icon>
       </ion-card-header>
-      <ion-card-content>        
+      <ion-card-content>
         <p class="tr_pin"><ion-icon name="pin"></ion-icon> {{ c.a_adr }}</p>                
         <p class="tr_pin"><ion-icon name="pin"></ion-icon> {{ c.b_adr }}</p>
         <p class="tr_contact"><ion-icon name="contact"></ion-icon> {{ c.client_name }}</p>
         <p class="tr_info"><ion-icon name="information-circle"></ion-icon> {{ c.client_info }}</p>
 
         <ion-grid>
-            <ion-row>
-              <ion-col>
-                <button ion-button round (click)="call(c)" [disabled]="!c.client_contact"><ion-icon name="call" item-start></ion-icon>&nbsp;Звонок</button>
-              </ion-col>
-              <ion-col>
-                <button ion-button round (click)="map(c)" color="secondary"><ion-icon name="map" item-start></ion-icon>&nbsp;Маршрут</button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+
+          <ion-row>            
+            <ion-col>
+              <button ion-button round small block (click)="call(c)" [disabled]="!c.client_contact"><ion-icon name="call" item-start></ion-icon>&nbsp;Звонок</button>
+            </ion-col>
+            <ion-col>
+              <button ion-button round small block color="secondary"(click)="map(c)"><ion-icon name="map" item-start></ion-icon>&nbsp;Маршрут</button>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <button ion-button round small block color="secondary" (click)="comment(c)" [disabled]="!c.comment"><ion-icon name="text" item-start></ion-icon>&nbsp; Комментарий</button>
+            </ion-col>              
+          </ion-row>
+          
+        </ion-grid>
       </ion-card-content>      
     </ion-card>
 

@@ -14,18 +14,26 @@
 
       <ion-item>
         <ion-label>Дата*</ion-label>
-        <ion-datetime displayFormat="DD.MM.YYYY" [(ngModel)]="dt"></ion-datetime>
+        <ion-datetime 
+          displayFormat="DD.MM.YYYY" 
+          [(ngModel)]="dt"
+          cancelText="Отмена"
+          doneText="Ок"></ion-datetime>
       </ion-item>
 
       <ion-item>
         <ion-label>Автотранспорт*</ion-label>
-        <ion-select [(ngModel)]="selectedCarId" required>
+        <ion-select 
+          [(ngModel)]="selectedCarId"
+          cancelText="Отмена"
+          okText="Ок"
+          required>
           <ion-option *ngFor="let car of cars" [value]="car.id">{{car.name}} ({{car.gos_no}})</ion-option>
         </ion-select>
       </ion-item>
     </ion-list>
 
-    <button ion-button full color="secondary" (click)="transportations()" [disabled]="!selectedCarId"><ion-icon name="car"></ion-icon>&nbsp;Сформировать</button>
+    <button ion-button round full large color="secondary" (click)="transportations()" [disabled]="!selectedCarId"><ion-icon name="car"></ion-icon>&nbsp;Сформировать</button>
   </div>
 
   <div *ngIf="!authProvider.isSignedIn">
@@ -33,7 +41,7 @@
       Для продолжения работы необходим вход в личный кабинет
     </h3>
 
-    <button ion-button full color="success" (click)="signin()"><ion-icon name="log-in"></ion-icon>&nbsp;Войти</button>
+    <button ion-button round full large color="success" (click)="signin()"><ion-icon name="log-in"></ion-icon>&nbsp;Войти</button>
   </div>
 
 </ion-content>

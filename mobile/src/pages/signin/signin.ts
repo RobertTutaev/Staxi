@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { User } from '../../_classes/list/user';
 import { AuthProvider } from '../../providers/auth/auth';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the SigninPage page.
@@ -15,6 +16,7 @@ import { AuthProvider } from '../../providers/auth/auth';
   templateUrl: 'signin.html',
 })
 export class SigninPage {
+  homePage = HomePage;
   user: User = new User();
   message: string;
 
@@ -40,6 +42,10 @@ export class SigninPage {
 
   signout() {
     this.authProvider.signout().then(() => this.setMessage());
+  }
+
+  goHomePage(){
+    this.navCtrl.setRoot(this.homePage);
   }
 
 }

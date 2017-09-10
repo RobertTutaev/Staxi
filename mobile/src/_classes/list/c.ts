@@ -2,6 +2,7 @@ export class C {
     constructor(
             public id: number = null,            
             public dt: string = null,
+            public comment: string = null,
             public a_adr: string = null,
             public b_adr: string = null,
             public reason_id: number = null,

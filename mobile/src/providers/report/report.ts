@@ -13,7 +13,7 @@ import { ENV } from '@environment';
 */
 @Injectable()
 export class ReportProvider {
-  private reportUrl = `${ENV.API_ENDPOINT}/api/car/report`;
+  private reportUrl = `${ENV.API_ENDPOINT}/api/report`;
 
   constructor(private http: Http) { }
 

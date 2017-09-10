@@ -2,23 +2,23 @@ import { Status } from '../_classes/list/status';
 
 export let Statuses: Status[] = [
   {
-    id: 0, 
+    id: 1, 
     name: 'Заявлено'
   },
   {
-    id: 1,
+    id: 2,
     name: 'Одобрено'
   },
   {
-    id: 2,
+    id: 3,
     name: 'Обслужено'
   },
   {
-    id: 3,
+    id: 4,
     name: 'Отказано'
   },
   {
-    id: 4,
+    id: 5,
     name: 'Отменено'
   }
 ];

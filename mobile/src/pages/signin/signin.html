@@ -27,7 +27,7 @@
       </ion-item>
     </ion-list>
         
-    <button ion-button full color="success" (click)="signin()" tabIcon="log-in"><ion-icon name="log-in"></ion-icon>&nbsp;Войти</button>
+    <button ion-button round full color="success" (click)="signin()" tabIcon="log-in"><ion-icon name="log-in"></ion-icon>&nbsp;Войти</button>
   </div>
 
   <div *ngIf="authProvider.isSignedIn">
@@ -37,7 +37,8 @@
       </ion-item>
     </ion-list>
 
-    <button ion-button full color="success" (click)="signout()"><ion-icon name="log-out"></ion-icon>&nbsp;Выйти</button>
+    <p><button ion-button round full color="success" (click)="signout()"><ion-icon name="log-out"></ion-icon>&nbsp;Выйти</button></p>
+    <p><button ion-button round full color="secondary" (click)="goHomePage()"><ion-icon name="home"></ion-icon>&nbsp;Перейти на Главную</button></p>
   </div>
   
   <p>{{ message }}</p>    

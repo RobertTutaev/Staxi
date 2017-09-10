@@ -294,6 +294,7 @@ router.route('/c/:carId/:aDt/:getFile')
             i.reason_id,
             a.status_id,
             a.convoy,
+            a.comment,
             concat(n.name,', ',e.socr,' ',e.name,', ',a.a_dom,a.a_korp,if(a.a_pod is null,'',concat(', под.',a.a_pod))) as a_adr,
             concat(o.name,', ',f.socr,' ',f.name,', ',a.b_dom,a.b_korp,if(a.b_pod is null,'',concat(', под.',a.b_pod))) as b_adr,
             a.client_id,

@@ -65,6 +65,16 @@ export class TransportationsPage{
     alert.present();    
   }
 
+  //Заметки оператора
+  comment(c: C) {  
+    let alert = this.alertCtrl.create({
+      title: 'Комментарий',
+      subTitle: c.comment,
+      buttons: ['Ок']
+    });
+    alert.present();
+  }
+
   //Сообщение об ошибке
   showErrorAlert(message: string) {
     let alert = this.alertCtrl.create({

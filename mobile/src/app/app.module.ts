@@ -17,6 +17,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { ReportProvider } from '../providers/report/report';
 import { CarProvider } from '../providers/car/car';
 import { CallNumber } from '@ionic-native/call-number';
+import { AppVersion } from '@ionic-native/app-version';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { CallNumber } from '@ionic-native/call-number';
     StatusBar,
     SplashScreen,
     CallNumber,
+    AppVersion,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     ReportProvider,

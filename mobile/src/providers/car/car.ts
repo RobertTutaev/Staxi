@@ -18,7 +18,6 @@ export class CarProvider {
   
   getCarsD(checkStatus: boolean = false): Promise<Car[]> {
     const url = `${this.carsUrl}/d${+checkStatus}`;
-    console.log(url);
 
     return this.http.get(url)
       .toPromise()

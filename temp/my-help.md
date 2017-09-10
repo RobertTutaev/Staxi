@@ -79,3 +79,7 @@ https://forum.ionicframework.com/t/ionic-run-android-works-but-apk-does-not-acce
 Ionic ENV
 ==========
 https://artyomsokolov.com/how-to-use-different-environment-variables-for-production-and-development-with-ionic-3/
+
+Iconic Resources
+==========
+https://forum.ionicframework.com/t/i-cant-change-the-icon-of-my-app/8490/9
