@@ -53,8 +53,7 @@ export class TransportationComponent implements OnInit {
               private route: ActivatedRoute,
               private location: Location) { }
   
-  ngOnInit() {    
-
+  ngOnInit() {
     this.punktService.getPunkts().then((punkts: Punkt[]) => this.punkts = punkts);
 
     this.statusService.getStatuses().then((statuses: Status[]) => this.statuses = statuses);

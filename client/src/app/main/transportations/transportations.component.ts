@@ -21,7 +21,7 @@ export class TransportationsComponent extends SController implements OnInit {
               private route: ActivatedRoute,
               private router: Router) { super(); }
   
-  ngOnInit() {
+  ngOnInit() {    
     this.route.parent.parent.params
       .switchMap((params: Params) => this.transportationService.getStat(+params['id']))
       .subscribe((stats: Stat[]) => this.stats = stats);
