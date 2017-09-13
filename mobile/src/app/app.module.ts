@@ -2,7 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
+import { App } from './app.component';
 
 import { AboutPage } from '../pages/about/about';
 import { HomePage } from '../pages/home/home';
@@ -21,7 +21,7 @@ import { AppVersion } from '@ionic-native/app-version';
 
 @NgModule({
   declarations: [
-    MyApp,
+    App,
     AboutPage,
     HomePage,
     SigninPage,
@@ -32,11 +32,11 @@ import { AppVersion } from '@ionic-native/app-version';
   imports: [
     HttpModule,
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(App)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    App,
     AboutPage,
     HomePage,
     SigninPage,

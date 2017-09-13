@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { SigninPage } from '../signin/signin';
 import { TransportationsPage } from '../transportations/transportations';
 import { Car } from '../../_classes/list/car';
 import { CReport } from '../../_classes/report/c.report';
@@ -54,7 +53,7 @@ export class HomePage{
   }
 
   signin() {
-    this.navCtrl.push(SigninPage);
+    this.navCtrl.parent.select(2);
   }
 
   transportations() {
