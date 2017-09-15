@@ -111,8 +111,8 @@ router.route('/:id')
     var sql =
         `SELECT a.*,
             concat(b.name,' (',b.gos_no,')') as car,
-            concat(n.name,', ',e.name,' ',e.socr) as a_street, 
-            concat(o.name,', ',f.name,' ',f.socr) as b_street 
+            concat(n.name,', ',e.socr,' ',e.name) as a_street, 
+            concat(o.name,', ',f.socr,' ',f.name) as b_street 
         FROM transportation a
             join car b on a.car_id = b.id
             join street e on a.a_street_id = e.id
