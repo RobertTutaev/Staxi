@@ -44,7 +44,7 @@
             <td>{{ transportation.b_dt | date: 'HH:mm' }}</td>
             <td>{{ transportation.comment }}</td>
             <td>{{ transportation.status }}</td>
-            <td>{{ transportation.user }} {{ transportation.status_id }}</td>
+            <td>{{ transportation.user }}</td>
             <td><span 
                     *ngIf="transportation.status_id === 1 || authService.isSignedIn && authService.authUser.role3 && transportation.status_id === 2" 
                     (click)="onDelete(transportation); $event.stopPropagation();" 
