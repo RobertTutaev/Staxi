@@ -1,6 +1,6 @@
 {
   "name": "staxi-client",
-  "version": "1.0.48",
+  "version": "1.0.64",
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
