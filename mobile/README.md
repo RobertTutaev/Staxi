@@ -10,4 +10,4 @@
 
 Примечания:
 - возможность компиляции под любые современные мобильные ОС:
-  Android, IOS, Windows Mobile.
+  Android, IOS, Windows.
