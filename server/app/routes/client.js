@@ -28,7 +28,7 @@ router.route('/')
             a.snils like :snils and
             upper(a.fam) like upper(:fam) and
             upper(a.im) like upper(:im) and
-            upper(a.ot) like upper(:ot)
+            upper(ifnull(a.ot,'')) like upper(:ot)
         LIMIT 20`;
 
     models.sequelize.query(
