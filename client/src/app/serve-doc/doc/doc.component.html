@@ -12,6 +12,15 @@
                 #name="ngModel" 
                 maxlength="100"
                 class="form-control"></dd>
+        <dt>Статус</dt>
+        <dd><input 
+                type="checkbox"
+                value="true"
+                name="status"
+                id="docStatus"
+                [(ngModel)]="doc.status"
+                (checked)="docForm.form.markAsDirty()">
+            <label for="docStatus">включен</label></dd>
 
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>

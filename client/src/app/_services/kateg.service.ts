@@ -12,11 +12,11 @@ export class KategService {
 
   constructor(private http: Http) {}
 
-  getKategs(): Promise<Kateg[]> {
-    return this.http.get(this.kategsUrl)
-               .toPromise()
-               .then(response => response.json().data as Kateg[])
-               .catch(this.handleError);
+  getKategs(checkStatus: boolean = false): Promise<Kateg[]> {
+    return this.http.get(`${this.kategsUrl}/c${+checkStatus}`)
+      .toPromise()
+      .then(response => response.json().data as Kateg[])
+      .catch(this.handleError);
   }
 
   getKateg(id: number): Promise<Kateg> {

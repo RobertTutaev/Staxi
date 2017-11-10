@@ -3,15 +3,20 @@ var router = express.Router();
 var models = require('../models');
 var resp = require('../lib/resp');
 
-router.route('/')
+router.route('/c:checkStatus')
   .get(function(req, res, next) {
     
     models.doc.findAll({
+            where: {
+                status: {
+                    gte: req.params.checkStatus ? parseInt(req.params.checkStatus) : 0
+                }
+            },
             order: ["id"]
         })
         .then(
         function(values) {
-            res.json(resp({                
+            res.json(resp({              
                 data: values
             }));
         }, 

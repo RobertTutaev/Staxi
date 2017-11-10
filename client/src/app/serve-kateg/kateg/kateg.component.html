@@ -3,7 +3,24 @@
 <form class="st-form" (ngSubmit)="onSubmit(); kategForm.reset();" #kategForm="ngForm">
     <dl>
         <dt>Название*</dt>
-        <dd><textarea name="name" [(ngModel)]="kateg.name" placeholder="Название" required #name="ngModel" maxlength="200" class="form-control" rows="5"></textarea></dd>
+        <dd><textarea 
+                name="name" 
+                [(ngModel)]="kateg.name" 
+                placeholder="Название" 
+                required 
+                #name="ngModel" 
+                maxlength="200" 
+                class="form-control" 
+                rows="5"></textarea></dd>
+        <dt>Статус</dt>
+        <dd><input 
+                type="checkbox"
+                value="true"
+                name="status"
+                id="kategStatus"
+                [(ngModel)]="kateg.status"
+                (checked)="kategForm.form.markAsDirty()">
+            <label for="kategStatus">включен</label></dd>
 
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>

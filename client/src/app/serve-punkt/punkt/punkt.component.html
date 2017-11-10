@@ -3,7 +3,24 @@
 <form class="st-form" (ngSubmit)="onSubmit(); punktForm.reset();" #punktForm="ngForm">
     <dl>
         <dt>Название*</dt>
-        <dd><textarea name="name" [(ngModel)]="punkt.name" placeholder="Название" required #name="ngModel" maxlength="255" class="form-control" rows="5"></textarea></dd>
+        <dd><textarea 
+                name="name" 
+                [(ngModel)]="punkt.name" 
+                placeholder="Название" 
+                required 
+                #name="ngModel" 
+                maxlength="255" 
+                class="form-control" 
+                rows="5"></textarea></dd>
+        <dt>Статус</dt>
+        <dd><input 
+                type="checkbox"
+                value="true"
+                name="status"
+                id="punktStatus"
+                [(ngModel)]="punkt.status"
+                (checked)="punktForm.form.markAsDirty()">
+            <label for="punktStatus">включен</label></dd>
 
         <br>
         <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>

@@ -12,11 +12,11 @@ export class DocService {
 
   constructor(private http: Http) {}
 
-  getDocs(): Promise<Doc[]> {
-    return this.http.get(this.docsUrl)
-               .toPromise()
-               .then(response => response.json().data as Doc[])
-               .catch(this.handleError);
+  getDocs(checkStatus: boolean = false): Promise<Doc[]> {
+    return this.http.get(`${this.docsUrl}/c${+checkStatus}`)
+      .toPromise()
+      .then(response => response.json().data as Doc[])
+      .catch(this.handleError);
   }
 
   getDoc(id: number): Promise<Doc> {

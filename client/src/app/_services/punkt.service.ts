@@ -12,8 +12,8 @@ export class PunktService {
 
   constructor(private http: Http) {}
 
-  getPunkts(): Promise<Punkt[]> {
-    return this.http.get(this.punktsUrl)
+  getPunkts(checkStatus: boolean = false): Promise<Punkt[]> {
+    return this.http.get(`${this.punktsUrl}/c${+checkStatus}`)
                .toPromise()
                .then(response => response.json().data as Punkt[])
                .catch(this.handleError);

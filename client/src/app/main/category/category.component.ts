@@ -17,9 +17,7 @@ import { CategoryService } from '../../_services/category.service';
   styleUrls: ['./category.component.sass']
 })
 export class CategoryComponent implements OnInit {
-  selectedKateg: Kateg = new Kateg();
   kategs: Kateg[] = [];
-  selectedDoc: Doc = new Doc();
   docs: Doc[] = [];  
   category: Category = new Category();
   
@@ -35,26 +33,45 @@ export class CategoryComponent implements OnInit {
       [
         // Kategs
         callback => {
-          this.kategService.getKategs().then((kategs: Kateg[]) => this.kategs = kategs);
-          callback(null, true);
+          this.kategService.getKategs(true).then((kategs: Kateg[]) => {
+              this.kategs = kategs;
+              callback(null, true);
+            });          
         },
         // Docs
         callback => {
-          this.docService.getDocs().then((docs: Doc[]) => this.docs = docs);
-          callback(null, true);
+          this.docService.getDocs(true).then((docs: Doc[]) => {
+              this.docs = docs;
+              callback(null, true);
+            });          
         },
         // Category
         callback => {
           this.route.params     
             .switchMap((params: Params) => this.categoryService.getCategory(+params['idc']))
-            .subscribe((category: Category) => this.category = category);
-            callback(null, true);
+            .subscribe((category: Category) => {
+              this.category = category;
+              callback(null, true);
+            });
         }
       ],
       // Results
       (err, values) => {
-          this.selectedKateg = this.kategs.find(myObj => myObj.id === this.category.kateg_id);
-          this.selectedDoc = this.docs.find(myObj => myObj.id === this.category.doc_id);
+          // Kateg (add if not exist)
+          if (this.category.kateg_id && !this.kategs.filter(k => k.id === this.category.kateg_id).length) {
+            let kateg: Kateg = new Kateg();
+            kateg.id = this.category.kateg_id;
+            kateg.name = this.category.kateg;
+            this.kategs.push(kateg);
+          }
+          
+          // Doc (add if not exist)
+          if (this.category.doc_id && !this.docs.filter(k => k.id === this.category.doc_id).length) {
+            let doc: Doc = new Doc();
+            doc.id = this.category.doc_id;
+            doc.name = this.category.doc;
+            this.docs.push(doc);
+          }
       }
     );
   }
@@ -84,10 +101,7 @@ export class CategoryComponent implements OnInit {
   }
 
   set selectedKategId(value: number) {
-    if(value) {
-      this.selectedKateg = this.kategs.find(myObj => myObj.id === value);
-      this.category.kateg_id = value;
-    }
+    this.category.kateg_id = value;
   }
 
   get selectedDocId(): number {
@@ -95,10 +109,7 @@ export class CategoryComponent implements OnInit {
   }
 
   set selectedDocId(value: number) {
-    if(value) {
-      this.selectedDoc = this.docs.find(myObj => myObj.id === value);
-      this.category.doc_id = value;
-    }
+    this.category.doc_id = value;
   }
 
   gotoBack() {

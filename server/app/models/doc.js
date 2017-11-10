@@ -11,6 +11,11 @@ module.exports = function(sequelize, DataTypes) {
     name: {
       type: DataTypes.STRING(100),
       allowNull: true
+    },
+    status: {
+      type: DataTypes.INTEGER(1),
+      allowNull: true,
+      defaultValue: '1'
     }
   }, {
     tableName: 'doc'

@@ -10,7 +10,8 @@ create table doc(
 
 insert into doc (name) values 
     ('<Не требуется>'),
-    ('Справка МСЭ');
+    ('Справка МСЭ'),
+    ('Справка ВТЭ');
 
 create table kateg(
     id integer primary key auto_increment,

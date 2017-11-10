@@ -111,10 +111,12 @@ router.route('/:id')
     var sql =
         `SELECT a.*,
             concat(b.name,' (',b.gos_no,')') as car,
+            c.name as punkt,
             concat(n.name,', ',e.socr,' ',e.name) as a_street, 
             concat(o.name,', ',f.socr,' ',f.name) as b_street 
         FROM transportation a
             join car b on a.car_id = b.id
+            join punkt c on a.punkt_id = c.id
             join street e on a.a_street_id = e.id
             join street f on a.b_street_id = f.id
             join territory n on e.territory_id=n.id
@@ -169,8 +171,8 @@ router.route('/:id')
     if(user !== undefined) {
         user = user.toJSON();
     }    
-    req.body.userm_id=user.id;
-    req.body.dtm=new Date();
+    req.body.userm_id = user.id;
+    req.body.dtm = new Date();
 
     models.transportation.update(
         req.body,
