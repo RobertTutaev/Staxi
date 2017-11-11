@@ -25,6 +25,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import { transition } from '@angular/animations/src/animation_metadata';
 
 @Component({
   selector: 'transportation',
@@ -39,6 +40,7 @@ export class TransportationComponent implements OnInit {
   statuses: Status[] = [];
   transportation: Transportation = new Transportation();
 
+  rewrite: boolean = false;
   streetName: {} = {a_street: '', b_street: ''};
   streetDivName: string = 'a_street';
   streets: Observable<Street[]>;
@@ -99,9 +101,17 @@ export class TransportationComponent implements OnInit {
         // Transportation (wait)
         callback => {
           this.route.params
-            .switchMap((params: Params) => this.transportationService.getTransportation(+params['idc'], +params['cp']))
+            .switchMap((params: Params) => {
+              this.rewrite = params['cp'] === 'rewrite';
+              return this.transportationService.getTransportation(+params['idc'], +params['cp'])
+            })
             .subscribe((transportation: Transportation) => {          
               this.transportation = transportation;
+              //Запоминаем некоторые состояния
+              this.status = transportation.status_id;
+              this.streetName['a_street'] = this.transportation.a_street;
+              this.streetName['b_street'] = this.transportation.b_street;
+              
               callback(null, true);
             });
         }

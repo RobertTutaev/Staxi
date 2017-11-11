@@ -41,7 +41,7 @@
                 maxlength="255"></dd>
         
         <br>
-        <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
+        <button class="btn btn-default" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</button>
         <button class="btn btn-info" type="submit" [disabled]="typeForm.form.invalid || typeForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> {{type.id ? 'Изменить' : 'Добавить'}}</button>
     </dl>
 </form>

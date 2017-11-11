@@ -185,9 +185,9 @@
             </select></dd>
         
         <br>
-        <a class="btn btn-default" href="#" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
+        <button class="btn btn-default" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</button>
         <button 
-            *ngIf="status === 1 || authService.isSignedIn && authService.authUser.role3 && status === 2"
+            *ngIf="status === 1 || authService.isSignedIn && authService.authUser.role3 && (status === 2 || rewrite)"
             class="btn btn-info"
             type="submit"
             [disabled]="transportationForm.form.invalid || transportationForm.form.pristine">
