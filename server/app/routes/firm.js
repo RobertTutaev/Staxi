@@ -8,7 +8,7 @@ router.route('/')
   .get(function(req, res, next) {
     
     var user = req.user;
-    if(user !== undefined) user = user.toJSON();
+    if (user !== undefined) user = user.toJSON();
 
     dbtools.getOutputArray(
         'firm', 
@@ -27,18 +27,16 @@ router.route('/')
             
             models.sequelize.query(sql, { replacements: { oArray: outputArray }, type: models.sequelize.QueryTypes.SELECT })
                 .then(
-                function(values) {                    
-                    res.json(resp({
-                        data: values
-                    }));
-                }, 
-                function(err) {
-                    res.json(resp({
-                        rslt: false,
-                        msg: 'Не удалось получить список! Ошибка: ' + err.message
-                    }));
-                }
-            );
+                    (values) =>                    
+                        res.json(resp({
+                            data: values
+                        })), 
+                    (err) =>
+                        res.json(resp({
+                            rslt: false,
+                            msg: 'Не удалось получить список! Ошибка: ' + err.message
+                        }))
+                );
 
         }
     );
@@ -49,36 +47,33 @@ router.route('/:id')
     
     models.firm.findById(parseInt(req.params.id))
         .then(
-        function(value) {
-            res.json(resp({                
-                data: value
-            }));
-        }, 
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось получить список! Ошибка: ' + err.message
-            }));
-        }
-    );
+            (value) =>
+                res.json(resp({                
+                    data: value
+                })), 
+            (err) =>
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Не удалось получить список! Ошибка: ' + err.message
+                }))
+        );
 });
 
 router.route('/')
   .post(function(req, res, next) {
       
-    models.firm.create(req.body).then(
-        function(value) {
-            res.json(resp({
-                data: value
-            }));
-        },
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось добавить! Ошибка: ' + err.message
-            }));
-        }
-    );
+    models.firm.create(req.body)
+        .then(
+            (value) =>
+                res.json(resp({
+                    data: value
+                })),
+            (err) =>
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Не удалось добавить! Ошибка: ' + err.message
+                }))
+        );
 });
 
 router.route('/:id')
@@ -91,18 +86,16 @@ router.route('/:id')
                 id: parseInt( parseInt(req.params.id) )
             }
         }).then(
-        function(values) {
-            res.json(resp({
-                data: values
-            }));
-        },
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось изменить! Ошибка: ' + err.message
-            }));
-        }
-    );
+            (values) =>
+                res.json(resp({
+                    data: values
+                })),
+            (err) =>
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Не удалось изменить! Ошибка: ' + err.message
+                }))
+        );
 });
 
 router.route('/:id')
@@ -113,16 +106,14 @@ router.route('/:id')
                 id: parseInt( parseInt(req.params.id) )
             }
         }).then(
-        function() {
-            res.json(resp());
-        }, 
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось удалить! Ошибка: ' + err.message
-            }));
-        }
-    );
+            () =>
+                res.json(resp()), 
+            (err) =>
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Не удалось удалить! Ошибка: ' + err.message
+                }))
+        );
 });
 
 module.exports = router;

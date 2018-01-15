@@ -10,18 +10,16 @@ router.route('/')
             order: ["id"]
         })
         .then(
-        function(values) {
-            res.json(resp({                
-                data: values
-            }));
-        }, 
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось получить список! Ошибка: ' + err.message
-            }));
-        }
-    );
+            (values) =>
+                res.json(resp({                
+                    data: values
+                })), 
+            (err) =>
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Не удалось получить список! Ошибка: ' + err.message
+                }))
+        );
 });
 
 module.exports = router;

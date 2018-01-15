@@ -85,7 +85,7 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
                     // Если необходим файл
                     if (getFile) {
                         var user = req.user;
-                        if(user !== undefined) user = user.toJSON();
+                        if (user !== undefined) user = user.toJSON();
                         
                         dbreports.getA(values, user, firmId, aDt, bDt, statusId, withChilds, res);                        
                     // Если необходим результат
@@ -95,12 +95,11 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
                         }));
                     }
                 }, 
-                function(err) {
+                (err) =>
                     res.json(resp({
                         rslt: false,
                         msg: 'Не удалось получить список! Ошибка: ' + err.message
-                    }));
-                }
+                    }))
             );
 
         }
@@ -214,12 +213,10 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
                             type: models.sequelize.QueryTypes.SELECT 
                         })
                     .then(
-                        function(values){
-                            callback(null, values)
-                        },
-                        function(err){
+                        (values) =>
+                            callback(null, values),
+                        (err) =>
                             callback(err, null)
-                        }
                     );
                 },
                 // i2, i3
@@ -235,12 +232,10 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
                             type: models.sequelize.QueryTypes.SELECT 
                         })
                     .then(
-                        function(values){
-                            callback(null, values)
-                        },
-                        function(err){
+                        (values) =>
+                            callback(null, values),
+                        (err) =>
                             callback(err, null)
-                        }
                     );
                 }],
                 function(err, values){
@@ -258,7 +253,7 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
                         // Если необходим файл
                         if (getFile) {
                             var user = req.user;
-                            if(user !== undefined) user = user.toJSON();
+                            if (user !== undefined) user = user.toJSON();
 
                             dbreports.getB(values[0], user, firmId, aYear, aMonth, withChilds, res);
 
@@ -333,7 +328,7 @@ router.route('/c/:carId/:aDt/:getFile')
             // Если необходим файл
             if (getFile) {
                 var user = req.user;
-                if(user !== undefined) user = user.toJSON();
+                if (user !== undefined) user = user.toJSON();
                 
                 dbreports.getC(values, user, carId, aDt, res);                        
             // Если необходим результат
@@ -343,12 +338,11 @@ router.route('/c/:carId/:aDt/:getFile')
                 }));
             }
         }, 
-        function(err) {
+        (err) =>
             res.json(resp({
                 rslt: false,
                 msg: 'Не удалось получить список! Ошибка: ' + err.message
-            }));
-        }
+            }))
     );
 
 });

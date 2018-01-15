@@ -42,7 +42,7 @@ router.route('/c:id/:getFile/:column/:direction')
             // Если необходим файл
             if (getFile) {
                 var user = req.user;
-                if(user !== undefined) user = user.toJSON();
+                if (user !== undefined) user = user.toJSON();
                 
                 dbreports.getT(values, user, clientId, res);
             // Если необходим результат
@@ -52,12 +52,11 @@ router.route('/c:id/:getFile/:column/:direction')
                 }));
             }
         }, 
-        function(err) {
+        (err) =>
             res.json(resp({
                 rslt: false,
                 msg: 'Не удалось получить список! Ошибка: ' + err.message
-            }));
-        }
+            }))
     );
 });
 
@@ -91,18 +90,16 @@ router.route('/stat:id')
             }
         )
         .then(
-        function(values) {
-            res.json(resp({
-                data: values
-            }));
-        }, 
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось получить список! Ошибка: ' + err.message
-            }));
-        }
-    );
+            (values) =>
+                res.json(resp({
+                    data: values
+                })), 
+            (err) =>
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Не удалось получить список! Ошибка: ' + err.message
+                }))
+        );
 });
 
 router.route('/:id')
@@ -125,94 +122,138 @@ router.route('/:id')
 
     models.sequelize.query(sql, { replacements: { id: parseInt(req.params.id) }, type: models.sequelize.QueryTypes.SELECT })
         .then(
-        function(values) {
-            res.json(resp({
-                data: values[0]
-            }));
-        }, 
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось получить список! Ошибка: ' + err.message
-            }));
-        }
-    );
+            (values) =>
+                res.json(resp({
+                    data: values[0]
+                })), 
+            (err) =>
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Не удалось получить список! Ошибка: ' + err.message
+                }))
+        );
 });
 
 router.route('/')
   .post(function(req, res) {
-    
+
     var user = req.user;
-    if(user !== undefined) {
-        user = user.toJSON();
-    }    
+    if (user !== undefined) user = user.toJSON();
     req.body.user_id=user.id;
     req.body.dt=new Date();
-    
-    models.transportation.create(req.body).then(
-        function(value) {
-            res.json(resp({
-                data: value
-            }));
-        },
-        function(err) {
+ 
+    dbtools.getTransportationCount(
+        req.body.client_id,
+        new Date(req.body.a_dt),
+        function(count) {            
+            if ( count < 3 ) {
+                models.transportation.create(req.body).then(
+                    (value) =>
+                        res.json(resp({
+                            data: value
+                        })),
+                    (err) =>
+                        res.json(resp({
+                            rslt: false,
+                            msg: 'Не удалось добавить! Ошибка: ' + err.message
+                        }))
+                );
+            } else {
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Превышен максимальный предел заявок!'
+                }));
+            }
+        }, 
+        (err) =>
             res.json(resp({
                 rslt: false,
-                msg: 'Не удалось добавить! Ошибка: ' + err.message
-            }));
-        }
+                msg: 'Не удалось получить список! Ошибка: ' + err.message
+            }))
     );
 });
 
 router.route('/:id')
   .put(function(req, res, next) {
-    
-    var user = req.user;
-    if(user !== undefined) {
-        user = user.toJSON();
-    }    
-    req.body.userm_id = user.id;
-    req.body.dtm = new Date();
 
-    models.transportation.update(
-        req.body,
-        {
-            where: {
-                id: parseInt( parseInt(req.params.id) )
+    var id = parseInt(req.params.id);
+
+    // Проверка Статуса для разрешения/запрещения действий с заявкой
+    dbtools.getTransportationStatus( 
+        id, 
+        function(status) {
+            
+            var user = req.user;
+            if (user !== undefined) user = user.toJSON();
+
+            // Ограничиваем внесение изменений для пользователей и операторов (не для координаторов) 
+            if ( (status < 2 && (user.role0 || user.role2)) || user.role3 ) {
+                req.body.userm_id = user.id;
+                req.body.dtm = new Date();
+
+                models.transportation.update(
+                    req.body,
+                    {
+                        where: {
+                            id: id
+                        }
+                    }).then(
+                        () => 
+                            res.json(resp({
+                                data: values
+                            })),
+                        (err) => 
+                            res.json(resp({
+                                rslt: false,
+                                msg: 'Не удалось изменить! Ошибка: ' + err.message
+                            }))
+                    );
+            } else {
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Отсутствуют права на изменение заявки!'
+                }));
             }
-        }).then(
-        function(values) {
-            res.json(resp({
-                data: values
-            }));
-        },
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось изменить! Ошибка: ' + err.message
-            }));
         }
-    );
+    );    
 });
 
 router.route('/:id')
   .delete(function(req, res, next) {
+
+    var id = parseInt(req.params.id);
+    // Проверка Статуса для разрешения/запрещения действий с заявкой
+    dbtools.getTransportationStatus( 
+        id, 
+        function(status) {
+            
+            var user = req.user;
+            if (user !== undefined) user = user.toJSON();
+
+            // Ограничиваем удаление для пользователей и операторов (не для координаторов) 
+            if ( (status < 2 && (user.role0 || user.role2)) || user.role3 ) {
       
-    models.transportation.destroy({
-            where: {
-                id: parseInt( parseInt(req.params.id) )
+                models.transportation.destroy({
+                        where: {
+                            id: id
+                        }
+                    }).then(
+                        () => 
+                            res.json(resp()), 
+                        (err) => 
+                            res.json(resp({
+                                rslt: false,
+                                msg: 'Не удалось удалить! Ошибка: ' + err.message
+                            }))
+                    );
+            } else {
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Отсутствуют права на удаление заявки!'
+                }));
             }
-        }).then(
-        function() {
-            res.json(resp());
-        }, 
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось удалить! Ошибка: ' + err.message
-            }));
         }
-    );
+    );    
 });
 
 module.exports = router;

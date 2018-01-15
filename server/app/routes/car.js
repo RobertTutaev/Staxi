@@ -9,7 +9,7 @@ router.route('/c:checkStatus')
 
     var checkStatus = req.params.checkStatus ? parseInt(req.params.checkStatus) : 0;
     var user = req.user;
-    if(user !== undefined) user = user.toJSON();
+    if (user !== undefined) user = user.toJSON();
 
     dbtools.getOutputArray(
         'firm',
@@ -38,19 +38,16 @@ router.route('/c:checkStatus')
                         type: models.sequelize.QueryTypes.SELECT
                     })
                 .then(
-                function(values) {
-                    res.json(resp({
-                        data: values
-                    }));
-                },
-                function(err) {
-                    res.json(resp({
-                        rslt: false,
-                        msg: 'Не удалось получить список! Ошибка: ' + err.message
-                    }));
-                }
-            );
-
+                    (values) =>
+                        res.json(resp({
+                            data: values
+                        })),
+                    (err) =>
+                        res.json(resp({
+                            rslt: false,
+                            msg: 'Не удалось получить список! Ошибка: ' + err.message
+                        }))
+                );
         }
     );
 });
@@ -60,7 +57,7 @@ router.route('/d:checkStatus')
 
     var checkStatus = req.params.checkStatus ? parseInt(req.params.checkStatus) : 0;
     var user = req.user;
-    if(user !== undefined) user = user.toJSON();
+    if (user !== undefined) user = user.toJSON();
     
     var sql =
         `SELECT
@@ -84,19 +81,16 @@ router.route('/d:checkStatus')
                 type: models.sequelize.QueryTypes.SELECT
             })
         .then(
-        function(values) {                    
-            res.json(resp({
-                data: values
-            }));
-        }, 
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось получить список! Ошибка: ' + err.message
-            }));
-        }
-    );
-
+            (values) =>                    
+                res.json(resp({
+                    data: values
+                })), 
+            (err) =>
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Не удалось получить список! Ошибка: ' + err.message
+                }))
+        );
 });
 
 router.route('/:id')
@@ -115,36 +109,31 @@ router.route('/:id')
     
     models.sequelize.query(sql, { replacements: { id: parseInt(req.params.id) }, type: models.sequelize.QueryTypes.SELECT })
         .then(
-        function(values) {                    
-            res.json(resp({
-                data: values[0]
-            }));
-        }, 
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось получить список! Ошибка: ' + err.message
-            }));
-        }
-    );
-
+            (values) =>                   
+                res.json(resp({
+                    data: values[0]
+                })), 
+            (err) =>
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Не удалось получить список! Ошибка: ' + err.message
+                }))
+        );
 });
 
 router.route('/')
   .post(function(req, res) { 
     
     models.car.create(req.body).then(
-        function(value) {
+        (value) =>
             res.json(resp({
                 data: value
-            }));
-        },
-        function(err) {
+            })),
+        (err) =>
             res.json(resp({
                 rslt: false,
                 msg: 'Не удалось добавить! Ошибка: ' + err.message
-            }));
-        }
+            }))
     );
 });
 
@@ -158,18 +147,16 @@ router.route('/:id')
                 id: parseInt( parseInt(req.params.id) )
             }
         }).then(
-        function(values) {
-            res.json(resp({
-                data: values
-            }));
-        },
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось изменить! Ошибка: ' + err.message
-            }));
-        }
-    );
+            (values) =>
+                res.json(resp({
+                    data: values
+                })),
+            (err) =>
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Не удалось изменить! Ошибка: ' + err.message
+                }))
+        );
 });
 
 router.route('/:id')
