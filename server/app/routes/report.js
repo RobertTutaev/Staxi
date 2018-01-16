@@ -1,5 +1,4 @@
 var express = require('express');
-var async = require('async');
 var router = express.Router();
 var models = require('../models');
 var resp = require('../lib/resp');
@@ -199,9 +198,8 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
                 ORDER BY
                     n`;  
         
-            async.parallel([
-                // i0, i1
-                function(callback){
+            Promise.all([
+                    // i0, i1
                     models.sequelize.query(
                         sql, 
                         { 
@@ -211,16 +209,8 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
                                 bDt: bDt 
                             },  
                             type: models.sequelize.QueryTypes.SELECT 
-                        })
-                    .then(
-                        (values) =>
-                            callback(null, values),
-                        (err) =>
-                            callback(err, null)
-                    );
-                },
-                // i2, i3
-                function(callback){
+                        }),
+                    // i2, i3
                     models.sequelize.query(
                         sql, 
                         { 
@@ -231,25 +221,14 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
                             },  
                             type: models.sequelize.QueryTypes.SELECT 
                         })
-                    .then(
-                        (values) =>
-                            callback(null, values),
-                        (err) =>
-                            callback(err, null)
-                    );
-                }],
-                function(err, values){
-                    if(err) {
-                        res.json(resp({
-                            rslt: false,
-                            msg: 'Не удалось получить список! Ошибка: ' + err.message
-                        }));
-                    } else {
+                    ])
+                .then(
+                    (values) => {
                         values[0].forEach(function(element, index, array) {
-                                element.i2 = values[1][index].i0;
-                                element.i3 = values[1][index].i1;
-                            });
-                        
+                            element.i2 = values[1][index].i0;
+                            element.i3 = values[1][index].i1;
+                        });
+                    
                         // Если необходим файл
                         if (getFile) {
                             var user = req.user;
@@ -263,9 +242,13 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
                                 data: values[0]
                             }));
                         }
-                    }
-                }
-            );
+                    },
+                    (err) => 
+                        res.json(resp({
+                            rslt: false,
+                            msg: 'Не удалось получить список! Ошибка: ' + err.message
+                        }))
+                )            
         }
     );
 });
