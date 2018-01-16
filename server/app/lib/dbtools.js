@@ -45,20 +45,7 @@ var getOutputArrayForTerritory = function(searchValue, callback) {
     );
 }
 
-var getTransportationStatus = function(searchValue, callback) {
-
-    models.transportation.findById(parseInt(searchValue))
-        .then(
-        function(value) {
-            return callback(value.status);
-        },
-        function(err) {
-            return callback(0);
-        }
-    );
-}
-
-var getTransportationCount = function(id, dt, callbackOk, callbackErr) {
+var getTransportationCount = function(id, dt) {
 
     var year = dt.getFullYear();
     var aDt = new Date(year, 0, 1);
@@ -73,30 +60,30 @@ var getTransportationCount = function(id, dt, callbackOk, callbackErr) {
             DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt) AND 
             t.status_id = 3`;
 
-    models.sequelize.query(
-            sql, 
-            { 
-                replacements: { 
-                    id: id,
-                    aDt: aDt,
-                    bDt: bDt
-                }, 
-                type: models.sequelize.QueryTypes.SELECT 
-            }
-        )
-        .then(
-        function(values) {
-            return callbackOk(values[0].cnt);
-        },
-        function(err) {
-            return callbackErr(err);
-        }
-    );
+    return models.sequelize.query(
+                sql,
+                {
+                    replacements: {
+                        id: id,
+                        aDt: aDt,
+                        bDt: bDt
+                    },
+                    type: models.sequelize.QueryTypes.SELECT
+                }
+            )
+            .then((values) => values[0].cnt);
+}
+
+var canTransportationChange = function(id, user) {
+
+    // Ограничиваем или нет изменение/удаление заявок для пользователей и операторов (не для координаторов!)
+    return models.transportation.findById(id)
+        .then((value) => (value.status_id < 2 && (user.role0 || user.role2)) || user.role3 );
 }
 
 module.exports = {
     getOutputArray: getOutputArray,
     getOutputArrayForTerritory: getOutputArrayForTerritory,
-    getTransportationStatus: getTransportationStatus,
-    getTransportationCount: getTransportationCount
+    getTransportationCount: getTransportationCount,
+    canTransportationChange: canTransportationChange
 }

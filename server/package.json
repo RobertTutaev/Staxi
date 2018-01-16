@@ -7,7 +7,6 @@
     "start": "node ./app/bin/www"
   },
   "dependencies": {
-    "async": "^2.5.0",
     "bcrypt-nodejs": "*",
     "body-parser": "*",
     "cookie-parser": "*",
