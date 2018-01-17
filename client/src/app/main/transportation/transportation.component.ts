@@ -15,7 +15,6 @@ import { TransportationService } from '../../_services/transportation.service';
 import { Status } from '../../_classes/list/status';
 import { StatusService } from '../../_services/status.service';
 import { AuthService } from '../../_services/auth.service';
-import * as async from 'async';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -57,30 +56,14 @@ export class TransportationComponent implements OnInit {
               private location: Location) { }
   
   ngOnInit() {
-    async.parallel(
-      [
-        // Punkts (wait)
-        callback => {
-          this.punktService.getPunkts(true).then((punkts: Punkt[]) => {
-            this.punkts = punkts;
-            callback(null, true);
-          });          
-        },
-        // Status
-        callback => {
-          this.statusService.getStatuses().then((statuses: Status[]) => this.statuses = statuses);
-          callback(null, true);
-        },
-        // Categories
-        callback => {
-          this.route.parent.parent.params
+    Promise.all(
+      [      
+        this.punktService.getPunkts(true),
+        this.statusService.getStatuses(),
+        this.route.parent.parent.params
             .switchMap((params: Params) => this.categoryService.getCategories(+params['id']))
-            .subscribe((categories: Category[]) => this.categories = categories);
-          callback(null, true);
-        },
-        // Streets
-        callback => {
-          this.streets = this.searchTerms
+            .toPromise(),
+        this.streets = this.searchTerms
             .debounceTime(400)        // wait 300ms after each keystroke before considering the term
             .distinctUntilChanged()   // ignore if next search term is same as previous
             .switchMap(term => term   // switch to new observable each time the term changes
@@ -88,51 +71,43 @@ export class TransportationComponent implements OnInit {
               ? this.streetService.search(term)
               // or the observable of empty heroes if there was no search term
               : Observable.of<Street[]>([]))
-            .catch(error => Observable.of<Street[]>([]));
-          callback(null, true);
-        },
-        // Cars (wait)
-        callback => {
-          this.carService.getCars(true).then((cars: Car[]) => {
-            this.cars = cars;
-            callback(null, true);
-          });
-        },
-        // Transportation (wait)
-        callback => {
-          this.route.params
+            .catch(error => Observable.of<Street[]>([])),
+        this.carService.getCars(true),
+        this.route.params
             .switchMap((params: Params) => {
               this.rewrite = params['cp'] === 'rewrite';
               return this.transportationService.getTransportation(+params['idc'], +params['cp'])
             })
-            .subscribe((transportation: Transportation) => {          
-              this.transportation = transportation;
-              //Запоминаем некоторые состояния
-              this.status = transportation.status_id;
-              this.streetName['a_street'] = this.transportation.a_street;
-              this.streetName['b_street'] = this.transportation.b_street;
-              
-              callback(null, true);
-            });
+            .toPromise()
+      ])
+      .then((values) => {
+        this.punkts = values[0];
+        this.statuses = values[1];
+        this.categories = values[2];
+        //this.streets
+        this.cars = values[4];
+
+        this.transportation = values[5];
+        //Запоминаем некоторые состояния
+        this.status = this.transportation.status_id;
+        this.streetName['a_street'] = this.transportation.a_street;
+        this.streetName['b_street'] = this.transportation.b_street;
+
+        // Punkt (add if not exist)
+        if (this.transportation.punkt_id && !this.punkts.filter(k => k.id === this.transportation.punkt_id).length) {
+          let punkt: Punkt = new Punkt();
+          punkt.id = this.transportation.punkt_id;
+          punkt.name = this.transportation.punkt;
+          this.punkts.push(punkt);
         }
-      ],
-      // Results
-      (err, values) => {
-          // Punkt (add if not exist)
-          if (this.transportation.punkt_id && !this.punkts.filter(k => k.id === this.transportation.punkt_id).length) {
-            let punkt: Punkt = new Punkt();
-            punkt.id = this.transportation.punkt_id;
-            punkt.name = this.transportation.punkt;
-            this.punkts.push(punkt);
-          }
-          
-          // Car (add if not exist)
-          if (this.transportation.car_id && !this.cars.filter(k => k.id === this.transportation.car_id).length) {
-            let car: Car = new Car();
-            car.id = this.transportation.car_id;
-            car.name = this.transportation.car;
-            this.cars.push(car);
-          }
+        
+        // Car (add if not exist)
+        if (this.transportation.car_id && !this.cars.filter(k => k.id === this.transportation.car_id).length) {
+          let car: Car = new Car();
+          car.id = this.transportation.car_id;
+          car.name = this.transportation.car;
+          this.cars.push(car);
+        }
       }
     );
   }
