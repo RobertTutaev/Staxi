@@ -124,17 +124,18 @@ router.route('/:id')
 router.route('/')
   .post(function(req, res) { 
     
-    models.car.create(req.body).then(
-        (value) =>
-            res.json(resp({
-                data: value
-            })),
-        (err) =>
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось добавить! Ошибка: ' + err.message
-            }))
-    );
+    models.car.create(req.body)
+        .then(
+            (value) =>
+                res.json(resp({
+                    data: value
+                })),
+            (err) =>
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Не удалось добавить! Ошибка: ' + err.message
+                }))
+        );
 });
 
 router.route('/:id')
@@ -146,7 +147,8 @@ router.route('/:id')
             where: {
                 id: parseInt( parseInt(req.params.id) )
             }
-        }).then(
+        })
+        .then(
             (values) =>
                 res.json(resp({
                     data: values
@@ -166,17 +168,15 @@ router.route('/:id')
             where: {
                 id: parseInt( parseInt(req.params.id) )
             }
-        }).then(
-        function() {
-            res.json(resp());
-        },
-        function(err) {
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось удалить! Ошибка: ' + err.message
-            }));
-        }
-    );
+        })
+        .then(
+            () => res.json(resp()),
+            (err) =>
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Не удалось удалить! Ошибка: ' + err.message
+                }))
+        );
 });
 
 module.exports = router;

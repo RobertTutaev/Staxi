@@ -83,3 +83,7 @@ https://artyomsokolov.com/how-to-use-different-environment-variables-for-product
 Iconic Resources
 ==========
 https://forum.ionicframework.com/t/i-cant-change-the-icon-of-my-app/8490/9
+
+Рабочая версия Angular Material
+==========
+"@angular/material": "2.0.0-beta.8",

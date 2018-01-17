@@ -90,7 +90,8 @@ router.route('/:id')
             where: {
                 id: parseInt( parseInt(req.params.id) )
             }
-        }).then(
+        })
+        .then(
             () =>
                 res.json(resp()), 
             (err) =>

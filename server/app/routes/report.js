@@ -79,27 +79,28 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
                     type: models.sequelize.QueryTypes.SELECT 
                 })
                 .then(
-                function(values) {
-                    
-                    // Если необходим файл
-                    if (getFile) {
-                        var user = req.user;
-                        if (user !== undefined) user = user.toJSON();
+                    (values) => {
                         
-                        dbreports.getA(values, user, firmId, aDt, bDt, statusId, withChilds, res);                        
-                    // Если необходим результат
-                    } else {
+                        // Если необходим файл
+                        if (getFile) {
+                            var user = req.user;
+                            if (user !== undefined) user = user.toJSON();
+                            
+                            dbreports.getA(values, user, firmId, aDt, bDt, statusId, withChilds, res);                        
+                        // Если необходим результат
+                        } else {
+                            return 
+                                res.json(resp({
+                                    data: values
+                                }));
+                        }
+                    }, 
+                    (err) =>
                         res.json(resp({
-                            data: values
-                        }));
-                    }
-                }, 
-                (err) =>
-                    res.json(resp({
-                        rslt: false,
-                        msg: 'Не удалось получить список! Ошибка: ' + err.message
-                    }))
-            );
+                            rslt: false,
+                            msg: 'Не удалось получить список! Ошибка: ' + err.message
+                        }))
+                );
 
         }
     );
@@ -117,7 +118,6 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
     var aDtMonth= new Date(aYear, aMonth - 1, 1);
     var aDtYear = new Date(aYear, 0, 1);
     var bDt     = new Date(aYear, aMonth, 0);
-    console.log(aYear, aMonth);
 
     if (!firmId)
         return  res.json(resp({
@@ -307,27 +307,174 @@ router.route('/c/:carId/:aDt/:getFile')
             type: models.sequelize.QueryTypes.SELECT 
         })
         .then(
-        function(values) {                      
-            // Если необходим файл
-            if (getFile) {
-                var user = req.user;
-                if (user !== undefined) user = user.toJSON();
-                
-                dbreports.getC(values, user, carId, aDt, res);                        
-            // Если необходим результат
-            } else {
+            (values) => {                      
+                // Если необходим файл
+                if (getFile) {
+                    var user = req.user;
+                    if (user !== undefined) user = user.toJSON();
+                    
+                    dbreports.getC(values, user, carId, aDt, res);                        
+                // Если необходим результат
+                } else {
+                    return 
+                        res.json(resp({
+                            data: values
+                        }));
+                }
+            }, 
+            (err) =>
                 res.json(resp({
-                    data: values
-                }));
-            }
-        }, 
-        (err) =>
-            res.json(resp({
-                rslt: false,
-                msg: 'Не удалось получить список! Ошибка: ' + err.message
-            }))
-    );
+                    rslt: false,
+                    msg: 'Не удалось получить список! Ошибка: ' + err.message
+                }))
+        );
+});
 
+router.route('/d/:firmId/:aYear/:aMonth/:withChilds/:getFile')
+  .get(function(req, res, next) {
+
+    var firmId = req.params.firmId ? parseInt(req.params.firmId) : 0;
+    var aYear = req.params.aYear ? parseInt(req.params.aYear) : (new Date()).getFullYear();
+    var aMonth = req.params.aMonth ? parseInt(req.params.aMonth) : (new Date()).getMonth() + 1;
+    var withChilds = req.params.withChilds ? parseInt(req.params.withChilds) : 0;
+    var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
+
+    var aDtMonth= new Date(aYear, aMonth - 1, 1);
+    var aDtYear = new Date(aYear, 0, 1);
+    var bDt     = new Date(aYear, aMonth, 0);
+
+    if (!firmId)
+        return  res.json(resp({
+                    data: []
+                }));
+    
+    dbtools.getOutputArray(
+        'firm', 
+        firmId, 
+        function(outputArray) {
+            
+            var sql =
+                `SELECT
+                    100 as n,
+                    'Поступило заявок в т.ч.:' as name,
+                    count(if(c.type=0, u.firm_id, null)) as i0,
+                    count(if(c.type>0, u.firm_id, null)) as i1
+                FROM status s
+                    left join transportation t on s.id = t.status_id and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
+                    left join user u on t.user_id = u.id and u.firm_id in (:oArray)
+                    left join car c on c.id = t.car_id                    
+                WHERE
+                    s.id>2
+                UNION
+                SELECT
+                    100+@i:=@i+1,
+                    s.name,
+                    count(if(c.type=0, u.firm_id, null)),
+                    count(if(c.type>0, u.firm_id, null))
+                FROM status s
+                    left join transportation t on s.id = t.status_id and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
+                    left join user u on t.user_id = u.id and u.firm_id in (:oArray)
+                    left join car c on c.id = t.car_id,
+                    (select @i:=0) i
+                WHERE
+                    s.id>2
+                GROUP BY
+                    s.name
+                UNION
+                SELECT
+                    200,
+                    'Социально значимые объекты инфраструктуры города Челябинска',
+                    null,
+                    null
+                UNION
+                SELECT
+                    200+@j:=@j+1,
+                    p.name,
+                    count(if(c.type=0, u.firm_id, null)),
+                    count(if(c.type>0, u.firm_id, null))
+                FROM punkt p
+                    left join transportation t on p.id = t.punkt_id and t.status_id=3 and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
+                    left join user u on t.user_id = u.id and u.firm_id in (:oArray)
+                    left join car c on c.id = t.car_id,
+                    (select @j:=0) j	
+                group by
+                    p.name
+                UNION
+                SELECT
+                    300,
+                    'Категории граждан, имеющие право на обслуживание социальной службой',
+                    null,
+                    null
+                UNION
+                SELECT
+                    300+@k:=@k+1,
+                    a.name,
+                    count(if(c.type=0, u.firm_id, null)),
+                    count(if(c.type>0, u.firm_id, null))
+                FROM kateg a
+                    left join category b on b.kateg_id=a.id
+                    left join transportation t on b.id = t.category_id and t.status_id=3 and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
+                    left join user u on t.user_id = u.id and u.firm_id in (:oArray)
+                    left join car c on c.id = t.car_id,
+                    (select @k:=0) k
+                group by
+                    a.name
+                ORDER BY
+                    n`;  
+        
+            Promise.all([
+                    // i0, i1
+                    models.sequelize.query(
+                        sql, 
+                        { 
+                            replacements: { 
+                                oArray: withChilds ? outputArray : [firmId],
+                                aDt: aDtMonth,
+                                bDt: bDt 
+                            },  
+                            type: models.sequelize.QueryTypes.SELECT 
+                        }),
+                    // i2, i3
+                    models.sequelize.query(
+                        sql, 
+                        { 
+                            replacements: { 
+                                oArray: withChilds ? outputArray : [firmId],
+                                aDt: aDtYear,
+                                bDt: bDt 
+                            },  
+                            type: models.sequelize.QueryTypes.SELECT 
+                        })
+                    ])
+                .then(
+                    (values) => {
+                        values[0].forEach(function(element, index, array) {
+                            element.i2 = values[1][index].i0;
+                            element.i3 = values[1][index].i1;
+                        });
+                    
+                        // Если необходим файл
+                        if (getFile) {
+                            var user = req.user;
+                            if (user !== undefined) user = user.toJSON();
+
+                            dbreports.getB(values[0], user, firmId, aYear, aMonth, withChilds, res);
+
+                        // Если необходим результат
+                        } else {
+                            res.json(resp({
+                                data: values[0]
+                            }));
+                        }
+                    },
+                    (err) => 
+                        res.json(resp({
+                            rslt: false,
+                            msg: 'Не удалось получить список! Ошибка: ' + err.message
+                        }))
+                )            
+        }
+    );
 });
 
 module.exports = router;

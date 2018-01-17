@@ -90,7 +90,8 @@ router.route('/:id')
             where: {
                 id: parseInt( parseInt(req.body.id) )
             }
-        }).then(
+        })
+        .then(
             (values) =>
                 res.json(resp({
                     data: values
@@ -110,7 +111,8 @@ router.route('/:id')
             where: {
                 id: parseInt( parseInt(req.params.id) )
             }
-        }).then(
+        })
+        .then(
             () =>
                 res.json(resp()), 
             (err) =>

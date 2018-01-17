@@ -30,19 +30,15 @@ var getOutputArrayForTerritory = function(searchValue, callback) {
 
     models.firm.findById(parseInt(searchValue))
         .then(
-        function(value) {
-            getOutputArray(
-                'territory',
-                value.territory_id,
-                function(outputArray) {
-                    return callback(outputArray);
-                }
-            );
-        }, 
-        function(err) {
-            return callback([emptyArrayValue]);
-        }
-    );
+            (value) => {
+                getOutputArray(
+                    'territory',
+                    value.territory_id,
+                    (outputArray) => callback(outputArray)
+                );
+            }, 
+            (err) => callback([emptyArrayValue])
+        );
 }
 
 var getTransportationCount = function(id, dt) {

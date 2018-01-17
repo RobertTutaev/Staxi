@@ -72,26 +72,25 @@ app.use(function(err, req, res, next) {
 
 // Работаем с passport =========================================================
 passport.use(new LocalStrategy(function(username, password, done) {
-    models.user.find({ where: { username: username } }).then(
-        function(user) {
-            if (!user) 
-                return done(null, false, {message: 'Неверный логин!'});
-            else {
-                user = user.toJSON();
-                if (!bcrypt.compareSync(password, user.password)) 
-                    return done(null, false, {message: 'Неверный пароль!'});
+    models.user.find({ where: { username: username } })
+        .then(
+            (user) => {
+                if (!user) 
+                    return done(null, false, {message: 'Неверный логин!'});
                 else {
-                    if (!user.checked) 
-                        return done(null, false, {message: 'Пользователь заблокирован!'});
-                    else 
-                        return done(null, user);
+                    user = user.toJSON();
+                    if (!bcrypt.compareSync(password, user.password)) 
+                        return done(null, false, {message: 'Неверный пароль!'});
+                    else {
+                        if (!user.checked) 
+                            return done(null, false, {message: 'Пользователь заблокирован!'});
+                        else 
+                            return done(null, user);
+                    }
                 }
-            }
-        }, 
-        function(err) {
-            return done(err);
-        }
-    );
+            }, 
+            (err) => done(err)
+        );
 }));
 
 passport.serializeUser(function(user, done) {
@@ -99,15 +98,14 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-    models.user.findById(id).then(
-        function(user){
-            user.password = '';
-            return done(null, user);
-        },
-        function(err) {
-            return done(err);
-        }
-    );
+    models.user.findById(id)
+        .then(
+            (user) => {
+                user.password = '';
+                return done(null, user);
+            },
+            (err) => done(err)
+        );
 });
 
 module.exports = app;
