@@ -4,18 +4,18 @@
     <div class="col-md-12">        
         <dt>Дата*</dt> 
         <dd><input 
-                mdInput
+                matInput
                 type="text"
                 id="aDt"
-                [mdDatepicker]="pickerADt"
+                [matDatepicker]="pickerADt"
                 name="aDt"
                 [(ngModel)]="report.aDt"
                 readonly="readonly"
                 placeholder="Дата"
                 size="10"
                 required>
-                <button mdSuffix [mdDatepickerToggle]="pickerADt"></button>
-            <md-datepicker #pickerADt></md-datepicker></dd>
+            <mat-datepicker-toggle matSuffix [for]="pickerADt"></mat-datepicker-toggle> 
+            <mat-datepicker #pickerADt></mat-datepicker></dd>
     </div>
     
     <div class="clearfix"></div>

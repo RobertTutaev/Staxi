@@ -10,10 +10,9 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { FamiliaPipe } from './pipes/familia.pipe';
 import { EqualValidatorDirective } from './directives/equal-validator.directive';
 
-import { MaterialModule, MdNativeDateModule } from '@angular/material';
+import { MatNativeDateModule, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { DateAdapter, MD_DATE_FORMATS } from '@angular/material';
 import { ToolsDateAdapter } from './tools.date.adapter';
 import { LOCALE_ID } from '@angular/core';
 
@@ -69,8 +68,7 @@ NguiDatetime.locale = {
   ],
   exports: [
     BrowserAnimationsModule,
-    MaterialModule,
-    MdNativeDateModule,
+    MatNativeDateModule,
     NguiDatetimePickerModule,
     FilterPipe,
     OrderByPipe,
