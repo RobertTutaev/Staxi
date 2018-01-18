@@ -89,10 +89,9 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
                             dbreports.getA(values, user, firmId, aDt, bDt, statusId, withChilds, res);                        
                         // Если необходим результат
                         } else {
-                            return 
-                                res.json(resp({
-                                    data: values
-                                }));
+                            res.json(resp({
+                                data: values
+                            }));
                         }
                     }, 
                     (err) =>
@@ -315,11 +314,10 @@ router.route('/c/:carId/:aDt/:getFile')
                     
                     dbreports.getC(values, user, carId, aDt, res);                        
                 // Если необходим результат
-                } else {
-                    return 
-                        res.json(resp({
-                            data: values
-                        }));
+                } else {                    
+                    res.json(resp({
+                        data: values
+                    }));
                 }
             }, 
             (err) =>

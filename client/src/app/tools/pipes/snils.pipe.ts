@@ -11,7 +11,7 @@ export class SnilsPipe implements PipeTransform {
     let str = '';
     for (let i = 0; i < value.length; i++) {
       str += value[i];
-      if (i === 2 || i === 5 || i === 8 && value[i]! === '-') { str += '-'; }
+      if ( i === 2 || i === 5 || i === 8 && value[i] !== '-') { str += '-'; }
     }
 
     return str;
