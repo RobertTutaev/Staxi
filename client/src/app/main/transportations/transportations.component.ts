@@ -20,8 +20,8 @@ export class TransportationsComponent extends SController implements OnInit {
               private transportationService: TransportationService,
               private route: ActivatedRoute,
               private router: Router) { super(); }
-  
-  ngOnInit() {    
+
+  ngOnInit() {
     this.route.parent.parent.params
       .switchMap((params: Params) => this.transportationService.getStat(+params['id']))
       .subscribe((stats: Stat[]) => this.stats = stats);
@@ -46,8 +46,9 @@ export class TransportationsComponent extends SController implements OnInit {
   }
 
   onDelete(transportation: Transportation) {
-    if(confirm('Вы действительно хотите удалить текущую запись?'))
+    if (confirm('Вы действительно хотите удалить текущую запись?')) {
       this.transportationService.delete(transportation.id)
         .then((res: any) => res.rslt ? this.transportations = this.transportations.filter(k => k !== transportation) : null);
-  } 
+    }
+  }
 }

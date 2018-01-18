@@ -73,4 +73,4 @@ export let Transportations: Transportation[] = [
     dtm: null,
     firm: 'КЦСОН Ленинского района г. Челябинска'
   }
-];
+]

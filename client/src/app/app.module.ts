@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
@@ -9,7 +9,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './_mock/in-memory-data.service';
+import { InMemoryDataService } from './_mock/in-memory-data.service';
 
 import { MainModule } from './main/main.module';
 import { ReportModule } from './report/report.module';
@@ -26,6 +26,11 @@ import { ServeTerritoryModule } from './serve-territory/serve-territory.module';
 import { ServeUserModule } from './serve-user/serve-user.module';
 import { AuthModule } from './auth/auth.module';
 import { ToolsModule } from './tools/tools.module';
+
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+
+registerLocaleData(localeRu, 'ru-RU');
 
 @NgModule({
   declarations: [
@@ -52,7 +57,7 @@ import { ToolsModule } from './tools/tools.module';
     AppRoutingModule,
     environment.production ? [] : InMemoryWebApiModule.forRoot(InMemoryDataService, {'delay': 100})
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

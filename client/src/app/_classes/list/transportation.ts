@@ -1,4 +1,4 @@
-export class Transportation { 
+export class Transportation {
     constructor(
             public id: number = null,
             public client_id: number = null,
@@ -23,7 +23,7 @@ export class Transportation {
             public b_pod: number = null,
             public b_adr: string = null,
             public b_dt: number = null,
-            public convoy: boolean = false,            
+            public convoy: boolean = false,
             public comment: string = null,
             public status_id: number = 1,
             public status: string = null,

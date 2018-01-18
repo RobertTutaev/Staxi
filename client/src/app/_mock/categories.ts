@@ -77,4 +77,4 @@ export let Categories: Category[] = [
     userm: 'Р.А. Агонисян',
     dtm: null
   }
-];
+]

@@ -47,7 +47,7 @@ export class AuthService {
         })
         .catch(this.handleError);
   }
-  
+
   get isSignedIn(): boolean {
     return !!this.resp.data;
   }

@@ -1,4 +1,4 @@
-import { Injectable }    from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
@@ -23,7 +23,7 @@ export class UserService {
     if (!id) {
       const promise: Promise<User> = new Promise(() => new User());
 
-      return promise.then();      
+      return promise.then();
     } else {
       const url = `${this.usersUrl}/${id}`;
 
@@ -39,7 +39,7 @@ export class UserService {
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
       .then(response => response.json())
-      .catch(this.handleError); 
+      .catch(this.handleError);
   }
 
   create(user: User): Promise<User> {

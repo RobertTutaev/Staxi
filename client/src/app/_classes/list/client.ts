@@ -1,4 +1,4 @@
-export class Client { 
+export class Client {
     constructor(
             public id: number = null,
             public snils: string = null,
@@ -13,7 +13,7 @@ export class Client {
             public kv: string = null,
             public reason_id: number = 1,
             public user_id: number = null,
-            public user: string = null,            
+            public user: string = null,
             public dt: number = null,
             public userm_id: number = null,
             public userm: string = null,

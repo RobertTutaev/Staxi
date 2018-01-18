@@ -19,18 +19,18 @@ export class AComponent implements OnInit {
   firms: Firm[] = [];
   statuses: Status[] = [];
   transportations: Transportation[] = [];
-  
+
   constructor(private reportService: ReportService,
               private firmService: FirmService,
               private statusService: StatusService,
               private route: ActivatedRoute,
               private router: Router) { }
-  
+
   ngOnInit() {
     this.firmService.getFirms().then((firms: Firm[]) => this.firms = firms);
 
     this.statusService.getStatuses().then((statuses: Status[]) => this.statuses = statuses);
-    
+
     this.route.params
       .switchMap((params: Params) => this.reportService.getA(this.report.clone(params)))
       .subscribe((transportations: Transportation[]) => this.transportations = transportations);

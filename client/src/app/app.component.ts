@@ -12,6 +12,6 @@ export class AppComponent {
   title = 'STaxi';
   titleSmall = 'служба "Социальное такси"';
   aReport: AReport = new AReport();
-  
+
   constructor(private authService: AuthService) {}
 }

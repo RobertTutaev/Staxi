@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Location }               from '@angular/common';
+import { Location } from '@angular/common';
 
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -19,15 +19,15 @@ import { CarService } from '../../_services/car.service';
 export class CarComponent implements OnInit {
   firms: Firm[] = [];
   users: User[] = [];
-  car: Car = new Car(); 
-  
+  car: Car = new Car();
+
   constructor(private firmService: FirmService,
               private userService: UserService,
               private carService: CarService,
               private route: ActivatedRoute,
               private router: Router,
               private location: Location) { }
-  
+
   ngOnInit() {
     this.firmService.getFirms().then((firms: Firm[]) => this.firms = firms);
 
@@ -38,9 +38,9 @@ export class CarComponent implements OnInit {
         .switchMap((params: Params) => this.carService.getCar(+params['id']))
         .subscribe((car: Car) => {
           this.car = car;
-  
+
           if (car.user_id && !this.users.filter(k => k.id === car.user_id).length) {
-            let user: User = new User();
+            const user: User = new User();
             user.id = car.user_id;
             user.first_name = car.user;
             this.users.push(user);
@@ -50,12 +50,13 @@ export class CarComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.car.id)
+    if (this.car.id) {
       this.carService.update(this.car)
         .then(() => this.gotoBack());
-    else
+    } else {
       this.carService.create(this.car)
         .then(() => this.gotoBack());
+    }
   }
 
   get selectedFirmId(): number {

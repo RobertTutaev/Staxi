@@ -1,6 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Location }               from '@angular/common';
-
+import { Location } from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -15,20 +14,20 @@ import { UserService } from '../../_services/user.service';
   styleUrls: ['./user.component.sass']
 })
 export class UserComponent implements OnInit {
-    
+
   user: User = new User();
-  firms: Firm[] = [];    
-  
+  firms: Firm[] = [];
+
   constructor(private firmService: FirmService,
               private userService: UserService,
               private route: ActivatedRoute,
               private router: Router,
               private location: Location) { }
-  
+
   ngOnInit() {
     this.firmService.getFirms().then((firms: Firm[]) => {
         this.firms = firms;
-        this.route.params     
+        this.route.params
           .switchMap((params: Params) => this.userService.getUser(+params['id']))
           .subscribe((user: User) => {
               this.user = user;
@@ -37,12 +36,13 @@ export class UserComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.user.id)
+    if (this.user.id) {
       this.userService.update(this.user)
         .then(() => this.gotoBack());
-    else 
+    } else {
       this.userService.create(this.user)
         .then(() => this.gotoBack());
+    }
   }
 
   get selectedFirmId(): number {

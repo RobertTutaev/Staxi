@@ -69,15 +69,15 @@ export class CategoryComponent implements OnInit {
     this.route.parent.parent.params
       .subscribe((params: Params) => {
         const client_id = +params['id'];
-        
+
         if (this.category.id) {
-          if (this.category.client_id === client_id)
+          if (this.category.client_id === client_id) {
             this.categoryService.update(this.category)
               .then(() => this.gotoBack())
-          else
+          } else {
             this.gotoBack();
-        }
-        else {
+          }
+        } else {
           this.category.client_id = client_id;
           this.categoryService.create(this.category)
             .then(() => this.gotoBack());

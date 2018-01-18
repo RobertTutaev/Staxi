@@ -13,12 +13,12 @@ import { TransportationsComponent } from './transportations/transportations.comp
 import { AuthGuard } from '../_services/auth-guard.service';
 
 const clientsRoutes: Routes = [
-  { 
-    path: 'client/list', 
+  {
+    path: 'client/list',
     canActivate: [AuthGuard],
-    component: ClientsComponent 
+    component: ClientsComponent
   },
-  { 
+  {
     path: 'client',
     canActivate: [AuthGuard],
     component: TabComponent,
@@ -28,15 +28,15 @@ const clientsRoutes: Routes = [
 
     ]
   },
-  { 
+  {
     path: 'client/:id',
     canActivate: [AuthGuard],
-    component: TabComponent, 
+    component: TabComponent,
     children: [
 
       { path: '', component: ClientComponent },
       { path: 'contact', children: [
-          
+
           { path: 'list', component: ContactsComponent },
           { path: ':idc', component: ContactComponent },
           { path: '', component: ContactComponent }
@@ -44,7 +44,7 @@ const clientsRoutes: Routes = [
         ]
       },
       { path: 'category', children: [
-          
+
           { path: 'list', component: CategoriesComponent },
           { path: ':idc', component: CategoryComponent },
           { path: '', component: CategoryComponent }
@@ -52,7 +52,7 @@ const clientsRoutes: Routes = [
         ]
       },
       { path: 'transportation', children: [
-          
+
           { path: 'list', component: TransportationsComponent },
           { path: ':idc', component: TransportationComponent }, 
           { path: ':idc/:cp', component: TransportationComponent },
@@ -61,7 +61,7 @@ const clientsRoutes: Routes = [
         ]
       }
     ]
-  }  
+  }
 ];
 
 @NgModule({

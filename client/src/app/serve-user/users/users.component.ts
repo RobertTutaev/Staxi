@@ -12,10 +12,10 @@ import { SController } from '../../_classes/s.controller';
 })
 export class UsersComponent extends SController implements OnInit {
   users: User[] = [];
-  
+
   constructor(private userService: UserService,
               private router: Router) { super(); }
-  
+
   ngOnInit() {
     this.userService.getUsers().then((users: User[]) => this.users = users);
   }
@@ -25,8 +25,9 @@ export class UsersComponent extends SController implements OnInit {
   }
 
   onDelete(user: User) {
-    if(confirm('Вы действительно хотите удалить текущую запись?'))
+    if (confirm('Вы действительно хотите удалить текущую запись?')) {
       this.userService.delete(user.id)
         .then((res: any) => res.rslt ? this.users = this.users.filter(k => k !== user) : null);
+    }
   }
 }

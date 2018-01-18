@@ -1,4 +1,4 @@
-export class Type { 
+export class Type {
     constructor(
             public id: number = null,
             public name: string = null,

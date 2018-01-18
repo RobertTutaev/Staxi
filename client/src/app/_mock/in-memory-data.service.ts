@@ -14,37 +14,37 @@ import { Territories } from './territories';
 import { Kategs } from './kategs';
 import { Users } from './users';
 
-export class InMemoryDataService implements InMemoryDbService {  
+export class InMemoryDataService implements InMemoryDbService {
 
   createDb() {
-    let transportation = Transportations;
-    let category = Categories;
-    let contact = Contacts;
-    let user = Users;
-    let client = Clients;
-    let street = Streets;
-    let territory = Territories;
-    let kateg = Kategs;
-    let punkt = Punkts;
-    let firm = Firms;
-    let doc = Docs;
-    let car = Cars;
-    let type = Types;
-    
-    return { 
-      transportation, 
-      category, 
-      client, 
-      street, 
-      territory, 
-      kateg, 
-      punkt, 
-      firm, 
-      doc, 
-      car, 
-      type, 
-      user, 
+    const transportation = Transportations;
+    const category = Categories;
+    const contact = Contacts;
+    const user = Users;
+    const client = Clients;
+    const street = Streets;
+    const territory = Territories;
+    const kateg = Kategs;
+    const punkt = Punkts;
+    const firm = Firms;
+    const doc = Docs;
+    const car = Cars;
+    const type = Types;
+
+    return {
+      transportation,
+      category,
+      client,
+      street,
+      territory,
+      kateg,
+      punkt,
+      firm,
+      doc,
+      car,
+      type,
+      user,
       contact
-    };
+    }
   }
 }

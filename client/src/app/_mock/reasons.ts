@@ -2,7 +2,7 @@ import { Reason } from '../_classes/list/reason';
 
 export let Reasons: Reason[] = [
   {
-    id: 0, 
+    id: 0,
     name: '<Отсутствует>'
   },
   {
@@ -17,4 +17,4 @@ export let Reasons: Reason[] = [
     id: 3,
     name: 'Иной'
   }
-];
+]

@@ -2,7 +2,7 @@ import { Status } from '../_classes/list/status';
 
 export let Statuses: Status[] = [
   {
-    id: 1, 
+    id: 1,
     name: 'Заявлено'
   },
   {
@@ -21,4 +21,4 @@ export let Statuses: Status[] = [
     id: 5,
     name: 'Отменено'
   }
-];
+]

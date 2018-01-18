@@ -1,6 +1,6 @@
-export class C { 
+export class C {
     constructor(
-            public id: number = null,            
+            public id: number = null,
             public dt: string = null,
             public a_adr: string = null,
             public b_adr: string = null,

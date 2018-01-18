@@ -1,12 +1,12 @@
-import { Injectable }    from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
-import { Observable }     from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { Client } from '../_classes/list/client';
 
-@Injectable() 
+@Injectable()
 export class ClientService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
@@ -38,7 +38,7 @@ export class ClientService {
 
   search(term: string): Observable<Client[]> {
     const url = `${this.clientsUrl}/?snils=${encodeURIComponent(term)}`;
-    
+
     return this.http.get(url)
       .map(response => response.json().data as Client[]);
   }
@@ -62,7 +62,7 @@ export class ClientService {
 
   update(client: Client): Promise<Client> {
     const url = `${this.clientsUrl}/${client.id}`;
-    
+
     return this.http
       .put(url, JSON.stringify(client), {headers: this.headers})
       .toPromise()

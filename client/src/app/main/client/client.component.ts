@@ -19,17 +19,17 @@ export class ClientComponent implements OnInit {
   reasons: Reason[] = [];
   client: Client = new Client();
   id: number;
-  
+
   constructor(private reasonService: ReasonService,
               private clientService: ClientService,
               private route: ActivatedRoute,
               private router: Router,
               private location: Location) { }
-  
+
   ngOnInit() {
     this.reasonService.getReasons().then((reasons: Reason[]) => {
-        this.reasons = reasons;   
-        this.route.params     
+        this.reasons = reasons;
+        this.route.params
           .switchMap((params: Params) => {
             this.id = +params['id'];
             return this.clientService.getClient(this.id);
@@ -41,12 +41,13 @@ export class ClientComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.client.id)
+    if (this.client.id) {
       this.clientService.update(this.client)
         .then(() => this.gotoBack());
-    else 
+    } else {
       this.clientService.create(this.client)
         .then((client: Client) => this.router.navigate(['/client', client.id], { relativeTo: this.route }));
+    }
   }
 
   get selectedReasonId(): number {
@@ -55,7 +56,7 @@ export class ClientComponent implements OnInit {
 
   set selectedReasonId(value: number) {
     this.client.reason_id = value;
-  } 
+  }
 
   gotoBack() {
     this.location.back();

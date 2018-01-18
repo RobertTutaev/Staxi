@@ -23,22 +23,22 @@ export class StreetsComponent extends SController implements OnInit {
   searchText: string = '';
   streets: Observable<Street[]>;
   private searchTerms: Subject<string> = new Subject<string>();
-  
+
   constructor(private streetService: StreetService,
               private router: Router) { super(); }
-  
+
   ngOnInit() {
     this.streets = this.searchTerms
-      .debounceTime(600)        // wait 300ms after each keystroke before considering the term
+      .debounceTime(600)          // wait 300ms after each keystroke before considering the term
       //.distinctUntilChanged()   // ignore if next search term is same as previous
-      .switchMap(term => term   // switch to new observable each time the term changes
+      .switchMap(term => term     // switch to new observable each time the term changes
         // return the http search observable
         ? this.streetService.search(term)
         // or the observable of empty heroes if there was no search term
         : Observable.of<Street[]>([]))
       .catch(error => Observable.of<Street[]>([]));
   }
-  
+
   searchStreet(term: string) {
     this.searchTerms.next(term);
   }
@@ -48,8 +48,9 @@ export class StreetsComponent extends SController implements OnInit {
   }
 
   onDelete(street: Street) {
-    if(confirm('Вы действительно хотите удалить текущую запись?'))
+    if (confirm('Вы действительно хотите удалить текущую запись?')) {
       this.streetService.delete(street.id)
         .then((res: any) => res.rslt ? this.searchTerms.next(this.searchText) : null);
+    }
   }
 }

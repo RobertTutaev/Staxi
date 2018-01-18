@@ -12,10 +12,10 @@ import { SController } from '../../_classes/s.controller';
 })
 export class TerritoriesComponent extends SController implements OnInit {
   territories: Territory[] = [];
-  
+
   constructor(private territoryService: TerritoryService,
               private router: Router) { super(); }
-  
+
   ngOnInit() {
     this.territoryService.getTerritories().then((territories: Territory[]) => this.territories = territories);
   }
@@ -25,8 +25,9 @@ export class TerritoriesComponent extends SController implements OnInit {
   }
 
   onDelete(territory: Territory) {
-    if(confirm('Вы действительно хотите удалить текущую запись?'))
+    if (confirm('Вы действительно хотите удалить текущую запись?')) {
       this.territoryService.delete(territory.id)
         .then((res: any) => res.rslt ? this.territories = this.territories.filter(k => k !== territory) : null);
+    }
   }
 }

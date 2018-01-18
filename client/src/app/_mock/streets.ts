@@ -4,8 +4,8 @@ export let Streets: Street[] = [
   {
     id: 1,
     territory_id: 1,
-    territory: 'Челябинск',    
-    name: 'Ленина', 
+    territory: 'Челябинск',
+    name: 'Ленина',
     socr: 'пр-кт',
     post: '454020',
     nda: null,
@@ -15,7 +15,7 @@ export let Streets: Street[] = [
     id: 2,
     territory_id: 1,
     territory: 'Челябинск',
-    name: 'Давыдова', 
+    name: 'Давыдова',
     socr: 'пр-кт',
     post: '454077',
     nda: null,
@@ -25,7 +25,7 @@ export let Streets: Street[] = [
     id: 3,
     territory_id: 1,
     territory: 'Челябинск',
-    name: 'Сталелитейная', 
+    name: 'Сталелитейная',
     socr: 'ул',
     post: '454023',
     nda: null,
@@ -50,12 +50,12 @@ export let Streets: Street[] = [
     post: '454017',
     nda: null,
     aoguid: '51f21baa-c804-4737-9d5f-9da7a3bb1597'
-  }, 
+  },
   {
     id: 6,
     territory_id: 1,
     territory: 'Челябинск',
-    name: 'Трубопрокатная', 
+    name: 'Трубопрокатная',
     socr: 'ул',
     post: '454123',
     nda: null,
@@ -65,7 +65,7 @@ export let Streets: Street[] = [
     id: 7,
     territory_id: 1,
     territory: 'Челябинск',
-    name: 'Свердловский', 
+    name: 'Свердловский',
     socr: 'пр-кт',
     post: '454089',
     nda: null,
@@ -75,10 +75,10 @@ export let Streets: Street[] = [
     id: 8,
     territory_id: 1,
     territory: 'Челябинск',
-    name: 'Дружинная', 
+    name: 'Дружинная',
     socr: 'ул',
     post: '454217',
     nda: null,
     aoguid: '51f21baa-c804-4737-9d5f-9da7a3bb1528'
   }
-];
+]

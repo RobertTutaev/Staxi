@@ -15,12 +15,12 @@ export class SigninComponent implements OnInit {
   message: string;
 
   constructor(private authService: AuthService,
-              private router: Router) { 
+              private router: Router) {
                 this.setMessage();
               }
 
   ngOnInit() {
-    if (!this.authService.isSignedIn) {      
+    if (!this.authService.isSignedIn) {
       this.authService.isSign().then(() => this.goTo())
     }
   }
@@ -33,11 +33,11 @@ export class SigninComponent implements OnInit {
     if (this.authService.isSignedIn) {
         // Get the redirect URL from our auth service
         // If no redirect has been set, use the default
-        let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
+        const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
 
         // Set our navigation extras object
         // that passes on our global query params and fragment
-        let navigationExtras: NavigationExtras = {
+        const navigationExtras: NavigationExtras = {
           queryParamsHandling: 'preserve',
           preserveFragment: true
         };
@@ -49,8 +49,8 @@ export class SigninComponent implements OnInit {
 
   signin() {
     this.message = 'Авторизация ...';
-    
-    this.authService.signin(this.user).then(() => {  
+
+    this.authService.signin(this.user).then(() => {
       this.setMessage();
       this.goTo();
     });

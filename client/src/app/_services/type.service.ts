@@ -1,4 +1,4 @@
-import { Injectable }    from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
@@ -23,7 +23,7 @@ export class TypeService {
     if (!id) {
       const promise: Promise<Type> = new Promise(() => new Type());
 
-      return promise.then();      
+      return promise.then();
     } else {
       const url = `${this.typesUrl}/${id}`;
 

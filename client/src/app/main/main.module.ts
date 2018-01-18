@@ -1,14 +1,14 @@
-import { NgModule }       from '@angular/core';
-import { CommonModule }   from '@angular/common';
-import { FormsModule }    from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { ClientsComponent } from './clients/clients.component';
 import { TabComponent } from './tab/tab.component';
 import { ClientComponent } from './client/client.component';
-import { ContactComponent }  from './contact/contact.component';
-import { ContactsComponent }  from './contacts/contacts.component';
-import { CategoryComponent }  from './category/category.component';
-import { CategoriesComponent }  from './categories/categories.component';
+import { ContactComponent } from './contact/contact.component';
+import { ContactsComponent } from './contacts/contacts.component';
+import { CategoryComponent } from './category/category.component';
+import { CategoriesComponent } from './categories/categories.component';
 import { TransportationComponent } from './transportation/transportation.component';
 import { TransportationsComponent } from './transportations/transportations.component';
 
@@ -22,9 +22,9 @@ import { MainRoutingModule } from './main.routing.module';
 import { ToolsModule } from '../tools/tools.module';
 
 @NgModule({
-  imports: [    
-    ToolsModule,    
-    CommonModule,    
+  imports: [
+    ToolsModule,
+    CommonModule,
     FormsModule,
     MainRoutingModule
   ],
@@ -39,7 +39,7 @@ import { ToolsModule } from '../tools/tools.module';
     TransportationComponent,
     TransportationsComponent
   ],
-  providers: [    
+  providers: [
     ReasonService,
     StatusService,
     ClientService,

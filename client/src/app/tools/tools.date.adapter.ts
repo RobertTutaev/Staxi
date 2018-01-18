@@ -1,14 +1,14 @@
 import { NativeDateAdapter } from '@angular/material';
 
 export class ToolsDateAdapter extends NativeDateAdapter {
-  
+
   parse(value: any): Date | null {
     // 1. String ("-")
     if (typeof value === 'string' && value.indexOf('-') > -1) {
-      const timestamp = typeof value === 'number' ? value : Date.parse(value);      
+      const timestamp = typeof value === 'number' ? value : Date.parse(value);
       return isNaN(timestamp) ? null : new Date(timestamp);
     }
-    
+
     // 2. String (".")
     if (typeof value === 'string' && value.indexOf('.') > -1) {
       const str = value.split('.');
@@ -22,4 +22,4 @@ export class ToolsDateAdapter extends NativeDateAdapter {
     const timestamp = typeof value === 'number' ? value : Date.parse(value);
     return isNaN(timestamp) ? null : new Date(timestamp);
   }
-};
+}

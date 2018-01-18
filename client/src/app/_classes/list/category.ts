@@ -1,4 +1,4 @@
-export class Category { 
+export class Category {
     constructor(
             public id: number = null,
             public client_id: number = null,

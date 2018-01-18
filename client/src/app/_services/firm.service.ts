@@ -1,4 +1,4 @@
-import { Injectable }    from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
@@ -23,7 +23,7 @@ export class FirmService {
     if (!id) {
       const promise: Promise<Firm> = new Promise(() => new Firm());
 
-      return promise.then();      
+      return promise.then();
     } else {
       const url = `${this.firmsUrl}/${id}`;
 

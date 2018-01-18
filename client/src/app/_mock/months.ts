@@ -49,4 +49,4 @@ export let Months: Month[] = [
     id: 12,
     name: 'Декабрь'
   }
-];
+]

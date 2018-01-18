@@ -1,4 +1,4 @@
-export class Reason { 
+export class Reason {
     constructor(
             public id: number = null,
             public name: string = '') { }

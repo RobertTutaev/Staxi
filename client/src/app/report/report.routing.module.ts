@@ -8,7 +8,7 @@ import { CComponent } from './c/c.component';
 import { AuthGuard } from '../_services/auth-guard.service';
 
 const reportsRoutes: Routes = [
-  { 
+  {
     path: 'report',
     canActivate: [AuthGuard],
     component: TabComponent,

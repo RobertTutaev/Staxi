@@ -1,9 +1,9 @@
-import { NgModule }       from '@angular/core';
-import { CommonModule }   from '@angular/common';
-import { FormsModule }    from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
-import { KategsComponent }    from './kategs/kategs.component';
-import { KategComponent }  from './kateg/kateg.component';
+import { KategsComponent } from './kategs/kategs.component';
+import { KategComponent } from './kateg/kateg.component';
 import { KategService } from '../_services/kateg.service';
 import { ServeKategRoutingModule } from './serve-kateg.routing.module';
 import { ToolsModule} from '../tools/tools.module';
@@ -22,4 +22,3 @@ import { ToolsModule} from '../tools/tools.module';
   providers: [ KategService ]
 })
 export class ServeKategModule {}
-

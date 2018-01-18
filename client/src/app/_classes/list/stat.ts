@@ -1,4 +1,4 @@
-export class Stat { 
+export class Stat {
     constructor(
             public id: number = null,
             public name: string = '',

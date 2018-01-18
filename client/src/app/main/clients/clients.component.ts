@@ -20,7 +20,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
   styleUrls: ['./clients.component.sass']
 })
 export class ClientsComponent extends SController implements OnInit {
-  searchText: string = '';  
+  searchText: string = '';
   clients: Observable<Client[]>;
   private searchTerms: Subject<string> = new Subject<string>();
 
@@ -38,7 +38,7 @@ export class ClientsComponent extends SController implements OnInit {
         : Observable.of<Client[]>([]))
       .catch(error => Observable.of<Client[]>([]));
   }
-  
+
   searchClient(term: string) {
     this.searchTerms.next(term);
   }
@@ -48,8 +48,9 @@ export class ClientsComponent extends SController implements OnInit {
   }
 
   onDelete(client: Client) {
-    if(confirm('Вы действительно хотите удалить текущую запись?'))
+    if (confirm('Вы действительно хотите удалить текущую запись?')) {
       this.clientService.delete(client.id)
         .then((res: any) => res.rslt ? this.searchTerms.next(this.searchText) : null);
+    }
   }
 }

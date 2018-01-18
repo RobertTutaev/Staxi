@@ -1,8 +1,8 @@
-import { Injectable }    from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
-import { Observable }     from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { Street } from '../_classes/list/street';
 
@@ -25,7 +25,7 @@ export class StreetService {
     if (!id) {
       const promise: Promise<Street> = new Promise(() => new Street());
 
-      return promise.then();      
+      return promise.then();
     } else {
       const url = `${this.streetsUrl}/${id}`;
 
@@ -38,7 +38,7 @@ export class StreetService {
 
   search(term: string): Observable<Street[]> {
     const url = `${this.streetsUrl}/?name=${encodeURIComponent(term)}`;
-    
+
     return this.http.get(url)
       .map(response => response.json().data as Street[]);
   }

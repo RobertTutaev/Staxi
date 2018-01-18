@@ -10,7 +10,7 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { FamiliaPipe } from './pipes/familia.pipe';
 import { EqualValidatorDirective } from './directives/equal-validator.directive';
 
-import { MatNativeDateModule, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
+import { MatNativeDateModule, MatDatepickerModule, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToolsDateAdapter } from './tools.date.adapter';
@@ -22,7 +22,7 @@ NguiDatetime.daysOfWeek = [
     { fullName: 'Вторник', shortName: 'Вт' },
     { fullName: 'Среда', shortName: 'Ср' },
     { fullName: 'Четверг', shortName: 'Чт' },
-    { fullName: 'Пятница', shortName: 'Пт' }, 
+    { fullName: 'Пятница', shortName: 'Пт' },
     { fullName: 'Суббота', shortName: 'Сб' }
   ];
 
@@ -32,32 +32,32 @@ NguiDatetime.months = [
     { fullName: 'Март', shortName: 'Мар' },
     { fullName: 'Апрель', shortName: 'Апр' },
     { fullName: 'Май', shortName: 'Май' },
-    { fullName: 'Июнь', shortName: 'Июн' }, 
+    { fullName: 'Июнь', shortName: 'Июн' },
     { fullName: 'Июль', shortName: 'Июл' },
     { fullName: 'Август', shortName: 'Авг'},
     { fullName: 'Сентябрь', shortName: 'Сен' },
     { fullName: 'Октябрь', shortName: 'Окт' },
-    { fullName: 'Ноябрь', shortName: 'Ноя' }, 
+    { fullName: 'Ноябрь', shortName: 'Ноя' },
     { fullName: 'Декабрь', shortName: 'Дек'}
   ];
 
 NguiDatetime.locale = {
-    currentTime: "сейчас",
-    date: "дата",
-    day: "день",
-    hour: "часы",
-    minute: "минуты",
-    month: "месяц",
-    time: "время",
-    year: "год"
+    currentTime: 'сейчас',
+    date: 'дата',
+    day: 'день',
+    hour: 'часы',
+    minute: 'минуты',
+    month: 'месяц',
+    time: 'время',
+    year: 'год'
   };
 
 @NgModule({
-  imports: [    
+  imports: [
     NguiDatetimePickerModule,
     CommonModule
   ],
-  declarations: [    
+  declarations: [
     FilterPipe,
     OrderByPipe,
     SnilsPipe,
@@ -69,6 +69,7 @@ NguiDatetime.locale = {
   exports: [
     BrowserAnimationsModule,
     MatNativeDateModule,
+    MatDatepickerModule,
     NguiDatetimePickerModule,
     FilterPipe,
     OrderByPipe,
@@ -82,4 +83,4 @@ NguiDatetime.locale = {
     { provide: LOCALE_ID, useValue: 'ru' }
   ]
 })
-export class ToolsModule { } 
+export class ToolsModule { }

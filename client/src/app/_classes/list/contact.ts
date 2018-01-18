@@ -1,7 +1,7 @@
-export class Contact { 
+export class Contact {
     constructor(
             public id: number = null,
-            public client_id: number = null,    
+            public client_id: number = null,
             public type_id: number = null,
             public type: string = null,
             public name: string = null,

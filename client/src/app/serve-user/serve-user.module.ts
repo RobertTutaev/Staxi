@@ -1,9 +1,9 @@
-import { NgModule }       from '@angular/core';
-import { CommonModule }   from '@angular/common';
-import { FormsModule }    from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
-import { UsersComponent }    from './users/users.component';
-import { UserComponent }  from './user/user.component';
+import { UsersComponent } from './users/users.component';
+import { UserComponent } from './user/user.component';
 import { UserService } from '../_services/user.service';
 import { ServeUserRoutingModule } from './serve-user.routing.module';
 import { ToolsModule} from '../tools/tools.module';
@@ -21,5 +21,4 @@ import { ToolsModule} from '../tools/tools.module';
   ],
   providers: [ UserService ]
 })
-export class ServeUserModule {}
-
+export class ServeUserModule { }

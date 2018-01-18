@@ -12,10 +12,10 @@ import { SController } from '../../_classes/s.controller';
 })
 export class DocsComponent extends SController implements OnInit {
   docs: Doc[] = [];
-  
+
   constructor(private docService: DocService,
               private router: Router) { super(); }
-  
+
   ngOnInit() {
     this.docService.getDocs().then((docs: Doc[]) => this.docs = docs);
   }
@@ -25,8 +25,9 @@ export class DocsComponent extends SController implements OnInit {
   }
 
   onDelete(doc: Doc) {
-    if(confirm('Вы действительно хотите удалить текущую запись?'))
+    if (confirm('Вы действительно хотите удалить текущую запись?')) {
       this.docService.delete(doc.id)
         .then((res: any) => res.rslt ? this.docs = this.docs.filter(k => k !== doc) : null);
+    }
   }
 }

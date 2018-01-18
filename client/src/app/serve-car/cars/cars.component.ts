@@ -12,10 +12,10 @@ import { SController } from '../../_classes/s.controller';
 })
 export class CarsComponent extends SController implements OnInit {
   cars: Car[] = [];
-  
+
   constructor(private carService: CarService,
               private router: Router) { super(); }
-  
+
   ngOnInit() {
     this.carService.getCars().then((cars: Car[]) => this.cars = cars);
   }
@@ -25,8 +25,9 @@ export class CarsComponent extends SController implements OnInit {
   }
 
   onDelete(car: Car) {
-    if(confirm('Вы действительно хотите удалить текущую запись?'))
+    if (confirm('Вы действительно хотите удалить текущую запись?')) {
       this.carService.delete(car.id)
         .then((res: any) => res.rslt ? this.cars = this.cars.filter(k => k !== car) : null);
+    }
   }
 }

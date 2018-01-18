@@ -2,28 +2,28 @@ import { Stat } from '../_classes/list/stat';
 
 export let Stats: Stat[] = [
   {
-    id: 0, 
-    name: 'Заявлено', 
-    cnt: 0    
+    id: 0,
+    name: 'Заявлено',
+    cnt: 0
   },
   {
     id: 1,
-    name: 'Одобрено', 
+    name: 'Одобрено',
     cnt: 0
   },
   {
     id: 2,
-    name: 'Обслужено', 
+    name: 'Обслужено',
     cnt: 0
   },
   {
     id: 3,
-    name: 'Отказано', 
+    name: 'Отказано',
     cnt: 0
   },
   {
     id: 4,
-    name: 'Отменено', 
+    name: 'Отменено',
     cnt: 0
   }
-];
+]

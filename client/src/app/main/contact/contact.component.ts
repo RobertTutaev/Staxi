@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Location }               from '@angular/common';
+import { Location } from '@angular/common';
 
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -18,23 +18,23 @@ export class ContactComponent implements OnInit {
   selectedType: Type = new Type();
   types: Type[] = [];
   contact: Contact = new Contact();
-  
+
   constructor(private typeService: TypeService,
               private contactService: ContactService,
               private route: ActivatedRoute,
               private router: Router,
               private location: Location) { }
-  
+
   ngOnInit() {
     this.typeService.getTypes().then((types: Type[]) => {
         this.types = types;
-        this.route.params     
+        this.route.params
           .switchMap((params: Params) => this.contactService.getContact(+params['idc']))
           .subscribe((contact: Contact) => {
             this.contact = contact;
             this.selectedType = this.types.find(myObj => myObj.id === this.contact.type_id);
           });
-      });    
+      });
   }
 
   onSubmit() {
@@ -43,13 +43,13 @@ export class ContactComponent implements OnInit {
         const client_id = +params['id'];
 
         if (this.contact.id) {
-          if (this.contact.client_id === client_id)
+          if (this.contact.client_id === client_id) {
             this.contactService.update(this.contact)
               .then(() => this.gotoBack())
-          else
+          } else {
             this.gotoBack();
-        }
-        else {
+          }
+        } else {
           this.contact.client_id = client_id;
           this.contactService.create(this.contact)
             .then(() => this.gotoBack());
@@ -62,7 +62,7 @@ export class ContactComponent implements OnInit {
   }
 
   set selectedTypeId(value: number) {
-    if(value) {
+    if (value) {
       this.selectedType = this.types.find(myObj => myObj.id === value);
       this.contact.type_id = value;
     }

@@ -1,6 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Location }               from '@angular/common';
-
+import { Location } from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -19,33 +18,34 @@ export class FirmComponent implements OnInit {
   firm: Firm = new Firm();
   firms: Firm[] = [];
   territories: Territory[] = [];
-  
+
   constructor(private territoryService: TerritoryService,
               private firmService: FirmService,
               private route: ActivatedRoute,
               private router: Router,
               private location: Location) { }
-  
+
   ngOnInit() {
     this.firmService.getFirms().then((firms: Firm[]) => {
       this.firms = firms;
       this.firms.unshift(new Firm());
     });
-    
+
     this.territoryService.getTerritories().then((territories: Territory[]) => this.territories = territories);
 
-    this.route.params     
+    this.route.params
       .switchMap((params: Params) => this.firmService.getFirm(+params['id']))
       .subscribe((firm: Firm) => this.firm = firm);
   }
 
   onSubmit() {
-    if (this.firm.id)
+    if (this.firm.id) {
       this.firmService.update(this.firm)
         .then(() => this.gotoBack());
-    else 
+    } else {
       this.firmService.create(this.firm)
         .then(() => this.gotoBack());
+    }
   }
 
   get selectedFirmId(): number {
@@ -54,7 +54,7 @@ export class FirmComponent implements OnInit {
 
   set selectedFirmId(value: number) {
     this.firm.firm_id = value;
-  } 
+  }
 
   get selectedTerritoryId(): number {
     return this.firm.territory_id;
@@ -62,7 +62,7 @@ export class FirmComponent implements OnInit {
 
   set selectedTerritoryId(value: number) {
     this.firm.territory_id = value;
-  } 
+  }
 
   gotoBack() {
     this.location.back();

@@ -44,8 +44,8 @@ export class TransportationComponent implements OnInit {
   streetName: {} = {a_street: '', b_street: ''};
   streetDivName: string = 'a_street';
   streets: Observable<Street[]>;
-  private searchTerms : Subject<string> = new Subject<string>();
-  
+  private searchTerms: Subject<string> = new Subject<string>();
+
   constructor(private authService: AuthService,
               private carService: CarService,
               private punktService: PunktService,
@@ -55,24 +55,24 @@ export class TransportationComponent implements OnInit {
               private transportationService: TransportationService,
               private route: ActivatedRoute,
               private location: Location) { }
-  
+
   ngOnInit() {
     this.streets = this.searchTerms
       .debounceTime(400)                  // wait 300ms after each keystroke before considering the term
       .distinctUntilChanged()             // ignore if next search term is same as previous
-      .switchMap(term => term             // switch to new observable each time the term changes        
-        ? this.streetService.search(term) // return the http search observable        
+      .switchMap(term => term             // switch to new observable each time the term changes
+        ? this.streetService.search(term) // return the http search observable
         : Observable.of<Street[]>([]))    // or the observable of empty heroes if there was no search term
       .catch(error => Observable.of<Street[]>([]));
 
     Promise.all(
-      [      
+      [
         this.punktService.getPunkts(true),
         this.statusService.getStatuses(),
         this.route.parent.parent.params
           .switchMap((params: Params) => this.categoryService.getCategories(+params['id']))
           .first()
-          .toPromise(),        
+          .toPromise(),
         this.carService.getCars(true),
         this.route.params
           .switchMap((params: Params) => {
@@ -89,7 +89,7 @@ export class TransportationComponent implements OnInit {
         this.cars = values[3];
         this.transportation = values[4];
 
-        //Запоминаем некоторые состояния
+        // Запоминаем некоторые состояния
         this.status = this.transportation.status_id;
         this.streetName['a_street'] = this.transportation.a_street;
         this.streetName['b_street'] = this.transportation.b_street;
@@ -101,7 +101,7 @@ export class TransportationComponent implements OnInit {
           punkt.name = this.transportation.punkt;
           this.punkts.push(punkt);
         }
-        
+
         // Car (add if not exist)
         if (this.transportation.car_id && !this.cars.filter(k => k.id === this.transportation.car_id).length) {
           const car: Car = new Car();
@@ -116,10 +116,10 @@ export class TransportationComponent implements OnInit {
   // Push a search term into the observable stream.
   searchStreet(name: string, term: string = ''): void {
     this.streetDivName = name;
-    if (term ==='') {
+    if (term === '') {
       this.transportation[this.streetDivName] = this.streetName[name];
     }
-    
+
     this.searchTerms.next(term);
   }
 
@@ -129,19 +129,19 @@ export class TransportationComponent implements OnInit {
     this.streetName[name] = this.transportation[name];
   }
 
-  onSubmit() {    
+  onSubmit() {
     this.route.parent.parent.params
       .subscribe((params: Params) => {
         const client_id = +params['id'];
 
         if (this.transportation.id) {
-          if (this.transportation.client_id === client_id)
+          if (this.transportation.client_id === client_id) {
             this.transportationService.update(this.transportation)
               .then(() => this.gotoBack())
-          else
+          } else {
             this.gotoBack();
-        }
-        else {
+          }
+        } else {
           this.transportation.client_id = client_id;
           this.transportationService.create(this.transportation)
             .then(() => this.gotoBack());
@@ -150,7 +150,7 @@ export class TransportationComponent implements OnInit {
   }
 
   get selectedCarId(): number {
-    return this.transportation.car_id;    
+    return this.transportation.car_id;
   }
 
   set selectedCarId(value: number) {
@@ -161,7 +161,7 @@ export class TransportationComponent implements OnInit {
     return this.transportation.punkt_id;
   }
 
-  set selectedPunktId(value: number) {    
+  set selectedPunktId(value: number) {
     this.transportation.punkt_id = value;
   }
 
@@ -179,7 +179,7 @@ export class TransportationComponent implements OnInit {
 
   set selectedStatusId(value: number) {
     this.transportation.status_id = value;
-  } 
+  }
 
   get getHH(): any {
     return this.transportation.a_dt;

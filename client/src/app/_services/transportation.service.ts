@@ -1,4 +1,4 @@
-import { Injectable }    from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Headers, Http, ResponseContentType } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
@@ -37,20 +37,20 @@ export class TransportationService extends RService{
 
   getTransportation(id: number, cp: number = 0): Promise<Transportation> {
     if (!id) {
-      //1. Новая заявка
+      // 1. Новая заявка
       const promise: Promise<Transportation> = new Promise(() => new Transportation());
 
-      return promise.then();      
+      return promise.then();
     } else {
       const url = `${this.transportationsUrl}/${id}`;
 
       return this.http.get(url)
         .toPromise()
         .then(response => {
-          //2. Копирование заявки
+          // 2. Копирование заявки
           if (cp) {
-            let t = response.json().data as Transportation;
-            
+            const t = response.json().data as Transportation;
+
             t.id = null;
             t.car_id = null;
             t.car = '',
@@ -67,7 +67,7 @@ export class TransportationService extends RService{
             return t;
 
           } else {
-            //3. Редактирование заявки
+            // 3. Редактирование заявки
             return response.json().data as Transportation;
           }
         })

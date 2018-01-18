@@ -16,7 +16,7 @@ export class TabComponent extends TController{
   aReport: AReport = new AReport();
   bReport: BReport = new BReport();
   cReport: CReport = new CReport();
-  
+
   constructor(route: ActivatedRoute,
               location: Location) { super(route, location); }
 }

@@ -20,7 +20,7 @@ export class ReportService extends RService{
   getA(aReport: AReport): Promise<Transportation[]> {
     aReport.getFile = 0;
     const url = `${this.transportationsUrl}/a${aReport.getUrlValue()}`;
-    
+
     return this.http.get(url)
       .toPromise()
       .then(response => response.json().data as Transportation[])
@@ -43,7 +43,7 @@ export class ReportService extends RService{
   getB(bReport: BReport): Promise<B[]> {
     bReport.getFile = 0;
     const url = `${this.transportationsUrl}/b${bReport.getUrlValue()}`;
-    
+
     return this.http.get(url)
       .toPromise()
       .then(response => response.json().data as B[])
@@ -66,7 +66,7 @@ export class ReportService extends RService{
   getC(cReport: CReport): Promise<C[]> {
     cReport.getFile = 0;
     const url = `${this.transportationsUrl}/c${cReport.getUrlValue()}`;
-    
+
     return this.http.get(url)
       .toPromise()
       .then(response => response.json().data as C[])

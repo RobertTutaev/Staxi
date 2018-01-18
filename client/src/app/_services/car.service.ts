@@ -24,7 +24,7 @@ export class CarService {
     if (!id) {
       const promise: Promise<Car> = new Promise(() => new Car());
 
-      return promise.then();      
+      return promise.then();
     } else {
       const url = `${this.carsUrl}/${id}`;
 

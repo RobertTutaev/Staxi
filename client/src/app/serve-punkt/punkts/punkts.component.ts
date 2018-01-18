@@ -12,10 +12,10 @@ import { SController } from '../../_classes/s.controller';
 })
 export class PunktsComponent extends SController implements OnInit {
   punkts: Punkt[] = [];
-  
+
   constructor(private punktService: PunktService,
               private router: Router) { super(); }
-  
+
   ngOnInit() {
     this.punktService.getPunkts().then((punkts: Punkt[]) => this.punkts = punkts);
   }
@@ -25,8 +25,9 @@ export class PunktsComponent extends SController implements OnInit {
   }
 
   onDelete(punkt: Punkt) {
-    if(confirm('Вы действительно хотите удалить текущую запись?'))
+    if (confirm('Вы действительно хотите удалить текущую запись?')) {
       this.punktService.delete(punkt.id)
         .then((res: any) => res.rslt ? this.punkts = this.punkts.filter(k => k !== punkt) : null);
+    }
   }
 }

@@ -49,4 +49,4 @@ export let Territories: Territory[] = [
     territory: 'Челябинск',
     name: 'Челябинск, Центральный район'
   },
-];
+]

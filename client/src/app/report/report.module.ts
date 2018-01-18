@@ -13,8 +13,8 @@ import { ReportService } from '../_services/report.service';
 @NgModule({
   imports: [
     ToolsModule,
-    CommonModule,    
-    FormsModule,    
+    CommonModule,
+    FormsModule,
     ReportRoutingModule
   ],
   declarations: [

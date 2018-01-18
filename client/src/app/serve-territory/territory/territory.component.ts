@@ -1,6 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Location }               from '@angular/common';
-
+import { Location }from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -14,20 +13,19 @@ import { TerritoryService } from '../../_services/territory.service';
 })
 export class TerritoryComponent implements OnInit {
 
-  territories: Territory[] = [];  
-  territory: Territory = new Territory();  
-  
+  territories: Territory[] = [];
+  territory: Territory = new Territory();
+
   constructor(private territoryService: TerritoryService,
               private route: ActivatedRoute,
               private router: Router,
               private location: Location) { }
-  
-  ngOnInit() {
 
-    this.territoryService.getTerritories().then((territories: Territory[]) => {        
+  ngOnInit() {
+    this.territoryService.getTerritories().then((territories: Territory[]) => {
         this.territories = territories;
         this.territories.unshift(new Territory());
-        this.route.params     
+        this.route.params
           .switchMap((params: Params) => this.territoryService.getTerritory(+params['id']))
           .subscribe((territory: Territory) => {
             this.territory = territory;
@@ -35,14 +33,15 @@ export class TerritoryComponent implements OnInit {
           });
       });
   }
-  
+
   onSubmit() {
-    if (this.territory.id)
+    if (this.territory.id) {
       this.territoryService.update(this.territory)
         .then(() => this.gotoBack());
-    else 
+    } else {
       this.territoryService.create(this.territory)
         .then(() => this.gotoBack());
+    }
   }
 
   get selectedTerritoryId(): number {
@@ -51,7 +50,7 @@ export class TerritoryComponent implements OnInit {
 
   set selectedTerritoryId(value: number) {
     this.territory.territory_id = value;
-  } 
+  }
 
   gotoBack() {
     this.location.back();

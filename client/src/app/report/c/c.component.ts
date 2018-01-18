@@ -16,15 +16,15 @@ export class CComponent implements OnInit {
   report: CReport = new CReport();
   cs: C[] = [];
   cars: Car[] = [];
-  
+
   constructor(private reportService: ReportService,
               private carService: CarService,
               private route: ActivatedRoute,
               private router: Router) { }
-  
+
   ngOnInit() {
     this.carService.getCars().then((cars: Car[]) => this.cars = cars);
-    
+
     this.route.params
       .switchMap((params: Params) => this.reportService.getC(this.report.clone(params)))
       .subscribe((cs: C[]) => this.cs = cs);

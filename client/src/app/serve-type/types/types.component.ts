@@ -11,10 +11,10 @@ import { SController } from '../../_classes/s.controller';
 })
 export class TypesComponent extends SController implements OnInit {
   types: Type[] = [];
-  
+
   constructor(private typeService: TypeService,
               private router: Router) { super(); }
-  
+
   ngOnInit() {
     this.typeService.getTypes().then((types: Type[]) => this.types = types);
   }
@@ -24,8 +24,9 @@ export class TypesComponent extends SController implements OnInit {
   }
 
   onDelete(type: Type) {
-    if(confirm('Вы действительно хотите удалить текущую запись?'))
+    if (confirm('Вы действительно хотите удалить текущую запись?')) {
       this.typeService.delete(type.id)
         .then((res: any) => res.rslt ? this.types = this.types.filter(k => k !== type) : null);
+    }
   }
 }

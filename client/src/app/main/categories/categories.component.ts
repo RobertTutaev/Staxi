@@ -16,7 +16,7 @@ export class CategoriesComponent extends SController implements OnInit {
   constructor(private categoryService: CategoryService,
               private route: ActivatedRoute,
               private router: Router) { super(); }
-  
+
   ngOnInit() {
     this.route.parent.parent.params
       .switchMap((params: Params) => this.categoryService.getCategories(+params['id']))
@@ -25,11 +25,12 @@ export class CategoriesComponent extends SController implements OnInit {
 
   onSelect(category: Category) {
     this.router.navigate(['../', category.id], { relativeTo: this.route });
-  }  
+  }
 
   onDelete(category: Category) {
-    if(confirm('Вы действительно хотите удалить текущую запись?'))
+    if (confirm('Вы действительно хотите удалить текущую запись?')) {
       this.categoryService.delete(category.id)
         .then((res: any) => res.rslt ? this.categories = this.categories.filter(k => k !== category) : null);
+    }
   }
 }

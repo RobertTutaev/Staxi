@@ -19,15 +19,15 @@ export class BComponent implements OnInit {
   firms: Firm[] = [];
   months: Month[] = Months;
   bs: B[] = [];
-  
+
   constructor(private reportService: ReportService,
               private firmService: FirmService,
               private route: ActivatedRoute,
               private router: Router) { }
-  
+
   ngOnInit() {
     this.firmService.getFirms().then((firms: Firm[]) => this.firms = firms);
-    
+
     this.route.params
       .switchMap((params: Params) => this.reportService.getB(this.report.clone(params)))
       .subscribe((bs: B[]) => this.bs = bs);

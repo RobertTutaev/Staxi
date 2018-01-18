@@ -1,10 +1,10 @@
-import { Injectable }    from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
 import { Category } from '../_classes/list/category';
 
-@Injectable() 
+@Injectable()
 export class CategoryService {
 
   private headers = new Headers({'Content-Type': 'application/json'});

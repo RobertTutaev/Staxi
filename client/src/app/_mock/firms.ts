@@ -16,7 +16,7 @@ export let Firms: Firm[] = [
     territory_id: 1,
     territory: 'Челябинск',
     name: 'КСП города Челябинска'
-  },  
+  },
   {
     id: 3,
     firm_id: 1,
@@ -72,5 +72,5 @@ export let Firms: Firm[] = [
     territory_id: 8,
     territory: 'Челябинск, Центральный район',
     name: 'МБУ «КЦСОН по Центральному району города Челябинска»'
-  }  
-];
+  }
+]

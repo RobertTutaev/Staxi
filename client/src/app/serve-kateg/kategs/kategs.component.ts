@@ -12,10 +12,10 @@ import { SController } from '../../_classes/s.controller';
 })
 export class KategsComponent extends SController implements OnInit {
   kategs: Kateg[] = [];
-  
+
   constructor(private kategService: KategService,
               private router: Router) { super(); }
-  
+
   ngOnInit() {
     this.kategService.getKategs().then((kategs: Kateg[]) => this.kategs = kategs);
   }
@@ -25,8 +25,9 @@ export class KategsComponent extends SController implements OnInit {
   }
 
   onDelete(kateg: Kateg) {
-    if(confirm('Вы действительно хотите удалить текущую запись?'))
+    if (confirm('Вы действительно хотите удалить текущую запись?')) {
       this.kategService.delete(kateg.id)
         .then((res: any) => res.rslt ? this.kategs = this.kategs.filter(k => k !== kateg) : null);
+    }
   }
 }

@@ -3,7 +3,7 @@ import { Contact } from '../_classes/list/contact';
 export let Contacts: Contact[] = [
   {
     id: 1,
-    client_id: 11,    
+    client_id: 11,
     type_id: 2,
     type: 'Email',
     name: 'rob_t@mail.ru',
@@ -17,7 +17,7 @@ export let Contacts: Contact[] = [
   },
   {
     id: 2,
-    client_id: 11,    
+    client_id: 11,
     type_id: 2,
     type: 'Email',
     name: 'opo_usr@mail.ru',
@@ -31,7 +31,7 @@ export let Contacts: Contact[] = [
   },
   {
     id: 3,
-    client_id: 11,    
+    client_id: 11,
     type_id: 1,
     type: 'Телефон',
     name: '729-82-23',
@@ -45,7 +45,7 @@ export let Contacts: Contact[] = [
   },
   {
     id: 4,
-    client_id: 12,    
+    client_id: 12,
     type_id: 1,
     type: 'Телефон',
     name: '729-82-12',
@@ -59,7 +59,7 @@ export let Contacts: Contact[] = [
   },
   {
     id: 5,
-    client_id: 13,    
+    client_id: 13,
     type_id: 1,
     type: 'Телефон',
     name: '729-82-32',
@@ -71,4 +71,4 @@ export let Contacts: Contact[] = [
     userm: 'П.В. Яковлева',
     dtm: null
   }
-];
+]

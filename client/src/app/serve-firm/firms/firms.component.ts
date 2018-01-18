@@ -12,10 +12,10 @@ import { SController } from '../../_classes/s.controller';
 })
 export class FirmsComponent extends SController implements OnInit {
   firms: Firm[] = [];
-  
+
   constructor(private firmService: FirmService,
               private router: Router) { super(); }
-  
+
   ngOnInit() {
     this.firmService.getFirms().then((firms: Firm[]) => this.firms = firms);
   }
@@ -25,8 +25,9 @@ export class FirmsComponent extends SController implements OnInit {
   }
 
   onDelete(firm: Firm) {
-    if(confirm('Вы действительно хотите удалить текущую запись?'))
+    if (confirm('Вы действительно хотите удалить текущую запись?')) {
       this.firmService.delete(firm.id)
         .then((res: any) => res.rslt ? this.firms = this.firms.filter(k => k !== firm) : null);
+    }
   }
 }
