@@ -25,7 +25,7 @@ export class CategoryService {
     if (!id) {
       const promise: Promise<Category> = new Promise(() => new Category());
 
-      return promise.then();      
+      return promise.then();
     } else {
       const url = `${this.categoriesUrl}/${id}`;
 

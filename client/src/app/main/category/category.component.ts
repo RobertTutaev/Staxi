@@ -10,6 +10,7 @@ import { Category } from '../../_classes/list/category';
 import { CategoryService } from '../../_services/category.service';
 
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -19,42 +20,55 @@ import 'rxjs/add/operator/toPromise';
 })
 export class CategoryComponent implements OnInit {
   kategs: Kateg[] = [];
-  docs: Doc[] = [];  
-  category: Category = new Category();
-  
+  docs: Doc[] = [];
+  category = new Category();
+
   constructor(private kategService: KategService,
               private docService: DocService,
               private categoryService: CategoryService,
               private route: ActivatedRoute,
               private router: Router,
-              private location: Location) { }  
-  
+              private location: Location) { }
+
   ngOnInit() {
     Promise.all(
         [
           this.kategService.getKategs(true),
           this.docService.getDocs(true),
-          this.route.params     
-              .switchMap((params: Params) => this.categoryService.getCategory(+params['idc']))
-              .toPromise()
+          new Promise(
+            (resolve) => {
+              this.route.params
+                .switchMap((params: Params) => this.categoryService.getCategory(+params['idc']))
+                .subscribe(
+                  (category: Category) => {
+                    this.category = category;
+                    resolve(category);
+                  },
+                  (err) => {
+                    resolve(err);
+                  }
+                );
+            }
+          )
         ])
       .then(
         (values) => {
+          console.log(values);
           this.kategs = values[0];
           this.docs = values[1];
-          this.category = values[2];
+          //this.category = values[2];
 
           // Kateg (add if not exist)
           if (this.category.kateg_id && !this.kategs.filter(k => k.id === this.category.kateg_id).length) {
-            let kateg: Kateg = new Kateg();
+            const kateg: Kateg = new Kateg();
             kateg.id = this.category.kateg_id;
             kateg.name = this.category.kateg;
             this.kategs.push(kateg);
           }
-          
+
           // Doc (add if not exist)
           if (this.category.doc_id && !this.docs.filter(k => k.id === this.category.doc_id).length) {
-            let doc: Doc = new Doc();
+            const doc: Doc = new Doc();
             doc.id = this.category.doc_id;
             doc.name = this.category.doc;
             this.docs.push(doc);
