@@ -48,11 +48,10 @@ router.route('/c:id/:getFile/:column/:direction')
                     
                     dbreports.getT(values, user, clientId, res);
                 // Если необходим результат
-                } else {
-                    return 
-                        res.json(resp({
-                            data: values
-                        }));
+                } else {                    
+                    res.json(resp({
+                        data: values
+                    }));
                 }
             }, 
             (err) =>

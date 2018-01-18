@@ -24,6 +24,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/first';
 import { transition } from '@angular/animations/src/animation_metadata';
 
 @Component({
@@ -56,38 +57,38 @@ export class TransportationComponent implements OnInit {
               private location: Location) { }
   
   ngOnInit() {
+    this.streets = this.searchTerms
+      .debounceTime(400)                  // wait 300ms after each keystroke before considering the term
+      .distinctUntilChanged()             // ignore if next search term is same as previous
+      .switchMap(term => term             // switch to new observable each time the term changes        
+        ? this.streetService.search(term) // return the http search observable        
+        : Observable.of<Street[]>([]))    // or the observable of empty heroes if there was no search term
+      .catch(error => Observable.of<Street[]>([]));
+
     Promise.all(
       [      
         this.punktService.getPunkts(true),
         this.statusService.getStatuses(),
         this.route.parent.parent.params
-            .switchMap((params: Params) => this.categoryService.getCategories(+params['id']))
-            .toPromise(),
-        this.streets = this.searchTerms
-            .debounceTime(400)        // wait 300ms after each keystroke before considering the term
-            .distinctUntilChanged()   // ignore if next search term is same as previous
-            .switchMap(term => term   // switch to new observable each time the term changes
-              // return the http search observable
-              ? this.streetService.search(term)
-              // or the observable of empty heroes if there was no search term
-              : Observable.of<Street[]>([]))
-            .catch(error => Observable.of<Street[]>([])),
+          .switchMap((params: Params) => this.categoryService.getCategories(+params['id']))
+          .first()
+          .toPromise(),        
         this.carService.getCars(true),
         this.route.params
-            .switchMap((params: Params) => {
-              this.rewrite = params['cp'] === 'rewrite';
-              return this.transportationService.getTransportation(+params['idc'], +params['cp'])
-            })
-            .toPromise()
+          .switchMap((params: Params) => {
+            this.rewrite = params['cp'] === 'rewrite';
+            return this.transportationService.getTransportation(+params['idc'], +params['cp'])
+          })
+          .first()
+          .toPromise()
       ])
       .then((values) => {
         this.punkts = values[0];
         this.statuses = values[1];
         this.categories = values[2];
-        //this.streets
-        this.cars = values[4];
+        this.cars = values[3];
+        this.transportation = values[4];
 
-        this.transportation = values[5];
         //Запоминаем некоторые состояния
         this.status = this.transportation.status_id;
         this.streetName['a_street'] = this.transportation.a_street;
@@ -95,7 +96,7 @@ export class TransportationComponent implements OnInit {
 
         // Punkt (add if not exist)
         if (this.transportation.punkt_id && !this.punkts.filter(k => k.id === this.transportation.punkt_id).length) {
-          let punkt: Punkt = new Punkt();
+          const punkt: Punkt = new Punkt();
           punkt.id = this.transportation.punkt_id;
           punkt.name = this.transportation.punkt;
           this.punkts.push(punkt);
@@ -103,7 +104,7 @@ export class TransportationComponent implements OnInit {
         
         // Car (add if not exist)
         if (this.transportation.car_id && !this.cars.filter(k => k.id === this.transportation.car_id).length) {
-          let car: Car = new Car();
+          const car: Car = new Car();
           car.id = this.transportation.car_id;
           car.name = this.transportation.car;
           this.cars.push(car);

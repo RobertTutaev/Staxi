@@ -10,7 +10,7 @@ import { Category } from '../../_classes/list/category';
 import { CategoryService } from '../../_services/category.service';
 
 import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -21,7 +21,7 @@ import 'rxjs/add/operator/toPromise';
 export class CategoryComponent implements OnInit {
   kategs: Kateg[] = [];
   docs: Doc[] = [];
-  category = new Category();
+  category: Category = new Category();
 
   constructor(private kategService: KategService,
               private docService: DocService,
@@ -35,28 +35,16 @@ export class CategoryComponent implements OnInit {
         [
           this.kategService.getKategs(true),
           this.docService.getDocs(true),
-          new Promise(
-            (resolve) => {
-              this.route.params
-                .switchMap((params: Params) => this.categoryService.getCategory(+params['idc']))
-                .subscribe(
-                  (category: Category) => {
-                    this.category = category;
-                    resolve(category);
-                  },
-                  (err) => {
-                    resolve(err);
-                  }
-                );
-            }
-          )
+          this.route.params
+            .switchMap((params: Params) => this.categoryService.getCategory(+params['idc']))
+            .first()
+            .toPromise()
         ])
       .then(
         (values) => {
-          console.log(values);
           this.kategs = values[0];
           this.docs = values[1];
-          //this.category = values[2];
+          this.category = values[2];
 
           // Kateg (add if not exist)
           if (this.category.kateg_id && !this.kategs.filter(k => k.id === this.category.kateg_id).length) {
