@@ -15,7 +15,7 @@ router.route('/')
         user.firm_id, 
         function(outputArray) {
             
-            var sql = 
+            const sql = 
                 `SELECT a.*,
                     b.name as firm,
                     c.name as territory
@@ -45,7 +45,7 @@ router.route('/')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.firm.findById(parseInt(req.params.id))
+    models.firm.findById( parseInt( req.params.id ) )
         .then(
             (value) =>
                 res.json(resp({                
@@ -83,7 +83,7 @@ router.route('/:id')
         req.body,
         {
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(
@@ -104,7 +104,7 @@ router.route('/:id')
       
     models.firm.destroy({
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(

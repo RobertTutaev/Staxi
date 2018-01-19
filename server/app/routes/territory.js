@@ -14,7 +14,7 @@ router.route('/')
         user.firm_id, 
         function(outputArray) {
             
-            var sql = 
+            const sql = 
                `SELECT a.*,
                     b.name as territory
                 FROM territory a
@@ -24,10 +24,10 @@ router.route('/')
             
             models.sequelize.query(sql, { replacements: { oArray: outputArray }, type: models.sequelize.QueryTypes.SELECT })
                 .then(
-                    (values) =>                   
+                    (values) =>
                         res.json(resp({
                             data: values
-                        })), 
+                        })),
                     (err) =>
                         res.json(resp({
                             rslt: false,
@@ -41,7 +41,7 @@ router.route('/')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.territory.findById(parseInt(req.params.id))
+    models.territory.findById( parseInt( req.params.id ) )
         .then(
             (value) =>
                 res.json(resp({                
@@ -79,7 +79,7 @@ router.route('/:id')
         req.body,
         {
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(
@@ -100,12 +100,12 @@ router.route('/:id')
       
     models.territory.destroy({
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(
-            () =>            
-                res.json(resp()), 
+            () =>
+                res.json(resp()),
             (err) =>
                 res.json(resp({
                     rslt: false,

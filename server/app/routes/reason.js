@@ -7,7 +7,7 @@ router.route('/')
   .get(function(req, res, next) {
     
     models.reason.findAll({
-            order: ["id"]
+            order: ['id']
         })
         .then(
             (values) =>

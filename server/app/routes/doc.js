@@ -12,7 +12,7 @@ router.route('/c:checkStatus')
                     gte: req.params.checkStatus ? parseInt(req.params.checkStatus) : 0
                 }
             },
-            order: ["id"]
+            order: ['id']
         })
         .then(
             (values) =>
@@ -30,7 +30,7 @@ router.route('/c:checkStatus')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.doc.findById(parseInt(req.params.id))
+    models.doc.findById( parseInt( req.params.id ) )
         .then(
             (value) =>
                 res.json(resp({                
@@ -68,7 +68,7 @@ router.route('/:id')
         req.body,
         {
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         }).then(
             (values) =>
@@ -88,7 +88,7 @@ router.route('/:id')
       
     models.doc.destroy({
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(

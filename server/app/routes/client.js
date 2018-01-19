@@ -6,16 +6,16 @@ var resp = require('../lib/resp');
 router.route('/')
   .get(function(req, res, next) {
 
-    var snilsValue = (req.query.snils ? req.query.snils.replace(/[^-0-9]/gim,'') : '');
-    var snils = `${snilsValue  ? snilsValue             : '%'}%`;
-    var fioValue = req.query.snils ? req.query.snils.replace(/[^ а-яёА-ЯЁ]/gim,'').trim() : '';
-    var fioArray = fioValue.split(/ {1,}/);
-    var fam =   `${fioArray[0] ? fioArray[0].charAt(0)  : '%'}%`;
-    var im =    `${fioArray[1] ? fioArray[1]            : '%'}%`;
-    var ot =    `${fioArray[2] ? fioArray[2]            : '%'}%`;
+    const snilsValue = (req.query.snils ? req.query.snils.replace(/[^-0-9]/gim,'') : '');
+    const snils = `${snilsValue  ? snilsValue             : '%'}%`;
+    const fioValue = req.query.snils ? req.query.snils.replace(/[^ а-яёА-ЯЁ]/gim,'').trim() : '';
+    const fioArray = fioValue.split(/ {1,}/);
+    const fam =   `${fioArray[0] ? fioArray[0].charAt(0)  : '%'}%`;
+    const im =    `${fioArray[1] ? fioArray[1]            : '%'}%`;
+    const ot =    `${fioArray[2] ? fioArray[2]            : '%'}%`;
     if (snilsValue === '' && fioValue === '') snils = '_';
     
-    var sql =
+    const sql =
         `SELECT a.*,
             b.name as street,
             concat(c.first_name,' ',c.last_name) as user,
@@ -57,7 +57,7 @@ router.route('/')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.client.findById(parseInt(req.params.id))
+    models.client.findById( parseInt( req.params.id ) )
         .then(
             (value) =>
                 res.json(resp({
@@ -77,7 +77,7 @@ router.route('/')
     var user = req.user;
     if (user !== undefined) user = user.toJSON();
     req.body.user_id=user.id;
-    req.body.dt=new Date();
+    req.body.dt = new Date();
 
     models.client.create(req.body)
         .then(
@@ -99,13 +99,13 @@ router.route('/:id')
     var user = req.user;
     if (user !== undefined) user = user.toJSON();
     req.body.userm_id=user.id;
-    req.body.dtm=new Date();
+    req.body.dtm = new Date();
     
     models.client.update(
         req.body,
         {
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(
@@ -126,7 +126,7 @@ router.route('/:id')
       
     models.client.destroy({
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(

@@ -7,7 +7,7 @@ router.route('/')
   .get(function(req, res, next) {
     
     models.type.findAll({
-            order: ["id"]
+            order: ['id']
         })
         .then(
             (values) =>
@@ -25,7 +25,7 @@ router.route('/')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.type.findById(parseInt(req.params.id))
+    models.type.findById( parseInt( req.params.id ) )
         .then(
             (value) =>
                 res.json(resp({                
@@ -63,7 +63,7 @@ router.route('/:id')
         req.body,
         {
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(
@@ -84,7 +84,7 @@ router.route('/:id')
       
     models.type.destroy({
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(

@@ -16,7 +16,7 @@ router.route('/')
         user.firm_id, 
         function(outputArray) {
             
-            var sql = 
+            const sql = 
                 `SELECT a.*,
                     b.name as firm
                 FROM user a
@@ -43,7 +43,7 @@ router.route('/')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.user.findById(parseInt(req.params.id))
+    models.user.findById( parseInt( req.params.id ) )
         .then(
             (value) => {
                 value.password = '';
@@ -62,7 +62,7 @@ router.route('/')
   .post(function(req, res, next) {
     
     req.body.password = bcrypt.hashSync(req.body.password);
-    req.body.dt=new Date();
+    req.body.dt = new Date();
       
     models.user.create(req.body)
         .then(
@@ -82,13 +82,13 @@ router.route('/:id')
   .put(function(req, res, next) {
 
     req.body.password = bcrypt.hashSync(req.body.password);
-    req.body.dtm=new Date();
+    req.body.dtm = new Date();
       
     models.user.update(
         req.body,
         {
             where: {
-                id: parseInt( parseInt(req.body.id) )
+                id: parseInt( req.body.id )
             }
         })
         .then(
@@ -109,7 +109,7 @@ router.route('/:id')
       
     models.user.destroy({
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(

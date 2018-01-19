@@ -6,8 +6,8 @@ var resp = require('../lib/resp');
 router.route('/c:id')
   .get(function(req, res, next) {
 
-    var idValue = parseInt(req.params.id);
-    var sql = 
+    const id = parseInt(req.params.id);
+    const sql = 
         `SELECT a.*,
             b.style as type,
             concat(c.first_name,' ',c.last_name) as user,
@@ -18,7 +18,7 @@ router.route('/c:id')
             left join user d on a.userm_id = d.id
         WHERE a.client_id = :id`;    
 
-    models.sequelize.query(sql, { replacements: { id: idValue }, type: models.sequelize.QueryTypes.SELECT })
+    models.sequelize.query(sql, { replacements: { id: id }, type: models.sequelize.QueryTypes.SELECT })
         .then(
             (values) =>
                 res.json(resp({
@@ -35,7 +35,7 @@ router.route('/c:id')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.contact.findById(parseInt(req.params.id))
+    models.contact.findById( parseInt( req.params.id ) )
         .then(
             (value) =>
                 res.json(resp({
@@ -55,7 +55,7 @@ router.route('/')
     var user = req.user;
     if (user !== undefined) user = user.toJSON();
     req.body.user_id=user.id;
-    req.body.dt=new Date();
+    req.body.dt = new Date();
 
     models.contact.create(req.body)
         .then(
@@ -77,13 +77,13 @@ router.route('/:id')
     var user = req.user;
     if (user !== undefined) user = user.toJSON();    
     req.body.userm_id=user.id;
-    req.body.dtm=new Date();
+    req.body.dtm = new Date();
 
     models.contact.update(
         req.body,
         {
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(
@@ -104,7 +104,7 @@ router.route('/:id')
       
     models.contact.destroy({
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(

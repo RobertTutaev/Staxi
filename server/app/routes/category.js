@@ -6,8 +6,8 @@ var resp = require('../lib/resp');
 router.route('/c:id')
   .get(function(req, res, next) {
 
-    var idValue = parseInt(req.params.id);
-    var sql =
+    const id = parseInt(req.params.id);
+    const sql =
         `SELECT a.*, 
             b.name as kateg,
             concat(c.first_name,' ',c.last_name) as user,
@@ -20,7 +20,15 @@ router.route('/c:id')
             left join user e on a.userm_id = e.id
         WHERE a.client_id = :id`;
 
-    models.sequelize.query(sql, { replacements: { id: idValue }, type: models.sequelize.QueryTypes.SELECT })
+    models.sequelize.query(
+            sql, 
+            { 
+                replacements: { 
+                    id: id 
+                }, 
+                type: models.sequelize.QueryTypes.SELECT 
+            }
+        )
         .then(
             (values) =>
                 res.json(resp({
@@ -37,17 +45,25 @@ router.route('/c:id')
 router.route('/:id')
 .get(function(req, res, next) {
 
-  var idValue = parseInt(req.params.id);
-  var sql =
-      `SELECT a.*, 
-          b.name as kateg,
-          d.name as doc
-      FROM category a
-          left join kateg b on a.kateg_id = b.id
-          join doc d on a.doc_id = d.id
-      WHERE a.id = :id`;
+    const id = parseInt(req.params.id);
+    const  sql =
+        `SELECT a.*, 
+            b.name as kateg,
+            d.name as doc
+        FROM category a
+            left join kateg b on a.kateg_id = b.id
+            join doc d on a.doc_id = d.id
+        WHERE a.id = :id`;
 
-  models.sequelize.query(sql, { replacements: { id: idValue }, type: models.sequelize.QueryTypes.SELECT })
+  models.sequelize.query(
+            sql, 
+            { 
+                replacements: { 
+                    id: id 
+                }, 
+                type: models.sequelize.QueryTypes.SELECT 
+            }
+        )
         .then(
             (values) =>
                 res.json(resp({
@@ -67,7 +83,7 @@ router.route('/')
     var user = req.user;
     if (user !== undefined) user = user.toJSON();
     req.body.user_id=user.id;
-    req.body.dt=new Date();
+    req.body.dt = new Date();
 
     models.category.create(req.body)
         .then(
@@ -89,13 +105,13 @@ router.route('/:id')
     var user = req.user;
     if (user !== undefined) user = user.toJSON();
     req.body.userm_id=user.id;
-    req.body.dtm=new Date();
+    req.body.dtm = new Date();
 
     models.category.update(
         req.body,
         {
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(
@@ -116,7 +132,7 @@ router.route('/:id')
       
     models.category.destroy({
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(

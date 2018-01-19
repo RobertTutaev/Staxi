@@ -7,7 +7,7 @@ var dbtools = require('../lib/dbtools');
 router.route('/c:checkStatus')
   .get(function(req, res, next) {
 
-    var checkStatus = req.params.checkStatus ? parseInt(req.params.checkStatus) : 0;
+    const checkStatus = req.params.checkStatus ? parseInt(req.params.checkStatus) : 0;
     var user = req.user;
     if (user !== undefined) user = user.toJSON();
 
@@ -16,7 +16,7 @@ router.route('/c:checkStatus')
         user.firm_id,
         function(outputArray) {
             
-            var sql = 
+            const sql = 
                `SELECT
                     a.*,
                     b.name as firm,
@@ -55,11 +55,11 @@ router.route('/c:checkStatus')
 router.route('/d:checkStatus')
 .get(function(req, res, next) {
 
-    var checkStatus = req.params.checkStatus ? parseInt(req.params.checkStatus) : 0;
+    const checkStatus = req.params.checkStatus ? parseInt(req.params.checkStatus) : 0;
     var user = req.user;
     if (user !== undefined) user = user.toJSON();
     
-    var sql =
+    const sql =
         `SELECT
             a.*,
             b.name as firm,
@@ -96,7 +96,7 @@ router.route('/d:checkStatus')
 router.route('/:id')
   .get(function(req, res, next) {
 
-    var sql = 
+    const sql = 
         `SELECT 
             a.*, 
             b.name as firm,
@@ -145,7 +145,7 @@ router.route('/:id')
         req.body,
         {
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(
@@ -166,7 +166,7 @@ router.route('/:id')
       
     models.car.destroy({
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(

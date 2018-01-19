@@ -8,12 +8,12 @@ var dbreports = require('../lib/dbreports');
 router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
   .get(function(req, res, next) {
 
-    var firmId = req.params.firmId ? parseInt(req.params.firmId) : 0;
-    var aDt = req.params.aDt ? new Date(parseInt(req.params.aDt)) : new Date(2000, 0, 1);
-    var bDt = req.params.bDt ? new Date(parseInt(req.params.bDt)) : new Date(2100, 0, 1);
-    var statusId = req.params.statusId ? parseInt(req.params.statusId) : 0;
-    var withChilds = req.params.withChilds ? parseInt(req.params.withChilds) : false;
-    var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
+    const firmId = req.params.firmId ? parseInt(req.params.firmId) : 0;
+    const aDt = req.params.aDt ? new Date(parseInt(req.params.aDt)) : new Date(2000, 0, 1);
+    const bDt = req.params.bDt ? new Date(parseInt(req.params.bDt)) : new Date(2100, 0, 1);
+    const statusId = req.params.statusId ? parseInt(req.params.statusId) : 0;
+    const withChilds = req.params.withChilds ? parseInt(req.params.withChilds) : false;
+    const getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
 
     if (!firmId)
         return  res.json(resp({
@@ -25,7 +25,7 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
         firmId, 
         function(outputArray) {
             
-            var sql =
+            const sql =
                 `SELECT
                     a.id,
                     a.client_id,
@@ -108,15 +108,15 @@ router.route('/a/:firmId/:aDt/:bDt/:statusId/:withChilds/:getFile')
 router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
   .get(function(req, res, next) {
 
-    var firmId = req.params.firmId ? parseInt(req.params.firmId) : 0;
-    var aYear = req.params.aYear ? parseInt(req.params.aYear) : (new Date()).getFullYear();
-    var aMonth = req.params.aMonth ? parseInt(req.params.aMonth) : (new Date()).getMonth() + 1;
-    var withChilds = req.params.withChilds ? parseInt(req.params.withChilds) : 0;
-    var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
+    const firmId = req.params.firmId ? parseInt(req.params.firmId) : 0;
+    const aYear = req.params.aYear ? parseInt(req.params.aYear) : (new Date()).getFullYear();
+    const aMonth = req.params.aMonth ? parseInt(req.params.aMonth) : (new Date()).getMonth() + 1;
+    const withChilds = req.params.withChilds ? parseInt(req.params.withChilds) : 0;
+    const getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
 
-    var aDtMonth= new Date(aYear, aMonth - 1, 1);
-    var aDtYear = new Date(aYear, 0, 1);
-    var bDt     = new Date(aYear, aMonth, 0);
+    const aDtMonth= new Date(aYear, aMonth - 1, 1);
+    const aDtYear = new Date(aYear, 0, 1);
+    const bDt     = new Date(aYear, aMonth, 0);
 
     if (!firmId)
         return  res.json(resp({
@@ -128,7 +128,7 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
         firmId, 
         function(outputArray) {
             
-            var sql =
+            const sql =
                 `SELECT
                     100 as n,
                     'Поступило заявок в т.ч.:' as name,
@@ -255,16 +255,16 @@ router.route('/b/:firmId/:aYear/:aMonth/:withChilds/:getFile')
 router.route('/c/:carId/:aDt/:getFile')
   .get(function(req, res, next) {
 
-    var carId = req.params.carId ? parseInt(req.params.carId) : 0;
-    var aDt = req.params.aDt ? new Date(parseInt(req.params.aDt)) : new Date();
-    var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
+    const carId = req.params.carId ? parseInt(req.params.carId) : 0;
+    const aDt = req.params.aDt ? new Date(parseInt(req.params.aDt)) : new Date();
+    const getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
 
     if (!carId)
         return  res.json(resp({
                     data: []
                 }));
                
-    var sql =
+    const sql =
         `SELECT
             a.id,                    
             concat(DATE_FORMAT(CONVERT_TZ(a_dt,'+00:00',@@global.time_zone), '%H:%i'),IF(ISNULL(a.b_dt),'',DATE_FORMAT(CONVERT_TZ(b_dt,'+00:00',@@global.time_zone), '-%H:%i'))) as dt,
@@ -331,15 +331,15 @@ router.route('/c/:carId/:aDt/:getFile')
 router.route('/d/:firmId/:aYear/:aMonth/:withChilds/:getFile')
   .get(function(req, res, next) {
 
-    var firmId = req.params.firmId ? parseInt(req.params.firmId) : 0;
-    var aYear = req.params.aYear ? parseInt(req.params.aYear) : (new Date()).getFullYear();
-    var aMonth = req.params.aMonth ? parseInt(req.params.aMonth) : (new Date()).getMonth() + 1;
-    var withChilds = req.params.withChilds ? parseInt(req.params.withChilds) : 0;
-    var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
+    const firmId = req.params.firmId ? parseInt(req.params.firmId) : 0;
+    const aYear = req.params.aYear ? parseInt(req.params.aYear) : (new Date()).getFullYear();
+    const aMonth = req.params.aMonth ? parseInt(req.params.aMonth) : (new Date()).getMonth() + 1;
+    const withChilds = req.params.withChilds ? parseInt(req.params.withChilds) : 0;
+    const getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
 
-    var aDtMonth= new Date(aYear, aMonth - 1, 1);
-    var aDtYear = new Date(aYear, 0, 1);
-    var bDt     = new Date(aYear, aMonth, 0);
+    const aDtMonth= new Date(aYear, aMonth - 1, 1);
+    const aDtYear = new Date(aYear, 0, 1);
+    const bDt     = new Date(aYear, aMonth, 0);
 
     if (!firmId)
         return  res.json(resp({

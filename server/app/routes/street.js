@@ -14,8 +14,8 @@ router.route('/')
         user.firm_id, 
         function(outputArray) {
 
-            var nameValue = '%' + (req.query.name ? req.query.name.replace(/[^-a-zA-Zа-яА-ЯёЁ0-9\., \(\):]/gim,'') : '') + '%';
-            var sql =
+            const nameValue = '%' + (req.query.name ? req.query.name.replace(/[^-a-zA-Zа-яА-ЯёЁ0-9\., \(\):]/gim,'') : '') + '%';
+            const sql =
                 `SELECT a.*,
                     b.name as territory
                 FROM street a
@@ -52,7 +52,7 @@ router.route('/')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    models.street.findById(parseInt(req.params.id))
+    models.street.findById( parseInt( req.params.id ) )
         .then(
             (value) =>
                 res.json(resp({                
@@ -68,6 +68,7 @@ router.route('/:id')
 
 router.route('/')
   .post(function(req, res) {
+
     models.street.create(req.body)
         .then(
             (value) =>
@@ -89,7 +90,7 @@ router.route('/:id')
         req.body,
         {
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(
@@ -110,7 +111,7 @@ router.route('/:id')
       
     models.street.destroy({
             where: {
-                id: parseInt( parseInt(req.params.id) )
+                id: parseInt( req.params.id )
             }
         })
         .then(

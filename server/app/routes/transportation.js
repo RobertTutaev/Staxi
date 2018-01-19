@@ -4,17 +4,15 @@ var models = require('../models');
 var resp = require('../lib/resp');
 var dbtools = require('../lib/dbtools');
 var dbreports = require('../lib/dbreports');
-var env = process.env.NODE_ENV || 'development';
-var config = require('../config/config.json')[env];
 
 router.route('/c:id/:getFile/:column/:direction')
   .get(function(req, res, next) {
     
-    var clientId = parseInt(req.params.id);
-    var getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
-    var column = req.params.column ? req.params.column.replace(/[^a-zA-Z\-_]/gi,'') : 'id';    
-    var direction = req.params.direction ? (parseInt(req.params.direction)>0 ? 'asc' : 'desc'): 'desc';
-    var sql = 
+    const clientId = parseInt(req.params.id);
+    const getFile = req.params.getFile ? parseInt(req.params.getFile) : 0;
+    const column = req.params.column ? req.params.column.replace(/[^a-zA-Z\-_]/gi,'') : 'id';    
+    const direction = req.params.direction ? (parseInt(req.params.direction)>0 ? 'asc' : 'desc'): 'desc';
+    const sql = 
         `SELECT a.*,
             j.reason_id,
             concat(b.name,' (',b.gos_no,')') as car,
@@ -65,11 +63,11 @@ router.route('/c:id/:getFile/:column/:direction')
 router.route('/stat:id')
   .get(function(req, res, next) {
     
-    var crDt = new Date();
-    var year = crDt.getFullYear();
-    var aDt = new Date(year, 0, 1);
-    var bDt = new Date(year, 12, 0);    
-    var sql =
+    const crDt = new Date();
+    const year = crDt.getFullYear();
+    const aDt = new Date(year, 0, 1);
+    const bDt = new Date(year, 12, 0);    
+    const sql =
         `SELECT	
             s.id,
             s.name,
@@ -107,7 +105,7 @@ router.route('/stat:id')
 router.route('/:id')
   .get(function(req, res, next) {
     
-    var sql =
+    const sql =
         `SELECT a.*,
             concat(b.name,' (',b.gos_no,')') as car,
             c.name as punkt,
@@ -142,35 +140,29 @@ router.route('/')
     var user = req.user;
     if (user !== undefined) user = user.toJSON();
     req.body.user_id=user.id;
-    req.body.dt=new Date();
+    req.body.dt = new Date();
 
-    dbtools.getTransportationCount(req.body.client_id, new Date(req.body.a_dt))
-        .then(
-            (count) => {
-                if ( count < config.transportationCount )
-                    return models.transportation.create(req.body)
-                else
-                    throw new Error('Превышен максимальный предел заявок!');
-            }
+    dbtools.canTransportationAdd(req.body)
+        .then(() =>
+                models.transportation.create(req.body)
         )
-        .then(
-            (value) =>
+        .then((value) =>
                 res.json(resp({
                     data: value
                 }))
         )
         .catch((err) => 
-            res.json(resp({
-                rslt: false,
-                msg: 'Ошибка: ' + err.message
-            }))
+                res.json(resp({
+                    rslt: false,
+                    msg: 'Ошибка: ' + err.message
+                }))
         );
 });
 
 router.route('/:id')
   .put(function(req, res, next) {
 
-    var id = parseInt(req.params.id);
+    const id = parseInt(req.params.id);
     var user = req.user;
     if (user !== undefined) user = user.toJSON();
     req.body.userm_id = user.id;
@@ -178,36 +170,24 @@ router.route('/:id')
 
     // Проверка Статуса для разрешения/запрещения действий с заявкой
     dbtools.canTransportationChange(id, user)
-        .then(
-            (isOk) => {
-                if (isOk)                
-                    return dbtools.getTransportationCount(req.body.client_id, new Date(req.body.a_dt));
-                else
-                    throw new Error('Отсутствуют права на изменение заявки!');
-            }
+        .then(() =>
+                dbtools.canTransportationAdd(req.body)
         )
-        .then(
-            (count) => {
-                if ( count < config.transportationCount )
-                    return models.transportation.update(
-                            req.body,
-                            {
-                                where: {
-                                    id: id
-                                }
-                            });
-                else
-                    throw new Error('Превышен максимальный предел заявок!');
-            }
+        .then(() =>
+                models.transportation.update(
+                        req.body,
+                        {
+                            where: {
+                                id: id
+                            }
+                        })
         )
-        .then(
-            () => 
+        .then(() =>
                 res.json(resp({
                     data: values
                 }))
         )
-        .catch(
-            (err) =>
+        .catch((err) =>
                 res.json(resp({
                     rslt: false,
                     msg: 'Ошибка: ' + err.message
@@ -218,29 +198,23 @@ router.route('/:id')
 router.route('/:id')
   .delete(function(req, res, next) {
 
-    var id = parseInt(req.params.id);
+    const id = parseInt(req.params.id);
     var user = req.user;
     if (user !== undefined) user = user.toJSON();
     
     // Проверка Статуса для разрешения/запрещения действий с заявкой
     dbtools.canTransportationChange(id, user)
-        .then(
-            (isOk) => {
-                if (isOk)      
-                    return models.transportation.destroy({
-                                where: {
-                                    id: id
-                                }
-                            });
-                else
-                    throw new Error('Отсутствуют права на удаление заявки!');
-            }
+        .then(() =>
+                models.transportation.destroy({
+                        where: {
+                            id: id
+                        }
+                    })
         )
-        .then(
-            () => res.json(resp())
+        .then(() =>
+                res.json(resp())
         )
-        .catch(
-            (err) =>
+        .catch((err) =>
                 res.json(resp({
                     rslt: false,
                     msg: 'Ошибка: ' + err.message

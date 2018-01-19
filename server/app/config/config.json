@@ -11,8 +11,7 @@
         "define": {
             "timestamps": false
         }
-    },
-    "transportationCount": 72
+    }
   },
   "test": {
     "port": 3000,
@@ -25,8 +24,7 @@
         "define": {
             "timestamps": false
         }
-    },
-    "transportationCount": 72
+    }
   },
   "production": {
     "port": 8080,
@@ -39,7 +37,9 @@
         "define": {
             "timestamps": false
         }
-    },
-    "transportationCount": 72
+    }
+  },
+  "global": {
+    "maxTransportationCountAdd": 2
   }
 }

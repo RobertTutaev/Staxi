@@ -14,7 +14,13 @@ export class Report {
 
     clone(report: Object): this {
         Object.keys(report).forEach((prop: string) =>
-            this.hasOwnProperty(prop) ? this[prop] = +report[prop] : null );
+            this.hasOwnProperty(prop) ? 
+                ( 
+                    this[prop] instanceof Date ? 
+                        this[prop] = new Date(+report[prop]) : 
+                        this[prop] = +report[prop] 
+                ) :
+                null);
 
         return this;
     }

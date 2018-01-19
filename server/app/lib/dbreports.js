@@ -13,8 +13,8 @@ var getInfo = function(firmId, statusId, clientId, carId, XLSXFileName) {
         return models[modelName].findById( parseInt(id) );
     }
     
-    var getCarValues = function(id) {    
-        var sql = 
+    var getCarValues = function(id) {
+        var sql =
             `SELECT 
                 a.*, 
                 b.name as firm,
@@ -28,7 +28,7 @@ var getInfo = function(firmId, statusId, clientId, carId, XLSXFileName) {
         
         return models.sequelize.query(
                     sql, 
-                    { 
+                    {
                         replacements: { id: parseInt(id) }, 
                         type: models.sequelize.QueryTypes.SELECT 
                     });
@@ -138,7 +138,7 @@ var getB = function(values, user, firmId, aYear, aMonth, withChilds, res){
 
             return result[4].outputAsync();
         })
-        .then(data => {
+        .then((data) => {
             var dt= new Date();
             res.attachment(`output.xlsx`);                      
             
@@ -184,7 +184,7 @@ var getC = function(values, user, carId, aDt, res){
                                                             
             return result[4].outputAsync();
         })
-        .then(data => {
+        .then((data) => {
             var dt= new Date();
             res.attachment(`output.xlsx`);                      
             
@@ -236,7 +236,7 @@ var getT = function(values, user, clientId, res){
 
             return result[4].outputAsync();
         })
-        .then(data => {
+        .then((data) => {
             var dt= new Date();
             res.attachment(`output.xlsx`);                      
             

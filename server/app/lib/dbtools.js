@@ -1,6 +1,7 @@
 var models = require('../models');
 var tools = require('../lib/tools');
 var resp = require('../lib/resp');
+var config = require('../config/config.json')['global'];
 
 var emptyArrayValue = 0;
 
@@ -41,12 +42,15 @@ var getOutputArrayForTerritory = function(searchValue, callback) {
         );
 }
 
-var getTransportationCount = function(id, dt) {
+var canTransportationAdd = function(transportation) {
 
-    var year = dt.getFullYear();
-    var aDt = new Date(year, 0, 1);
-    var bDt = new Date(year, 12, 0);    
-    var sql =
+    const id = transportation.client_id; 
+    const dt = new Date(transportation.a_dt)
+    const needCheckThis = transportation.status_id === 3;
+    const year = dt.getFullYear();
+    const aDt = new Date(year, 0, 1);
+    const bDt = new Date(year, 12, 0);
+    const sql =
         `SELECT
             count(t.id) as cnt
         FROM 
@@ -56,30 +60,44 @@ var getTransportationCount = function(id, dt) {
             DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt) AND 
             t.status_id = 3`;
 
-    return models.sequelize.query(
-                sql,
-                {
-                    replacements: {
-                        id: id,
-                        aDt: aDt,
-                        bDt: bDt
-                    },
-                    type: models.sequelize.QueryTypes.SELECT
-                }
-            )
-            .then((values) => values[0].cnt);
+    if (needCheckThis)
+        return models.sequelize.query(
+                    sql,
+                    {
+                        replacements: {
+                            id: id,
+                            aDt: aDt,
+                            bDt: bDt
+                        },
+                        type: models.sequelize.QueryTypes.SELECT
+                    }
+                )
+                .then((values) => {
+                    if (values[0].cnt < config.maxTransportationCountAdd) 
+                        return
+                    else
+                        throw new Error('Превышен максимальный предел заявок!');
+                });
+    else
+        return Promise.resolve();
 }
 
 var canTransportationChange = function(id, user) {
+    //const 
 
     // Ограничиваем или нет изменение/удаление заявок для пользователей и операторов (не для координаторов!)
     return models.transportation.findById(id)
-        .then((value) => (value.status_id < 2 && (user.role0 || user.role2)) || user.role3 );
+        .then((value) => {
+            if ((value.status_id < 2 && (user.role0 || user.role2)) || user.role3)
+                return
+            else
+                throw new Error('Отсутствуют права на изменение заявки!');
+        });
 }
 
 module.exports = {
     getOutputArray: getOutputArray,
     getOutputArrayForTerritory: getOutputArrayForTerritory,
-    getTransportationCount: getTransportationCount,
+    canTransportationAdd: canTransportationAdd,
     canTransportationChange: canTransportationChange
 }

@@ -3,13 +3,13 @@ var router = express.Router();
 var resp = require('../lib/resp');
 var passport= require('passport');
 
-var respError401 = resp({
+const respError401 = resp({
     rslt: false,
     status: 401,
     msg: 'Unauthorized'
 });
 
-var respError403 = resp({
+const respError403 = resp({
     rslt: false,
     status: 403,
     msg: 'Forbidden'
