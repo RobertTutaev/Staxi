@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 
 import { AuthService } from './_services/auth.service';
 import { AReport } from './_classes/report/a.report';
@@ -13,5 +14,12 @@ export class AppComponent {
   titleSmall = 'служба "Социальное такси"';
   aReport: AReport = new AReport();
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+              private snackBar: MatSnackBar) {}
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, null, {
+      duration: 5000,
+    });
+  }
 }

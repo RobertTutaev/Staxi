@@ -76,7 +76,7 @@ var canTransportationAdd = function(transportation) {
                     if (values[0].cnt < config.maxTransportationCountAdd) 
                         return
                     else
-                        throw new Error('Превышен максимальный предел заявок!');
+                        throw new Error(`Превышен максимальный предел заявок (${config.maxTransportationCountAdd} шт.)!`);
                 });
     else
         return Promise.resolve();

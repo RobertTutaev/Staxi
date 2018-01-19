@@ -25,7 +25,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/first';
-import { transition } from '@angular/animations/src/animation_metadata';
 
 @Component({
   selector: 'transportation',
@@ -147,7 +146,7 @@ export class TransportationComponent implements OnInit {
             .then(() => this.gotoBack());
         }
       });
-  }
+  }  
 
   get selectedCarId(): number {
     return this.transportation.car_id;

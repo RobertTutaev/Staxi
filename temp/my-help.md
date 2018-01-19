@@ -83,3 +83,8 @@ https://artyomsokolov.com/how-to-use-different-environment-variables-for-product
 Iconic Resources
 ==========
 https://forum.ionicframework.com/t/i-cant-change-the-icon-of-my-app/8490/9
+
+Взаимодействие между компонентами Angular
+==========
+http://www.mean.expert/2016/05/21/angular-2-component-communication/
+http://plnkr.co/edit/p40g2xGgamfCUk8pShHq?p=preview
