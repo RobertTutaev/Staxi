@@ -16,9 +16,9 @@ export class StreetService {
 
   getStreets(): Promise<Street[]> {
     return this.http.get(this.streetsUrl)
-               .toPromise()
-               .then(response => response.json().data as Street[])
-               .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as Street[])
+        .catch(this.handleError);
   }
 
   getStreet(id: number): Promise<Street> {
@@ -31,7 +31,7 @@ export class StreetService {
 
       return this.http.get(url)
         .toPromise()
-        .then(response => response.json().data as Street)
+        .then(res => res.json().data as Street)
         .catch(this.handleError);
     }
   }
@@ -40,32 +40,34 @@ export class StreetService {
     const url = `${this.streetsUrl}/?name=${encodeURIComponent(term)}`;
 
     return this.http.get(url)
-      .map(response => response.json().data as Street[]);
+        .map(res => res.json().data as Street[]);
   }
 
   delete(id: number): Promise<void> {
     const url = `${this.streetsUrl}/${id}`;
+
     return this.http.delete(url, {headers: this.headers})
-      .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json())
+        .catch(this.handleError);
   }
 
   create(street: Street): Promise<Street> {
     return this.http
-      .post(this.streetsUrl, JSON.stringify(street), {headers: this.headers})
-      .toPromise()
-      .then(res => res.json().data as Street)
-      .catch(this.handleError);
+        .post(this.streetsUrl, JSON.stringify(street), {headers: this.headers})
+        .toPromise()
+        .then(res => res.json().data as Street)
+        .catch(this.handleError);
   }
 
   update(street: Street): Promise<Street> {
     const url = `${this.streetsUrl}/${street.id}`;
+
     return this.http
-      .put(url, JSON.stringify(street), {headers: this.headers})
-      .toPromise()
-      .then(() => street)
-      .catch(this.handleError);
+        .put(url, JSON.stringify(street), {headers: this.headers})
+        .toPromise()
+        .then(() => street)
+        .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

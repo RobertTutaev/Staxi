@@ -5,22 +5,24 @@ import { environment } from '../../environments/environment';
 import { Stat } from '../_classes/list/stat';
 import { Transportation } from '../_classes/list/transportation';
 import { RService } from '../_classes/r.service';
+import { InformedService } from '../_services/informed.service';
 
 @Injectable()
-export class TransportationService extends RService{
+export class TransportationService extends RService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
   private transportationsUrl = environment.myEndpoint + 'api/transportation';
 
-  constructor(private http: Http) { super(); }
+  constructor(private http: Http,
+              is: InformedService) { super(is); }
 
   getTransportations(id: number, column: string = 'id', direction: number = -1): Promise<Transportation[]> {
     const url = `${this.transportationsUrl}/c${id}/0/${column}/${direction}`;
 
     return this.http.get(url)
-      .toPromise()
-      .then(response => response.json().data as Transportation[])
-      .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as Transportation[])
+        .catch(this.handleError);
   }
 
   getTFile(id: number, column: string = 'id', direction: number = -1) {
@@ -31,7 +33,7 @@ export class TransportationService extends RService{
             responseType: ResponseContentType.Blob
         })
         .toPromise()
-        .then(response => this.saveAsBlobExcel(response, 't'))
+        .then(res => this.saveAsBlobExcel(res, 't'))
         .catch(error => this.handleError(error));
   }
 
@@ -46,10 +48,10 @@ export class TransportationService extends RService{
 
       return this.http.get(url)
         .toPromise()
-        .then(response => {
+        .then(res => {
           // 2. Копирование заявки
           if (cp) {
-            const t = response.json().data as Transportation;
+            const t = res.json().data as Transportation;
 
             t.id = null;
             t.car_id = null;
@@ -68,7 +70,7 @@ export class TransportationService extends RService{
 
           } else {
             // 3. Редактирование заявки
-            return response.json().data as Transportation;
+            return res.json().data as Transportation;
           }
         })
         .catch(this.handleError);
@@ -79,35 +81,35 @@ export class TransportationService extends RService{
     const url = `${this.transportationsUrl}/stat${id}`;
 
     return this.http.get(url)
-      .toPromise()
-      .then(response => response.json().data as Stat[])
-      .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as Stat[])
+        .catch(this.handleError);
   }
 
   delete(id: number): Promise<void> {
     const url = `${this.transportationsUrl}/${id}`;
 
     return this.http.delete(url, {headers: this.headers})
-      .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
+        .toPromise()
+        .then(res => this.parseResponseJson(res))
+        .catch(this.handleError);
   }
 
   create(transportation: Transportation): Promise<Transportation> {
     return this.http
-      .post(this.transportationsUrl, JSON.stringify(transportation), {headers: this.headers})
-      .toPromise()
-      .then(res => res.json().data as Transportation)
-      .catch(this.handleError);
+        .post(this.transportationsUrl, JSON.stringify(transportation), {headers: this.headers})
+        .toPromise()
+        .then(res => this.parseResponseJson(res).data as Transportation)
+        .catch(this.handleError);
   }
 
   update(transportation: Transportation): Promise<Transportation> {
     const url = `${this.transportationsUrl}/${transportation.id}`;
 
     return this.http
-      .put(url, JSON.stringify(transportation), {headers: this.headers})
-      .toPromise()
-      .then(() => transportation)
-      .catch(this.handleError);
+        .put(url, JSON.stringify(transportation), {headers: this.headers})
+        .toPromise()
+        .then((res) => this.parseResponseJson(res).data as Transportation)
+        .catch(this.handleError);
   }
 }

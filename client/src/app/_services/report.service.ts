@@ -8,23 +8,25 @@ import { AReport } from '../_classes/report/a.report';
 import { BReport } from '../_classes/report/b.report';
 import { CReport } from '../_classes/report/c.report';
 import { RService } from '../_classes/r.service';
+import { InformedService } from '../_services/informed.service';
 
 @Injectable()
-export class ReportService extends RService{
+export class ReportService extends RService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
   private transportationsUrl = environment.myEndpoint + 'api/report';
 
-  constructor(private http: Http) { super(); }
+  constructor(private http: Http,
+              is: InformedService) { super(is); }
 
   getA(aReport: AReport): Promise<Transportation[]> {
     aReport.getFile = 0;
     const url = `${this.transportationsUrl}/a${aReport.getUrlValue()}`;
 
     return this.http.get(url)
-      .toPromise()
-      .then(response => response.json().data as Transportation[])
-      .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as Transportation[])
+        .catch(this.handleError);
   }
 
   getAFile(aReport: AReport) {
@@ -36,7 +38,7 @@ export class ReportService extends RService{
             responseType: ResponseContentType.Blob
         })
         .toPromise()
-        .then(response => this.saveAsBlobExcel(response, 'a'))
+        .then(res => this.saveAsBlobExcel(res, 'a'))
         .catch(error => this.handleError(error));
   }
 
@@ -45,9 +47,9 @@ export class ReportService extends RService{
     const url = `${this.transportationsUrl}/b${bReport.getUrlValue()}`;
 
     return this.http.get(url)
-      .toPromise()
-      .then(response => response.json().data as B[])
-      .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as B[])
+        .catch(this.handleError);
   }
 
   getBFile(bReport: BReport) {
@@ -59,7 +61,7 @@ export class ReportService extends RService{
             responseType: ResponseContentType.Blob
         })
         .toPromise()
-        .then(response => this.saveAsBlobExcel(response, 'b'))
+        .then(res => this.saveAsBlobExcel(res, 'b'))
         .catch(error => this.handleError(error));
   }
 
@@ -68,9 +70,9 @@ export class ReportService extends RService{
     const url = `${this.transportationsUrl}/c${cReport.getUrlValue()}`;
 
     return this.http.get(url)
-      .toPromise()
-      .then(response => response.json().data as C[])
-      .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as C[])
+        .catch(this.handleError);
   }
 
   getCFile(cReport: CReport) {
@@ -82,7 +84,7 @@ export class ReportService extends RService{
             responseType: ResponseContentType.Blob
         })
         .toPromise()
-        .then(response => this.saveAsBlobExcel(response, 'a'))
+        .then(res => this.saveAsBlobExcel(res, 'a'))
         .catch(error => this.handleError(error));
   }
 }

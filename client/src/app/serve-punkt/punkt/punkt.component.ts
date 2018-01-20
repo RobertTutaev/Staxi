@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/switchMap';
 import { Location } from '@angular/common';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Punkt } from '../../_classes/list/punkt';

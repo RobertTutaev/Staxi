@@ -16,9 +16,9 @@ export class CategoryService {
     const url = `${this.categoriesUrl}/c${id}`;
 
     return this.http.get(url)
-               .toPromise()
-               .then(response => response.json().data as Category[])
-               .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as Category[])
+        .catch(this.handleError);
   }
 
   getCategory(id: number): Promise<Category> {
@@ -31,16 +31,17 @@ export class CategoryService {
 
       return this.http.get(url)
         .toPromise()
-        .then(response => response.json().data as Category)
+        .then(res => res.json().data as Category)
         .catch(this.handleError);
     }
   }
 
   delete(id: number): Promise<void> {
     const url = `${this.categoriesUrl}/${id}`;
+
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
-      .then(response => response.json())
+      .then(res => res.json())
       .catch(this.handleError);
   }
 

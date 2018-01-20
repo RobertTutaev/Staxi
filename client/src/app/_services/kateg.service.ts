@@ -14,9 +14,9 @@ export class KategService {
 
   getKategs(checkStatus: boolean = false): Promise<Kateg[]> {
     return this.http.get(`${this.kategsUrl}/c${+checkStatus}`)
-      .toPromise()
-      .then(response => response.json().data as Kateg[])
-      .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as Kateg[])
+        .catch(this.handleError);
   }
 
   getKateg(id: number): Promise<Kateg> {
@@ -29,16 +29,17 @@ export class KategService {
 
       return this.http.get(url)
         .toPromise()
-        .then(response => response.json().data as Kateg)
+        .then(res => res.json().data as Kateg)
         .catch(this.handleError);
     }
   }
 
   delete(id: number): Promise<void> {
     const url = `${this.kategsUrl}/${id}`;
+
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
-      .then(response => response.json())
+      .then(res => res.json())
       .catch(this.handleError);
   }
 
@@ -52,6 +53,7 @@ export class KategService {
 
   update(kateg: Kateg): Promise<Kateg> {
     const url = `${this.kategsUrl}/${kateg.id}`;
+
     return this.http
       .put(url, JSON.stringify(kateg), {headers: this.headers})
       .toPromise()

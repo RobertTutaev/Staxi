@@ -17,7 +17,7 @@ export class ClientService {
   getClients(): Promise<Client[]> {
     return this.http.get(this.clientsUrl)
         .toPromise()
-        .then(response => response.json().data as Client[])
+        .then(res => res.json().data as Client[])
         .catch(this.handleError);
   }
 
@@ -31,7 +31,7 @@ export class ClientService {
 
       return this.http.get(url)
         .toPromise()
-        .then(response => response.json().data as Client)
+        .then(res => res.json().data as Client)
         .catch(this.handleError);
     }
   }
@@ -40,7 +40,7 @@ export class ClientService {
     const url = `${this.clientsUrl}/?snils=${encodeURIComponent(term)}`;
 
     return this.http.get(url)
-      .map(response => response.json().data as Client[]);
+      .map(res => res.json().data as Client[]);
   }
 
   delete(id: number): Promise<void> {
@@ -48,7 +48,7 @@ export class ClientService {
 
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
-      .then(response => response.json())
+      .then(res => res.json())
       .catch(this.handleError);
   }
 

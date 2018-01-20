@@ -27,6 +27,8 @@ import { ServeUserModule } from './serve-user/serve-user.module';
 import { AuthModule } from './auth/auth.module';
 import { ToolsModule } from './tools/tools.module';
 
+import { InformedService } from './_services/informed.service';
+
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 
@@ -57,7 +59,10 @@ registerLocaleData(localeRu, 'ru-RU');
     AppRoutingModule,
     environment.production ? [] : InMemoryWebApiModule.forRoot(InMemoryDataService, {'delay': 100})
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'ru-RU' }],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'ru-RU' },
+    InformedService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

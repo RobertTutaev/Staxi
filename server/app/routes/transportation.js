@@ -154,7 +154,7 @@ router.route('/')
         .catch((err) => 
                 res.json(resp({
                     rslt: false,
-                    msg: 'Ошибка: ' + err.message
+                    msg: err.message
                 }))
         );
 });
@@ -190,7 +190,7 @@ router.route('/:id')
         .catch((err) =>
                 res.json(resp({
                     rslt: false,
-                    msg: 'Ошибка: ' + err.message
+                    msg: err.message
                 }))
         );
 });
@@ -217,7 +217,7 @@ router.route('/:id')
         .catch((err) =>
                 res.json(resp({
                     rslt: false,
-                    msg: 'Ошибка: ' + err.message
+                    msg: err.message
                 }))    
         );
 });

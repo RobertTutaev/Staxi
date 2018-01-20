@@ -14,9 +14,9 @@ export class UserService {
 
   getUsers(): Promise<User[]> {
     return this.http.get(this.usersUrl)
-      .toPromise()
-      .then(response => response.json().data as User[])
-      .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as User[])
+        .catch(this.handleError);
   }
 
   getUser(id: number): Promise<User> {
@@ -28,35 +28,36 @@ export class UserService {
       const url = `${this.usersUrl}/${id}`;
 
       return this.http.get(url)
-        .toPromise()
-        .then(response => response.json().data as User)
-        .catch(this.handleError);
+          .toPromise()
+          .then(res => res.json().data as User)
+          .catch(this.handleError);
     }
   }
 
   delete(id: number): Promise<void> {
     const url = `${this.usersUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
-      .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json())
+        .catch(this.handleError);
   }
 
   create(user: User): Promise<User> {
     return this.http
-      .post(this.usersUrl, JSON.stringify(user), {headers: this.headers})
-      .toPromise()
-      .then(res => res.json().data as User)
-      .catch(this.handleError);
+        .post(this.usersUrl, JSON.stringify(user), {headers: this.headers})
+        .toPromise()
+        .then(res => res.json().data as User)
+        .catch(this.handleError);
   }
 
   update(user: User): Promise<User> {
     const url = `${this.usersUrl}/${user.id}`;
+
     return this.http
-      .put(url, JSON.stringify(user), {headers: this.headers})
-      .toPromise()
-      .then(() => user)
-      .catch(this.handleError);
+        .put(url, JSON.stringify(user), {headers: this.headers})
+        .toPromise()
+        .then(() => user)
+        .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

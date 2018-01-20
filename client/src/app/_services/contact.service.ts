@@ -16,9 +16,9 @@ export class ContactService {
     const url = `${this.contactsUrl}/c${id}`;
 
     return this.http.get(url)
-               .toPromise()
-               .then(response => response.json().data as Contact[])
-               .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as Contact[])
+        .catch(this.handleError);
   }
 
   getContact(id: number): Promise<Contact> {
@@ -31,16 +31,17 @@ export class ContactService {
 
       return this.http.get(url)
         .toPromise()
-        .then(response => response.json().data as Contact)
+        .then(res => res.json().data as Contact)
         .catch(this.handleError);
     }
   }
 
   delete(id: number): Promise<void> {
     const url = `${this.contactsUrl}/${id}`;
+
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
-      .then(response => response.json())
+      .then(res => res.json())
       .catch(this.handleError);
   }
 
@@ -54,6 +55,7 @@ export class ContactService {
 
   update(contact: Contact): Promise<Contact> {
     const url = `${this.contactsUrl}/${contact.id}`;
+
     return this.http
       .put(url, JSON.stringify(contact), {headers: this.headers})
       .toPromise()

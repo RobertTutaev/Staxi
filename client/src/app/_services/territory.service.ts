@@ -14,9 +14,9 @@ export class TerritoryService {
 
   getTerritories(): Promise<Territory[]> {
     return this.http.get(this.territoriesUrl)
-               .toPromise()
-               .then(response => response.json().data as Territory[])
-               .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as Territory[])
+        .catch(this.handleError);
   }
 
   getTerritory(id: number): Promise<Territory> {
@@ -28,35 +28,37 @@ export class TerritoryService {
       const url = `${this.territoriesUrl}/${id}`;
 
       return this.http.get(url)
-        .toPromise()
-        .then(response => response.json().data as Territory)
-        .catch(this.handleError);
+          .toPromise()
+          .then(res => res.json().data as Territory)
+          .catch(this.handleError);
     }
   }
 
   delete(id: number): Promise<void> {
     const url = `${this.territoriesUrl}/${id}`;
+
     return this.http.delete(url, {headers: this.headers})
-      .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json())
+        .catch(this.handleError);
   }
 
   create(territory: Territory): Promise<Territory> {
     return this.http
-      .post(this.territoriesUrl, JSON.stringify(territory), {headers: this.headers})
-      .toPromise()
-      .then(res => res.json().data as Territory)
-      .catch(this.handleError);
+        .post(this.territoriesUrl, JSON.stringify(territory), {headers: this.headers})
+        .toPromise()
+        .then(res => res.json().data as Territory)
+        .catch(this.handleError);
   }
 
   update(territory: Territory): Promise<Territory> {
     const url = `${this.territoriesUrl}/${territory.id}`;
+
     return this.http
-      .put(url, JSON.stringify(territory), {headers: this.headers})
-      .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
+        .put(url, JSON.stringify(territory), {headers: this.headers})
+        .toPromise()
+        .then(res => res.json())
+        .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

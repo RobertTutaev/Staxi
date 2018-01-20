@@ -22,9 +22,9 @@ export class ReportProvider {
     const url = `${this.reportUrl}/c${cReport.getUrlValue()}`;
     
     return this.http.get(url)
-      .toPromise()
-      .then(response => response.json().data as C[])
-      .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as C[])
+        .catch(this.handleError);
   }
 
   protected handleError(error: any): Promise<any> {

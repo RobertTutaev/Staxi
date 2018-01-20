@@ -20,9 +20,9 @@ export class CarProvider {
     const url = `${this.carsUrl}/d${+checkStatus}`;
 
     return this.http.get(url)
-      .toPromise()
-      .then(response => response.json().data as Car[])
-      .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as Car[])
+        .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

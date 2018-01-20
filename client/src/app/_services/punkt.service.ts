@@ -14,9 +14,9 @@ export class PunktService {
 
   getPunkts(checkStatus: boolean = false): Promise<Punkt[]> {
     return this.http.get(`${this.punktsUrl}/c${+checkStatus}`)
-               .toPromise()
-               .then(response => response.json().data as Punkt[])
-               .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as Punkt[])
+        .catch(this.handleError);
   }
 
   getPunkt(id: number): Promise<Punkt> {
@@ -28,35 +28,36 @@ export class PunktService {
       const url = `${this.punktsUrl}/${id}`;
 
       return this.http.get(url)
-        .toPromise()
-        .then(response => response.json().data as Punkt)
-        .catch(this.handleError);
+          .toPromise()
+          .then(res => res.json().data as Punkt)
+          .catch(this.handleError);
     }
   }
 
   delete(id: number): Promise<void> {
     const url = `${this.punktsUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
-      .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json())
+        .catch(this.handleError);
   }
 
   create(punkt: Punkt): Promise<Punkt> {
     return this.http
-      .post(this.punktsUrl, JSON.stringify(punkt), {headers: this.headers})
-      .toPromise()
-      .then(res => res.json().data as Punkt)
-      .catch(this.handleError);
+        .post(this.punktsUrl, JSON.stringify(punkt), {headers: this.headers})
+        .toPromise()
+        .then(res => res.json().data as Punkt)
+        .catch(this.handleError);
   }
 
   update(punkt: Punkt): Promise<Punkt> {
     const url = `${this.punktsUrl}/${punkt.id}`;
+
     return this.http
-      .put(url, JSON.stringify(punkt), {headers: this.headers})
-      .toPromise()
-      .then(() => punkt)
-      .catch(this.handleError);
+        .put(url, JSON.stringify(punkt), {headers: this.headers})
+        .toPromise()
+        .then(() => punkt)
+        .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

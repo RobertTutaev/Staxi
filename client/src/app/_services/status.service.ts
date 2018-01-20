@@ -14,9 +14,9 @@ export class StatusService {
 
   getStatuses(): Promise<Status[]> {
     return this.http.get(this.docsUrl)
-               .toPromise()
-               .then(response => response.json().data as Status[])
-               .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as Status[])
+        .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

@@ -14,9 +14,9 @@ export class ReasonService {
 
   getReasons(): Promise<Reason[]> {
     return this.http.get(this.docsUrl)
-               .toPromise()
-               .then(response => response.json().data as Reason[])
-               .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as Reason[])
+        .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

@@ -14,9 +14,9 @@ export class TypeService {
 
   getTypes(): Promise<Type[]> {
     return this.http.get(this.typesUrl)
-               .toPromise()
-               .then(response => response.json().data as Type[])
-               .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as Type[])
+        .catch(this.handleError);
   }
 
   getType(id: number): Promise<Type> {
@@ -28,35 +28,36 @@ export class TypeService {
       const url = `${this.typesUrl}/${id}`;
 
       return this.http.get(url)
-        .toPromise()
-        .then(response => response.json().data as Type)
-        .catch(this.handleError);
+          .toPromise()
+          .then(res => res.json().data as Type)
+          .catch(this.handleError);
     }
   }
 
   delete(id: number): Promise<void> {
     const url = `${this.typesUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
-      .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json())
+        .catch(this.handleError);
   }
 
   create(type: Type): Promise<Type> {
     return this.http
-      .post(this.typesUrl, JSON.stringify(type), {headers: this.headers})
-      .toPromise()
-      .then(res => res.json().data as Type)
-      .catch(this.handleError);
+        .post(this.typesUrl, JSON.stringify(type), {headers: this.headers})
+        .toPromise()
+        .then(res => res.json().data as Type)
+        .catch(this.handleError);
   }
 
   update(type: Type): Promise<Type> {
     const url = `${this.typesUrl}/${type.id}`;
+
     return this.http
-      .put(url, JSON.stringify(type), {headers: this.headers})
-      .toPromise()
-      .then(() => type)
-      .catch(this.handleError);
+        .put(url, JSON.stringify(type), {headers: this.headers})
+        .toPromise()
+        .then(() => type)
+        .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

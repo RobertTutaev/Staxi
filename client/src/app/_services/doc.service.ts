@@ -15,7 +15,7 @@ export class DocService {
   getDocs(checkStatus: boolean = false): Promise<Doc[]> {
     return this.http.get(`${this.docsUrl}/c${+checkStatus}`)
       .toPromise()
-      .then(response => response.json().data as Doc[])
+      .then(res => res.json().data as Doc[])
       .catch(this.handleError);
   }
 
@@ -29,16 +29,17 @@ export class DocService {
 
       return this.http.get(url)
         .toPromise()
-        .then(response => response.json().data as Doc)
+        .then(res => res.json().data as Doc)
         .catch(this.handleError);
     }
   }
 
   delete(id: number): Promise<void> {
     const url = `${this.docsUrl}/${id}`;
+
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
-      .then(response => response.json())
+      .then(res => res.json())
       .catch(this.handleError);
   }
 
@@ -52,6 +53,7 @@ export class DocService {
 
   update(doc: Doc): Promise<Doc> {
     const url = `${this.docsUrl}/${doc.id}`;
+
     return this.http
       .put(url, JSON.stringify(doc), {headers: this.headers})
       .toPromise()

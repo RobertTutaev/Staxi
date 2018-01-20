@@ -146,7 +146,7 @@ export class TransportationComponent implements OnInit {
             .then(() => this.gotoBack());
         }
       });
-  }  
+  }
 
   get selectedCarId(): number {
     return this.transportation.car_id;

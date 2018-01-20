@@ -14,9 +14,9 @@ export class FirmService {
 
   getFirms(): Promise<Firm[]> {
     return this.http.get(this.firmsUrl)
-               .toPromise()
-               .then(response => response.json().data as Firm[])
-               .catch(this.handleError);
+        .toPromise()
+        .then(res => res.json().data as Firm[])
+        .catch(this.handleError);
   }
 
   getFirm(id: number): Promise<Firm> {
@@ -29,16 +29,17 @@ export class FirmService {
 
       return this.http.get(url)
         .toPromise()
-        .then(response => response.json().data as Firm)
+        .then(res => res.json().data as Firm)
         .catch(this.handleError);
     }
   }
 
   delete(id: number): Promise<void> {
     const url = `${this.firmsUrl}/${id}`;
+
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
-      .then(response => response.json())
+      .then(res => res.json())
       .catch(this.handleError);
   }
 
@@ -52,6 +53,7 @@ export class FirmService {
 
   update(firm: Firm): Promise<Firm> {
     const url = `${this.firmsUrl}/${firm.id}`;
+
     return this.http
       .put(url, JSON.stringify(firm), {headers: this.headers})
       .toPromise()

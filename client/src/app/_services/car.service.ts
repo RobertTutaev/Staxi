@@ -1,4 +1,4 @@
-import { Injectable }    from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
@@ -16,7 +16,7 @@ export class CarService {
     const url = `${this.carsUrl}/c${+checkStatus}`;
     return this.http.get(url)
                .toPromise()
-               .then(response => response.json().data as Car[])
+               .then(res => res.json().data as Car[])
                .catch(this.handleError);
   }
 
@@ -30,7 +30,7 @@ export class CarService {
 
       return this.http.get(url)
         .toPromise()
-        .then(response => response.json().data as Car)
+        .then(res => res.json().data as Car)
         .catch(this.handleError);
     }
   }
@@ -39,7 +39,7 @@ export class CarService {
     const url = `${this.carsUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
-      .then(response => response.json())
+      .then(res => res.json())
       .catch(this.handleError);
   }
 

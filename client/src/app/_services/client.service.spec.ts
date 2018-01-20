@@ -33,4 +33,4 @@ describe('ClientService', () => {
       expect(service).toBeDefined();
     })
   ));
-});
+})
