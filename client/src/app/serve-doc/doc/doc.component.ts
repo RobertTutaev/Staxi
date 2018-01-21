@@ -30,10 +30,10 @@ export class DocComponent implements OnInit {
   onSubmit() {
     if (this.doc.id) {
       this.docService.update(this.doc)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     } else {
       this.docService.create(this.doc)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     }
   }
 

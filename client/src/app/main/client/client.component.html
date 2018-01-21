@@ -74,7 +74,7 @@
             </select></dd>
         
         <br>
-        <button class="btn btn-default" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</button>
+        <a class="btn btn-default" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
         <button class="btn btn-info" type="submit" [disabled]="clientForm.form.invalid || clientForm.form.pristine"><span class="glyphicon glyphicon-ok"></span> {{client.id ? 'Изменить' : 'Добавить'}}</button>
     </dl>
 </form>

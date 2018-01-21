@@ -73,14 +73,14 @@ export class CategoryComponent implements OnInit {
         if (this.category.id) {
           if (this.category.client_id === client_id) {
             this.categoryService.update(this.category)
-              .then(() => this.gotoBack())
+              .then(() => this.location.back())
           } else {
-            this.gotoBack();
+            this.location.back();
           }
         } else {
           this.category.client_id = client_id;
           this.categoryService.create(this.category)
-            .then(() => this.gotoBack());
+            .then(() => this.location.back());
         }
       });
   }
@@ -102,6 +102,7 @@ export class CategoryComponent implements OnInit {
   }
 
   gotoBack() {
+    console.log(this.location.path());
     this.location.back();
   }
 }

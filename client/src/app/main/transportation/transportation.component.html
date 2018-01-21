@@ -185,7 +185,7 @@
             </select></dd>
         
         <br>
-        <button class="btn btn-default" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</button>
+        <a class="btn btn-default" (click)="gotoBack()"><span class="glyphicon glyphicon-step-backward"></span> Назад</a>
         <button 
             *ngIf="status === 1 || authService.isSignedIn && authService.authUser.role3 && (status === 2 || rewrite)"
             class="btn btn-info"

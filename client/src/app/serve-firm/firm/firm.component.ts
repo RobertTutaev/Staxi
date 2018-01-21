@@ -41,10 +41,10 @@ export class FirmComponent implements OnInit {
   onSubmit() {
     if (this.firm.id) {
       this.firmService.update(this.firm)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     } else {
       this.firmService.create(this.firm)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     }
   }
 

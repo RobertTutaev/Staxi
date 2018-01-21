@@ -30,10 +30,10 @@ export class KategComponent implements OnInit {
   onSubmit() {
     if (this.kateg.id) {
       this.kategService.update(this.kateg)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     } else {
       this.kategService.create(this.kateg)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     }
   }
 

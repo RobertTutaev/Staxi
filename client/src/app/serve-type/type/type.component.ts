@@ -28,10 +28,10 @@ export class TypeComponent implements OnInit {
   onSubmit() {
     if (this.type.id) {
       this.typeService.update(this.type)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     } else {
       this.typeService.create(this.type)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     }
   }
 

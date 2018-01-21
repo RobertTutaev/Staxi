@@ -37,10 +37,10 @@ export class TerritoryComponent implements OnInit {
   onSubmit() {
     if (this.territory.id) {
       this.territoryService.update(this.territory)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     } else {
       this.territoryService.create(this.territory)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     }
   }
 

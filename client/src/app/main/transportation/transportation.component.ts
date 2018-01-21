@@ -136,14 +136,14 @@ export class TransportationComponent implements OnInit {
         if (this.transportation.id) {
           if (this.transportation.client_id === client_id) {
             this.transportationService.update(this.transportation)
-              .then(() => this.gotoBack())
+              .then(() => this.location.back())
           } else {
-            this.gotoBack();
+            this.location.back();
           }
         } else {
           this.transportation.client_id = client_id;
           this.transportationService.create(this.transportation)
-            .then(() => this.gotoBack());
+            .then(() => this.location.back());
         }
       });
   }

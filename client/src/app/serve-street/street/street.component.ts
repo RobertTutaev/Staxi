@@ -36,10 +36,10 @@ export class StreetComponent implements OnInit {
   onSubmit() {
     if (this.street.id) {
       this.streetService.update(this.street)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     } else {
       this.streetService.create(this.street)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     }
   }
 

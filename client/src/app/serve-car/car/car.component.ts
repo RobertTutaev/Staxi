@@ -52,10 +52,10 @@ export class CarComponent implements OnInit {
   onSubmit() {
     if (this.car.id) {
       this.carService.update(this.car)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     } else {
       this.carService.create(this.car)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     }
   }
 

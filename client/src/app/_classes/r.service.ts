@@ -35,8 +35,8 @@ export class RService {
         const res: Resp = response.json();
 
         if ( checkResult && !res.rslt ) {
-            this.is.setInformed(res.msg);
             console.error(res.msg);
+            this.is.setInformed(res.msg);
         }
 
         return response;

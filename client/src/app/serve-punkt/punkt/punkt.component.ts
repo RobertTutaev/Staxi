@@ -29,10 +29,10 @@ export class PunktComponent implements OnInit {
   onSubmit() {
     if (this.punkt.id) {
       this.punktService.update(this.punkt)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     } else {
       this.punktService.create(this.punkt)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     }
   }
 

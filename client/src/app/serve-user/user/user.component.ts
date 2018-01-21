@@ -38,10 +38,10 @@ export class UserComponent implements OnInit {
   onSubmit() {
     if (this.user.id) {
       this.userService.update(this.user)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     } else {
       this.userService.create(this.user)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     }
   }
 

@@ -43,7 +43,7 @@ export class ClientComponent implements OnInit {
   onSubmit() {
     if (this.client.id) {
       this.clientService.update(this.client)
-        .then(() => this.gotoBack());
+        .then(() => this.location.back());
     } else {
       this.clientService.create(this.client)
         .then((client: Client) => this.router.navigate(['/client', client.id], { relativeTo: this.route }));

@@ -45,14 +45,14 @@ export class ContactComponent implements OnInit {
         if (this.contact.id) {
           if (this.contact.client_id === client_id) {
             this.contactService.update(this.contact)
-              .then(() => this.gotoBack())
+              .then(() => this.location.back())
           } else {
-            this.gotoBack();
+            this.location.back();
           }
         } else {
           this.contact.client_id = client_id;
           this.contactService.create(this.contact)
-            .then(() => this.gotoBack());
+            .then(() => this.location.back());
         }
       });
   }
