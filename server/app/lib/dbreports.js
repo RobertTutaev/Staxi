@@ -192,6 +192,53 @@ var getC = function(values, user, carId, aDt, res){
         });
 }
 
+var getD = function(values, user, firmId, aYear, aMonth, withChilds, res){
+
+    getInfo(
+            firmId,
+            0,
+            0,
+            0,
+            './app/templates/report_d.xlsx'
+        )
+        .then((result) => {                                    
+            var wSheet = result[4].sheet(0);
+            var dt = new Date();
+            var dtReport = new Date(aYear, aMonth-1, 1)
+            
+            wSheet.row(2).cell(1).value(result[0].name);
+            wSheet.row(3).cell(1).value(`[ Период: ${moment(dtReport).format('MMMM')} ${moment(dtReport).format('YYYY')} г.; отбор: ${ withChilds ? 'с подчин. орган.' : 'без подчин. орган.' }; сформирован: ${moment(dt).format('DD.MM.YYYY hh:mm:ss')} ]`);
+
+            values.forEach((v, i) => {
+                var j = 1;
+                wSheet.row(i+5).cell(j++).value(v.n);
+                wSheet.row(i+5).cell(j++).value(v.name);
+                wSheet.row(i+5).cell(j++).value(v.i0);
+                wSheet.row(i+5).cell(j++).value(v.i1);
+
+                if (!(v.n % 100)) wSheet.range(i+5, 1, i+5, 4).style({bold: true});
+            });
+
+            wSheet.range(5, 1, 4 + values.length, 4).style({border: true});
+
+            wSheet.range(6 + values.length, 1, 6 + values.length, 4).merged(true);
+            wSheet.row(6 + values.length).cell(1).style({horizontalAlignment : 'left'});
+            wSheet.row(6 + values.length).cell(1).value(`${constReport0}${user.first_name} ${user.last_name}`);
+
+            wSheet.range(7 + values.length, 1, 7 + values.length, 4).merged(true);
+            wSheet.row(7 + values.length).cell(1).style({horizontalAlignment : 'left'});
+            wSheet.row(7 + values.length).cell(1).value(`${constReport1}${user.phone}`);
+
+            return result[4].outputAsync();
+        })
+        .then((data) => {
+            var dt= new Date();
+            res.attachment(`output.xlsx`);                      
+            
+            res.send(data);
+        });
+}
+
 var getT = function(values, user, clientId, res){
 
     getInfo(
@@ -248,5 +295,6 @@ module.exports = {
     getA: getA,
     getB: getB,
     getC: getC,
+    getD: getD,
     getT: getT
 };

@@ -3,10 +3,12 @@ import { Headers, Http, ResponseContentType } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { B } from '../_classes/list/b';
 import { C } from '../_classes/list/c';
+import { D } from '../_classes/list/d';
 import { Transportation } from '../_classes/list/transportation';
 import { AReport } from '../_classes/report/a.report';
 import { BReport } from '../_classes/report/b.report';
 import { CReport } from '../_classes/report/c.report';
+import { DReport } from '../_classes/report/d.report';
 import { RService } from '../_classes/r.service';
 import { InformedService } from '../_services/informed.service';
 
@@ -84,7 +86,30 @@ export class ReportService extends RService {
             responseType: ResponseContentType.Blob
         })
         .toPromise()
-        .then(res => this.saveAsBlobExcel(res, 'a'))
+        .then(res => this.saveAsBlobExcel(res, 'c'))
+        .catch(error => this.handleError(error));
+  }
+
+  getD(dReport: DReport): Promise<D[]> {
+    dReport.getFile = 0;
+    const url = `${this.transportationsUrl}/d${dReport.getUrlValue()}`;
+
+    return this.http.get(url)
+        .toPromise()
+        .then(res => res.json().data as D[])
+        .catch(this.handleError);
+  }
+
+  getDFile(dReport: DReport) {
+    dReport.getFile = 1;
+    const url = `${this.transportationsUrl}/d${dReport.getUrlValue()}`;
+
+    return this.http.get(url, {
+            headers: this.headers,
+            responseType: ResponseContentType.Blob
+        })
+        .toPromise()
+        .then(res => this.saveAsBlobExcel(res, 'd'))
         .catch(error => this.handleError(error));
   }
 }

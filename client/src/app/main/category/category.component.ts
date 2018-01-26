@@ -102,7 +102,6 @@ export class CategoryComponent implements OnInit {
   }
 
   gotoBack() {
-    console.log(this.location.path());
     this.location.back();
   }
 }

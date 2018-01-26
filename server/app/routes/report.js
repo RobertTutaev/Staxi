@@ -354,114 +354,65 @@ router.route('/d/:firmId/:aYear/:aMonth/:withChilds/:getFile')
             var sql =
                 `SELECT
                     100 as n,
-                    'Поступило заявок в т.ч.:' as name,
-                    count(if(c.type=0, u.firm_id, null)) as i0,
-                    count(if(c.type>0, u.firm_id, null)) as i1
-                FROM status s
-                    left join transportation t on s.id = t.status_id and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
-                    left join user u on t.user_id = u.id and u.firm_id in (:oArray)
-                    left join car c on c.id = t.car_id                    
-                WHERE
-                    s.id>2
-                UNION
-                SELECT
-                    100+@i:=@i+1,
-                    s.name,
-                    count(if(c.type=0, u.firm_id, null)),
-                    count(if(c.type>0, u.firm_id, null))
-                FROM status s
-                    left join transportation t on s.id = t.status_id and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
-                    left join user u on t.user_id = u.id and u.firm_id in (:oArray)
-                    left join car c on c.id = t.car_id,
-                    (select @i:=0) i
-                WHERE
-                    s.id>2
-                GROUP BY
-                    s.name
-                UNION
-                SELECT
-                    200,
-                    'Социально значимые объекты инфраструктуры города Челябинска',
-                    null,
-                    null
-                UNION
-                SELECT
-                    200+@j:=@j+1,
-                    p.name,
-                    count(if(c.type=0, u.firm_id, null)),
-                    count(if(c.type>0, u.firm_id, null))
-                FROM punkt p
-                    left join transportation t on p.id = t.punkt_id and t.status_id=3 and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
-                    left join user u on t.user_id = u.id and u.firm_id in (:oArray)
-                    left join car c on c.id = t.car_id,
-                    (select @j:=0) j	
-                group by
-                    p.name
-                UNION
-                SELECT
-                    300,
-                    'Категории граждан, имеющие право на обслуживание социальной службой',
-                    null,
-                    null
-                UNION
-                SELECT
-                    300+@k:=@k+1,
-                    a.name,
-                    count(if(c.type=0, u.firm_id, null)),
-                    count(if(c.type>0, u.firm_id, null))
-                FROM kateg a
-                    left join category b on b.kateg_id=a.id
-                    left join transportation t on b.id = t.category_id and t.status_id=3 and DATE(t.a_dt) BETWEEN DATE(:aDt) AND DATE(:bDt)
-                    left join user u on t.user_id = u.id and u.firm_id in (:oArray)
-                    left join car c on c.id = t.car_id,
-                    (select @k:=0) k
-                group by
-                    a.name
-                ORDER BY
-                    n`;  
+                    'Обслужено, чел.' as name,
+                    (	
+                        SELECT
+                            count(m.client_id)
+                        FROM
+                            (
+                                SELECT
+                                    t.client_id
+                                FROM 
+                                    transportation t
+                                    join user u on t.user_id = u.id and u.firm_id in (:oArray)
+                                WHERE
+                                    DATE(t.a_dt) BETWEEN DATE(:aDt1) AND DATE(:bDt) AND t.status_id = 3
+                                GROUP BY
+                                    t.client_id
+                            ) as m
+                    ) as i0,
+                    (	
+                        SELECT
+                            count(m.client_id)
+                        FROM
+                            (
+                                SELECT
+                                    t.client_id
+                                FROM 
+                                    transportation t
+                                    join user u on t.user_id = u.id and u.firm_id in (:oArray)
+                                WHERE
+                                    DATE(t.a_dt) BETWEEN DATE(:aDt2) AND DATE(:bDt) AND t.status_id = 3
+                                GROUP BY
+                                    t.client_id
+                            ) as m
+                    ) as i1`;  
         
-            Promise.all([
-                    // i0, i1
-                    models.sequelize.query(
-                        sql, 
-                        { 
-                            replacements: { 
-                                oArray: withChilds ? outputArray : [firmId],
-                                aDt: aDtMonth,
-                                bDt: bDt 
-                            },  
-                            type: models.sequelize.QueryTypes.SELECT 
-                        }),
-                    // i2, i3
-                    models.sequelize.query(
-                        sql, 
-                        { 
-                            replacements: { 
-                                oArray: withChilds ? outputArray : [firmId],
-                                aDt: aDtYear,
-                                bDt: bDt 
-                            },  
-                            type: models.sequelize.QueryTypes.SELECT 
-                        })
-                    ])
+            models.sequelize.query(
+                sql, 
+                { 
+                    replacements: { 
+                        oArray: withChilds ? outputArray : [firmId],
+                        aDt1: aDtMonth,
+                        aDt2: aDtYear,
+                        bDt: bDt
+                    },  
+                    type: models.sequelize.QueryTypes.SELECT
+                })
                 .then(
                     (values) => {
-                        values[0].forEach(function(element, index, array) {
-                            element.i2 = values[1][index].i0;
-                            element.i3 = values[1][index].i1;
-                        });
-                    
+
                         // Если необходим файл
                         if (getFile) {
                             var user = req.user;
                             if (user !== undefined) user = user.toJSON();
 
-                            dbreports.getB(values[0], user, firmId, aYear, aMonth, withChilds, res);
+                            dbreports.getD(values, user, firmId, aYear, aMonth, withChilds, res);
 
                         // Если необходим результат
                         } else {
                             res.json(resp({
-                                data: values[0]
+                                data: values
                             }));
                         }
                     },

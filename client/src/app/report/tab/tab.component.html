@@ -10,6 +10,9 @@
     <li [class.active]="isActiveRoute(['/report', 'b'])">
         <a [routerLink]="bReport.getUrl(['b'])">Отчет о деятельности</a>
     </li>
+    <li [class.active]="isActiveRoute(['/report', 'd'])">
+        <a [routerLink]="dReport.getUrl(['d'])">Отчет о количестве</a>
+    </li>
 </ul>
 
 <router-outlet></router-outlet>

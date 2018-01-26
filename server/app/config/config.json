@@ -40,6 +40,6 @@
     }
   },
   "global": {
-    "maxTransportationCountAdd": 2
+    "maxTransportationCountAdd": 72
   }
 }

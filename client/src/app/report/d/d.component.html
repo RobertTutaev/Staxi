@@ -1,0 +1,92 @@
+<div class="container st-form">
+  <form class="rows" #rForm="ngForm">
+
+    <div class="col-md-6">        
+        <dt>Год*</dt>
+        <dd><input
+                id="aYear"
+                type="number"
+                name="aYear"
+                [(ngModel)]="report.aYear"
+                #aYear="ngModel"
+                min="2000"
+                max="2100"
+                required>
+            <small [hidden]="aYear.valid || aYear.pristine">
+                Необходимо корректное значение
+            </small></dd>
+    </div>
+
+    <div class="col-md-6">
+        <dt>Организация*</dt>
+        <dd><select name="firm" [(ngModel)]="selectedFirmId" required>
+                <option [ngValue]="null" disabled></option>
+                <option *ngFor="let firm of firms" [ngValue]="firm.id">{{firm.name}}</option>
+            </select></dd>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-6">
+        <dt>Месяц*</dt>
+        <dd><select name="month" [(ngModel)]="selectedMonth" required>
+                <option *ngFor="let month of months" [ngValue]="month.id">{{month.name}}</option>
+            </select></dd>
+    </div>
+
+    <div class="col-md-3">
+        <dt>Отбор</dt>
+        <dd><input 
+                type="checkbox" 
+                value="true" 
+                name="withChilds" 
+                id="withChilds"                 
+                [(ngModel)]="report.withChilds">
+            <label for="carType">с подч. орган.</label></dd>
+    </div>
+
+    <div class="col-md-3">        
+    </div>
+
+    <div class="clearfix"></div>
+
+    <br>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-6">
+        <button 
+            class="btn btn-info" 
+            (click)="onClick();" 
+            [disabled]="rForm.form.invalid || rForm.form.pristine"><span class="glyphicon glyphicon-flash"></span> Сформировать</button>
+    </div>
+
+    <div class="col-md-6">
+        <button 
+            class="btn btn-default"
+            (click)="onGetFile();"
+            [disabled]="!ds.length || rForm.form.invalid"><span class="glyphicon glyphicon-save-file"></span> Загрузить</button>
+    </div>
+
+  </form>
+</div>
+
+<table class="table table-bordered text-center">
+    <thead>
+        <tr>
+            <th class="text-center">№</th>
+            <th class="text-center">Вид информации</th>
+            <th class="text-center">За месяц</th>
+            <th class="text-center">С нарастающим итогом с начала года</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let d of ds" 
+            data-toggle="tooltip" [class.set-bold]="!(d.n % 100)">
+            <td>{{ d.n }}</td>
+            <td class="text-left">{{ d.name }}</td>
+            <td>{{ d.i0 }}</td>
+            <td>{{ d.i1 }}</td> 
+        </tr>
+    </tbody>
+</table>

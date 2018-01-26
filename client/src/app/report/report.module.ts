@@ -7,6 +7,7 @@ import { TabComponent } from './tab/tab.component';
 import { AComponent } from './a/a.component';
 import { BComponent } from './b/b.component';
 import { CComponent } from './c/c.component';
+import { DComponent } from './d/d.component';
 import { ToolsModule } from '../tools/tools.module';
 import { ReportService } from '../_services/report.service';
 
@@ -21,7 +22,8 @@ import { ReportService } from '../_services/report.service';
     TabComponent,
     AComponent,
     BComponent,
-    CComponent
+    CComponent,
+    DComponent
   ],
   providers: [
     ReportService
