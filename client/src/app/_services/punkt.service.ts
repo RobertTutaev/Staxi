@@ -21,9 +21,7 @@ export class PunktService {
 
   getPunkt(id: number): Promise<Punkt> {
     if (!id) {
-      const promise: Promise<Punkt> = new Promise(() => new Punkt());
-
-      return promise.then();
+      return Promise.resolve(new Punkt());
     } else {
       const url = `${this.punktsUrl}/${id}`;
 

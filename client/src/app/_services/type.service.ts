@@ -21,9 +21,7 @@ export class TypeService {
 
   getType(id: number): Promise<Type> {
     if (!id) {
-      const promise: Promise<Type> = new Promise(() => new Type());
-
-      return promise.then();
+      return Promise.resolve(new Type());
     } else {
       const url = `${this.typesUrl}/${id}`;
 

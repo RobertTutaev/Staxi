@@ -23,9 +23,7 @@ export class ClientService {
 
   getClient(id: number): Promise<Client> {
     if (!id) {
-      const promise: Promise<Client> = new Promise(() => new Client());
-
-      return promise.then();
+      return Promise.resolve(new Client());
     } else {
       const url = `${this.clientsUrl}/${id}`;
 

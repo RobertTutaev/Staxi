@@ -21,9 +21,7 @@ export class UserService {
 
   getUser(id: number): Promise<User> {
     if (!id) {
-      const promise: Promise<User> = new Promise(() => new User());
-
-      return promise.then();
+      return Promise.resolve(new User());
     } else {
       const url = `${this.usersUrl}/${id}`;
 

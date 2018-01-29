@@ -21,9 +21,7 @@ export class TerritoryService {
 
   getTerritory(id: number): Promise<Territory> {
     if (!id) {
-      const promise: Promise<Territory> = new Promise(() => new Territory());
-
-      return promise.then();
+      return Promise.resolve(new Territory());
     } else {
       const url = `${this.territoriesUrl}/${id}`;
 

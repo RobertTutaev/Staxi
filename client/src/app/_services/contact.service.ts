@@ -23,9 +23,7 @@ export class ContactService {
 
   getContact(id: number): Promise<Contact> {
     if (!id) {
-      const promise: Promise<Contact> = new Promise(() => new Contact());
-
-      return promise.then();
+      return Promise.resolve(new Contact());
     } else {
       const url = `${this.contactsUrl}/${id}`;
 

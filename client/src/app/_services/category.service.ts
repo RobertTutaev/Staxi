@@ -22,10 +22,8 @@ export class CategoryService {
   }
 
   getCategory(id: number): Promise<Category> {
-    if (!id) {
-      const promise: Promise<Category> = new Promise(() => new Category());
-
-      return promise.then();
+    if (!id) {      
+      return Promise.resolve(new Category());
     } else {
       const url = `${this.categoriesUrl}/${id}`;
 

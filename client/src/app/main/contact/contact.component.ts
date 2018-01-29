@@ -32,7 +32,7 @@ export class ContactComponent implements OnInit {
           .switchMap((params: Params) => this.contactService.getContact(+params['idc']))
           .subscribe((contact: Contact) => {
             this.contact = contact;
-            this.selectedType = this.types.find(myObj => myObj.id === this.contact.type_id);
+            if (!!this.contact.type_id) { this.selectedType = this.types.find(myObj => myObj.id === this.contact.type_id) };
           });
       });
   }

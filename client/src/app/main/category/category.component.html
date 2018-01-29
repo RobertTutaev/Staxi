@@ -1,7 +1,7 @@
 <form class="st-form" (ngSubmit)="onSubmit(); categoryForm.reset();" #categoryForm="ngForm">
     <dl>
         <dt>Вид категории*</dt> 
-        <dd><select name="kateg" [(ngModel)]="selectedKategId" class="form-control select-kateg" required>
+        <dd><select name="kateg" [(ngModel)]="selectedKategId" class="form-control" required>
                 <option [ngValue]="null" disabled></option>
                 <option *ngFor="let kateg of kategs" [ngValue]="kateg.id">{{kateg.name}}</option>
             </select></dd>

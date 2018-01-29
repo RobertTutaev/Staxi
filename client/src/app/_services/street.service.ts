@@ -23,9 +23,7 @@ export class StreetService {
 
   getStreet(id: number): Promise<Street> {
     if (!id) {
-      const promise: Promise<Street> = new Promise(() => new Street());
-
-      return promise.then();
+      return Promise.resolve(new Street());
     } else {
       const url = `${this.streetsUrl}/${id}`;
 

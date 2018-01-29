@@ -39,10 +39,7 @@ export class TransportationService extends RService {
 
   getTransportation(id: number, cp: number = 0): Promise<Transportation> {
     if (!id) {
-      // 1. Новая заявка
-      const promise: Promise<Transportation> = new Promise(() => new Transportation());
-
-      return promise.then();
+      return Promise.resolve(new Transportation());
     } else {
       const url = `${this.transportationsUrl}/${id}`;
 

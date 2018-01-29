@@ -21,9 +21,7 @@ export class FirmService {
 
   getFirm(id: number): Promise<Firm> {
     if (!id) {
-      const promise: Promise<Firm> = new Promise(() => new Firm());
-
-      return promise.then();
+      return Promise.resolve(new Firm());
     } else {
       const url = `${this.firmsUrl}/${id}`;
 

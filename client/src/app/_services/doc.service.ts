@@ -21,9 +21,7 @@ export class DocService {
 
   getDoc(id: number): Promise<Doc> {
     if (!id) {
-      const promise: Promise<Doc> = new Promise(() => new Doc());
-
-      return promise.then();
+      return Promise.resolve(new Doc());
     } else {
       const url = `${this.docsUrl}/${id}`;
 
