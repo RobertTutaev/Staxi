@@ -31,7 +31,8 @@ var getInfo = function(firmId, statusId, clientId, carId, XLSXFileName) {
                     {
                         replacements: { id: parseInt(id) }, 
                         type: models.sequelize.QueryTypes.SELECT 
-                    });
+                    })
+                    .then((result) => result[0]);
     }
     
     var getExcelWorkbook = function(XLSXFileName) {
@@ -62,7 +63,7 @@ var getA = function(values, user, firmId, aDt, bDt, statusId, withChilds, res) {
         .then((result) => {
             var wSheet = result[4].sheet(0);
             var dt = new Date();
-            wSheet.row(2).cell(1).value(result.name);
+            wSheet.row(2).cell(1).value(result[0].name);
             wSheet.row(3).cell(1).value(`[ Период: ${moment(aDt).format('DD.MM.YYYY')} - ${moment(bDt).format('DD.MM.YYYY')}; отбор: ${ withChilds ? 'с подчин. орган.' : 'без подчин. орган.' }; статус: ${result[1].name}; сформирован: ${moment(dt).format('DD.MM.YYYY hh:mm:ss')} ]`);
 
             values.forEach((v, i) => {
@@ -155,7 +156,8 @@ var getC = function(values, user, carId, aDt, res){
             carId,
             './app/templates/report_c.xlsx'
         ).
-        then((result) => {                                        
+        then((result) => {
+            console.log(result);
             var wSheet = result[4].sheet(0);
             var dt = new Date();
             
@@ -201,7 +203,7 @@ var getD = function(values, user, firmId, aYear, aMonth, withChilds, res){
             0,
             './app/templates/report_d.xlsx'
         )
-        .then((result) => {                                    
+        .then((result) => {            
             var wSheet = result[4].sheet(0);
             var dt = new Date();
             var dtReport = new Date(aYear, aMonth-1, 1)
