@@ -421,7 +421,7 @@ router.route('/d/:firmId/:aYear/:aMonth/:withChilds/:getFile')
                             rslt: false,
                             msg: 'Не удалось получить список! Ошибка: ' + err.message
                         }))
-                )            
+                )
         }
     );
 });

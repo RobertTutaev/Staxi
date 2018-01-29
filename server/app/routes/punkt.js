@@ -94,7 +94,7 @@ router.route('/:id')
         })
         .then(
             () =>
-                res.json(resp()), 
+                res.json(resp()),
             (err) =>
                 res.json(resp({
                     rslt: false,
